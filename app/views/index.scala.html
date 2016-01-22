@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html ng-app="architectplay" lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Ícone-->
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+
+    <!--Toastr-->
+    <link rel="stylesheet" href="assets/bower_components/angular-toastr/dist/angular-toastr.css"/>
+
+    <!--Awesome Icons-->
+    <link rel="stylesheet" href="assets/bower_components/font-awesome/css/font-awesome.css"/>
+
+    <!-- Font Style-->
+    <link rel="stylesheet" href="assets/stylesheets/main.css"/>
+
+    <!--Motion-->
+    <link rel="stylesheet" href="assets/bower_components/angular-motion/dist/angular-motion.css"/>
+
+    <!-- angular loading-bar-->
+    <link rel='stylesheet' href='assets/bower_components/angular-loading-bar/build/loading-bar.css' type='text/css' media='all' />
+
+    <!--Menu-->
+    <link rel="stylesheet" href="assets/stylesheets/sidebar.css"/>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="assets/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="assets/stylesheets/sidebar.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <title>Biblioteca</title>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#/">
+                    <span class="fa fa-university"></span> Biblioteca
+                </a>
+            </li>
+            <li>
+                <a href="#">Sobre a biblioteca</a>
+            </li>
+            <li>
+                <a href="#">Fale conosco</a>
+            </li>
+            <li>
+                <a href="#">Como contribuir</a>
+            </li>
+            <li>
+                <a href="#"><span class="fa fa-video-camera fa-x1"></span> Vídeos</a>
+            </li>
+            <li>
+                <a href="#"><span class="fa fa-camera-retro"></span> Galeria de fotos</a>
+            </li>
+            <li>
+                <a href="#">Artigos e trabalhos publicados</a>
+            </li>
+            <li>
+                <a href="#">E-books</a>
+            </li>
+            <li>
+                <a href="#">Biogás na mídia</a>
+            </li>
+            <li>
+                <a href="/login">Login</a>
+            </li>
+            <li>
+                <a href="#">Conheça nosso site</a>
+            </li>
+            <li>
+                <a href="#">Cursos EaD</a>
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!--View do Angular-->
+                    <div ng-view="">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <footer class="footer">
+                <p class="text-muted text-center">&copy; 2016 Biblioteca -
+                    <b>Centro Internacional de Energias Renováveis - Biogás.
+                    </b> Todos os direitos reservados.
+                </p>
+            </footer>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!--Jquery-->
+<script src="assets/bower_components/jquery/dist/jquery.js"></script>
+
+<!--Bootstrap-->
+<script src="assets/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+<!--AngularJS-->
+<script src="assets/bower_components/angular/angular.js"></script>
+<script src="assets/bower_components/angular-route/angular-route.js"></script>
+<script src="assets/bower_components/angular-resource/angular-resource.js"></script>
+<script src="assets/bower_components/angular-animate/angular-animate.js"></script>
+
+<!-- angular loading-bar-->
+<script src="assets/bower_components/angular-loading-bar/build/loading-bar.js"></script>
+
+<!--UI Boostrap-->
+<script src="assets/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+<!--Angular Input Mask-->
+<script src="assets/bower_components/angular-input-masks/releases/masks.js"></script>
+<script src="assets/bower_components/angular-ui-utils/ui-utils.js"></script>
+
+<!--Angular Strap-->
+<script src="assets/bower_components/angular-strap/dist/angular-strap.js"></script>
+<script src="assets/bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+
+<!--Toastr-->
+<script src="assets/bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+
+<!--app-->
+<script src="assets/app/app.js"></script>
+
+<!--Servicos-->
+<script src="assets/app/services/address.service.js"></script>
+<script src="assets/app/services/baseurl.service.js"></script>
+
+<!--Controllers AngularJS-->
+<script src="assets/app/controllers/home.controller.js"></script>
+
+
+<!-- Menu Toggle Script -->
+<!--<script>-->
+    <!--$("#menu-toggle").click(function(e) {-->
+        <!--e.preventDefault();-->
+        <!--$("#wrapper").toggleClass("toggled");-->
+    <!--});-->
+<!--</script>-->
+
+</body>
+
+</html>
