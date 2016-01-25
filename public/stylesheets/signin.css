@@ -38,3 +38,11 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.login-footer{
+	padding:10px;
+}
+.login-footer .right-section a{
+	font-weight:bold;
+	line-height:10px;
+}

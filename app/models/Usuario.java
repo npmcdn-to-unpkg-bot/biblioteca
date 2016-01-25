@@ -30,9 +30,6 @@ public class Usuario extends Model {
     @Column(nullable = false)
     private Integer privilegio;
 
-    @Column(nullable = false)
-    private Boolean padraoDoSistema;
-
     @Formats.DateTime(pattern="dd-MM-yyyy")
     private Date dataCadastro;
 
@@ -96,14 +93,6 @@ public class Usuario extends Model {
 
     public void setDataAlteracao(Date dataAlteracao) {
         this.dataAlteracao = dataAlteracao;
-    }
-
-    public Boolean getPadraoDoSistema() {
-        return padraoDoSistema;
-    }
-
-    public void setPadraoDoSistema(Boolean padraoDoSistema) {
-        this.padraoDoSistema = padraoDoSistema;
     }
 
     @Override
