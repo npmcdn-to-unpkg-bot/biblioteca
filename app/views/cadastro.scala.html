@@ -1,3 +1,4 @@
+@(formPreenchido:DynamicForm)
 @import helper._
 <html>
 <meta charset="UTF-8">
@@ -15,21 +16,38 @@
 <title>Blbioteca - cadastro</title>
 </head>
 <body>
-<div class="container">
-    <div class="form-signin well well-sm">
-            <h2>Cadastro de Usuário</h2>
-            <hr>
-            @form(routes.UsuarioController.inserir()) {
+        <div class="container">
+            <div class="form-signin well well-sm">
+                    @form(routes.UsuarioController.inserir()) {
+                    <a href="/#/" class="btn btn-default pull-right"> Início</a>
+                    <h4>Registro de Usuário</h4>
+                    <hr>
+                    @if(formPreenchido.hasGlobalErrors) {
+                    <p class="alert alert-danger text-center">
+                        <b>@formPreenchido.globalError.message</b>
+                    </p>
+                    }
+                    <label>Nome Completo: </label>
+                    <input type="text" name="nome" class="form-control" required/>
+                    <br>
+                    <label>Email: </label>
+                    <input type="email" name="email" class="form-control" required/>
+                    <br>
+                    <label>Senha: </label>
+                    <input type="password" name="senha" class="form-control" required/>
+                    <input class="btn btn-lg btn-success btn-block" type="submit" value="Cadastrar">
+                    }
+                    <hr>
+                    <p class="text-center">&copy; 2016 CIBiogás</p>
+            </div>
+        </div> <!-- /container -->
+        <!--Jquery-->
+        <script src="assets/bower_components/jquery/dist/jquery.js"></script>
 
-            <label>Email: </label>
-            <input name="email" class="form-control"/><br/>
-            <label>Senha: </label>
-            <input type="password" name="senha" class="form-control"/><br/>
-            <input class="btn btn-lg btn-success btn-block" type="submit" value="Cadastrar">
-            }
-            <hr>
-            <p class="text-center">&copy; 2016 CIBiogás</p>
-    </div>
-</div> <!-- /container -->
+        <!--Bootstrap-->
+        <script src="assets/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
+        <!--AngularJS-->
+        <script src="assets/bower_components/angular/angular.js"></script>
 </body>
 </html>

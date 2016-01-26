@@ -19,6 +19,7 @@
     <div class="container">
         <div class="form-signin well well-sm">
             @form(routes.LoginController.autenticar()) {
+            <a href="/#/" class="btn btn-default pull-right"> Início</a>
             <h4 class="form-signin-heading">Login</h4>
             <hr>
             @if(usuarioForm.hasGlobalErrors) {
@@ -27,23 +28,15 @@
             </p>
             }
 
-            @inputText(usuarioForm("email"), 'class -> "form-control", 'placeholder -> "Insira o email", '_label -> "Email")
+            @helper.inputText(usuarioForm("email"), 'class -> "form-control", 'placeholder -> "Insira o email", '_label -> "Email")
 
-            @inputPassword(usuarioForm("senha"), 'class -> "form-control", 'placeholder -> "Insira a senha", '_label -> "Senha")
+            @helper.inputPassword(usuarioForm("senha"), 'class -> "form-control", 'placeholder -> "Insira a senha", '_label -> "Senha")
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Acessar</button>
-            <hr>
-            <p class="text-center">&copy; 2016 CIBiogás</p>
             }
-            <div class="login-footer">
-                <div class="row">
-                    <!--<div class="col-xs-6 col-md-6">-->
-                        <div class="right-section pull-right">
-                            <a href="/cadastro">Cadastrar nova conta</a>
-                        </div>
-                    <!--</div>-->
-                </div>
-            </div>
+            <hr>
+            <a href="/cadastro"><span class="fa fa-user-plus pull-right"> Registrar</span></a>
+            <p>&copy; 2016 CIBiogás</p>
         </div>
     </div> <!-- /container -->
 </body>

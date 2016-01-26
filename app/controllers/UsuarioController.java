@@ -22,13 +22,12 @@ public class UsuarioController extends Controller {
 
     private static DynamicForm form = Form.form();
 
-
     public Result telaCadastrado() {
         return ok(views.html.cadastrado.render());
     }
 
     public Result telaCadastro() {
-        return ok(views.html.cadastro.render());
+        return ok(views.html.cadastro.render(form));
     }
 
 
@@ -36,36 +35,34 @@ public class UsuarioController extends Controller {
         Form<DynamicForm.Dynamic> formPreenchido = form.bindFromRequest();
         String email = formPreenchido.data().get("email");
         String senha = Crypt.sha1(formPreenchido.data().get("senha"));
+        String nome = formPreenchido.data().get("nome");
+        if (email.toString() == "" || senha.toString() == "") {
+            DynamicForm formDeErro = form.fill(formPreenchido.data());
+            formDeErro.reject("Email ou Senha não podem estar vazios!");
+            return badRequest(views.html.login.render(formDeErro));
+        }
         Usuario novo = new Usuario();
         novo.setEmail(email);
         novo.setSenha(senha);
+        novo.setNome(nome);
         novo.setStatus(true);
         novo.setDataCadastro(new Date());
         novo.setPrivilegio(2);
-        Ebean.save(novo);
+        try {
+            Ebean.save(novo);
+        } catch (PersistenceException e) {
+            DynamicForm formDeErro = form.fill(formPreenchido.data());
+            formDeErro.reject("Usuário já cadastrado!");
+            e.printStackTrace();
+            return badRequest(views.html.cadastro.render(formDeErro));
+        } catch (Exception e) {
+            DynamicForm formDeErro = form.fill(formPreenchido.data());
+            formDeErro.reject("Erro interno de sistema!");
+            return badRequest(views.html.cadastro.render(formDeErro));
+        }
+
         return redirect(routes.UsuarioController.telaCadastrado());
     }
-
-//    public Result inserir() {
-//
-//        Usuario usuario = Json.fromJson(request().body().asJson(), Usuario.class);
-//
-//        try {
-//            String senha = Crypt.sha1(usuario.getSenha());
-//            usuario.setSenha(senha);
-//            usuario.setPadraoDoSistema(false);
-//            usuario.setDataCadastro(new Date());
-//            usuario.setPrivilegio(2);
-//            usuario.setStatus(true);
-//            Ebean.save(usuario);
-//            Logger.info("Usuário salvo.");
-//        } catch (Exception e) {
-//            Logger.error(e.getMessage());
-//            return badRequest("Erro interno de sistema.");
-//        }
-//
-//        return redirect(routes.UsuarioController.telaCadastrado());
-//    }
 
     public Result atualizar(Long id) {
 

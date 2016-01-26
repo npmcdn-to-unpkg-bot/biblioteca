@@ -51,6 +51,12 @@ public class LoginController extends Controller {
         String email = requestForm.data().get("email");
         String senha = requestForm.data().get("senha");
 
+        if (email.toString() == "" || senha.toString() == "") {
+            DynamicForm formDeErro = form.fill(requestForm.data());
+            formDeErro.reject("Email ou Senha não podem estar vazios!");
+            return badRequest(views.html.login.render(formDeErro));
+        }
+
         F.Option<Usuario> talvesUmUsuario = Usuarios.existe(email, Crypt.sha1(senha));
 
         if (talvesUmUsuario.isDefined()) {

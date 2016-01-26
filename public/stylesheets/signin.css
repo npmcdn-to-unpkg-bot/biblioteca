@@ -39,10 +39,6 @@ body {
   border-top-right-radius: 0;
 }
 
-.login-footer{
-	padding:10px;
-}
-.login-footer .right-section a{
+.login-footer {
 	font-weight:bold;
-	line-height:10px;
 }

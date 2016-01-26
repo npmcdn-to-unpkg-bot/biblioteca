@@ -2,6 +2,7 @@ package models;
 
 import com.avaje.ebean.Model;
 import play.data.format.Formats;
+import play.data.validation.Constraints;
 import play.libs.Json;
 
 import javax.persistence.Column;
@@ -20,6 +21,9 @@ public class Usuario extends Model {
 
     @Id
     private Long id;
+
+    @Column(nullable = false, length = 30)
+    private String nome;
 
     @Column(nullable = false, unique = true, length = 30)
     private String email;
@@ -93,6 +97,14 @@ public class Usuario extends Model {
 
     public void setDataAlteracao(Date dataAlteracao) {
         this.dataAlteracao = dataAlteracao;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     @Override
