@@ -3,6 +3,20 @@
 
 # --- !Ups
 
+create table material (
+  id                        bigserial not null,
+  titulo                    varchar(30) not null,
+  assunto                   varchar(30) not null,
+  categoria                 varchar(30) not null,
+  descricao                 varchar(30) not null,
+  tipo                      varchar(30) not null,
+  fonte                     varchar(30) not null,
+  ano                       varchar(30) not null,
+  idioma                    varchar(30) not null,
+  autor                     varchar(30) not null,
+  constraint pk_material primary key (id))
+;
+
 create table usuario (
   id                        bigserial not null,
   nome                      varchar(30) not null,
@@ -20,6 +34,8 @@ create table usuario (
 
 
 # --- !Downs
+
+drop table if exists material cascade;
 
 drop table if exists usuario cascade;
 
