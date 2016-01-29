@@ -17,6 +17,12 @@ angular
                 templateUrl: '/assets/app/views/home.html',
                 controller: 'home.controller'
             })
+            .when('/sobre', {
+                templateUrl: '/assets/app/views/sobre.html'
+            })
+            .when('/contato', {
+                templateUrl: '/assets/app/views/contato.html'
+            })
             .when('/usuarios/novo', {
                 templateUrl: '/assets/app/views/usuarios/create.html',
                 controller: 'usuario.create.controller'
