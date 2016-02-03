@@ -1,74 +1,50 @@
-<div class="row">
-    <!--Título de Página-->
-    <legend>
-        <h1 class="font-style">Contato</h1>
-    </legend>
-    <!--Corpo da página-->
-    <div class="col-sm-6">
-        <form ng-submit="save()">
-            <div class="form-group">
+<div ng-controller="home.controller" ng-cloak="" class="carddemoBasicUsage" >
+    <md-content class="md-padding" layout-xs="column" layout="row">
+        <div flex-xs flex-gt-xs="50" layout="column">
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Contato</span>
+                            <div>
+                                <md-input-container>
+                                    <label>Nome *</label>
+                                    <input ng-model="contato.nome" type="text"placeholder="Nome (necessário)" ng-required="true" >
+                                </md-input-container>
+                                <md-input-container>
+                                    <label>Email *</label>
+                                    <input ng-model="contato.email" type="email" placeholder="Email (necessário)" ng-required="true">
+                                </md-input-container>
+                                <md-input-container>
+                                    <label>Assunto *</label>
+                                    <input ng-model="contato.assunto" type="text" placeholder="Assunto (necessário)" ng-required="true">
+                                </md-input-container>
+                                <md-input-container>
+                                    <label>Mensagem *</label>
+                                    <input ng-model="contato.mensagem" type="text" placeholder="Mensagem (necessário)" ng-required="true">
+                                </md-input-container>
+                            </div>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button class="md-raised md-primary" ng-disabled="!contato.nome || !contato.email || !contato.assunto || !contato.mensagem">Enviar mensagem</md-button>
+                </md-card-actions>
+            </md-card>
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Artigo 1</span>
+                        <span class="md-subhead">O objetivo deste trabalho consiste em realizar
+                            um comparativo entre os frameworks, Play Framework e Ruby on Rails,
+                            apoiando a tomada de decisão no desenvolvimento de sistemas Web. </span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-card-content layout="row" layout-align="space-between">
+                    <div class="md-media-xl"></div>
+                    <md-card-actions layout="column">
 
-                <!--Input do Nome-->
-                <label class="control-label" for="nome">Seu nome *</label>
-                <div ng-class="{'has-error': !contato.nome}">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                        <input maxlength="25" class="form-control" type="text" ng-model="contato.nome" id="nome" required/>
-                    </div>
-                </div>
-
-                <!--Input do email-->
-                <label class="control-label" for="email">Seu email *</label>
-                <div ng-class="{'has-error': !contato.email}">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                        <input class="form-control" type="text" ng-model="contato.email" id="email"/>
-                    </div>
-                </div>
-
-                <!--Input do assunto-->
-                <label class="control-label" for="assunto">Assunto *</label>
-                <div ng-class="{'has-error': !contato.assunto}">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-header"></i></span>
-                        <input class="form-control" type="text" ng-model="contato.assunto" id="assunto"/>
-                    </div>
-                </div>
-
-                <!--Input de Mensagem-->
-                <label class="control-label" for="mensagem">Mensagem *</label>
-                <div ng-class="{'has-error': !contato.mensagem}">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-file-text"></i></span>
-                        <textarea class="form-control" ng-model="contato.mensagem" id="mensagem">
-                        </textarea>
-                    </div>
-                </div>
-
-                <!--botões-->
-                <div class="control-group">
-                    <br>
-                    <p ng-show="!contato.nome || !contato.email || !contato.assunto || !contato.mensagem" class="font-style">Campos Obrigatórios (*)</p>
-                    <button id="save" class="btn btn-success" type="submit" ng-disabled="!contato.nome || !contato.email || !contato.assunto || !contato.mensagem">
-                        <span class="fa fa-envelope"></span> Enviar mensagem
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
-    <!-- Final col-sm-06 -->
-    <div class="col-sm-6">
-        <p class="lead">
-            Fale conosco
-        </p>
-        <label>Endereço</label>
-        <p>Av. Tancredo Neves, 6731 CEP: 85.866-900 Caixa Postal 2126</p>
-        <label>Sede</label>
-        <p>Parque Tecnológico Itaipu  Edifício das Águas Foz do Iguaçu - Paraná - Brasil</p>
-        <label>Email</label>
-        <p><a href="mailto:cibiogas@cibiogas.org">cibiogas@cibiogas.org</a></p>
-        <label>Telefone</label>
-        <p>+55 45 3576-7166</p>
-        <p>+55 45 3576-7437</p>
-    </div>
+                    </md-card-actions>
+                </md-card-content>
+            </md-card>
+        </div>
+    </md-content>
 </div>

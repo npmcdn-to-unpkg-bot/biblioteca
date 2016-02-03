@@ -18,7 +18,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Biblioteca</title>
+    <title>CIBiogás | Biblioteca</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -42,12 +42,11 @@
     -->
 
     <link rel="stylesheet" href="assets/bower_components/material-design-lite/material.css">
-
-
-
+    <link rel="stylesheet" href="assets/bower_components/angular-material/angular-material.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="assets/stylesheets/styles.css">
+    <link rel="stylesheet" href="assets/stylesheets/main.css">
     <style>
         #view-source {
         position: fixed;
@@ -64,6 +63,7 @@
 <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     <header class="demo-header mdl-layout__header">
         <div class="mdl-layout__header-row">
+            <span class="mdl-layout-title">Biblioteca</span>
             <div class="mdl-layout-spacer"></div>
             <span>Usuário</span>
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
@@ -83,7 +83,7 @@
             </div>
         </header>
         <nav class="demo-navigation mdl-navigation">
-            <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">home</i>Home</a>
+            <a class="mdl-navigation__link" href="#/"><i class="material-icons" role="presentation">home</i>Home</a>
             <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">library_books</i>Livros e Artigos</a>
             <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">school</i>Cursos EaD</a>
             <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">copyright</i>Direitos</a>
@@ -93,16 +93,14 @@
             <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">photo</i>Fotos</a>
             <div class="separador"></div>
             <span class="mdl-navigation__link">Contatos</span>
-            <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">contact_mail</i>Fale conosco</a>
+            <a class="mdl-navigation__link" href="/#/contato"><i class="material-icons" role="presentation">contact_mail</i>Fale conosco</a>
             <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">public</i>Conheça nosso site</a>
             <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">filter_vintage</i>CIBiogás na mídia</a>
         </nav>
     </div>
     <main class="mdl-layout__content">
-        <div class="page-content">
-            <div ng-view="">
+        <div ng-view="">
 
-            </div>
         </div>
     </main>
 </div>
@@ -110,6 +108,9 @@
 <script src="assets/bower_components/angular/angular.js"></script>
 <script src="assets/bower_components/angular-route/angular-route.js"></script>
 <script src="assets/bower_components/angular-resource/angular-resource.js"></script>
+<script src="assets/bower_components/angular-aria/angular-aria.js"></script>
+<script src="assets/bower_components/angular-animate/angular-animate.js"></script>
+<script src="assets/bower_components/angular-material/angular-material.js"></script>
 
 <script src="assets/bower_components/material-design-lite/material.js"></script>
 
