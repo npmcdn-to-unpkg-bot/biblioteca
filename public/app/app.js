@@ -30,6 +30,10 @@ angular
             .when('/usuarios', {
                 templateUrl: '/assets/app/views/usuarios/list.html',
                 controller: 'usuario.list.controller'
+            })
+            .when('/livros', {
+                templateUrl: '/assets/app/views/livros/list.html',
+                controller: 'livro.controller'
             });
    }).config(function($mdThemingProvider) {
        $mdThemingProvider.definePalette('amazingPaletteName', {

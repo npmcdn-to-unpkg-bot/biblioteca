@@ -1,4 +1,4 @@
-<div ng-controller="home.controller" ng-cloak="" class="carddemoBasicUsage" >
+<div ng-controller="contato.controller" ng-cloak>
     <md-content class="md-padding" layout-xs="column" layout="row">
         <div flex-xs flex-gt-xs="50" layout="column">
             <md-card>
@@ -29,21 +29,24 @@
                     <md-button class="md-raised md-primary" ng-disabled="!contato.nome || !contato.email || !contato.assunto || !contato.mensagem">Enviar mensagem</md-button>
                 </md-card-actions>
             </md-card>
+        </div>
+        <div flex-xs flex-gt-xs="50" layout="column">
             <md-card>
                 <md-card-title>
                     <md-card-title-text>
-                        <span class="md-headline">Artigo 1</span>
-                        <span class="md-subhead">O objetivo deste trabalho consiste em realizar
-                            um comparativo entre os frameworks, Play Framework e Ruby on Rails,
-                            apoiando a tomada de decisão no desenvolvimento de sistemas Web. </span>
+                        <span class="md-headline">Endereço</span>
+                        <div class="md-caption">
+                            <p>Av. Tancredo Neves, 6731, CEP: 85.866-900 Caixa Postal 2126</p>
+                            <label><b>Sede</b></label>
+                            <p>Parque Tecnológico Itaipu  Edifício das Águas Foz do Iguaçu - Paraná - Brasil</p>
+                            <label><b>Email</b></label>
+                            <p><a href="mailto:cibiogas@cibiogas.org">cibiogas@cibiogas.org</a></p>
+                            <label><b>Telefone</b></label>
+                            <p>+55 45 3576-7166</p>
+                            <p>+55 45 3576-7437</p>
+                        </div>
                     </md-card-title-text>
                 </md-card-title>
-                <md-card-content layout="row" layout-align="space-between">
-                    <div class="md-media-xl"></div>
-                    <md-card-actions layout="column">
-
-                    </md-card-actions>
-                </md-card-content>
             </md-card>
         </div>
     </md-content>
