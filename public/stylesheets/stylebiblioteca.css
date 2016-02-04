@@ -1,0 +1,11 @@
+.site-logo {
+    margin: 0 auto;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.separador {
+    height: 1px;
+    background-color: #dcdcdc;
+    margin: 8px 0;
+}

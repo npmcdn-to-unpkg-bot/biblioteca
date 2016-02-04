@@ -6,7 +6,8 @@ import play.mvc.Result;
 public class Application extends Controller {
 
     public Result index() {
-        return ok(views.html.index.render());
+        String username = session().get("email");
+        return ok(views.html.index.render(username));
     }
 
 }

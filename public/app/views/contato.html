@@ -1,53 +1,24 @@
-<div ng-controller="contato.controller" ng-cloak>
-    <md-content class="md-padding" layout-xs="column" layout="row">
-        <div flex-xs flex-gt-xs="50" layout="column">
-            <md-card>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">Contato</span>
-                            <div>
-                                <md-input-container>
-                                    <label>Nome *</label>
-                                    <input ng-model="contato.nome" type="text"placeholder="Nome (necessário)" ng-required="true" >
-                                </md-input-container>
-                                <md-input-container>
-                                    <label>Email *</label>
-                                    <input ng-model="contato.email" type="email" placeholder="Email (necessário)" ng-required="true">
-                                </md-input-container>
-                                <md-input-container>
-                                    <label>Assunto *</label>
-                                    <input ng-model="contato.assunto" type="text" placeholder="Assunto (necessário)" ng-required="true">
-                                </md-input-container>
-                                <md-input-container>
-                                    <label>Mensagem *</label>
-                                    <input ng-model="contato.mensagem" type="text" placeholder="Mensagem (necessário)" ng-required="true">
-                                </md-input-container>
-                            </div>
-                    </md-card-title-text>
-                </md-card-title>
-                <md-card-actions layout="row" layout-align="end center">
-                    <md-button class="md-raised md-primary" ng-disabled="!contato.nome || !contato.email || !contato.assunto || !contato.mensagem">Enviar mensagem</md-button>
-                </md-card-actions>
-            </md-card>
+<div class="mdl-grid">
+    <div class="demo-graphs mdl-card mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--6-col">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Contato</h2>
         </div>
-        <div flex-xs flex-gt-xs="50" layout="column">
-            <md-card>
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">Endereço</span>
-                        <div class="md-caption">
-                            <p>Av. Tancredo Neves, 6731, CEP: 85.866-900 Caixa Postal 2126</p>
-                            <label><b>Sede</b></label>
-                            <p>Parque Tecnológico Itaipu  Edifício das Águas Foz do Iguaçu - Paraná - Brasil</p>
-                            <label><b>Email</b></label>
-                            <p><a href="mailto:cibiogas@cibiogas.org">cibiogas@cibiogas.org</a></p>
-                            <label><b>Telefone</b></label>
-                            <p>+55 45 3576-7166</p>
-                            <p>+55 45 3576-7437</p>
-                        </div>
-                    </md-card-title-text>
-                </md-card-title>
-            </md-card>
+        <div class="mdl-card__supporting-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Mauris sagittis pellentesque lacus eleifend lacinia...
         </div>
-    </md-content>
+    </div>
+    <div class="demo-graphs mdl-card mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--6-col">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Fale Conosco</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <p><b>Sede: </b>Parque Tecnológico Itaipu  Edifício das Águas
+                Foz do Iguaçu - Paraná - Brasil</p>
+            <p><b>Endereço: </b>Av. Tancredo Neves, 6731     CEP: 85.866-900
+                Caixa Postal 2126</p>
+            <p><b>Email: </b><a href="mailto:cibiogas@cibiogas.org">cibiogas@cibiogas.org</a>
+            <p><b>Telefone: </b>+55 45 3576-7166 ou +55 45 3576-7437</p>
+        </div>
+    </div>
 </div>
