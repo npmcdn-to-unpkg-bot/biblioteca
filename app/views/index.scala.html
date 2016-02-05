@@ -50,6 +50,7 @@
     <link rel="stylesheet" href="assets/bower_components/material-design-lite/material.css">
     <link rel="stylesheet" href="assets/stylesheets/templatemdl.css">
     <link rel="stylesheet" href="assets/stylesheets/stylebiblioteca.css">
+    <link rel="stylesheet" href="assets/stylesheets/styleartigo.css">
     <style>
         #view-source {
         position: fixed;
@@ -96,14 +97,12 @@
         <nav class="demo-navigation mdl-navigation mdl-color--white">
             <a class="mdl-navigation__link" href="#/"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">home</i>Home</a>
             <a class="mdl-navigation__link" href="/#/cursos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">school</i>Cursos Ead</a>
-            @if(username){
                 <div class="separador"></div>
                 <span class="mdl-navigation__link">Media</span>
             <a class="mdl-navigation__link" href="/#/artigos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">book</i>Artigos</a>
                 <a class="mdl-navigation__link" href="/#/livros"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">library_books</i>Livros</a>
                 <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">video_library</i>Videos</a>
                 <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">photo</i>Fotos</a>
-            }
             <div class="separador"></div>
             <span class="mdl-navigation__link">Contato</span>
             <a class="mdl-navigation__link" href="/#/contato"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">contact_mail</i>Fale conosco</a>
@@ -143,6 +142,8 @@
 <script src="assets/app/controllers/usuario.controller.js"></script>
 <script src="assets/app/controllers/livro.controller.js"></script>
 <script src="assets/app/controllers/contato.controller.js"></script>
+<script src="assets/app/controllers/curso.controller.js"></script>
+<script src="assets/app/controllers/artigo.controller.js"></script>
 
 </body>
 </html>

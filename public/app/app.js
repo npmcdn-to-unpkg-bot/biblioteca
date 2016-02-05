@@ -38,5 +38,21 @@ angular
             .when('/cursos', {
                 templateUrl: '/assets/app/views/cursos/list.html',
                 controller: 'curso.controller'
+            })
+            .when('/artigos', {
+                templateUrl: '/assets/app/views/artigos/list.html',
+                controller: 'artigo.controller'
+            })
+            .when('/artigos/energiasrenovaveis/biogas', {
+                templateUrl: '/assets/app/views/artigos/energiasrenovaveis/biogas.html',
+                controller: 'artigo.controller'
             });
+   // se tirar esse .run as funções do material design lite
+   //não carrega corretamente na página, precisa apertar f5 várias vezes
+   }).run(function ($rootScope,$timeout) {
+     $rootScope.$on('$viewContentLoaded', ()=> {
+       $timeout(() => {
+         componentHandler.upgradeAllRegistered();
+       })
+     })
    });
