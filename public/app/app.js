@@ -46,6 +46,10 @@ angular
             .when('/artigos/energiasrenovaveis/biogas', {
                 templateUrl: '/assets/app/views/artigos/energiasrenovaveis/biogas.html',
                 controller: 'artigo.controller'
+            })
+            .when('/videos', {
+                templateUrl: '/assets/app/views/videos/list.html',
+                controller: 'video.controller'
             });
    // se tirar esse .run as funções do material design lite
    //não carrega corretamente na página, precisa apertar f5 várias vezes
