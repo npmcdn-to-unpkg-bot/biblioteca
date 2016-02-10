@@ -13,7 +13,8 @@ angular
                 controller: 'home.controller'
             })
             .when('/contato', {
-                templateUrl: '/assets/app/views/contato.html'
+                templateUrl: '/assets/app/views/contato.html',
+                controller: 'contato.controller'
             })
             .when('/usuarios/novo', {
                 templateUrl: '/assets/app/views/usuarios/create.html',
@@ -50,6 +51,14 @@ angular
             .when('/videos', {
                 templateUrl: '/assets/app/views/videos/list.html',
                 controller: 'video.controller'
+            })
+            .when('/fotos', {
+                templateUrl: '/assets/app/views/fotos/list.html',
+                controller: 'foto.controller'
+            })
+            .when('/direitos', {
+                templateUrl: '/assets/app/views/direito.html',
+                controller: 'direito.controller'
             });
    // se tirar esse .run as funções do material design lite
    //não carrega corretamente na página, precisa apertar f5 várias vezes

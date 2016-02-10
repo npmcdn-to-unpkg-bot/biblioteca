@@ -142,27 +142,6 @@ html, body {
 .demo-chart:nth-child(4) {
   color: #EF3C79;
 }
-
-/* propriedades dos cartoes*/
-.cartao {
-  padding: 10px 5px;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-align-items: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
-}
-/* TODO: Find a proper solution to have the graphs
- * not float around outside their container in IE10/11.
- * Using a browserhacks.com solution for now.
- */
-_:-ms-input-placeholder, :root .cartao {
-  min-height: 664px;
-}
 _:-ms-input-placeholder, :root .demo-graph {
   max-height: 300px;
 }
@@ -232,4 +211,15 @@ _:-ms-input-placeholder, :root .demo-graph {
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.subtitulo {
+    background-color: #546e7a;
+    color: #fff;
+}
+
+.subtitulo .conteudo-pagina {
+    padding-top: 24px;
+    padding-bottom: 24px;
+    margin-bottom: 0;
 }
