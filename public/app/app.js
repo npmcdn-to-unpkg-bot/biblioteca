@@ -52,6 +52,10 @@ angular
                 templateUrl: '/assets/app/views/videos/list.html',
                 controller: 'video.controller'
             })
+            .when('/videos/biogas', {
+                templateUrl: '/assets/app/views/videos/biogas.html',
+                controller: 'video.controller'
+            })
             .when('/fotos', {
                 templateUrl: '/assets/app/views/fotos/list.html',
                 controller: 'foto.controller'
