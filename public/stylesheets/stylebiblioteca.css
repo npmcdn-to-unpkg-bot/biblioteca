@@ -1,7 +1,5 @@
 .site-logo {
-    margin: 0 auto;
-    display: inline-block;
-    vertical-align: middle;
+    max-height:71px;
 }
 
 .separador {
