@@ -7,3 +7,7 @@
     background-color: #dcdcdc;
     margin: 8px 0;
 }
+
+.mdl-color--deep-orange-cibiogas {
+  background-color: rgb(245, 134, 52) !important;
+}
