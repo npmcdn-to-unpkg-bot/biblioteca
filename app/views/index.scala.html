@@ -82,7 +82,7 @@
     <div class="demo-drawer mdl-layout__drawer">
         <header class="demo-drawer-header">
             <div class="site-logo">
-                <img src="assets/images/cibiogas-logo.jpg" width="220" height="75">
+                <img src="assets/images/cibiogas-logo.jpg" width="222" height="88">
             </div>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--white">
@@ -97,12 +97,36 @@
             <div class="separador"></div>
             <span class="mdl-navigation__link">Contato</span>
             <a class="mdl-navigation__link" href="/#/contato"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">contact_mail</i>Fale conosco</a>
-            <a class="mdl-navigation__link" href="https://cibiogas.org/"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">public</i>Conheça nosso site</a>
-            <a class="mdl-navigation__link" href="https://www.youtube.com/channel/UCEuoR_lr7wqdQYcPSoPZnng"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">filter_vintage</i>CIBiogás na mídia</a>
             <a class="mdl-navigation__link" href="/#/direitos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">copyright</i>Direitos</a>
+            <a id="show-dialog-cibiogas1" class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">public</i>Conheça nosso site</a>
             <div class="mdl-layout-spacer"></div>
         </nav>
     </div>
+    <dialog class="mdl-dialog">
+        <h4 class="mdl-dialog__title">Biblioteca</h4>
+        <div class="mdl-dialog__content">
+            <p>
+                Visitar link externo?
+            <p>
+        </div>
+        <div class="mdl-dialog__actions">
+            <a href="https://cibiogas.org/" type="button" class="mdl-button">Sim</a>
+            <a type="button" class="mdl-button close">Não</a>
+        </div>
+    </dialog>
+    <script>
+        var dialog = document.querySelector('dialog');
+        var showDialogButton = document.querySelector('#show-dialog-cibiogas1');
+        if (! dialog.showModal) {
+          dialogPolyfill.registerDialog(dialog);
+        }
+        showDialogButton.addEventListener('click', function() {
+          dialog.showModal();
+        });
+        dialog.querySelector('.close').addEventListener('click', function() {
+          dialog.close();
+        });
+  </script>
     <!--precisa pra carregar a content corretamente-->
     <main class="mdl-layout__content mdl-color--grey-100">
         <div ng-view="">
