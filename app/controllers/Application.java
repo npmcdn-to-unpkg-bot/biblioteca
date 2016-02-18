@@ -1,6 +1,6 @@
 package controllers;
 
-import play.cache.Cached;
+
 import play.mvc.Controller;
 import play.mvc.Result;
 

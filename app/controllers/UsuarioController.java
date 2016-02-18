@@ -1,5 +1,6 @@
 package controllers;
 
+import actions.PlayAuthenticatedSecured;
 import akka.util.Crypt;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Query;
@@ -8,9 +9,13 @@ import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.libs.Json;
+import play.libs.mailer.Email;
+import play.libs.mailer.MailerClient;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 
+import javax.inject.Inject;
 import javax.persistence.PersistenceException;
 import java.util.Date;
 import java.util.List;
@@ -20,16 +25,19 @@ import java.util.List;
  */
 public class UsuarioController extends Controller {
 
+    @Inject
+    MailerClient mailerClient;
+
     private static DynamicForm form = Form.form();
 
     public Result telaCadastrado() {
-        return ok(views.html.cadastrado.render());
+        String username = session().get("email");
+        return ok(views.html.cadastrado.render(username));
     }
 
     public Result telaCadastro() {
         return ok(views.html.cadastro.render(form));
     }
-
 
     public Result inserir(){
         Form<DynamicForm.Dynamic> formPreenchido = form.bindFromRequest();
@@ -61,9 +69,19 @@ public class UsuarioController extends Controller {
             return badRequest(views.html.cadastro.render(formDeErro));
         }
 
-        return redirect(routes.UsuarioController.telaCadastrado());
+        String username = novo.getEmail().toString();
+
+        Email emailUser = new Email()
+                .setSubject("Simple email")
+                .setFrom("Biblioteca <biblioteca@email.com>")
+                .addTo("Para <haroldoramirez@gmail.com>")
+                .setBodyText(username);
+        mailerClient.send(emailUser);
+
+        return ok(views.html.cadastrado.render(username));
     }
 
+    @Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result atualizar(Long id) {
 
         String username = session().get("email");
@@ -76,11 +94,6 @@ public class UsuarioController extends Controller {
         Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
                 .setParameter("email", username)
                 .findUnique();
-
-        //verificar se o usuario atual encontrado é administrador
-        if (usuarioAtual.getPrivilegio() == 1) {
-            return badRequest("Você não tem privilégios de Administrador.");
-        }
 
         if (usuarioBusca == null) {
             return badRequest("Usuário não encontrado.");
@@ -99,6 +112,7 @@ public class UsuarioController extends Controller {
         return ok(Json.toJson(usuario));
     }
 
+    @Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result buscaPorId(Long id) {
 
         String username = session().get("email");
@@ -123,6 +137,7 @@ public class UsuarioController extends Controller {
         return ok(Json.toJson(usuario));
     }
 
+    @Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result buscaTodos() {
 
         Logger.info("Busca todos os Usuários.");
@@ -134,11 +149,6 @@ public class UsuarioController extends Controller {
                 .setParameter("email", username)
                 .findUnique();
 
-        //verificar se o usuario atual encontrado é administrador
-        if (usuarioAtual.getPrivilegio() == 1) {
-            return badRequest("Você não tem privilégios de Administrador.");
-        }
-
         //busca todos os usuários menos o usuário padrão do sistema
         Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where (email != 'admin@market.com')");
         List<Usuario> filtroDeUsuarios = query.findList();
@@ -146,6 +156,7 @@ public class UsuarioController extends Controller {
         return ok(Json.toJson(filtroDeUsuarios));
     }
 
+    @Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result remover(Long id) {
 
         String username = session().get("email");
@@ -186,6 +197,7 @@ public class UsuarioController extends Controller {
         return ok(Json.toJson(usuario));
     }
 
+    @Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result filtra(String filtro) {
         Logger.info("Filtra Usuário.");
 

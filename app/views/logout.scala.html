@@ -5,22 +5,21 @@
 
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
 
-    <link rel="stylesheet" href="assets/bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/bootstrap/dist/css/bootstrap.css")">
 
-    <!-- Estilo da Tela-->
-    <link rel="stylesheet" href="assets/stylesheets/signin.css"/>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/signin.css")">
 
-    <title>Biblioteca - logout</title>
+<title>Biblioteca - logout</title>
 </head>
 <body>
-<div class="container text-center">
-    <div class="form-signin well well-sm">
-        <h2 class="form-signin-heading">Até logo!</h2>
-        <h4 class="alert alert-info">Usuário desconectado!</h4>
-        <a href="/#" class="btn btn-lg btn-primary btn-block">Início</a>
-        <br>
-        <p class="text-center">&copy; 2016 CIBiogás</p>
-    </div>
-</div> <!-- /container -->
+    <div class="container text-center">
+        <div class="form-signin well well-sm">
+            <h2 class="form-signin-heading">Até logo!</h2>
+            <h4 class="alert alert-danger">Usuário desconectado!</h4>
+            <a href="/#" class="btn btn-lg btn-primary btn-block">Início</a>
+            <br>
+            <p class="text-center">&copy; 2016 CIBiogás</p>
+        </div>
+    </div> <!-- /container -->
 </body>
 </html>
