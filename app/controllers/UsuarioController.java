@@ -69,13 +69,13 @@ public class UsuarioController extends Controller {
             return badRequest(views.html.cadastro.render(formDeErro));
         }
 
-        String username = novo.getEmail().toString();
+        String username = novo.getEmail();
 
         Email emailUser = new Email()
-                .setSubject("Simple email")
+                .setSubject("Cadastro na Biblioteca")
                 .setFrom("Biblioteca <biblioteca@email.com>")
-                .addTo("Para <haroldoramirez@gmail.com>")
-                .setBodyText(username);
+                .addTo("<haroldo.nobrega@cibiogas.org>")
+                .setBodyText("O Usuário foi cadastrado com sucesso!");
         mailerClient.send(emailUser);
 
         return ok(views.html.cadastrado.render(username));
