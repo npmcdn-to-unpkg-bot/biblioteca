@@ -48,6 +48,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/material-design-lite/material.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/angular-loading-bar/src/loading-bar.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/templatemdl.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/stylebiblioteca.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/styleartigo.css")">
@@ -79,7 +80,7 @@
             </ul>
         </div>
     </header>
-    <div class="demo-drawer mdl-layout__drawer">
+    <div class="demo-drawer mdl-layout__drawer examples">
         <header class="demo-drawer-header">
             <div class="site-logo">
                 <img src="assets/images/cibiogas-logo.jpg" width="222" height="88">
@@ -98,35 +99,10 @@
             <span class="mdl-navigation__link">Contato</span>
             <a class="mdl-navigation__link" href="/#/contato"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">contact_mail</i>Fale conosco</a>
             <a class="mdl-navigation__link" href="/#/direitos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">copyright</i>Direitos</a>
-            <a id="show-dialog-cibiogas1" class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">public</i>Conheça nosso site</a>
+            <a class="mdl-navigation__link" href="https://cibiogas.org/" target="_blank"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">public</i>Conheça nosso site</a>
             <div class="mdl-layout-spacer"></div>
         </nav>
     </div>
-    <dialog class="mdl-dialog">
-        <h4 class="mdl-dialog__title">Biblioteca</h4>
-        <div class="mdl-dialog__content">
-            <p>
-                Visitar link externo?
-            <p>
-        </div>
-        <div class="mdl-dialog__actions">
-            <a href="https://cibiogas.org/" type="button" class="mdl-button">Sim</a>
-            <a type="button" class="mdl-button close">Não</a>
-        </div>
-    </dialog>
-    <script>
-        var dialog = document.querySelector('dialog');
-        var showDialogButton = document.querySelector('#show-dialog-cibiogas1');
-        if (! dialog.showModal) {
-          dialogPolyfill.registerDialog(dialog);
-        }
-        showDialogButton.addEventListener('click', function() {
-          dialog.showModal();
-        });
-        dialog.querySelector('.close').addEventListener('click', function() {
-          dialog.close();
-        });
-  </script>
     <!--precisa pra carregar a content corretamente-->
     <main class="mdl-layout__content mdl-color--grey-100">
         <div ng-view="">
@@ -141,8 +117,8 @@
 <script src="@routes.Assets.versioned("bower_components/angular-aria/angular-aria.js")" type="text/javascript"></script>
 
 <script src="@routes.Assets.versioned("bower_components/material-design-lite/material.js")" type="text/javascript"></script>
-<script src="@routes.Assets.versioned("bower_components/pdfjs-bower/dist/pdf.js")" type="text/javascript"></script>
-<script src="@routes.Assets.versioned("bower_components/pdfjs-bower/dist/compatibility.js")" type="text/javascript"></script>
+
+<script src="@routes.Assets.versioned("bower_components/angular-loading-bar/src/loading-bar.js")" type="text/javascript"></script>
 
 <script src="@routes.Assets.versioned("app/app.js")" type="text/javascript"></script>
 

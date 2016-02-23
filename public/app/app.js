@@ -3,7 +3,8 @@ angular
         ('architectplay',
             ['ngRoute',
              'ngResource',
-             'ngAria'
+             'ngAria',
+             'angular-loading-bar'
             ]
         )
     .config(function ($routeProvider) {
@@ -72,4 +73,7 @@ angular
          componentHandler.upgradeAllRegistered();
        })
      })
+   }).config(function(cfpLoadingBarProvider) {
+     // true is the default, but I left this here as an example:
+     cfpLoadingBarProvider.includeSpinner = false;
    });

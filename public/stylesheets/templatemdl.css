@@ -17,15 +17,12 @@
 html, body {
   font-family: 'Roboto', 'Helvetica', sans-serif;
 }
-.demo-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 24px;
-}
+
 .demo-layout .demo-header .mdl-textfield {
   padding: 0px;
   margin-top: 41px;
 }
+
 .demo-layout .demo-header .mdl-textfield .mdl-textfield__expandable-holder {
   bottom: 19px;
 }
@@ -34,12 +31,7 @@ html, body {
 .demo-layout .mdl-layout__header .mdl-layout__drawer-button {
   color: rgb(255, 255, 255);
 }
-.mdl-layout__drawer .avatar {
-  margin-bottom: 16px;
-}
-.demo-drawer {
-  border: none;
-}
+
 /* iOS Safari specific workaround */
 .demo-drawer .mdl-menu__container {
   z-index: -1;
@@ -73,19 +65,6 @@ html, body {
   height: 73px;
   background-color: rgb(255, 255, 255);
 }
-.demo-avatar-dropdown {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-  -webkit-flex-direction: row;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 100%;
-}
 
 .demo-navigation {
   -webkit-flex-grow: 1;
@@ -108,15 +87,14 @@ html, body {
   font-weight: 500;
 }
 
-/*Muda as os seletores do menu esquerdo*/
+/*Muda as cores dos seletores do menu esquerdo*/
 .demo-layout .demo-navigation .mdl-navigation__link:hover {
   background-color: #F5F5F5;
-  color: #2c393f;
+  color: #171e21;
 }
-/* tamanho dos ícones do menu esquerdo, cor e distância*/
+/* tamanho dos ícones do menu esquerdo e distância*/
 .demo-navigation .mdl-navigation__link .material-icons {
   font-size: 24px;
-  color: rgba(0, 0, 0, 0.56);
   margin-right: 32px;
 }
 
