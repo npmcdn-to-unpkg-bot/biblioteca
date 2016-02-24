@@ -54,6 +54,7 @@
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/styleartigo.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/cartao.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/video.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/teste.css")">
 </head>
 <body>
 <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
@@ -80,25 +81,27 @@
             </ul>
         </div>
     </header>
-    <div class="demo-drawer mdl-layout__drawer examples">
+    <div ng-controller="drawer" class="demo-drawer mdl-layout__drawer examples">
         <header class="demo-drawer-header">
             <div class="site-logo">
                 <img src="assets/images/cibiogas-logo.jpg" width="222" height="88">
             </div>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--white">
-            <a class="mdl-navigation__link" href="#/"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">home</i>Home</a>
-            <a class="mdl-navigation__link" href="/#/cursos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">school</i>Cursos Ead</a>
+            <li ng-repeat="item in items" class="mdl-navigation__link" ng-class="{'active': item.id == states.activeItem}" ng-click="states.activeItem=item.id">{{item.title}}</li>
+
+            <a ng-class="{ active: isActive('/') }" class="mdl-navigation__link" href="/#/"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">home</i>Home</a>
+            <a ng-class="{ active: isActive('/cursos') }" class="mdl-navigation__link" href="/#/cursos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">school</i>Cursos Ead</a>
                 <div class="separador"></div>
                 <span class="mdl-navigation__link">Media</span>
-            <a class="mdl-navigation__link" href="/#/artigos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">book</i>Artigos</a>
-                <a class="mdl-navigation__link" href="/#/livros"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">library_books</i>Livros</a>
-                <a class="mdl-navigation__link" href="/#/videos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">video_library</i>Videos</a>
-                <a class="mdl-navigation__link" href="/#/fotos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">photo</i>Fotos</a>
+                <a ng-class="{ active: isActive('/artigos') }" class="mdl-navigation__link" href="/#/artigos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">book</i>Artigos</a>
+                <a ng-class="{ active: isActive('/livros') }" class="mdl-navigation__link" href="/#/livros"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">library_books</i>Livros</a>
+                <a ng-class="{ active: isActive('/videos') }" class="mdl-navigation__link" href="/#/videos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">video_library</i>Videos</a>
+                <a ng-class="{ active: isActive('/fotos') }" class="mdl-navigation__link" href="/#/fotos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">photo</i>Fotos</a>
             <div class="separador"></div>
             <span class="mdl-navigation__link">Contato</span>
-            <a class="mdl-navigation__link" href="/#/contato"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">contact_mail</i>Fale conosco</a>
-            <a class="mdl-navigation__link" href="/#/direitos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">copyright</i>Direitos</a>
+            <a ng-class="{ active: isActive('/contato') }" class="mdl-navigation__link" href="/#/contato"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">contact_mail</i>Fale conosco</a>
+            <a ng-class="{ active: isActive('/direitos') }" class="mdl-navigation__link" href="/#/direitos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">copyright</i>Direitos</a>
             <a class="mdl-navigation__link" href="https://cibiogas.org/" target="_blank"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">public</i>Conheça nosso site</a>
             <div class="mdl-layout-spacer"></div>
         </nav>
@@ -125,6 +128,7 @@
 <script src="@routes.Assets.versioned("app/services/address.service.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("app/services/baseurl.service.js")" type="text/javascript"></script>
 
+<script src="@routes.Assets.versioned("app/controllers/drawer.controller.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("app/controllers/home.controller.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("app/controllers/usuario.controller.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("app/controllers/livro.controller.js")" type="text/javascript"></script>
