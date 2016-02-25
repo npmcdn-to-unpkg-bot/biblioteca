@@ -27,15 +27,3 @@
         </div>
     </div>
 </div>
-
-<div ng-controller="drawer">
-    <p>Your active menu item: <span class="highlightOne">{{states.activeItem}}</span>
-
-    </p>
-    <div>Change the active menu item:
-        <input ng-model="states.activeItem" />
-    </div>
-    <ul class="navigation">
-        <li ng-repeat="item in items" class="item" ng-class="{'active': item.id == states.activeItem}" ng-click="states.activeItem=item.id">{{item.title}}</li>
-    </ul>
-</div>
