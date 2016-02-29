@@ -42,7 +42,7 @@ public class UsuarioController extends Controller {
     public Result inserir(){
         Form<DynamicForm.Dynamic> formPreenchido = form.bindFromRequest();
         String email = formPreenchido.data().get("email");
-        String senha = Crypt.sha1(formPreenchido.data().get("senha"));
+        String senha = Crypt.sha1(formPreenchido.data().get("confirm_senha"));
         String nome = formPreenchido.data().get("nome");
         if (email.toString() == "" || senha.toString() == "") {
             DynamicForm formDeErro = form.fill(formPreenchido.data());

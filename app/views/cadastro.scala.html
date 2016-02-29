@@ -30,7 +30,10 @@
                 <input type="email" name="email" class="form-control" required/>
                 <br>
                 <label>Senha: </label>
-                <input type="password" name="senha" class="form-control" required/>
+                <input name="senha" type="password" id="senha" class="form-control" required>
+                <label>Confirmação: </label>
+                <input name="confirm_senha" type="password" id="confirm_senha" class="form-control" required>
+                <br>
                 <input class="btn btn-lg btn-success btn-block" type="submit" value="Cadastrar">
                 }
                 <hr>
@@ -43,5 +46,7 @@
     <script src="@routes.Assets.versioned("bower_components/bootstrap/dist/js/bootstrap.js")" type="text/javascript"></script>
 
     <script src="@routes.Assets.versioned("bower_components/angular/angular.js")" type="text/javascript"></script>
+
+    <script src="@routes.Assets.versioned("javascripts/passcheck.js")" type="text/javascript"></script>
 </body>
 </html>

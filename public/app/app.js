@@ -23,17 +23,17 @@ angular
             .when('/usuarios/novo', {
                 templateUrl: '/assets/app/views/usuarios/create.html',
                 controller: 'usuario.create.controller',
-                activetab: 'contato'
+                activetab: 'usuarios'
             })
             .when('/usuarios/detalhe/:id', {
                 templateUrl: '/assets/app/views/usuarios/detail.html',
                 controller: 'usuario.detail.controller',
-                activetab: 'contato'
+                activetab: 'usuarios'
             })
             .when('/usuarios/editar/:id', {
                 templateUrl: '/assets/app/views/usuarios/edit.html',
                 controller: 'usuario.edit.controller',
-                activetab: 'contato'
+                activetab: 'usuarios'
             })
             .when('/usuarios', {
                 templateUrl: '/assets/app/views/usuarios/list.html',
@@ -79,8 +79,8 @@ angular
                 templateUrl: '/assets/app/views/direito.html',
                 controller: 'direito.controller',
                 activetab: 'direitos'
-            })
-            .otherwise({redirectTo:'/'});
+            });
+//            .otherwise({redirectTo:'/'});
    // se tirar esse .run as funções do material design lite
    //não carrega corretamente na página, precisa apertar f5 várias vezes
    }).run(function ($rootScope,$timeout) {
