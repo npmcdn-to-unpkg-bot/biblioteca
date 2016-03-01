@@ -4,7 +4,9 @@ angular
             ['ngRoute',
              'ngResource',
              'ngAria',
-             'angular-loading-bar'
+             'ngAnimate',
+             'angular-loading-bar',
+             'toastr'
             ]
         )
     .config(function ($routeProvider) {
@@ -12,8 +14,7 @@ angular
             .when('/', {
                 templateUrl: '/assets/app/views/home.html',
                 controller: 'home.controller',
-                activetab: 'home',
-
+                activetab: 'home'
             })
             .when('/contato', {
                 templateUrl: '/assets/app/views/contato.html',
@@ -79,8 +80,8 @@ angular
                 templateUrl: '/assets/app/views/direito.html',
                 controller: 'direito.controller',
                 activetab: 'direitos'
-            });
-//            .otherwise({redirectTo:'/'});
+            })
+            .otherwise({redirectTo:'/'});
    // se tirar esse .run as funções do material design lite
    //não carrega corretamente na página, precisa apertar f5 várias vezes
    }).run(function ($rootScope,$timeout) {
@@ -90,6 +91,34 @@ angular
        })
      })
    }).config(function(cfpLoadingBarProvider) {
+      // carrega o loading bar
      // true is the default, but I left this here as an example:
      cfpLoadingBarProvider.includeSpinner = false;
+   }).config(function(toastrConfig) {
+        //configurações do toastr
+       angular.extend(toastrConfig, {
+         allowHtml: false,
+         closeButton: false,
+         closeHtml: '<button>&times;</button>',
+         extendedTimeOut: 1000,
+         iconClasses: {
+           error: 'toast-error',
+           info: 'toast-info',
+           success: 'toast-success',
+           warning: 'toast-warning'
+         },
+         messageClass: 'toast-message',
+         onHidden: null,
+         onShown: null,
+         onTap: null,
+         progressBar: false,
+         tapToDismiss: true,
+         templates: {
+           toast: 'directives/toast/toast.html',
+           progressbar: 'directives/progressbar/progressbar.html'
+         },
+         timeOut: 5000,
+         titleClass: 'toast-title',
+         toastClass: 'toast'
+       });
    });

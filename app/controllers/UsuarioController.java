@@ -25,8 +25,8 @@ import java.util.List;
  */
 public class UsuarioController extends Controller {
 
-    @Inject
-    MailerClient mailerClient;
+//    @Inject
+//    MailerClient mailerClient;
 
     private static DynamicForm form = Form.form();
 
@@ -41,14 +41,27 @@ public class UsuarioController extends Controller {
 
     public Result inserir(){
         Form<DynamicForm.Dynamic> formPreenchido = form.bindFromRequest();
+
         String email = formPreenchido.data().get("email");
         String senha = Crypt.sha1(formPreenchido.data().get("confirm_senha"));
         String nome = formPreenchido.data().get("nome");
+
+        //valida se o email e a senha não estejam vazios
         if (email.toString() == "" || senha.toString() == "") {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject("Email ou Senha não podem estar vazios!");
             return badRequest(views.html.login.render(formDeErro));
         }
+
+        //faz uma busca na base de dados do usuario
+        Usuario usuarioBusca = Ebean.find(Usuario.class).where().eq("email", formPreenchido.data().get("email")).findUnique();
+
+        if (usuarioBusca != null) {
+            DynamicForm formDeErro = form.fill(formPreenchido.data());
+            formDeErro.reject("Usuário já Cadastrado");
+            return badRequest(views.html.cadastro.render(formDeErro));
+        }
+
         Usuario novo = new Usuario();
         novo.setEmail(email);
         novo.setSenha(senha);
@@ -56,13 +69,9 @@ public class UsuarioController extends Controller {
         novo.setStatus(true);
         novo.setDataCadastro(new Date());
         novo.setPrivilegio(2);
+
         try {
             Ebean.save(novo);
-        } catch (PersistenceException e) {
-            DynamicForm formDeErro = form.fill(formPreenchido.data());
-            formDeErro.reject("Usuário já cadastrado!");
-            e.printStackTrace();
-            return badRequest(views.html.cadastro.render(formDeErro));
         } catch (Exception e) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject("Erro interno de sistema!");
@@ -71,12 +80,13 @@ public class UsuarioController extends Controller {
 
         String username = novo.getEmail();
 
-        Email emailUser = new Email()
-                .setSubject("Cadastro na Biblioteca")
-                .setFrom("Biblioteca <biblioteca@email.com>")
-                .addTo("<haroldo.nobrega@cibiogas.org>")
-                .setBodyText("O Usuário foi cadastrado com sucesso!");
-        mailerClient.send(emailUser);
+        //Envia email teste
+//        Email emailUser = new Email()
+//                .setSubject("Cadastro na Biblioteca")
+//                .setFrom("Biblioteca <biblioteca@email.com>")
+//                .addTo("<haroldo.nobrega@cibiogas.org>")
+//                .setBodyText("O Usuário foi cadastrado com sucesso!");
+//        mailerClient.send(emailUser);
 
         return ok(views.html.cadastrado.render(username));
     }

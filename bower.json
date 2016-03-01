@@ -12,7 +12,9 @@
     "material-design-lite": "~1.1.0",
     "angular-material": "~1.0.4",
     "angular-loading-bar": "^0.8.0",
-    "angular-validation-match": "~1.7.1"
+    "angular-validation-match": "~1.7.1",
+    "angular-toastr": "~1.7.0",
+    "angular-motion": "~0.4.3"
   },
   "devDependencies": {
     "angular-mocks": "~1.3",
