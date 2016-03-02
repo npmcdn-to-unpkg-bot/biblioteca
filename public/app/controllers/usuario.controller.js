@@ -1,5 +1,7 @@
 angular.module('architectplay')
-  .controller('usuario.create.controller', function ($scope, $location, Usuario, toastr) {
+  .controller('usuario.create.controller', function ($scope, $rootScope, $location, Usuario, toastr) {
+
+    $rootScope.title = 'Usuários';
 
     $scope.save = function() {
         Usuario.save($scope.usuario, function(data) {
