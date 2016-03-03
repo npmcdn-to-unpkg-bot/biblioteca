@@ -20,7 +20,7 @@
                 <br>
                 <p ng-show="!usuario.nome || !usuario.email || !usuario.senha" class="font-style">Campos Obrigatórios (*)</p>
                 <!-- Raised button with ripple -->
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" ng-disabled="!usuario.nome || !usuario.email || !usuario.senha">
+                <button id="save" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" ng-disabled="!usuario.nome || !usuario.email || !usuario.senha">
                     Cadastrar
                 </button>
             </div>

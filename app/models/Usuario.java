@@ -34,6 +34,9 @@ public class Usuario extends Model {
     @Column(nullable = false)
     private Integer privilegio;
 
+    @Column(nullable = false)
+    private Boolean status;
+
     @Formats.DateTime(pattern="dd-MM-yyyy")
     private Date dataCadastro;
 
@@ -47,9 +50,6 @@ public class Usuario extends Model {
     public void setStatus(Boolean status) {
         this.status = status;
     }
-
-    @Column(nullable = false)
-    private Boolean status;
 
     public Long getId() {
         return id;

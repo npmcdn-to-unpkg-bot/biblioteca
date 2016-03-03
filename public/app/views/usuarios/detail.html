@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Detalhe</title>
-</head>
-<body>
-    <h1>Detalhe Usuário</h1>
-</body>
-</html>
+<script type="text/ng-template" id="templateId">
+    <div class="mdl-dialog__content">
+        Deseja excluir o usuário?
+    </div>
+    <div class="mdl-dialog__actions">
+        <button ng-click="delete()" type="button" class="mdl-button">Sim</button>
+        <button ng-click="closeThisDialog('Cancelar')" type="button" class="mdl-button">Cancelar</button>
+    </div>
+</script>
+<div class="well">
+
+    <!-- Título da Página-->
+    <legend>
+        <h1 class="font-style">
+            <i class="fa fa-users"></i> Detalhe do Usuário
+            <div class="pull-right">
+                <a type="button" class="btn btn-primary" href="#/usuarios/editar/{{usuario.id}}">
+                    <span class="fa fa-refresh"></span> Editar
+                </a>
+                <button type="button" ng-click="opendialog();" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">Remover</button>
+                <a class="btn btn-default" href="#/usuarios">
+                    <span class="fa fa-arrow-left"></span> Voltar
+                </a>
+            </div>
+        </h1>
+    </legend>
+
+    <form ng-init="init()">
+        <div class="item-form width-600 margin-bottom-15">
+            <label class="display-block strong">Email/Login</label>
+            <p class="display-block margin-left-027em">{{usuario.email}}</p>
+        </div>
+        <div class="item-form width-600 margin-bottom-15">
+            <label class="display-block strong">Privilégio</label>
+            <p class="display-block margin-left-027em">{{usuario.privilegio}}</p>
+        </div>
+        <div class="item-form width-600 margin-bottom-15">
+            <label class="display-block strong">Data/Hora de Cadastro</label>
+            <p type="date" class="display-block margin-left-027em">{{usuario.dataCadastro | date:'dd/MM/yyyy : HH:mm'}}</p>
+        </div>
+        <div data-ng-show="usuario.dataAlteracao" class="item-form width-600 margin-bottom-15">
+            <label class="display-block strong">Data/Hora de Alteração</label>
+            <p class="display-block margin-left-027em">{{usuario.dataAlteracao | date:'dd/MM/yyyy : HH:mm'}}</p>
+        </div>
+    </form>
+</div>

@@ -6,7 +6,8 @@ angular
              'ngAria',
              'ngAnimate',
              'angular-loading-bar',
-             'toastr'
+             'toastr',
+             'ngDialog'
             ]
         )
     .config(function ($routeProvider) {
@@ -97,8 +98,9 @@ angular
    }).config(function(toastrConfig) {
         //configurações do toastr
        angular.extend(toastrConfig, {
+         positionClass: 'toast-bottom-right',
          allowHtml: false,
-         closeButton: false,
+         closeButton: true,
          closeHtml: '<button>&times;</button>',
          extendedTimeOut: 1000,
          iconClasses: {
@@ -117,7 +119,7 @@ angular
            toast: 'directives/toast/toast.html',
            progressbar: 'directives/progressbar/progressbar.html'
          },
-         timeOut: 5000,
+         timeOut: 4000,
          titleClass: 'toast-title',
          toastClass: 'toast'
        });

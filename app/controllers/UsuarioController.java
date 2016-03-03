@@ -39,6 +39,29 @@ public class UsuarioController extends Controller {
         return ok(views.html.cadastro.render(form));
     }
 
+    public Result cadastrar() {
+
+        Usuario usuario = Json.fromJson(request().body().asJson(), Usuario.class);
+
+        Usuario usuarioBusca = Ebean.find(Usuario.class).where().eq("email", usuario.getEmail()).findUnique();
+
+        if (usuarioBusca != null) {
+            return badRequest("O usuário '" + usuarioBusca.getEmail() + "' já esta cadastrado.");
+        }
+
+        usuario.setDataCadastro(new Date());
+        usuario.setStatus(true);
+        usuario.setPrivilegio(2);
+
+        try {
+            Ebean.save(usuario);
+        } catch (Exception e) {
+            return badRequest("Erro interno de sistema.");
+        }
+
+        return created(Json.toJson(usuario));
+    }
+
     public Result inserir(){
         Form<DynamicForm.Dynamic> formPreenchido = form.bindFromRequest();
 
@@ -91,7 +114,7 @@ public class UsuarioController extends Controller {
         return ok(views.html.cadastrado.render(username));
     }
 
-    @Security.Authenticated(PlayAuthenticatedSecured.class)
+    //@Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result atualizar(Long id) {
 
         String username = session().get("email");
@@ -122,20 +145,20 @@ public class UsuarioController extends Controller {
         return ok(Json.toJson(usuario));
     }
 
-    @Security.Authenticated(PlayAuthenticatedSecured.class)
+    //@Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result buscaPorId(Long id) {
 
         String username = session().get("email");
 
         //busca o usuário atual que esteja logado no sistema
-        Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
-                .setParameter("email", username)
-                .findUnique();
+//        Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
+//                .setParameter("email", username)
+//                .findUnique();
 
         //verificar se o usuario atual encontrado é administrador
-        if (usuarioAtual.getPrivilegio() == 1) {
-            return badRequest("Você não tem privilégios de Administrador");
-        }
+//        if (usuarioAtual.getPrivilegio() == 1) {
+//            return badRequest("Você não tem privilégios de Administrador");
+//        }
 
         Usuario usuario = Ebean.find(Usuario.class, id);
 
@@ -147,7 +170,7 @@ public class UsuarioController extends Controller {
         return ok(Json.toJson(usuario));
     }
 
-    @Security.Authenticated(PlayAuthenticatedSecured.class)
+    //@Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result buscaTodos() {
 
         Logger.info("Busca todos os Usuários.");
@@ -160,13 +183,13 @@ public class UsuarioController extends Controller {
                 .findUnique();
 
         //busca todos os usuários menos o usuário padrão do sistema
-        Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where (email != 'admin@market.com')");
+        Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where (email != 'admin@biblioteca.com')");
         List<Usuario> filtroDeUsuarios = query.findList();
 
         return ok(Json.toJson(filtroDeUsuarios));
     }
 
-    @Security.Authenticated(PlayAuthenticatedSecured.class)
+    //@Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result remover(Long id) {
 
         String username = session().get("email");
@@ -174,14 +197,14 @@ public class UsuarioController extends Controller {
         Usuario usuario = Ebean.find(Usuario.class, id);
 
         //busca o usuário atual que esteja logado no sistema
-        Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
-                .setParameter("email", username)
-                .findUnique();
+//        Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
+//                .setParameter("email", username)
+//                .findUnique();
 
         //verificar se o usuario atual encontrado é administrador
-        if (usuarioAtual.getPrivilegio() == 1) {
-            return badRequest("Você não tem privilégios de Administrador");
-        }
+//        if (usuarioAtual.getPrivilegio() == 1) {
+//            return badRequest("Você não tem privilégios de Administrador");
+//        }
 
         if (usuario == null) {
             Logger.warn("Usuário não encontrado.");
@@ -189,9 +212,9 @@ public class UsuarioController extends Controller {
         }
 
 
-        if (usuarioAtual.getEmail().equals(usuario.getEmail())) {
-            return badRequest("Não excluir seu próprio usuário enquanto ele estiver autenticado.");
-        }
+//        if (usuarioAtual.getEmail().equals(usuario.getEmail())) {
+//            return badRequest("Não excluir seu próprio usuário enquanto ele estiver autenticado.");
+//        }
 
         try {
             Ebean.delete(usuario);
@@ -207,21 +230,21 @@ public class UsuarioController extends Controller {
         return ok(Json.toJson(usuario));
     }
 
-    @Security.Authenticated(PlayAuthenticatedSecured.class)
+    //@Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result filtra(String filtro) {
         Logger.info("Filtra Usuário.");
 
         String username = session().get("email");
 
         //busca o usuário atual que esteja logado no sistema
-        Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
-                .setParameter("email", username)
-                .findUnique();
+//        Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
+//                .setParameter("email", username)
+//                .findUnique();
 
         //verificar se o usuario atual encontrado é administrador
-        if (usuarioAtual.getPrivilegio() == 1) {
-            return badRequest("Você não tem privilégios de Administrador.");
-        }
+//        if (usuarioAtual.getPrivilegio() == 1) {
+//            return badRequest("Você não tem privilégios de Administrador.");
+//        }
 
         Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where (email like :email)");
         query.setParameter("email", "%" + filtro + "%");

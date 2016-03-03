@@ -4,10 +4,11 @@ angular.module('architectplay')
     $rootScope.title = 'Usuários';
 
     $scope.save = function() {
-        Usuario.save($scope.usuario, function(data) {
+        Usuario.cadastrar($scope.usuario, function(data) {
             toastr.success('foi salvo com Sucesso.', 'O usuário: ' + $scope.usuario.email);
             $location.path('/usuarios');
         }, function(data) {
+            console.log(data);
             toastr.error(data.data, 'Não foi possível Salvar.');
         });
     };
@@ -16,7 +17,9 @@ angular.module('architectplay')
         $location.path('/usuarios');
     };
 
-  }).controller('usuario.list.controller', function ($scope, Usuario, toastr, $routeParams) {
+  }).controller('usuario.list.controller', function ($scope, $rootScope, Usuario, toastr, $routeParams) {
+
+    $rootScope.title = 'Usuários';
 
     $scope.init = function() {
         $scope.nomeFiltro = '';
@@ -44,7 +47,16 @@ angular.module('architectplay')
        };
     };
 
-  }).controller('usuario.detail.controller', function ($scope, $routeParams, $location, Usuario, toastr) {
+  }).controller('usuario.detail.controller', function ($scope, $rootScope, $routeParams, $location, Usuario, toastr, ngDialog) {
+
+    $rootScope.title = 'Usuários';
+
+    $scope.opendialog = function() {
+        ngDialog.open({
+            template: 'templateId',
+            controller:'usuario.detail.controller'
+        });
+    };
 
     $scope.init = function() {
         $scope.usuario = Usuario.get({id:$routeParams.id}, function(data) {
@@ -61,10 +73,10 @@ angular.module('architectplay')
 
         Usuario.delete({id:$routeParams.id}, function() {
             toastr.warning('foi removido com Sucesso.', 'O usuário: ' + $scope.usuarioExcluido);
-            $modalInstance.close();
+            $scope.closeThisDialog('Fechar')
             $location.path('/usuarios');
         }, function(data) {
-            $modalInstance.close();
+            $scope.closeThisDialog('Fechar')
             toastr.error(data.data, 'Não foi possível Remover.');
         });
     };
@@ -82,8 +94,9 @@ angular.module('architectplay')
         $modalInstance.dismiss('cancelModal');
     };
 
-  }).controller('usuario.edit.controller', function ($scope, $routeParams, $location, Usuario, toastr) {
+  }).controller('usuario.edit.controller', function ($scope, $rootScope, $routeParams, $location, Usuario, toastr) {
 
+    $rootScope.title = 'Usuários';
 
     $scope.init = function() {
         $scope.usuario = Usuario.get({id:$routeParams.id}, function(data) {
