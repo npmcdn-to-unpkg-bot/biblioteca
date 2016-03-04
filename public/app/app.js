@@ -22,11 +22,6 @@ angular
                 controller: 'contato.controller',
                 activetab: 'contato'
             })
-            .when('/usuarios/novo', {
-                templateUrl: '/assets/app/views/usuarios/create.html',
-                controller: 'usuario.create.controller',
-                activetab: 'usuarios'
-            })
             .when('/usuarios/detalhe/:id', {
                 templateUrl: '/assets/app/views/usuarios/detail.html',
                 controller: 'usuario.detail.controller',

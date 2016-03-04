@@ -7,40 +7,33 @@
         <button ng-click="closeThisDialog('Cancelar')" type="button" class="mdl-button">Cancelar</button>
     </div>
 </script>
-<div class="well">
-
-    <!-- Título da Página-->
-    <legend>
-        <h1 class="font-style">
-            <i class="fa fa-users"></i> Detalhe do Usuário
-            <div class="pull-right">
-                <a type="button" class="btn btn-primary" href="#/usuarios/editar/{{usuario.id}}">
-                    <span class="fa fa-refresh"></span> Editar
-                </a>
-                <button type="button" ng-click="opendialog();" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">Remover</button>
-                <a class="btn btn-default" href="#/usuarios">
-                    <span class="fa fa-arrow-left"></span> Voltar
-                </a>
+<div ng-init="init()" class="mdl-grid">
+    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Detalhe</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <label>Email</label>
+            <p>{{usuario.email}}</p>
+            <label>Nome</label>
+            <p>{{usuario.nome}}</p>
+            <label>Data de Cadastro</label>
+            <p>{{usuario.dataCadastro | date:'dd/MM/yyyy : HH:mm'}}</p>
+            <div data-ng-show="usuario.dataAlteracao">
+                <label>Data de Cadastro</label>
+                <p>{{usuario.dataAlteracao | date:'dd/MM/yyyy : HH:mm'}}</p>
             </div>
-        </h1>
-    </legend>
-
-    <form ng-init="init()">
-        <div class="item-form width-600 margin-bottom-15">
-            <label class="display-block strong">Email/Login</label>
-            <p class="display-block margin-left-027em">{{usuario.email}}</p>
         </div>
-        <div class="item-form width-600 margin-bottom-15">
-            <label class="display-block strong">Privilégio</label>
-            <p class="display-block margin-left-027em">{{usuario.privilegio}}</p>
+        <div class="mdl-card__menu">
+            <a href="/#/usuarios" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                <i class="material-icons">undo</i>
+            </a>
+            <a href="/#/usuarios/editar/{{usuario.id}}" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                <i class="material-icons">mode_edit</i>
+            </a>
+            <button ng-click="opendialog();" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                <i class="material-icons">delete</i>
+            </button>
         </div>
-        <div class="item-form width-600 margin-bottom-15">
-            <label class="display-block strong">Data/Hora de Cadastro</label>
-            <p type="date" class="display-block margin-left-027em">{{usuario.dataCadastro | date:'dd/MM/yyyy : HH:mm'}}</p>
-        </div>
-        <div data-ng-show="usuario.dataAlteracao" class="item-form width-600 margin-bottom-15">
-            <label class="display-block strong">Data/Hora de Alteração</label>
-            <p class="display-block margin-left-027em">{{usuario.dataAlteracao | date:'dd/MM/yyyy : HH:mm'}}</p>
-        </div>
-    </form>
+    </div>
 </div>

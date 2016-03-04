@@ -1,24 +1,18 @@
-<div class="mdl-grid">
-    <div class="demo-cards mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" id="nome" ng-model="contato.nome">
-            <label class="mdl-textfield__label" for="nome">Buscar</label>
-        </div>
-    </div>
-    <div class="demo-cards mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
-        <table ng-init="init()" class="mdl-data-table">
-            <thead>
-            <tr>
-                <th class="mdl-data-table__cell--non-numeric">Nome</th>
-                <th class="mdl-data-table__cell--non-numeric">Email</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="usuario in usuarios">
-                <td class="mdl-data-table__cell--non-numeric">{{usuario.nome}}</td>
-                <td class="mdl-data-table__cell--non-numeric">{{usuario.email}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+<table ng-init="init()" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <thead>
+    <tr>
+        <th class="mdl-data-table__cell--non-numeric">Nome</th>
+        <th>Email</th>
+        <th>Data de Cadastro</th>
+        <th>Data de Alteração</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="usuario in usuarios">
+        <td class="mdl-data-table__cell--non-numeric"><a ng-href="/#/usuarios/detalhe/{{usuario.id}}">{{usuario.nome}}</a></td>
+        <td>{{usuario.email}}</td>
+        <td>{{usuario.dataCadastro | date:'dd/MM/yyyy : HH:mm'}}</td>
+        <td>{{usuario.dataAlteracao | date:'dd/MM/yyyy : HH:mm'}}</td>
+    </tr>
+    </tbody>
+</table>

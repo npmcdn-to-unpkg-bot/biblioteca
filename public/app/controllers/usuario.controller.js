@@ -1,23 +1,5 @@
 angular.module('architectplay')
-  .controller('usuario.create.controller', function ($scope, $rootScope, $location, Usuario, toastr) {
-
-    $rootScope.title = 'Usuários';
-
-    $scope.save = function() {
-        Usuario.cadastrar($scope.usuario, function(data) {
-            toastr.success('foi salvo com Sucesso.', 'O usuário: ' + $scope.usuario.email);
-            $location.path('/usuarios');
-        }, function(data) {
-            console.log(data);
-            toastr.error(data.data, 'Não foi possível Salvar.');
-        });
-    };
-
-    $scope.cancel = function() {
-        $location.path('/usuarios');
-    };
-
-  }).controller('usuario.list.controller', function ($scope, $rootScope, Usuario, toastr, $routeParams) {
+    .controller('usuario.list.controller', function ($scope, $rootScope, Usuario, toastr, $routeParams) {
 
     $rootScope.title = 'Usuários';
 

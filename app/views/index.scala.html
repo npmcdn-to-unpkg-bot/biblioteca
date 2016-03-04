@@ -1,4 +1,4 @@
-@(username : String)
+@(username : String)(privilegio : Integer)
 <!doctype html>
 <!--
   Material Design Lite
@@ -58,6 +58,7 @@
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/styleartigo.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/cartao.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/video.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/tabela.css")">
 </head>
 <body>
 <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
@@ -94,16 +95,25 @@
             <a ng-class="{active: $route.current.activetab == 'home'}" class="mdl-navigation__link" href="/#/"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">home</i>Home</a>
             <a ng-class="{active: $route.current.activetab == 'cursos'}" class="mdl-navigation__link" href="/#/cursos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">school</i>Cursos Ead</a>
                 <div class="separador"></div>
+            @if(username){
                 <span class="mdl-navigation__link">Media</span>
                 <a ng-class="{active: $route.current.activetab == 'artigos'}" class="mdl-navigation__link" href="/#/artigos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">book</i>Artigos</a>
                 <a ng-class="{active: $route.current.activetab == 'livros'}" class="mdl-navigation__link" href="/#/livros"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">library_books</i>Livros</a>
                 <a ng-class="{active: $route.current.activetab == 'videos'}" class="mdl-navigation__link" href="/#/videos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">video_library</i>Videos</a>
                 <a ng-class="{active: $route.current.activetab == 'fotos'}" class="mdl-navigation__link" href="/#/fotos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">photo</i>Fotos</a>
-            <div class="separador"></div>
+                <div class="separador"></div>
+            }
             <span class="mdl-navigation__link">Contato</span>
             <a ng-class="{active: $route.current.activetab == 'contato'}" class="mdl-navigation__link" href="/#/contato"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">contact_mail</i>Fale conosco</a>
             <a ng-class="{active: $route.current.activetab == 'direitos'}" class="mdl-navigation__link" href="/#/direitos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">copyright</i>Direitos</a>
             <a class="mdl-navigation__link" href="https://cibiogas.org/" target="_blank"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">public</i>Conheça nosso site</a>
+            @if(username){
+                @if(privilegio == 1){
+                    <div class="separador"></div>
+                    <span class="mdl-navigation__link">Administração</span>
+                    <a ng-class="{active: $route.current.activetab == 'usuarios'}" class="mdl-navigation__link" href="/#/usuarios"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">perm_identity</i>Usuários</a>
+                }
+            }
             <div class="mdl-layout-spacer"></div>
         </nav>
     </div>
