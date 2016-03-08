@@ -1,0 +1,15 @@
+.demo-list-three {
+  padding: 1px;
+}
+
+.filtrar {
+    color: #000;
+    font-size: 16px;
+    left: 9px;
+    margin-top: 1px;
+    right: 9px;
+    bottom: 0;
+    padding: 8px;
+    height: auto;
+    width: 50%;
+}

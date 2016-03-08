@@ -47,7 +47,7 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/material-design-lite/material.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/material-design-lite/material.min.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/angular-loading-bar/src/loading-bar.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/angular-toastr/dist/angular-toastr.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/angular-motion/dist/angular-motion.css")">
@@ -64,7 +64,7 @@
 <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     <header class="demo-header mdl-layout__header mdl-color--deep-orange-cibiogas mdl-color-text--white">
         <div class="mdl-layout__header-row">
-            <span class="mdl-layout-title">{{title}}</span>
+            <span data-ng-show="title" class="mdl-layout-title">{{title}}</span>
             <div class="mdl-layout-spacer"></div>
             @if(username){
                 <span>@username</span>
@@ -74,7 +74,7 @@
             </button>
             <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
                 @if(username){
-                    <a href="" class="mdl-menu__item mdl-menu__item--full-bleed-divider">Perfil</a>
+                    <a href="/#/usuarios/detalhe/1" class="mdl-menu__item mdl-menu__item--full-bleed-divider">Perfil</a>
                 }
                 @if(!username){
                     <a href="/login" class="mdl-menu__item">Login</a>

@@ -13,27 +13,39 @@
             <h2 class="mdl-card__title-text">Detalhe</h2>
         </div>
         <div class="mdl-card__supporting-text">
-            <label>Email</label>
-            <p>{{usuario.email}}</p>
-            <label>Nome</label>
+            <strong>Nome</strong>
             <p>{{usuario.nome}}</p>
-            <label>Data de Cadastro</label>
-            <p>{{usuario.dataCadastro | date:'dd/MM/yyyy : HH:mm'}}</p>
+            <strong>Email</strong>
+            <p>{{usuario.email}}</p>
+            <div data-ng-show="usuario.dataCadastro">
+            <strong>Data de Cadastro</strong>
+                <p>{{usuario.dataCadastro | date:'dd/MM/yyyy : HH:mm'}}</p>
+            </div>
             <div data-ng-show="usuario.dataAlteracao">
-                <label>Data de Cadastro</label>
+                <strong>Data de Cadastro</strong>
                 <p>{{usuario.dataAlteracao | date:'dd/MM/yyyy : HH:mm'}}</p>
             </div>
         </div>
         <div class="mdl-card__menu">
-            <a href="/#/usuarios" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                <i class="material-icons">undo</i>
+            <!-- Rich Tooltip -->
+            <a id="voltar" href="/#/usuarios" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                <i class="icon material-icons">undo</i>
             </a>
-            <a href="/#/usuarios/editar/{{usuario.id}}" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                <i class="material-icons">mode_edit</i>
+            <div class="mdl-tooltip" for="voltar">
+                Voltar
+            </div>
+            <a id="editar" href="/#/usuarios/editar/{{usuario.id}}" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                <i class="icon material-icons">mode_edit</i>
             </a>
-            <button ng-click="opendialog();" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                <i class="material-icons">delete</i>
+            <div class="mdl-tooltip" for="editar">
+                Editar
+            </div>
+            <button id="excluir" ng-click="opendialog();" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                <i class="icon material-icons">delete</i>
             </button>
+            <div class="mdl-tooltip" for="excluir">
+                Excluir
+            </div>
         </div>
     </div>
 </div>

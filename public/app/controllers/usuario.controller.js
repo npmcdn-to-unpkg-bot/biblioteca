@@ -5,6 +5,7 @@ angular.module('architectplay')
 
     $scope.init = function() {
         $scope.nomeFiltro = '';
+        $scope.filtrados = 0;
 
         Usuario.getAll(function(data) {
            $scope.usuarios = data;
@@ -19,6 +20,7 @@ angular.module('architectplay')
        if ($scope.nomeFiltro) {
             Usuario.getFiltroUsuario({filtro:$scope.nomeFiltro}, $scope.usuario, function(data) {
                 $scope.usuarios = data;
+                $scope.filtrados = $scope.usuarios.length;
             }, function(data) {
                  toastr.error(data.data,'Não autorizado');
              });
