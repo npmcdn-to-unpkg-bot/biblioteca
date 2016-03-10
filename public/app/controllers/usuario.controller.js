@@ -93,6 +93,7 @@ angular.module('architectplay')
         Usuario.update({id:$routeParams.id}, $scope.usuario, function(data) {
             toastr.info('foi atualizado com Sucesso.', 'O usuário: ' + $scope.usuario.email);
             $location.path('/usuarios');
+            console.log($scope.usuario);
         },function(data) {
            toastr.error(data.data, 'Não foi possível Atualizar.');
         });

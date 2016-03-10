@@ -1,6 +1,8 @@
 package models;
 
 import com.avaje.ebean.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.libs.Json;
@@ -29,6 +31,7 @@ public class Usuario extends Model {
     private String email;
 
     @Column(nullable = false, length = 60)
+    @JsonIgnore
     private String senha;
 
     @Column(nullable = false)
@@ -67,10 +70,12 @@ public class Usuario extends Model {
         this.email = email;
     }
 
+    @JsonIgnore
     public String getSenha() {
         return senha;
     }
 
+    @JsonProperty
     public void setSenha(String senha) {
         this.senha = senha;
     }

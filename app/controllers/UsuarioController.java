@@ -115,6 +115,7 @@ public class UsuarioController extends Controller {
             Ebean.update(usuario);
             Logger.info("Usuario atualizado.");
         } catch (Exception e) {
+            Logger.info(e.getMessage());
             return badRequest("Erro interno de sistema!");
         }
 
