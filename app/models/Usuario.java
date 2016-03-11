@@ -24,7 +24,7 @@ public class Usuario extends Model {
     @Id
     private Long id;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 60)
     private String nome;
 
     @Column(nullable = false, unique = true, length = 30)

@@ -75,6 +75,7 @@ public class UsuarioController extends Controller {
         } catch (Exception e) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject("Erro interno de sistema!");
+            Logger.info(e.getMessage());
             return badRequest(views.html.cadastro.render(formDeErro));
         }
 

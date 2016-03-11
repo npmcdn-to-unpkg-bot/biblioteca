@@ -19,7 +19,7 @@ create table material (
 
 create table usuario (
   id                        bigserial not null,
-  nome                      varchar(30) not null,
+  nome                      varchar(60) not null,
   email                     varchar(30) not null,
   senha                     varchar(60) not null,
   privilegio                integer not null,
