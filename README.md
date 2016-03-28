@@ -1,4 +1,4 @@
-# Biblioteca Virtual
+# Biblioteca Digital
 
 #### Version information
 Playframework Java 2.4
@@ -7,7 +7,7 @@ Playframework Java 2.4
 * Português.
 
 ## Versões
-* **0.0.0** [2016-03-28]
+* **0.0.1** [2016-03-28]
   * Initial release.
   
 ## License
