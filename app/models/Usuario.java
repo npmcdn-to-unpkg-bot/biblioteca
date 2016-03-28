@@ -62,6 +62,14 @@ public class Usuario extends Model {
         this.id = id;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -102,14 +110,6 @@ public class Usuario extends Model {
 
     public void setDataAlteracao(Date dataAlteracao) {
         this.dataAlteracao = dataAlteracao;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     @Override

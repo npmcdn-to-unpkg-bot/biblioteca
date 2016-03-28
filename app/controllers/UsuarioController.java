@@ -127,23 +127,23 @@ public class UsuarioController extends Controller {
     public Result buscaPorId(Long id) {
         String username = session().get("email");
 
+        Usuario usuarioEncontrado = Ebean.find(Usuario.class, id);
+
+        if (usuarioEncontrado == null) {
+            return notFound("Usuário não encontrado.");
+        }
+
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
                 .setParameter("email", username)
                 .findUnique();
 
-        //verificar se o usuario atual encontrado é administrador
-        if (usuarioAtual.getPrivilegio() != 1) {
-            return badRequest("Você não tem privilégios de Administrador");
+        //se o email do usuario atual for diferente do usuario buscado e ele nao for administrador retorne badrequest
+        if (!usuarioAtual.getEmail().equals(usuarioEncontrado.getEmail()) && (usuarioAtual.getPrivilegio() != 1)) {
+            return badRequest("Não é possível realizar esta operação");
         }
 
-        Usuario usuario = Ebean.find(Usuario.class, id);
-
-        if (usuario == null) {
-            return notFound("Usuário não encontrado.");
-        }
-
-        return ok(Json.toJson(usuario));
+        return ok(Json.toJson(usuarioEncontrado));
     }
 
     @Security.Authenticated(PlayAuthenticatedSecured.class)
@@ -187,7 +187,7 @@ public class UsuarioController extends Controller {
             return notFound("Usuário não encontrado");
         }
 
-        //caso o usuario administrador querer excluir outro administrado
+        //caso o usuario administrador querer excluir outro administrador
         if (usuarioAtual.getEmail().equals(usuario.getEmail())) {
             return badRequest("Não excluir seu próprio usuário enquanto ele estiver autenticado.");
         }
