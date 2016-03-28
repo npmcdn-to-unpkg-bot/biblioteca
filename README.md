@@ -1,7 +1,7 @@
 # Biblioteca Virtual
 
 #### Version information
-PlayFramework 2.4
+Playframework Java 2.4
 
 ### Idiomas
 * Português.
