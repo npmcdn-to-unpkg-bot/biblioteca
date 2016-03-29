@@ -3,24 +3,25 @@
 # ~~~~
 
 # Home page
-GET     /                                controllers.Application.index()
+GET     /                                   controllers.Application.index()
 
 # Login
-GET     /login                            controllers.LoginController.loginTela()
-GET     /autenticado                      controllers.LoginController.telaAutenticado()
-GET     /saiu                             controllers.LoginController.telaLogout()
-POST    /autenticar                       controllers.LoginController.autenticar()
-GET     /logout                           controllers.LoginController.logout()
+POST    /autenticar                         controllers.LoginController.autenticar()
+GET     /login                              controllers.LoginController.loginTela()
+GET     /autenticado                        controllers.LoginController.telaAutenticado()
+GET     /saiu                               controllers.LoginController.telaLogout()
+GET     /logout                             controllers.LoginController.logout()
 
 # Usuario
-POST    /usuarios                     controllers.UsuarioController.inserir()
-PUT     /usuarios/:id                 controllers.UsuarioController.atualizar(id:Long)
-GET     /usuarios                     controllers.UsuarioController.buscaTodos()
-GET     /usuarios/:id                 controllers.UsuarioController.buscaPorId(id:Long)
-DELETE  /usuarios/:id                 controllers.UsuarioController.remover(id:Long)
-GET     /usuarios/filtro/:filtro      controllers.UsuarioController.filtra(filtro:String)
-GET     /usuarioCadastrado            controllers.UsuarioController.telaCadastrado()
-GET     /cadastro                     controllers.UsuarioController.telaCadastro()
+POST    /usuario                            controllers.UsuarioController.inserir()
+PUT     /usuario/:id                        controllers.UsuarioController.atualizar(id:Long)
+DELETE  /usuario/:id                        controllers.UsuarioController.remover(id:Long)
+GET     /usuario/:id                        controllers.UsuarioController.buscaPorId(id:Long)
+GET     /usuario/cadastrado                 controllers.UsuarioController.telaCadastrado()
+GET     /current                            controllers.UsuarioController.autenticado()
+GET     /usuarios/filtro/:filtro            controllers.UsuarioController.filtra(filtro:String)
+GET     /usuarios                           controllers.UsuarioController.buscaTodos()
+GET     /cadastro                           controllers.UsuarioController.telaCadastro()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

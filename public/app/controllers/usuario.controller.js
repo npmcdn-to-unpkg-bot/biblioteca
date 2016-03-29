@@ -18,7 +18,7 @@ angular.module('architectplay')
     $scope.busca = function() {
 
        if ($scope.nomeFiltro) {
-            Usuario.getFiltroUsuario({filtro:$scope.nomeFiltro}, $scope.usuario, function(data) {
+            Usuario.getFiltroUsuarios({filtro:$scope.nomeFiltro}, $scope.usuario, function(data) {
                 $scope.usuarios = data;
                 $scope.filtrados = $scope.usuarios.length;
             }, function(data) {
@@ -96,6 +96,14 @@ angular.module('architectplay')
         },function(data) {
            toastr.error(data.data, 'Não foi possível Atualizar.');
         });
+    };
+
+  }).controller('usuario.perfil.controller', function ($scope, $rootScope, $routeParams, $location, Usuario, toastr) {
+
+    $scope.init = function() {
+      Usuario.getAutenticado(function(data){
+          $rootScope.usuario = data;
+      });
     };
 
   });

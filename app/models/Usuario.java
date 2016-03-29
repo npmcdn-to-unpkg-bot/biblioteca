@@ -38,6 +38,7 @@ public class Usuario extends Model {
     private Integer privilegio;
 
     @Column(nullable = false)
+    @JsonIgnore
     private Boolean status;
 
     @Formats.DateTime(pattern="dd-MM-yyyy")
@@ -46,10 +47,12 @@ public class Usuario extends Model {
     @Formats.DateTime(pattern="dd-MM-yyyy")
     private Date dataAlteracao;
 
+    @JsonIgnore
     public Boolean getStatus() {
         return status;
     }
 
+    @JsonProperty
     public void setStatus(Boolean status) {
         this.status = status;
     }

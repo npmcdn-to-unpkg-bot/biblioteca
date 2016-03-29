@@ -37,6 +37,11 @@ angular
                 controller: 'usuario.list.controller',
                 activetab: 'usuarios'
             })
+            .when('/usuario/perfil', {
+                templateUrl: '/assets/app/views/usuarios/perfil.html',
+                controller: 'usuario.perfil.controller',
+                activetab: 'usuarios'
+            })
             .when('/livros', {
                 templateUrl: '/assets/app/views/livros/list.html',
                 controller: 'livro.controller',

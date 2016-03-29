@@ -30,6 +30,7 @@ public class UsuarioController extends Controller {
 
     private static DynamicForm form = Form.form();
 
+
     public Result telaCadastrado() {
         String username = session().get("email");
         return ok(views.html.cadastrado.render(username));
@@ -39,6 +40,19 @@ public class UsuarioController extends Controller {
         return ok(views.html.cadastro.render(form));
     }
 
+    //busca e retorna o objeto usuario atual
+    public Usuario atual() {
+        String username = session().get("email");
+
+        //busca o usuário atual que esteja logado no sistema
+        Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
+                .setParameter("email", username)
+                .findUnique();
+
+        return usuarioAtual;
+    }
+
+    //insere usuario no banco de dados
     public Result inserir(){
         Form<DynamicForm.Dynamic> formPreenchido = form.bindFromRequest();
 
@@ -93,17 +107,22 @@ public class UsuarioController extends Controller {
     }
 
     @Security.Authenticated(PlayAuthenticatedSecured.class)
+    public Result autenticado() {
+        Usuario usuarioAtual = atual();
+
+        if (usuarioAtual == null) {
+            return notFound("Usuario não autenticado");
+        }
+
+        return ok(Json.toJson(usuarioAtual));
+    }
+
+    @Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result atualizar(Long id) {
-        String username = session().get("email");
 
         Usuario usuario = Json.fromJson(request().body().asJson(), Usuario.class);
 
         Usuario usuarioBusca = Ebean.find(Usuario.class, id);
-
-        //busca o usuário atual que esteja logado no sistema
-        Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
-                .setParameter("email", username)
-                .findUnique();
 
         if (usuarioBusca == null) {
             return badRequest("Usuário não encontrado.");
@@ -125,35 +144,37 @@ public class UsuarioController extends Controller {
 
     @Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result buscaPorId(Long id) {
-        String username = session().get("email");
-
-        Usuario usuarioEncontrado = Ebean.find(Usuario.class, id);
-
-        if (usuarioEncontrado == null) {
-            return notFound("Usuário não encontrado.");
-        }
 
         //busca o usuário atual que esteja logado no sistema
-        Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
-                .setParameter("email", username)
-                .findUnique();
+        Usuario usuarioAtual = atual();
+
+        if (usuarioAtual == null) {
+            return notFound("Usuario não autenticado");
+        }
+
+        //busca o usuário para excluir
+        Usuario usuario = Ebean.find(Usuario.class, id);
+
+        if (usuario == null) {
+            return notFound("Usuário não encontrado");
+        }
 
         //se o email do usuario atual for diferente do usuario buscado e ele nao for administrador retorne badrequest
-        if (!usuarioAtual.getEmail().equals(usuarioEncontrado.getEmail()) && (usuarioAtual.getPrivilegio() != 1)) {
+        if (!usuarioAtual.getEmail().equals(usuario.getEmail()) && (usuarioAtual.getPrivilegio() != 1)) {
             return badRequest("Não é possível realizar esta operação");
         }
 
-        return ok(Json.toJson(usuarioEncontrado));
+        return ok(Json.toJson(usuario));
     }
 
     @Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result buscaTodos() {
-        String username = session().get("email");
-
         //busca o usuário atual que esteja logado no sistema
-        Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
-                .setParameter("email", username)
-                .findUnique();
+        Usuario usuarioAtual = atual();
+
+        if (usuarioAtual == null) {
+            return notFound("Usuario não autenticado");
+        }
 
         //verificar se o usuario atual encontrado é administrador
         if (usuarioAtual.getPrivilegio() != 1) {
@@ -169,19 +190,20 @@ public class UsuarioController extends Controller {
 
     @Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result remover(Long id) {
-        String username = session().get("email");
-
-        Usuario usuario = Ebean.find(Usuario.class, id);
-
         //busca o usuário atual que esteja logado no sistema
-        Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
-                .setParameter("email", username)
-                .findUnique();
+        Usuario usuarioAtual = atual();
+
+        if (usuarioAtual == null) {
+            return notFound("Usuario não autenticado");
+        }
 
         //verificar se o usuario atual encontrado é administrador
         if (usuarioAtual.getPrivilegio() != 1) {
             return badRequest("Você não tem privilégios de Administrador");
         }
+
+        //busca o usuario para ser excluido
+        Usuario usuario = Ebean.find(Usuario.class, id);
 
         if (usuario == null) {
             return notFound("Usuário não encontrado");
@@ -195,6 +217,7 @@ public class UsuarioController extends Controller {
         try {
             Ebean.delete(usuario);
         }  catch (Exception e) {
+            Logger.info(e.getMessage());
             return badRequest("Erro interno de sistema.");
         }
 
@@ -203,12 +226,12 @@ public class UsuarioController extends Controller {
 
     @Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result filtra(String filtro) {
-        String username = session().get("email");
-
         //busca o usuário atual que esteja logado no sistema
-        Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
-                .setParameter("email", username)
-                .findUnique();
+        Usuario usuarioAtual = atual();
+
+        if (usuarioAtual == null) {
+            return notFound("Usuario não autenticado");
+        }
 
         //verificar se o usuario atual encontrado é administrador
         if (usuarioAtual.getPrivilegio() != 1) {
@@ -225,4 +248,5 @@ public class UsuarioController extends Controller {
 
         return ok(Json.toJson(filtroDeUsuarios));
     }
+
 }
