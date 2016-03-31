@@ -4,9 +4,6 @@ import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 
-/**
- * Created by haroldo on 25/01/16.
- */
 public class PlayAuthenticatedSecured extends Security.Authenticator {
 
     @Override

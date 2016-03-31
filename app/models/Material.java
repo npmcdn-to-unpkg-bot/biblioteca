@@ -7,10 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-/**
- * Created by haroldo on 26/01/16.
- */
-
 @Entity
 public class Material extends Model {
 

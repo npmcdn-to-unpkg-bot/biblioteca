@@ -12,10 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
 
-/**
- * Created by haroldo on 21/01/16.
- */
-
 @Entity
 public class Usuario extends Model {
 

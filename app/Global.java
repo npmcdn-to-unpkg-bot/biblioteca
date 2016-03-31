@@ -8,9 +8,6 @@ import play.mvc.Result;
 
 import static play.mvc.Results.notFound;
 
-/**
- * Created by haroldo on 25/01/16.
- */
 public class Global extends GlobalSettings {
 
     @Override

@@ -4,9 +4,6 @@ import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
 import play.libs.F;
 
-/**
- * Created by haroldo on 21/01/16.
- */
 public class Usuarios extends Model {
 
     public static F.Option<Usuario> existe(String email, String senha) {

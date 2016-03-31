@@ -8,7 +8,11 @@ import play.mvc.Result;
 
 public class Application extends Controller {
 
-    //@Cached(key = "homePage")
+    /**
+     * show index page
+     *
+     * @return index page if user auth or not auth
+     */
     public Result index() {
         String username = session().get("email");
 

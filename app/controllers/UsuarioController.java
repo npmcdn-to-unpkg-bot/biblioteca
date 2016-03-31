@@ -20,9 +20,6 @@ import javax.persistence.PersistenceException;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by haroldo on 25/01/16.
- */
 public class UsuarioController extends Controller {
 
 //    @Inject
@@ -30,17 +27,24 @@ public class UsuarioController extends Controller {
 
     private static DynamicForm form = Form.form();
 
-
+    /**
+     * @return cadastrado form if register success
+     */
     public Result telaCadastrado() {
         String username = session().get("email");
         return ok(views.html.cadastrado.render(username));
     }
 
+    /**
+     * @return cadastro form for register a new user
+     */
     public Result telaCadastro() {
         return ok(views.html.cadastro.render(form));
     }
 
-    //busca e retorna o objeto usuario atual
+    /**
+     * @return a object user authenticated
+     */
     public Usuario atual() {
         String username = session().get("email");
 
@@ -52,7 +56,9 @@ public class UsuarioController extends Controller {
         return usuarioAtual;
     }
 
-    //insere usuario no banco de dados
+    /**
+     * @return a form cadastrado if OK or a form error if KO
+     */
     public Result inserir(){
         Form<DynamicForm.Dynamic> formPreenchido = form.bindFromRequest();
 
@@ -106,6 +112,9 @@ public class UsuarioController extends Controller {
         return ok(views.html.cadastrado.render(username));
     }
 
+    /**
+     * @return ok if user is authenticated or notfound
+     */
     @Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result autenticado() {
         Usuario usuarioAtual = atual();
@@ -117,6 +126,9 @@ public class UsuarioController extends Controller {
         return ok(Json.toJson(usuarioAtual));
     }
 
+    /**
+     * @return ok if user update or error if KO
+     */
     @Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result atualizar(Long id) {
 
@@ -142,6 +154,9 @@ public class UsuarioController extends Controller {
         return ok(Json.toJson(usuario));
     }
 
+    /**
+     * @return ok if user wanted or error notfound
+     */
     @Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result buscaPorId(Long id) {
 
@@ -159,7 +174,10 @@ public class UsuarioController extends Controller {
             return notFound("Usuário não encontrado");
         }
 
-        //se o email do usuario atual for diferente do usuario buscado e ele nao for administrador retorne badrequest
+        /**
+         * @return badrequest if user authenticated email and user not a administrator. Special case
+         * verifica se o email do usuario logado no sistema é o mesmo do buscado e se ele e administrador
+         */
         if (!usuarioAtual.getEmail().equals(usuario.getEmail()) && (usuarioAtual.getPrivilegio() != 1)) {
             return badRequest("Não é possível realizar esta operação");
         }
@@ -167,8 +185,12 @@ public class UsuarioController extends Controller {
         return ok(Json.toJson(usuario));
     }
 
+    /**
+     * @return ok list of users
+     */
     @Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result buscaTodos() {
+
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
 
@@ -188,6 +210,9 @@ public class UsuarioController extends Controller {
         return ok(Json.toJson(filtroDeUsuarios));
     }
 
+    /**
+     * @return ok if user deleted or notfound if KO
+     */
     @Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result remover(Long id) {
         //busca o usuário atual que esteja logado no sistema
@@ -224,6 +249,9 @@ public class UsuarioController extends Controller {
         return ok(Json.toJson(usuario));
     }
 
+    /**
+     * @return ok if user filter or error if not administrator
+     */
     @Security.Authenticated(PlayAuthenticatedSecured.class)
     public Result filtra(String filtro) {
         //busca o usuário atual que esteja logado no sistema

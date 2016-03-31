@@ -10,13 +10,15 @@ import play.libs.F;
 import play.mvc.Controller;
 import play.mvc.Result;
 
-/**
- * Created by haroldo on 21/01/16.
- */
 public class LoginController extends Controller {
 
     private static DynamicForm form = Form.form();
 
+    public Result GO_INDEX = redirect(routes.Application.index());
+
+    /**
+     * @return autenticado form if auth OK or login form is auth KO
+     */
     public Result loginTela() {
         String username = session().get("email");
 
@@ -32,16 +34,26 @@ public class LoginController extends Controller {
         return ok(views.html.login.render(form));
     }
 
+    /**
+     * @return autenticado form if auth OK
+     */
     public Result telaAutenticado() {
         String username = session().get("email");
-
         return ok(views.html.autenticado.render(username));
     }
 
+    /**
+     * @return logout form
+     */
     public Result telaLogout() {
         return ok(views.html.logout.render());
     }
 
+    /**
+     * Handle login form submission.
+     *
+     * @return  if auth OK or login form if auth KO
+     */
     public Result autenticar() {
 
         String username = session().get("email");
@@ -69,6 +81,9 @@ public class LoginController extends Controller {
         return forbidden(views.html.login.render(formDeErro));
     }
 
+    /**
+     * @return redirect telaLogout
+     */
     public Result logout() {
         session().clear();
         return redirect(routes.LoginController.telaLogout());
