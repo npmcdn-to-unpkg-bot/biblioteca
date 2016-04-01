@@ -4,7 +4,7 @@ import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 
-public class PlayAuthenticatedSecured extends Security.Authenticator {
+public class Secured extends Security.Authenticator {
 
     @Override
     public String getUsername(Http.Context ctx) {

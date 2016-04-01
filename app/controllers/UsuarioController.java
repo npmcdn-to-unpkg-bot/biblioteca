@@ -1,29 +1,30 @@
 package controllers;
 
-import actions.PlayAuthenticatedSecured;
+import actions.Secured;
 import akka.util.Crypt;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Query;
 import models.Usuario;
+import models.utils.Mail;
+import org.apache.commons.mail.EmailException;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
+import play.i18n.Messages;
 import play.libs.Json;
-import play.libs.mailer.Email;
 import play.libs.mailer.MailerClient;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 
 import javax.inject.Inject;
-import javax.persistence.PersistenceException;
 import java.util.Date;
 import java.util.List;
 
 public class UsuarioController extends Controller {
 
-//    @Inject
-//    MailerClient mailerClient;
+    @Inject
+    MailerClient mailerClient;
 
     private static DynamicForm form = Form.form();
 
@@ -57,7 +58,9 @@ public class UsuarioController extends Controller {
     }
 
     /**
-     * @return a form cadastrado if OK or a form error if KO
+     * Save a user
+     *
+     * @return a user json
      */
     public Result inserir(){
         Form<DynamicForm.Dynamic> formPreenchido = form.bindFromRequest();
@@ -101,21 +104,15 @@ public class UsuarioController extends Controller {
 
         String username = novo.getEmail();
 
-        //Envia email teste
-//        Email emailUser = new Email()
-//                .setSubject("Cadastro na Biblioteca")
-//                .setFrom("Biblioteca <biblioteca@email.com>")
-//                .addTo("<haroldo.nobrega@cibiogas.org>")
-//                .setBodyText("O Usuário foi cadastrado com sucesso!");
-//        mailerClient.send(emailUser);
-
         return ok(views.html.cadastrado.render(username));
     }
 
     /**
-     * @return ok if user is authenticated or notfound
+     * Retrieve a autenticated user
+     *
+     * @return a user json
      */
-    @Security.Authenticated(PlayAuthenticatedSecured.class)
+    @Security.Authenticated(Secured.class)
     public Result autenticado() {
         Usuario usuarioAtual = atual();
 
@@ -127,9 +124,12 @@ public class UsuarioController extends Controller {
     }
 
     /**
-     * @return ok if user update or error if KO
+     * Update a user from id
+     *
+     * @param id
+     * @return a user updated in json
      */
-    @Security.Authenticated(PlayAuthenticatedSecured.class)
+    @Security.Authenticated(Secured.class)
     public Result atualizar(Long id) {
 
         Usuario usuario = Json.fromJson(request().body().asJson(), Usuario.class);
@@ -155,9 +155,12 @@ public class UsuarioController extends Controller {
     }
 
     /**
-     * @return ok if user wanted or error notfound
+     * Retrieve a user from id
+     *
+     * @param id
+     * @return a user json
      */
-    @Security.Authenticated(PlayAuthenticatedSecured.class)
+    @Security.Authenticated(Secured.class)
     public Result buscaPorId(Long id) {
 
         //busca o usuário atual que esteja logado no sistema
@@ -186,9 +189,11 @@ public class UsuarioController extends Controller {
     }
 
     /**
-     * @return ok list of users
+     * Retrieve a list of all users
+     *
+     * @return a list of all users in json
      */
-    @Security.Authenticated(PlayAuthenticatedSecured.class)
+    @Security.Authenticated(Secured.class)
     public Result buscaTodos() {
 
         //busca o usuário atual que esteja logado no sistema
@@ -211,9 +216,12 @@ public class UsuarioController extends Controller {
     }
 
     /**
-     * @return ok if user deleted or notfound if KO
+     * Remove a user from a id
+     *
+     * @param id
+     * @return ok user on json
      */
-    @Security.Authenticated(PlayAuthenticatedSecured.class)
+    @Security.Authenticated(Secured.class)
     public Result remover(Long id) {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -250,9 +258,12 @@ public class UsuarioController extends Controller {
     }
 
     /**
-     * @return ok if user filter or error if not administrator
+     * Retrieve a list of users from a filter
+     *
+     * @param filtro
+     * @return a list of filter users in json
      */
-    @Security.Authenticated(PlayAuthenticatedSecured.class)
+    @Security.Authenticated(Secured.class)
     public Result filtra(String filtro) {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -275,6 +286,21 @@ public class UsuarioController extends Controller {
         filtroDeUsuarios.remove(usuarioAtual);
 
         return ok(Json.toJson(filtroDeUsuarios));
+    }
+
+    /**
+     * Send the confirm mail.
+     *
+     * @param usuario created
+     * @throws EmailException Exception when sending mail
+     */
+    private void sendMailConfirmation(Usuario usuario) throws EmailException {
+        String subject = Messages.get("mail.welcome.subject");
+        String message = Messages.get("mail.welcome.message");
+        //TODO
+        Mail.Envelop envelop = new Mail.Envelop(subject, message, usuario.getEmail());
+        Mail mailer = new Mail(mailerClient);
+        mailer.sendMail(envelop);
     }
 
 }

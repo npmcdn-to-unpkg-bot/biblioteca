@@ -11,7 +11,7 @@ angular.module('architectplay')
            $scope.usuarios = data;
            $scope.quantidade = $scope.usuarios.length;
         }, function(data) {
-            toastr.error(data.data, 'Não autorizado.');
+            toastr.error('Não autorizado.');
         });
     };
 
@@ -101,9 +101,10 @@ angular.module('architectplay')
   }).controller('usuario.perfil.controller', function ($scope, $rootScope, $routeParams, $location, Usuario, toastr) {
 
     $scope.init = function() {
-      Usuario.getAutenticado(function(data){
+      Usuario.getAutenticado(function(data) {
           $rootScope.usuario = data;
-      });
-    };
-
+       },function(data) {
+            toastr.error('Não autorizado');
+         });
+       }
   });
