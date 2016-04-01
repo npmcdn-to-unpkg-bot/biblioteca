@@ -9,7 +9,6 @@ import org.apache.commons.mail.EmailException;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
-import play.libs.Crypto;
 import play.libs.Json;
 import play.libs.mailer.Email;
 import play.libs.mailer.MailerClient;
@@ -17,7 +16,6 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 
-import javax.crypto.SecretKeyFactory;
 import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
