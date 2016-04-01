@@ -5,18 +5,19 @@ import akka.util.Crypt;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Query;
 import models.Usuario;
-import models.utils.Mail;
 import org.apache.commons.mail.EmailException;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
-import play.i18n.Messages;
+import play.libs.Crypto;
 import play.libs.Json;
+import play.libs.mailer.Email;
 import play.libs.mailer.MailerClient;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 
+import javax.crypto.SecretKeyFactory;
 import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
@@ -95,6 +96,7 @@ public class UsuarioController extends Controller {
 
         try {
             Ebean.save(novo);
+            enviarMail(novo);
         } catch (Exception e) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject("Erro interno de sistema!");
@@ -294,13 +296,14 @@ public class UsuarioController extends Controller {
      * @param usuario created
      * @throws EmailException Exception when sending mail
      */
-    private void sendMailConfirmation(Usuario usuario) throws EmailException {
-        String subject = Messages.get("mail.welcome.subject");
-        String message = Messages.get("mail.welcome.message");
-        //TODO
-        Mail.Envelop envelop = new Mail.Envelop(subject, message, usuario.getEmail());
-        Mail mailer = new Mail(mailerClient);
-        mailer.sendMail(envelop);
+    private void enviarMail(Usuario usuario) throws EmailException {
+        String name = usuario.getNome();
+        Email emailUser = new Email()
+                .setSubject("Cadastro na Biblioteca")
+                .setFrom("Biblioteca CIBiogás <biblioteca@email.com>")
+                .addTo(usuario.getEmail())
+                .setBodyText("O Usuário foi cadastrado com sucesso!");
+        mailerClient.send(emailUser);
     }
 
 }
