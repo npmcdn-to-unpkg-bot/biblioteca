@@ -56,14 +56,12 @@ public class LoginController extends Controller {
      */
     public Result autenticar() {
 
-        String username = session().get("email");
-
         Form<DynamicForm.Dynamic> requestForm = form.bindFromRequest();
 
         String email = requestForm.data().get("email");
         String senha = requestForm.data().get("senha");
 
-        if (email.toString() == "" || senha.toString() == "") {
+        if (email.equals("") || senha.equals("")) {
             DynamicForm formDeErro = form.fill(requestForm.data());
             formDeErro.reject("Email ou Senha não podem estar vazios!");
             return badRequest(views.html.login.render(formDeErro));

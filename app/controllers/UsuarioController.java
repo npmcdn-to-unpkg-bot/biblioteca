@@ -15,6 +15,7 @@ import play.libs.mailer.MailerClient;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
+import scala.reflect.internal.Trees;
 
 import javax.inject.Inject;
 import java.util.Date;
@@ -45,7 +46,7 @@ public class UsuarioController extends Controller {
     /**
      * @return a object user authenticated
      */
-    public Usuario atual() {
+    private Usuario atual() {
         String username = session().get("email");
 
         //busca o usuário atual que esteja logado no sistema
@@ -69,7 +70,7 @@ public class UsuarioController extends Controller {
         String nome = formPreenchido.data().get("nome");
 
         //valida se o email e a senha não estejam vazios
-        if (email.toString() == "" || senha.toString() == "") {
+        if (email.equals("") || senha.equals("")) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject("Email ou Senha não podem estar vazios!");
             return badRequest(views.html.login.render(formDeErro));
@@ -80,7 +81,7 @@ public class UsuarioController extends Controller {
 
         if (usuarioBusca != null) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
-            formDeErro.reject("Usuário já Cadastrado");
+            formDeErro.reject("Usuário '" + usuarioBusca.getEmail() + "' já esta Cadastrado!");
             return badRequest(views.html.cadastro.render(formDeErro));
         }
 
@@ -94,7 +95,7 @@ public class UsuarioController extends Controller {
 
         try {
             Ebean.save(novo);
-            enviarMail(novo);
+            enviarEmail(novo);
         } catch (Exception e) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject("Erro interno de sistema!");
@@ -294,14 +295,18 @@ public class UsuarioController extends Controller {
      * @param usuario created
      * @throws EmailException Exception when sending mail
      */
-    private void enviarMail(Usuario usuario) throws EmailException {
-        String name = usuario.getNome();
-        Email emailUser = new Email()
-                .setSubject("Cadastro na Biblioteca")
-                .setFrom("Biblioteca CIBiogás <biblioteca@email.com>")
-                .addTo(usuario.getEmail())
-                .setBodyText("O Usuário foi cadastrado com sucesso!");
-        mailerClient.send(emailUser);
+    private void enviarEmail(Usuario usuario) throws EmailException {
+        String emailBody = views.html.email.emailBody.render(usuario).body();
+        try {
+            Email emailUser = new Email()
+                    .setSubject("Cadastro na Biblioteca")
+                    .setFrom("Biblioteca CIBiogás <biblioteca@email.com>")
+                    .addTo(usuario.getEmail())
+                    .setBodyHtml(emailBody);
+            mailerClient.send(emailUser);
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+        }
     }
 
 }
