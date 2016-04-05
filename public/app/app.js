@@ -19,7 +19,17 @@ angular
             })
             .when('/contato', {
                 templateUrl: '/assets/app/views/contato.html',
-                controller: 'contato.controller',
+                controller: 'contato.create.controller',
+                activetab: 'contato'
+            })
+            .when('/contato/detalhe/:id', {
+                templateUrl: '/assets/app/views/contatos/detail.html',
+                controller: 'contato.detail.controller',
+                activetab: 'contato'
+            })
+            .when('/contatos', {
+                templateUrl: '/assets/app/views/contatos/list.html',
+                controller: 'contato.list.controller',
                 activetab: 'contato'
             })
             .when('/usuarios/detalhe/:id', {
@@ -135,4 +145,20 @@ angular
                 }
             });
         };
-    });
+    }).directive('clickOnce', function($timeout) {
+          return {
+              restrict: 'A',
+              link: function(scope, element, attrs) {
+                  var replacementText = attrs.clickOnce;
+
+                  element.bind('click', function() {
+                      $timeout(function() {
+                          if (replacementText) {
+                              element.html(replacementText);
+                          }
+                          element.attr('disabled', true);
+                      }, 0);
+                  });
+              }
+          };
+      });

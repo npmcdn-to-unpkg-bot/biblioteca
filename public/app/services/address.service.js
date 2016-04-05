@@ -8,4 +8,10 @@ angular.module('architectplay')
            getFiltroUsuarios: {method: 'GET', url: BaseUrl + '/usuarios/filtro/:filtro', isArray: true},
            getAutenticado: {method: 'GET', url: BaseUrl + '/current', isArray: false}
         });
+    }]).service('Contato',['$resource', 'BaseUrl',
+      function($resource, BaseUrl){
+        return $resource(BaseUrl + '/contato/:id', {}, {
+           getAll: {method: 'GET', url: BaseUrl + '/contatos', isArray: true},
+           getFiltroContatos: {method: 'GET', url: BaseUrl + '/contatos/filtro/:filtro', isArray: true}
+        });
     }]);

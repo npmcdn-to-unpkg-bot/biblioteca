@@ -5,15 +5,23 @@ import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Query;
 import models.Contato;
 import models.Usuario;
+import org.apache.commons.mail.EmailException;
 import play.Logger;
 import play.libs.Json;
+import play.libs.mailer.Email;
+import play.libs.mailer.MailerClient;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 
+import javax.inject.Inject;
+import java.util.Date;
 import java.util.List;
 
 public class ContatoController extends Controller {
+
+    @Inject
+    MailerClient mailerClient;
 
     /**
      * @return a object user authenticated
@@ -38,8 +46,11 @@ public class ContatoController extends Controller {
 
         Contato contato = Json.fromJson(request().body().asJson(), Contato.class);
 
+        contato.setDataCadastro(new Date());
+
         try {
             Ebean.save(contato);
+            enviarEmail(contato);
         } catch (Exception e) {
             Logger.error(e.getMessage());
             return badRequest("Erro interno de sistema");
@@ -159,5 +170,25 @@ public class ContatoController extends Controller {
         }
 
         return ok(Json.toJson(contato));
+    }
+
+    /**
+     * Send the confirm mail.
+     *
+     * @param usuario created
+     * @throws EmailException Exception when sending mail
+     */
+    private void enviarEmail(Contato contato) throws EmailException {
+        String emailContatoBody = views.html.email.emailContatoBody.render(contato).body();
+        try {
+            Email emailUser = new Email()
+                    .setSubject(contato.getAssunto())
+                    .setFrom(contato.getEmail())
+                    .addTo("Biblioteca CIBiogás <haroldoramirez@gmail.com>")
+                    .setBodyHtml(emailContatoBody);
+            mailerClient.send(emailUser);
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+        }
     }
 }

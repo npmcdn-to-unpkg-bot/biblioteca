@@ -15,7 +15,6 @@ import play.libs.mailer.MailerClient;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import scala.reflect.internal.Trees;
 
 import javax.inject.Inject;
 import java.util.Date;

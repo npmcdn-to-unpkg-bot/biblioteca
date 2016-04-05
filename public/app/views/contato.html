@@ -3,29 +3,32 @@
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Contato</h2>
         </div>
-        <div class="mdl-card__supporting-text">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="nome" ng-model="contato.nome">
-                <label class="mdl-textfield__label" for="nome">Nome *</label>
+        <form ng-submit="save()">
+            <div class="mdl-card__supporting-text">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input maxlength="60" class="mdl-textfield__input" type="text" id="nome" ng-model="contato.nome">
+                    <label class="mdl-textfield__label" for="nome">Nome *</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input maxlength="60" class="mdl-textfield__input" type="email" id="email" ng-model="contato.email">
+                    <label class="mdl-textfield__label" for="email">Email *</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input maxlength="30" class="mdl-textfield__input" type="text" id="assunto" ng-model="contato.assunto">
+                    <label class="mdl-textfield__label" for="assunto">Assunto *</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <textarea maxlength="200" class="mdl-textfield__input" type="text" rows= "3" id="mensagem" ng-model="contato.mensagem"></textarea>
+                    <label class="mdl-textfield__label" for="mensagem">Mensagem *</label>
+                </div>
+                <p ng-show="!contato.nome || !contato.email || !contato.assunto || !contato.mensagem">Campos Obrigatórios (*)</p>
+                <br>
+                <!-- Raised button with ripple -->
+                <button click-once id="save" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" ng-disabled="!contato.nome || !contato.email || !contato.assunto || !contato.mensagem">
+                    Enviar mensagem
+                </button>
             </div>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="email" ng-model="contato.email">
-                <label class="mdl-textfield__label" for="email">Email *</label>
-            </div>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="assunto" ng-model="contato.assunto">
-                <label class="mdl-textfield__label" for="assunto">Assunto *</label>
-            </div>
-            <div class="mdl-textfield mdl-js-textfield">
-                <textarea class="mdl-textfield__input" type="text" rows= "3" id="mensagem" ng-model="contato.mensagem"></textarea>
-                <label class="mdl-textfield__label" for="mensagem">Mensagem *</label>
-            </div>
-            <p ng-show="!contato.nome || !contato.email || !contato.assunto || ! contato.mensagem" class="font-style">Campos Obrigatórios (*)</p>
-            <!-- Raised button with ripple -->
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" ng-disabled="!contato.nome || !contato.email || !contato.assunto || ! contato.mensagem">
-                Enviar mensagem
-            </button>
-        </div>
+        </form>
     </div>
     <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
         <div class="mdl-card__title">
