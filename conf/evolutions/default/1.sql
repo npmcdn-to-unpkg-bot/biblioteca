@@ -3,18 +3,14 @@
 
 # --- !Ups
 
-create table material (
+create table contato (
   id                        bigserial not null,
-  titulo                    varchar(30) not null,
+  nome                      varchar(60) not null,
+  email                     varchar(60) not null,
   assunto                   varchar(30) not null,
-  categoria                 varchar(30) not null,
-  descricao                 varchar(30) not null,
-  tipo                      varchar(30) not null,
-  fonte                     varchar(30) not null,
-  ano                       varchar(30) not null,
-  idioma                    varchar(30) not null,
-  autor                     varchar(30) not null,
-  constraint pk_material primary key (id))
+  mensagem                  varchar(200) not null,
+  data_cadastro             timestamp,
+  constraint pk_contato primary key (id))
 ;
 
 create table usuario (
@@ -35,7 +31,7 @@ create table usuario (
 
 # --- !Downs
 
-drop table if exists material cascade;
+drop table if exists contato cascade;
 
 drop table if exists usuario cascade;
 

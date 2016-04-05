@@ -283,7 +283,7 @@ public class UsuarioController extends Controller {
         query.setParameter("nomeUsuario", "%" + filtro + "%");
         List<Usuario> filtroDeUsuarios = query.findList();
 
-        //remover o usuário admin da lista dos filtrados
+        //remove o usuario logado da lista dos filtrados
         filtroDeUsuarios.remove(usuarioAtual);
 
         return ok(Json.toJson(filtroDeUsuarios));

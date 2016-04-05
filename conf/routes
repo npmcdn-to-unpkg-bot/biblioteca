@@ -5,6 +5,13 @@
 # Home page
 GET     /                                   controllers.Application.index()
 
+# Contato
+POST    /contato                            controllers.ContatoController.inserir()
+GET     /contatos                           controllers.ContatoController.buscaTodos()
+GET     /contatos/filtro/:filtro            controllers.ContatoController.filtra(filtro:String)
+GET     /contato/:id                        controllers.ContatoController.buscaPorId(id:Long)
+DELETE  /contato/:id                        controllers.ContatoController.remover(id:Long)
+
 # Login
 POST    /autenticar                         controllers.LoginController.autenticar()
 GET     /login                              controllers.LoginController.loginTela()

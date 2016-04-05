@@ -36,5 +36,4 @@ public class Application extends Controller {
         return ok(views.html.index.render(username, privilegio));
 
     }
-
 }
