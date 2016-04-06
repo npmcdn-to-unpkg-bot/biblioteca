@@ -13,8 +13,20 @@ create table contato (
   constraint pk_contato primary key (id))
 ;
 
+create table token (
+  token                     varchar(255) not null,
+  usuario_id                bigint,
+  type                      varchar(8),
+  date_creation             timestamp,
+  email                     varchar(255),
+  constraint ck_token_type check (type in ('password','email')),
+  constraint pk_token primary key (token))
+;
+
 create table usuario (
   id                        bigserial not null,
+  confirmacao_token         varchar(255),
+  validado                  boolean,
   nome                      varchar(60) not null,
   email                     varchar(30) not null,
   senha                     varchar(60) not null,
@@ -32,6 +44,8 @@ create table usuario (
 # --- !Downs
 
 drop table if exists contato cascade;
+
+drop table if exists token cascade;
 
 drop table if exists usuario cascade;
 

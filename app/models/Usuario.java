@@ -1,8 +1,10 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import models.utils.AppException;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.libs.Json;
@@ -19,6 +21,11 @@ public class Usuario extends Model {
 
     @Id
     private Long id;
+
+    private String confirmacaoToken;
+
+    @Formats.NonEmpty
+    private Boolean validado = false;
 
     @Column(nullable = false, length = 60)
     private String nome;
@@ -109,6 +116,38 @@ public class Usuario extends Model {
 
     public void setDataAlteracao(Date dataAlteracao) {
         this.dataAlteracao = dataAlteracao;
+    }
+
+    public String getConfirmacaoToken() {
+        return confirmacaoToken;
+    }
+
+    public void setConfirmacaoToken(String confirmacaoToken) {
+        this.confirmacaoToken = confirmacaoToken;
+    }
+
+    public Boolean getValidado() {
+        return validado;
+    }
+
+    public void setValidado(Boolean validado) {
+        this.validado = validado;
+    }
+
+    /**
+     * Confirms an account.
+     *
+     * @return true if confirmed, false otherwise.
+     * @throws AppException App Exception
+     */
+    public boolean confirmado(Usuario usuario) throws AppException {
+        if (usuario == null) {
+            return false;
+        }
+        usuario.setConfirmacaoToken(null);
+        usuario.setValidado(true);
+        usuario.save();
+        return true;
     }
 
     @Override

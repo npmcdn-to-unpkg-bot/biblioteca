@@ -175,7 +175,7 @@ public class ContatoController extends Controller {
     /**
      * Send the confirm mail.
      *
-     * @param usuario created
+     * @param contato created
      * @throws EmailException Exception when sending mail
      */
     private void enviarEmail(Contato contato) throws EmailException {

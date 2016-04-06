@@ -2,6 +2,7 @@ package controllers;
 
 import akka.util.Crypt;
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.Query;
 import models.Usuario;
 import models.Usuarios;
 import play.data.DynamicForm;
@@ -60,6 +61,15 @@ public class LoginController extends Controller {
 
         String email = requestForm.data().get("email");
         String senha = requestForm.data().get("senha");
+
+        //busca país através do filtro que recebe por parâmetro
+        Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where email = :email");
+        query.setParameter("email", email);
+        Usuario usuario = query.findUnique();
+
+        if (!usuario.getValidado()) {
+            return badRequest(views.html.naoConfirmado.render());
+        }
 
         if (email.equals("") || senha.equals("")) {
             DynamicForm formDeErro = form.fill(requestForm.data());
