@@ -29,7 +29,7 @@ public class LoginController extends Controller {
                 .findUnique();
 
         if (usuarioAtual != null) {
-            return ok(views.html.autenticado.render(username));
+            return ok(views.html.mensagens.info.autenticado.render(username));
         }
 
         return ok(views.html.login.render(form));
@@ -40,14 +40,14 @@ public class LoginController extends Controller {
      */
     public Result telaAutenticado() {
         String username = session().get("email");
-        return ok(views.html.autenticado.render(username));
+        return ok(views.html.mensagens.info.autenticado.render(username));
     }
 
     /**
      * @return logout form
      */
     public Result telaLogout() {
-        return ok(views.html.logout.render());
+        return ok(views.html.mensagens.info.logout.render());
     }
 
     /**
@@ -62,13 +62,15 @@ public class LoginController extends Controller {
         String email = requestForm.data().get("email");
         String senha = requestForm.data().get("senha");
 
-        //busca país através do filtro que recebe por parâmetro
+        //busca usuario atraves do email que recebe por parametro vindo da request
         Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where email = :email");
         query.setParameter("email", email);
         Usuario usuario = query.findUnique();
 
         if (!usuario.getValidado()) {
-            return badRequest(views.html.naoConfirmado.render());
+            DynamicForm formDeErro = form.fill(requestForm.data());
+            formDeErro.reject("O usuário não foi confirmado! Acesse seu email!");
+            return badRequest(views.html.mensagens.erro.naoConfirmado.render());
         }
 
         if (email.equals("") || senha.equals("")) {

@@ -13,6 +13,6 @@ public class Secured extends Security.Authenticator {
 
     @Override
     public Result onUnauthorized(Http.Context ctx) {
-        return forbidden(views.html.naoAutorizado.render());
+        return forbidden(views.html.mensagens.erro.naoAutorizado.render());
     }
 }

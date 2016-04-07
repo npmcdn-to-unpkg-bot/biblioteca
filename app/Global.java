@@ -12,7 +12,7 @@ public class Global extends GlobalSettings {
 
     @Override
     public F.Promise<Result> onHandlerNotFound(Http.RequestHeader request) {
-        return F.Promise.<Result> pure(notFound(views.html.paginaNaoEncontrada.render(request.uri())));
+        return F.Promise.<Result> pure(notFound(views.html.mensagens.erro.naoEncontrada.render(request.uri())));
     }
 
     @Override

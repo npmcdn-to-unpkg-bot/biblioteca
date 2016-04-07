@@ -7,6 +7,7 @@ create table contato (
   id                        bigserial not null,
   nome                      varchar(60) not null,
   email                     varchar(60) not null,
+  email2                    varchar(255),
   assunto                   varchar(30) not null,
   mensagem                  varchar(200) not null,
   data_cadastro             timestamp,

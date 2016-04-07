@@ -2,28 +2,23 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
-
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/bootstrap/dist/css/bootstrap.css")">
-
-    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/signin.css")">
-
-<title>Biblioteca - cadastrado</title>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/informacao.css")">
+    <title>Biblioteca - cadastrado</title>
 </head>
 <body>
-    <div class="container text-center">
+    <div class="container">
         <div class="form-signin well well-sm">
-            <h4 class="form-signin-heading">Usuário Cadastrado</h4>
+            <a href="/#/" class="btn btn-default pull-right"> Início</a>
+            <h4 class="form-signin-heading">Informação:</h4>
+            <hr>
             @if(username == null) {
-            <p class="alert alert-danger text-center">
-                <b>Usuário não encontrado</b>
-            </p>
+                <p class="alert alert-danger text-center">Usuário não encontrado!</p>
             } else {
-            <h4 class="alert alert-success">Email: <b>"@username"</b></h4>
+                <p class="alert alert-success text-center">Usuário "<b>@username</b>"cadastrado com sucesso!</p>
             }
-            <a href="/login" class="btn btn-lg btn-primary btn-block">Login</a>
-            <br>
+            <hr>
             <p class="text-center">&copy; 2016 CIBiogás</p>
         </div>
     </div> <!-- /container -->

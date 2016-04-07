@@ -13,14 +13,14 @@
 </head>
 <body>
     <div class="container">
+        @form(routes.LoginController.autenticar()) {
         <div class="form-signin well well-sm">
-            @form(routes.LoginController.autenticar()) {
                 <a href="/#/" class="btn btn-default pull-right"> Início</a>
                 <h4 class="form-signin-heading">Login</h4>
                 <hr>
                 @if(usuarioForm.hasGlobalErrors) {
                     <p class="alert alert-danger text-center">
-                        <b>@usuarioForm.globalError.message</b>
+                        @usuarioForm.globalError.message
                     </p>
                 }
 

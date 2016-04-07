@@ -8,7 +8,6 @@ import com.avaje.ebean.Query;
 import models.Usuario;
 import models.utils.AppException;
 import org.apache.commons.mail.EmailException;
-import org.apache.xerces.util.URI;
 import play.Configuration;
 import play.Logger;
 import play.data.DynamicForm;
@@ -20,7 +19,6 @@ import play.libs.mailer.MailerClient;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
-import views.html.confirma;
 
 import javax.inject.Inject;
 import java.net.MalformedURLException;
@@ -41,7 +39,7 @@ public class UsuarioController extends Controller {
      */
     public Result telaCadastrado() {
         String username = session().get("email");
-        return ok(views.html.cadastrado.render(username));
+        return ok(views.html.mensagens.info.cadastrado.render(username));
     }
 
     /**
@@ -117,7 +115,7 @@ public class UsuarioController extends Controller {
 
         String username = novo.getEmail();
 
-        return ok(views.html.cadastrado.render(username));
+        return ok(views.html.mensagens.info.cadastrado.render(username));
     }
 
     /**
@@ -218,7 +216,7 @@ public class UsuarioController extends Controller {
 
         //verificar se o usuario atual encontrado é administrador
         if (usuarioAtual.getPrivilegio() != 1) {
-            return badRequest("Você não tem privilégios de Administrador");
+            return badRequest(views.html.mensagens.erro.naoAutorizado.render());
         }
 
         //busca todos os usuários menos o usuário padrão do sistema
@@ -336,23 +334,23 @@ public class UsuarioController extends Controller {
         Usuario usuario = buscaPorConfirmacaoToken(token);
         if (usuario == null) {
             flash("error", Messages.get("Usuário não encontrado"));
-            return badRequest(confirma.render());
+            return badRequest(views.html.mensagens.info.confirma.render());
         }
 
         if (usuario.getValidado()) {
             flash("error", Messages.get("Esta conta de usuário já foi validada"));
-            return badRequest(confirma.render());
+            return badRequest(views.html.mensagens.info.confirma.render());
         }
 
         try {
             if (usuario.confirmado(usuario)) {
                 enviarEmailConfirmacao(usuario);
                 flash("success", Messages.get("O email foi validado"));
-                return ok(confirma.render());
+                return badRequest(views.html.mensagens.info.confirma.render());
             } else {
                 Logger.debug("Signup.confirm cannot confirm user");
                 flash("error", Messages.get("Erro de confirmação"));
-                return badRequest(confirma.render());
+                return badRequest(views.html.mensagens.info.confirma.render());
             }
         } catch (AppException e) {
             Logger.error("Cannot signup", e);
@@ -361,8 +359,9 @@ public class UsuarioController extends Controller {
             Logger.debug("Cannot send email", e);
             flash("error", Messages.get("Erro ao enviar o email de confirmação"));
         }
-        return badRequest(confirma.render());
+        return badRequest(views.html.mensagens.info.confirma.render());
     }
+
     /**
      * Send the email.
      *
