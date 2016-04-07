@@ -34,6 +34,8 @@ public class UsuarioController extends Controller {
 
     private static DynamicForm form = Form.form();
 
+    private String mensagem = "";
+
     /**
      * @return cadastrado form if register success
      */
@@ -333,33 +335,33 @@ public class UsuarioController extends Controller {
     public Result confirma(String token) {
         Usuario usuario = buscaPorConfirmacaoToken(token);
         if (usuario == null) {
-            flash("error", Messages.get("Usuário não encontrado"));
-            return badRequest(views.html.mensagens.info.confirma.render());
+             mensagem = "Usuário não encontrado";
+            return badRequest(views.html.mensagens.info.confirma.render(mensagem));
         }
 
         if (usuario.getValidado()) {
-            flash("error", Messages.get("Esta conta de usuário já foi validada"));
-            return badRequest(views.html.mensagens.info.confirma.render());
+            mensagem = "Esta conta de usuário já foi validada";
+            return badRequest(views.html.mensagens.info.confirma.render(mensagem));
         }
 
         try {
             if (usuario.confirmado(usuario)) {
                 enviarEmailConfirmacao(usuario);
-                flash("success", Messages.get("O email foi validado"));
-                return badRequest(views.html.mensagens.info.confirma.render());
+                mensagem = "O email foi validado";
+                return badRequest(views.html.mensagens.info.confirma.render(mensagem));
             } else {
                 Logger.debug("Signup.confirm cannot confirm user");
-                flash("error", Messages.get("Erro de confirmação"));
-                return badRequest(views.html.mensagens.info.confirma.render());
+                mensagem = "Erro de confirmação";
+                return badRequest(views.html.mensagens.info.confirma.render(mensagem));
             }
         } catch (AppException e) {
             Logger.error("Cannot signup", e);
-            flash("error", Messages.get("Erro na aplicação"));
+            mensagem = "Erro na aplicação";
         } catch (EmailException e) {
             Logger.debug("Cannot send email", e);
-            flash("error", Messages.get("Erro ao enviar o email de confirmação"));
+            mensagem = "Erro ao enviar o email de confirmação";
         }
-        return badRequest(views.html.mensagens.info.confirma.render());
+        return badRequest(views.html.mensagens.info.confirma.render(mensagem));
     }
 
     /**
@@ -373,13 +375,14 @@ public class UsuarioController extends Controller {
         urlString += "/confirma/" + usuario.getConfirmacaoToken();
         URL url = new URL(urlString); // validar a URL, e vai retornar throw se estiver errada
 
-        String emailBody = views.html.email.emailBody.render(usuario).body();
+        String emailConfirmacaoBody = views.html.email.emailConfirmacaoBody.render(usuario,url.toString()).body();
+
         try {
             Email emailUser = new Email()
-                    .setSubject("Cadastro na Biblioteca")
-                    .setFrom("Biblioteca CIBiogás <biblioteca@email.com>")
-                    .addTo(usuario.getEmail())
-                    .setBodyText(url.toString());
+                .setSubject("Cadastro na Biblioteca")
+                .setFrom("Biblioteca CIBiogás <biblioteca@email.com>")
+                .addTo(usuario.getEmail())
+                .setBodyHtml(emailConfirmacaoBody);
             mailerClient.send(emailUser);
         } catch (Exception e) {
             Logger.error(e.getMessage());

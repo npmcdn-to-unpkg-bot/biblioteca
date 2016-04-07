@@ -67,10 +67,16 @@ public class LoginController extends Controller {
         query.setParameter("email", email);
         Usuario usuario = query.findUnique();
 
+        if (usuario == null) {
+            DynamicForm formDeErro = form.fill(requestForm.data());
+            formDeErro.reject("Usuário não encontrado!");
+            return badRequest(views.html.login.render(formDeErro));
+        }
+
         if (!usuario.getValidado()) {
             DynamicForm formDeErro = form.fill(requestForm.data());
             formDeErro.reject("O usuário não foi confirmado! Acesse seu email!");
-            return badRequest(views.html.mensagens.erro.naoConfirmado.render());
+            return badRequest(views.html.login.render(formDeErro));
         }
 
         if (email.equals("") || senha.equals("")) {

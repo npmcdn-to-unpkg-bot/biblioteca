@@ -10,13 +10,13 @@
 <body>
     <div class="container">
         <div class="form-signin well well-sm">
-            <a href="/#/" class="btn btn-default pull-right"> Início</a>
+            <a href="/login" class="btn btn-primary pull-right"> Login</a>
             <h4 class="form-signin-heading">Informação:</h4>
             <hr>
             @if(username == null) {
                 <p class="alert alert-danger text-center">Usuário não encontrado!</p>
             } else {
-                <p class="alert alert-success text-center">Usuário "<b>@username</b>"cadastrado com sucesso!</p>
+                <p class="alert alert-success text-center">Usuário "<b>@username</b>" cadastrado com sucesso!</p>
             }
             <hr>
             <p class="text-center">&copy; 2016 CIBiogás</p>
