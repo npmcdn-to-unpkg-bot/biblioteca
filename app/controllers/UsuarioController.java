@@ -3,16 +3,13 @@ package controllers;
 import actions.Secured;
 import akka.util.Crypt;
 import com.avaje.ebean.Ebean;
-import com.avaje.ebean.Model;
 import com.avaje.ebean.Query;
 import models.Usuario;
-import models.utils.AppException;
 import org.apache.commons.mail.EmailException;
 import play.Configuration;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
-import play.i18n.Messages;
 import play.libs.Json;
 import play.libs.mailer.Email;
 import play.libs.mailer.MailerClient;
@@ -34,7 +31,124 @@ public class UsuarioController extends Controller {
 
     private static DynamicForm form = Form.form();
 
-    private String mensagem = "";
+    /**
+     * Retrieve a user from an email.
+     *
+     * @param email email to search
+     * @return a user
+     */
+    private Usuario buscaPorEmail(String email) {
+        Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where (email = :email)");
+        query.setParameter("email", email);
+        return query.findUnique();
+    }
+
+    /**
+     * Retrieves a user from a confirmation token.
+     *
+     * @param token the confirmation token to use.
+     * @return a user if the confirmation token is found, null otherwise.
+     */
+    private Usuario buscaPorConfirmacaoToken(String token) {
+        Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where (confirmacao_token = :confirmacao_token)");
+        query.setParameter("confirmacao_token", token);
+        return query.findUnique();
+    }
+
+    /**
+     * Valid an account with the url in the confirm mail.
+     *
+     * @param token a token attached to the user we're confirming.
+     * @return Confirmationpage
+     */
+    public Result confirma(String token) {
+
+        String mensagem = "";
+
+        Usuario usuario = buscaPorConfirmacaoToken(token);
+
+        if (usuario == null) {
+            mensagem = "Usuário não encontrado";
+            return badRequest(views.html.mensagens.info.confirma.render(mensagem));
+        }
+
+        if (usuario.getValidado()) {
+            mensagem = "Esta conta de usuário já foi validada";
+            return badRequest(views.html.mensagens.info.confirma.render(mensagem));
+        }
+
+        try {
+            if (usuario.confirmado(usuario)) {
+                //enviarEmailConfirmacao(usuario);
+                mensagem = "A sua conta foi confirmada!";
+                return badRequest(views.html.mensagens.info.confirma.render(mensagem));
+            } else {
+                Logger.debug("Signup.confirm cannot confirm user");
+                mensagem = "Erro de confirmação do cadastro do usuário!";
+                return badRequest(views.html.mensagens.info.confirma.render(mensagem));
+            }
+        } catch (Exception e) {
+            Logger.error("Cannot signup", e);
+            mensagem = "Erro na aplicação!";
+        }
+        return badRequest(views.html.mensagens.info.confirma.render(mensagem));
+    }
+
+    /**
+     * Send the email.
+     *
+     * @param usuario created
+     * @throws EmailException Exception when sending mail
+     */
+    private void enviarEmailToken(Usuario usuario) throws EmailException, MalformedURLException {
+        String urlString = "http://" + Configuration.root().getString("server.hostname");
+        urlString += "/confirma/" + usuario.getConfirmacaoToken();
+        URL url = new URL(urlString); // validar a URL, e vai retornar throw se estiver errada
+
+        String emailConfirmacaoBody = views.html.email.emailConfirmacaoBody.render(usuario,url.toString()).body();
+
+        try {
+            Email emailUser = new Email()
+                    .setSubject("Cadastro na Biblioteca")
+                    .setFrom("Biblioteca CIBiogás <biblioteca@email.com>")
+                    .addTo(usuario.getEmail())
+                    .setBodyHtml(emailConfirmacaoBody);
+            mailerClient.send(emailUser);
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+        }
+    }
+
+    /**
+     * Send the email.
+     *
+     * @param usuario created
+     * @throws EmailException Exception when sending mail
+     */
+    private void enviarEmailConfirmacao(Usuario usuario) throws EmailException {
+        String emailBody = views.html.email.emailBody.render(usuario).body();
+        try {
+            Email emailUser = new Email()
+                    .setSubject("Cadastro na Biblioteca")
+                    .setFrom("Biblioteca CIBiogás <biblioteca@email.com>")
+                    .addTo(usuario.getEmail())
+                    .setBodyHtml(emailBody);
+            mailerClient.send(emailUser);
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+        }
+    }
+
+    /**
+     * Change password account
+     *
+     * @param senha
+     * save new password
+     */
+    public void mudarSenha(String senha) {
+        senha = Crypt.sha1(senha);
+        this.inserir();
+    }
 
     /**
      * @return cadastrado form if register success
@@ -51,21 +165,16 @@ public class UsuarioController extends Controller {
         return ok(views.html.cadastro.render(form));
     }
 
-    // -- Queries (long id, user.class)
-    public Model.Finder<Long, Usuario> find = new Model.Finder<Long, Usuario>(Long.class, Usuario.class);
-
     /**
      * @return a object user authenticated
      */
     private Usuario atual() {
         String username = session().get("email");
 
-        //busca o usuário atual que esteja logado no sistema
-        Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
+        //retorna o usuário atual que esteja logado no sistema
+        return Ebean.createQuery(Usuario.class, "find usuario where email = :email")
                 .setParameter("email", username)
                 .findUnique();
-
-        return usuarioAtual;
     }
 
     /**
@@ -107,7 +216,7 @@ public class UsuarioController extends Controller {
 
         try {
             Ebean.save(novo);
-            enviarEmailToken(novo);
+            //enviarEmailToken(novo);
         } catch (Exception e) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject("Erro interno de sistema!");
@@ -299,114 +408,6 @@ public class UsuarioController extends Controller {
         filtroDeUsuarios.remove(usuarioAtual);
 
         return ok(Json.toJson(filtroDeUsuarios));
-    }
-
-    /**
-     * Retrieve a user from an email.
-     *
-     * @param email email to search
-     * @return a user
-     */
-    public Usuario buscaPorEmail(String email) {
-        return find.where().eq("email", email).findUnique();
-    }
-
-    /**
-     * Retrieves a user from a confirmation token.
-     *
-     * @param token the confirmation token to use.
-     * @return a user if the confirmation token is found, null otherwise.
-     */
-    public Usuario buscaPorConfirmacaoToken(String token) {
-        return find.where().eq("confirmacaoToken", token).findUnique();
-    }
-
-    public void mudarSenha(String password) throws AppException {
-        password = Crypt.sha1(password);
-        this.inserir();
-    }
-
-    /**
-     * Valid an account with the url in the confirm mail.
-     *
-     * @param token a token attached to the user we're confirming.
-     * @return Confirmationpage
-     */
-    public Result confirma(String token) {
-        Usuario usuario = buscaPorConfirmacaoToken(token);
-        if (usuario == null) {
-             mensagem = "Usuário não encontrado";
-            return badRequest(views.html.mensagens.info.confirma.render(mensagem));
-        }
-
-        if (usuario.getValidado()) {
-            mensagem = "Esta conta de usuário já foi validada";
-            return badRequest(views.html.mensagens.info.confirma.render(mensagem));
-        }
-
-        try {
-            if (usuario.confirmado(usuario)) {
-                enviarEmailConfirmacao(usuario);
-                mensagem = "O email foi validado";
-                return badRequest(views.html.mensagens.info.confirma.render(mensagem));
-            } else {
-                Logger.debug("Signup.confirm cannot confirm user");
-                mensagem = "Erro de confirmação";
-                return badRequest(views.html.mensagens.info.confirma.render(mensagem));
-            }
-        } catch (AppException e) {
-            Logger.error("Cannot signup", e);
-            mensagem = "Erro na aplicação";
-        } catch (EmailException e) {
-            Logger.debug("Cannot send email", e);
-            mensagem = "Erro ao enviar o email de confirmação";
-        }
-        return badRequest(views.html.mensagens.info.confirma.render(mensagem));
-    }
-
-    /**
-     * Send the email.
-     *
-     * @param usuario created
-     * @throws EmailException Exception when sending mail
-     */
-    private void enviarEmailToken(Usuario usuario) throws EmailException, MalformedURLException {
-        String urlString = "http://" + Configuration.root().getString("server.hostname");
-        urlString += "/confirma/" + usuario.getConfirmacaoToken();
-        URL url = new URL(urlString); // validar a URL, e vai retornar throw se estiver errada
-
-        String emailConfirmacaoBody = views.html.email.emailConfirmacaoBody.render(usuario,url.toString()).body();
-
-        try {
-            Email emailUser = new Email()
-                .setSubject("Cadastro na Biblioteca")
-                .setFrom("Biblioteca CIBiogás <biblioteca@email.com>")
-                .addTo(usuario.getEmail())
-                .setBodyHtml(emailConfirmacaoBody);
-            mailerClient.send(emailUser);
-        } catch (Exception e) {
-            Logger.error(e.getMessage());
-        }
-    }
-
-    /**
-     * Send the email.
-     *
-     * @param usuario created
-     * @throws EmailException Exception when sending mail
-     */
-    private void enviarEmailConfirmacao(Usuario usuario) throws EmailException {
-        String emailBody = views.html.email.emailBody.render(usuario).body();
-        try {
-            Email emailUser = new Email()
-                    .setSubject("Cadastro na Biblioteca")
-                    .setFrom("Biblioteca CIBiogás <biblioteca@email.com>")
-                    .addTo(usuario.getEmail())
-                    .setBodyHtml(emailBody);
-            mailerClient.send(emailUser);
-        } catch (Exception e) {
-            Logger.error(e.getMessage());
-        }
     }
 
 }

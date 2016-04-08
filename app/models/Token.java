@@ -60,7 +60,7 @@ public class Token extends Model {
 
     // -- Queries
     @SuppressWarnings("unchecked")
-    public Finder<String, Token> find = new Finder(String.class, Token.class);
+    public Finder<String, Token> find = new Finder<String, Token>(Token.class);
 
     /**
      * Retrieve a token by id and type.

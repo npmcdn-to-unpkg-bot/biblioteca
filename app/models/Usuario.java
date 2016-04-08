@@ -144,7 +144,7 @@ public class Usuario extends Model {
         if (usuario == null) {
             return false;
         }
-        usuario.setConfirmacaoToken(null);
+
         usuario.setValidado(true);
         usuario.save();
         return true;
