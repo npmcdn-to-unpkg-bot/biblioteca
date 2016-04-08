@@ -1,12 +1,9 @@
 package models;
 
-import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import models.utils.AppException;
 import play.data.format.Formats;
-import play.data.validation.Constraints;
 import play.libs.Json;
 
 import javax.persistence.Column;
@@ -137,10 +134,9 @@ public class Usuario extends Model {
     /**
      * Confirms an account.
      *
-     * @return true if confirmed, false otherwise.
-     * @throws AppException App Exception
+     * @return true if confirmed, false otherwise
      */
-    public boolean confirmado(Usuario usuario) throws AppException {
+    public boolean confirmado(Usuario usuario) {
         if (usuario == null) {
             return false;
         }

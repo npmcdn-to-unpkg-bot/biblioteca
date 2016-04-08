@@ -15,19 +15,8 @@ import java.util.UUID;
 @Entity
 public class Token extends Model {
 
-
     // Reset tokens will expire after a day.
     private static final int EXPIRATION_DAYS = 1;
-    
-    private enum TypeToken {
-        password("reset"), email("email");
-        private String urlPath;
-
-        TypeToken(String urlPath) {
-            this.urlPath = urlPath;
-        }
-
-    }
 
     @Id
     private String token;
@@ -47,6 +36,15 @@ public class Token extends Model {
     @Formats.NonEmpty
     private String email;
 
+    private enum TypeToken {
+        password("reset"), email("email");
+        private String urlPath;
+
+        TypeToken(String urlPath) {
+            this.urlPath = urlPath;
+        }
+
+    }
 
     /**
      * @return true if the reset token is too old to use, false otherwise.

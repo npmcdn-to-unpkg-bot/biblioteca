@@ -17,6 +17,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 
+import javax.inject.Inject;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
@@ -25,6 +26,7 @@ import java.util.UUID;
 
 public class UsuarioController extends Controller {
 
+    @Inject
     MailerClient mailerClient;
 
     private static DynamicForm form = Form.form();
@@ -62,34 +64,40 @@ public class UsuarioController extends Controller {
     public Result confirma(String token) {
 
         String mensagem = "";
+        String tipoMensagem = "";
 
         Usuario usuario = buscaPorConfirmacaoToken(token);
 
         if (usuario == null) {
-            mensagem = "Usuário não encontrado";
-            return badRequest(views.html.mensagens.info.confirma.render(mensagem));
+            mensagem = "Seu código de ativação é inválido!";
+            tipoMensagem = "Erro";
+            return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem));
         }
 
         if (usuario.getValidado()) {
-            mensagem = "Esta conta de usuário já foi validada";
-            return badRequest(views.html.mensagens.info.confirma.render(mensagem));
+            mensagem = "Esta conta de usuário já foi validada!";
+            tipoMensagem = "Validado";
+            return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem));
         }
 
         try {
             if (usuario.confirmado(usuario)) {
-                //enviarEmailConfirmacao(usuario);
-                mensagem = "A sua conta foi confirmada!";
-                return badRequest(views.html.mensagens.info.confirma.render(mensagem));
+                enviarEmailConfirmacao(usuario);
+                mensagem = "Sua conta foi ativada com sucesso!";
+                tipoMensagem = "Sucesso";
+                return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem));
             } else {
                 Logger.debug("Signup.confirm cannot confirm user");
                 mensagem = "Erro de confirmação do cadastro do usuário!";
-                return badRequest(views.html.mensagens.info.confirma.render(mensagem));
+                tipoMensagem = "Erro";
+                return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem));
             }
         } catch (Exception e) {
             Logger.error("Cannot signup", e);
             mensagem = "Erro na aplicação!";
+            tipoMensagem = "Erro";
         }
-        return badRequest(views.html.mensagens.info.confirma.render(mensagem));
+        return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem));
     }
 
     /**
@@ -214,7 +222,7 @@ public class UsuarioController extends Controller {
 
         try {
             Ebean.save(novo);
-            //enviarEmailToken(novo);
+            enviarEmailToken(novo);
         } catch (Exception e) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject("Erro interno de sistema!");
