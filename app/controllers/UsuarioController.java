@@ -69,8 +69,8 @@ public class UsuarioController extends Controller {
         Usuario usuario = buscaPorConfirmacaoToken(token);
 
         if (usuario == null) {
-            mensagem = "Seu código de ativação é inválido!";
-            tipoMensagem = "Erro";
+            mensagem = "Seu código de ativação é inválido ou expirou!";
+            tipoMensagem = "Invalido";
             return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem));
         }
 

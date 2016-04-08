@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <div class="form-signin well well-sm">
-            <a href="/login" class="btn btn-primary pull-right"> Login</a>
+            <a href="/" class="btn btn-default pull-right"> Início</a>
             <h4 class="form-signin-heading">Informação:</h4>
             <hr>
             @if(tipoMensagem.equals("Sucesso")){
@@ -21,6 +21,13 @@
             @if(tipoMensagem.equals("Validado")){
                 <p class="alert alert-warning text-center">
                     @mensagem, apenas faça o login!
+                </p>
+            }
+            @if(tipoMensagem.equals("Invalido")){
+                <p class="alert alert-warning text-center">
+                    @mensagem
+                    <br>
+                    <b>Pedir um novo código de confirmação.</b>
                 </p>
             }
             @if(tipoMensagem.equals("Erro")){
