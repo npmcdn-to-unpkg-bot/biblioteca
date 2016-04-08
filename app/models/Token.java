@@ -1,22 +1,13 @@
 package models;
 
 import com.avaje.ebean.Model;
-import play.Configuration;
-import play.Logger;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
-import play.i18n.Messages;
-import play.libs.mailer.Email;
-import play.libs.mailer.MailerClient;
 
-import javax.annotation.Nullable;
-import javax.inject.Inject;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
@@ -24,8 +15,6 @@ import java.util.UUID;
 @Entity
 public class Token extends Model {
 
-    @Inject
-    MailerClient mailerClient;
 
     // Reset tokens will expire after a day.
     private static final int EXPIRATION_DAYS = 1;
@@ -58,20 +47,6 @@ public class Token extends Model {
     @Formats.NonEmpty
     private String email;
 
-    // -- Queries
-    @SuppressWarnings("unchecked")
-    public Finder<String, Token> find = new Finder<String, Token>(Token.class);
-
-    /**
-     * Retrieve a token by id and type.
-     *
-     * @param token token Id
-     * @param type  type of token
-     * @return a resetToken
-     */
-    public Token findByTokenAndType(String token, TypeToken type) {
-        return find.where().eq("token", token).eq("type", type).findUnique();
-    }
 
     /**
      * @return true if the reset token is too old to use, false otherwise.

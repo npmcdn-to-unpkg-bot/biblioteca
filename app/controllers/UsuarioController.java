@@ -17,7 +17,6 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 
-import javax.inject.Inject;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
@@ -26,7 +25,6 @@ import java.util.UUID;
 
 public class UsuarioController extends Controller {
 
-    @Inject
     MailerClient mailerClient;
 
     private static DynamicForm form = Form.form();
