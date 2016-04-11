@@ -1,3 +1,12 @@
+<script type="text/ng-template" id="templateId">
+    <div class="mdl-dialog__content">
+        Deseja atualizar sua senha?
+    </div>
+    <div class="mdl-dialog__actions">
+        <button ng-click="sim()" type="button" class="mdl-button">Atualizar</button>
+        <button ng-click="closeThisDialog('Cancelar')" type="button" class="mdl-button">Cancelar</button>
+    </div>
+</script>
 <div ng-init="init()" class="mdl-grid">
     <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
         <div class="mdl-card__title">
@@ -8,6 +17,15 @@
             <p>{{usuario.nome}}</p>
             <strong>Email</strong>
             <p>{{usuario.email}}</p>
+        </div>
+        <div class="mdl-card__menu">
+            <!-- Rich Tooltip -->
+            <button id="excluir" ng-click="opendialog();" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                <i class="icon material-icons">lock</i>
+            </button>
+            <div class="mdl-tooltip" for="excluir">
+                Senha
+            </div>
         </div>
     </div>
 </div>

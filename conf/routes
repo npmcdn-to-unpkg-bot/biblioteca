@@ -29,7 +29,13 @@ GET     /current                            controllers.UsuarioController.autent
 GET     /usuarios/filtro/:filtro            controllers.UsuarioController.filtra(filtro:String)
 GET     /usuarios                           controllers.UsuarioController.buscaTodos()
 GET     /cadastro                           controllers.UsuarioController.telaCadastro()
+
+# Acessado quando o usuario confirma o registro
 GET     /confirma/:confirmaToken            controllers.UsuarioController.confirma(confirmaToken:String)
+
+# Senha
+GET     /reset                              controllers.senha.SenhaController.resetTela()
+POST    /reset/senha                        controllers.senha.SenhaController.runPassword()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

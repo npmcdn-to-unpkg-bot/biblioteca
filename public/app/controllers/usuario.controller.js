@@ -98,7 +98,7 @@ angular.module('architectplay')
         });
     };
 
-  }).controller('usuario.perfil.controller', function ($scope, $rootScope, $routeParams, $location, Usuario, toastr) {
+  }).controller('usuario.perfil.controller', function ($scope, $rootScope, $routeParams, $location, Usuario, toastr, ngDialog) {
 
     $scope.init = function() {
       Usuario.getAutenticado(function(data) {
@@ -107,4 +107,15 @@ angular.module('architectplay')
             toastr.error('Não autorizado');
          });
        }
+
+       $scope.opendialog = function() {
+           ngDialog.open({
+               template: 'templateId',
+               controller:'usuario.perfil.controller'
+           });
+       };
+
+       $scope.sim = function() {
+            console.log("SIM Enviar email");
+       };
   });
