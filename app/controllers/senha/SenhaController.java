@@ -1,11 +1,15 @@
 package controllers.senha;
 
+import akka.util.Crypt;
 import com.avaje.ebean.Ebean;
 import com.google.inject.Inject;
 import models.Token;
 import models.Usuario;
 import org.apache.commons.mail.EmailException;
 import play.Logger;
+import play.data.DynamicForm;
+import play.data.Form;
+import play.libs.mailer.Email;
 import play.libs.mailer.MailerClient;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -16,6 +20,8 @@ public class SenhaController extends Controller {
 
     @Inject
     MailerClient mailerClient;
+
+    private static DynamicForm form = Form.form();
 
     /**
      * @return a object user authenticated
@@ -30,12 +36,10 @@ public class SenhaController extends Controller {
     }
 
     /**
-     * Display the reset password form.
-     *
-     * @return reset password form
+     * Display the reset password confirm form.
      */
-    public Result resetTela() {
-        return ok(views.html.senha.reset.render());
+    public Result resetConfirmaTela() {
+        return ok(views.html.senha.confirma.render());
     }
 
     /**
@@ -45,17 +49,130 @@ public class SenhaController extends Controller {
      */
     public Result runPassword() throws EmailException, MalformedURLException {
 
+        String mensagem = "";
+        String tipoMensagem = "";
+
         Usuario usuario = atual();
 
         try {
             Token t = new Token();
             t.sendMailResetPassword(usuario,mailerClient);
-            //flash("success", Messages.get("resetpassword.mailsent"));
+            //mensagem = "Email enviado com sucesso!";
+            //tipoMensagem = "Sucesso";
+            //return ok(views.html.mensagens.info.reset.render(mensagem,tipoMensagem));
             return ok();
         } catch (MalformedURLException e) {
             Logger.error("Cannot validate URL", e);
-            //flash("error", Messages.get("error.technical"));
+            mensagem = "Impossível validar a URL";
+            tipoMensagem = "Erro";
         }
-        return badRequest();
+        return badRequest(views.html.mensagens.info.reset.render(mensagem,tipoMensagem));
     }
+
+    public Result reset(String token) {
+
+        String mensagem;
+        String tipoMensagem;
+
+        if (token == null) {
+            mensagem = "O token é nulo!";
+            tipoMensagem = "Erro";
+            return badRequest(views.html.mensagens.info.reset.render(mensagem,tipoMensagem));
+        }
+
+        Token resetToken = Token.findByTokenAndType(token, Token.TypeToken.password);
+
+        if (resetToken == null) {
+            mensagem = "O reset token é nulo";
+            tipoMensagem = "Erro";
+            return badRequest(views.html.mensagens.info.reset.render(mensagem,tipoMensagem));
+        }
+
+        if (resetToken.isExpired()) {
+            mensagem = "O token expirou!";
+            tipoMensagem = "Invalido";
+            return badRequest(views.html.mensagens.info.reset.render(mensagem,tipoMensagem));
+        }
+
+        DynamicForm formDeErro = new DynamicForm();
+        return badRequest(views.html.senha.altera.render(formDeErro,token));
+    }
+
+    /**
+     * @return reset password form
+     */
+    public Result runReset(String token) throws EmailException {
+        Form<DynamicForm.Dynamic> formPreenchido = form.bindFromRequest();
+
+        if (formPreenchido.hasErrors()) {
+            DynamicForm formDeErro = form.fill(formPreenchido.data());
+            formDeErro.reject("O campo senha não pode estar vazio!");
+            return badRequest(views.html.senha.reset.render(formDeErro,token));
+        }
+
+        try {
+            Token resetToken = Token.findByTokenAndType(token, Token.TypeToken.password);
+            if (resetToken == null) {
+                DynamicForm formDeErro = form.fill(formPreenchido.data());
+                formDeErro.reject("Reset token vazio!");
+                return badRequest(views.html.senha.reset.render(formDeErro,token));
+            }
+
+            if (resetToken.isExpired()) {
+                resetToken.delete();
+                DynamicForm formDeErro = form.fill(formPreenchido.data());
+                formDeErro.reject("Token expirou!");
+                return badRequest(views.html.senha.reset.render(formDeErro,token));
+            }
+
+            // check email
+            Usuario usuario = Ebean.find(Usuario.class, resetToken.usuarioId);
+            if (usuario == null) {
+                // display no detail (email unknown for example) to
+                // avoir check email by foreigner
+                DynamicForm formDeErro = form.fill(formPreenchido.data());
+                formDeErro.reject("Usuário não encontrado!");
+                return badRequest(views.html.senha.reset.render(formDeErro,token));
+            }
+
+            String senha = formPreenchido.data().get("confirm_senha");
+            usuario.mudarSenha(senha);
+
+            String mensagem = "";
+            String tipoMensagem = "";
+
+            // Send email saying that the password has just been changed.
+            enviarEmailConfirmacao(usuario);
+            mensagem = "Senha alterada com sucesso!";
+            tipoMensagem = "Validado";
+            return ok(views.html.mensagens.info.reset.render(mensagem,tipoMensagem));
+        } catch (Exception e) {
+            DynamicForm formDeErro = form.fill(formPreenchido.data());
+            formDeErro.reject("Usuário não encontrado!");
+            return badRequest(views.html.senha.reset.render(formDeErro,token));
+        }
+
+    }
+
+    /**
+     * Send the email.
+     *
+     * @param usuario created
+     * @throws EmailException Exception when sending mail
+     */
+    private void enviarEmailConfirmacao(Usuario usuario) throws EmailException {
+        String emailBody = views.html.email.emailSenhaAlteradaBody.render(usuario).body();
+        try {
+            Email emailUser = new Email()
+                    .setSubject("Cadastro na Biblioteca")
+                    .setFrom("Biblioteca CIBiogás <biblioteca@email.com>")
+                    .addTo(usuario.getEmail())
+                    .setBodyHtml(emailBody);
+            mailerClient.send(emailUser);
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+        }
+    }
+
+
 }

@@ -57,7 +57,7 @@ angular.module('architectplay')
 
         Usuario.delete({id:$routeParams.id}, function() {
             toastr.warning('foi removido com Sucesso.', 'O usuário: ' + $scope.usuarioExcluido);
-            $scope.closeThisDialog('Fechar')
+            $scope.closeThisDialog('Fechar');
             $location.path('/usuarios');
         }, function(data) {
             $scope.closeThisDialog('Fechar')
@@ -116,6 +116,11 @@ angular.module('architectplay')
        };
 
        $scope.sim = function() {
-            console.log("SIM Enviar email");
-       };
+          Usuario.reset(function(data) {
+            toastr.success('O email foi enviado com sucesso!');
+            $scope.closeThisDialog('Fechar');
+            },function(data) {
+                toastr.error('Não foi possível executar esta operação!');
+            });
+          };
   });

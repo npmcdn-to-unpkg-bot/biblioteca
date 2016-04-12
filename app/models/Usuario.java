@@ -1,5 +1,6 @@
 package models;
 
+import akka.util.Crypt;
 import com.avaje.ebean.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -144,6 +145,18 @@ public class Usuario extends Model {
         usuario.setValidado(true);
         usuario.save();
         return true;
+    }
+
+    /**
+     * Change password account
+     *
+     * @param senha
+     * save new password
+     */
+    public void mudarSenha(String senha) {
+        this.senha = Crypt.sha1(senha);
+        this.dataAlteracao = new Date();
+        this.save();
     }
 
     @Override

@@ -27,24 +27,24 @@ public class Token extends Model {
     private static final int EXPIRATION_DAYS = 1;
 
     @Id
-    private String token;
+    public String token;
 
     @Constraints.Required
     @Formats.NonEmpty
-    private Long usuarioId;
+    public Long usuarioId;
 
     @Constraints.Required
     @Enumerated(EnumType.STRING)
-    private TypeToken type;
+    public TypeToken type;
 
     @Formats.DateTime(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date dateCreation;
+    public Date dateCreation;
 
     @Constraints.Required
     @Formats.NonEmpty
-    private String email;
+    public String email;
 
-    private enum TypeToken {
+    public enum TypeToken {
         password("reset"), email("email");
         private String urlPath;
 
@@ -87,6 +87,20 @@ public class Token extends Model {
         token.save();
         return token;
     }
+
+    /**
+     * Retrieve a token by id and type.
+     *
+     * @param token token Id
+     * @param type  type of token
+     * @return a resetToken
+     */
+    public static Token findByTokenAndType(String token, TypeToken type) {
+        return find.where().eq("token", token).eq("type", type).findUnique();
+    }
+
+    // -- Queries
+    public static Finder<String, Token> find = new Finder<String, Token>(Token.class);
 
     /**
      * Send the Email to confirm ask new password.
@@ -132,7 +146,7 @@ public class Token extends Model {
                 break;
         }
 
-        String emailBody = views.html.email.emailBody.render(usuario).body();
+        String emailBody = views.html.email.emailSenhaBody.render(usuario,url.toString()).body();
         try {
             Email emailUser = new Email()
                     .setSubject("Cadastro na Biblioteca")

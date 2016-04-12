@@ -1,0 +1,43 @@
+@(mensagem:String)(tipoMensagem:String)
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/bootstrap/dist/css/bootstrap.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/informacao.css")">
+    <title>Biblioteca - reset</title>
+</head>
+<body>
+    <div class="container">
+        <div class="form-signin well well-sm">
+            <a href="/" class="btn btn-default pull-right"> Início</a>
+            <h4 class="form-signin-heading">Informação:</h4>
+            <hr>
+            @if(tipoMensagem.equals("Sucesso")){
+            <p class="alert alert-success text-center">
+                @mensagem
+            </p>
+            }
+            @if(tipoMensagem.equals("Validado")){
+            <p class="alert alert-warning text-center">
+                @mensagem
+            </p>
+            }
+            @if(tipoMensagem.equals("Invalido")){
+            <p class="alert alert-warning text-center">
+                @mensagem
+                <br>
+                <b>Pedir um novo código de confirmação.</b>
+            </p>
+            }
+            @if(tipoMensagem.equals("Erro")){
+            <p class="alert alert-danger text-center">
+                @mensagem
+            </p>
+            }
+            <hr>
+            <p class="text-center">&copy; 2016 CIBiogás</p>
+        </div>
+    </div> <!-- /container -->
+</body>
+</html>

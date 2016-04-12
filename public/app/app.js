@@ -140,7 +140,6 @@ angular
                     scope.$apply(function (){
                         scope.$eval(attrs.myEnter);
                     });
-
                     event.preventDefault();
                 }
             });
@@ -161,4 +160,11 @@ angular
                   });
               }
           };
-      });
+      }).config(['ngDialogProvider', function (ngDialogProvider) {
+            ngDialogProvider.setDefaults({
+                showClose: false,
+                closeByDocument: false,
+                closeByEscape: false,
+                className: 'ngdialog-theme-default'
+            });
+        }]);

@@ -146,17 +146,6 @@ public class UsuarioController extends Controller {
     }
 
     /**
-     * Change password account
-     *
-     * @param senha
-     * save new password
-     */
-    public void mudarSenha(String senha) {
-        senha = Crypt.sha1(senha);
-        this.inserir();
-    }
-
-    /**
      * @return cadastrado form if register success
      */
     public Result telaCadastrado() {
@@ -356,6 +345,10 @@ public class UsuarioController extends Controller {
 
         if (usuarioAtual == null) {
             return notFound("Usuario não autenticado");
+        }
+
+        if (!usuarioAtual.getEmail().equals("admin")) {
+            return badRequest("Não autorizado!");
         }
 
         //verificar se o usuario atual encontrado é administrador
