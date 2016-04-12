@@ -75,7 +75,7 @@ public class UsuarioController extends Controller {
         }
 
         if (usuario.getValidado()) {
-            mensagem = "Esta conta de usuário já foi validada!";
+            mensagem = "Esta conta de usuário já foi confirmada!";
             tipoMensagem = "Validado";
             return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem));
         }

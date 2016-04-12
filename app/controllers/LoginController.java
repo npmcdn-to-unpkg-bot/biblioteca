@@ -2,7 +2,6 @@ package controllers;
 
 import akka.util.Crypt;
 import com.avaje.ebean.Ebean;
-import com.avaje.ebean.Query;
 import models.Usuario;
 import models.Usuarios;
 import play.data.DynamicForm;
@@ -62,23 +61,6 @@ public class LoginController extends Controller {
         String email = requestForm.data().get("email");
         String senha = requestForm.data().get("senha");
 
-        //busca usuario atraves do email que recebe por parametro vindo da request
-        Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where email = :email");
-        query.setParameter("email", email);
-        Usuario usuario = query.findUnique();
-
-        if (usuario == null) {
-            DynamicForm formDeErro = form.fill(requestForm.data());
-            formDeErro.reject("Usuário não encontrado!");
-            return badRequest(views.html.login.render(formDeErro));
-        }
-
-        if (!usuario.getValidado()) {
-            DynamicForm formDeErro = form.fill(requestForm.data());
-            formDeErro.reject("O usuário não foi confirmado! Acesse seu email!");
-            return badRequest(views.html.login.render(formDeErro));
-        }
-
         if (email.equals("") || senha.equals("")) {
             DynamicForm formDeErro = form.fill(requestForm.data());
             formDeErro.reject("Email ou Senha não podem estar vazios!");
@@ -88,6 +70,11 @@ public class LoginController extends Controller {
         F.Option<Usuario> talvesUmUsuario = Usuarios.existe(email, Crypt.sha1(senha));
 
         if (talvesUmUsuario.isDefined()) {
+            if (!talvesUmUsuario.get().getValidado()) {
+                DynamicForm formDeErro = form.fill(requestForm.data());
+                formDeErro.reject("O usuário não foi confirmado! Acesse seu email!");
+                return badRequest(views.html.login.render(formDeErro));
+            }
             session().put("email", talvesUmUsuario.get().getEmail());
             return redirect(routes.LoginController.telaAutenticado());
         }
