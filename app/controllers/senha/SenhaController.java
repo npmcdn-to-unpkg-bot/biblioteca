@@ -1,6 +1,5 @@
 package controllers.senha;
 
-import akka.util.Crypt;
 import com.avaje.ebean.Ebean;
 import com.google.inject.Inject;
 import models.Token;
@@ -45,7 +44,7 @@ public class SenhaController extends Controller {
     /**
      * Send a mail with the reset link.
      *
-     * @return password page with flash error or success
+     * @return info error page with flash error
      */
     public Result runPassword() throws EmailException, MalformedURLException {
 
@@ -57,9 +56,6 @@ public class SenhaController extends Controller {
         try {
             Token t = new Token();
             t.sendMailResetPassword(usuario,mailerClient);
-            //mensagem = "Email enviado com sucesso!";
-            //tipoMensagem = "Sucesso";
-            //return ok(views.html.mensagens.info.reset.render(mensagem,tipoMensagem));
             return ok();
         } catch (MalformedURLException e) {
             Logger.error("Cannot validate URL", e);
@@ -69,6 +65,12 @@ public class SenhaController extends Controller {
         return badRequest(views.html.mensagens.info.reset.render(mensagem,tipoMensagem));
     }
 
+    /**
+     *
+     * verifica atraves do token recebido se ele e valido, se ele for valido retorna a pagina de alterar a senha
+     * @param token from the url
+     * @return password change page if success or a error page if a KO
+     */
     public Result reset(String token) {
 
         String mensagem;
@@ -95,11 +97,14 @@ public class SenhaController extends Controller {
         }
 
         DynamicForm formDeErro = new DynamicForm();
-        return badRequest(views.html.senha.altera.render(formDeErro,token));
+        return ok(views.html.senha.altera.render(formDeErro,token));
     }
 
     /**
-     * @return reset password form
+     *
+     * realiza o reset da senha usando o token enviado por email para o usuario
+     * @param token from the url
+     * @throws EmailException Exception when sending mail
      */
     public Result runReset(String token) throws EmailException {
         Form<DynamicForm.Dynamic> formPreenchido = form.bindFromRequest();
@@ -107,7 +112,7 @@ public class SenhaController extends Controller {
         if (formPreenchido.hasErrors()) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject("O campo senha não pode estar vazio!");
-            return badRequest(views.html.senha.reset.render(formDeErro,token));
+            return badRequest(views.html.senha.altera.render(formDeErro,token));
         }
 
         try {
@@ -115,14 +120,14 @@ public class SenhaController extends Controller {
             if (resetToken == null) {
                 DynamicForm formDeErro = form.fill(formPreenchido.data());
                 formDeErro.reject("Reset token vazio!");
-                return badRequest(views.html.senha.reset.render(formDeErro,token));
+                return badRequest(views.html.senha.altera.render(formDeErro,token));
             }
 
             if (resetToken.isExpired()) {
                 resetToken.delete();
                 DynamicForm formDeErro = form.fill(formPreenchido.data());
                 formDeErro.reject("Token expirou!");
-                return badRequest(views.html.senha.reset.render(formDeErro,token));
+                return badRequest(views.html.senha.altera.render(formDeErro,token));
             }
 
             // check email
@@ -132,7 +137,7 @@ public class SenhaController extends Controller {
                 // avoir check email by foreigner
                 DynamicForm formDeErro = form.fill(formPreenchido.data());
                 formDeErro.reject("Usuário não encontrado!");
-                return badRequest(views.html.senha.reset.render(formDeErro,token));
+                return badRequest(views.html.senha.altera.render(formDeErro,token));
             }
 
             String senha = formPreenchido.data().get("confirm_senha");
@@ -149,7 +154,7 @@ public class SenhaController extends Controller {
         } catch (Exception e) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject("Usuário não encontrado!");
-            return badRequest(views.html.senha.reset.render(formDeErro,token));
+            return badRequest(views.html.senha.altera.render(formDeErro,token));
         }
 
     }
@@ -173,6 +178,5 @@ public class SenhaController extends Controller {
             Logger.error(e.getMessage());
         }
     }
-
 
 }

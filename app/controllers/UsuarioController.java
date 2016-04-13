@@ -115,10 +115,10 @@ public class UsuarioController extends Controller {
 
         try {
             Email emailUser = new Email()
-                    .setSubject("Cadastro na Biblioteca")
-                    .setFrom("Biblioteca CIBiogás <biblioteca@email.com>")
-                    .addTo(usuario.getEmail())
-                    .setBodyHtml(emailConfirmacaoBody);
+                .setSubject("Cadastro na Biblioteca")
+                .setFrom("Biblioteca CIBiogás <biblioteca@email.com>")
+                .addTo(usuario.getEmail())
+                .setBodyHtml(emailConfirmacaoBody);
             mailerClient.send(emailUser);
         } catch (Exception e) {
             Logger.error(e.getMessage());
@@ -175,7 +175,7 @@ public class UsuarioController extends Controller {
     /**
      * Save a user
      *
-     * @return a user json
+     * @return ok user json
      */
     public Result inserir(){
         Form<DynamicForm.Dynamic> formPreenchido = form.bindFromRequest();
@@ -347,6 +347,7 @@ public class UsuarioController extends Controller {
             return notFound("Usuario não autenticado");
         }
 
+        //verifica para nao excluir o usuario admin
         if (!usuarioAtual.getEmail().equals("admin")) {
             return badRequest("Não autorizado!");
         }
