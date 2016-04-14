@@ -115,7 +115,7 @@ public class UsuarioController extends Controller {
 
         try {
             Email emailUser = new Email()
-                .setSubject("Cadastro na Biblioteca")
+                .setSubject("Cadastro na Biblioteca - Confirme seu email")
                 .setFrom("Biblioteca CIBiogás <biblioteca@email.com>")
                 .addTo(usuario.getEmail())
                 .setBodyHtml(emailConfirmacaoBody);
@@ -135,7 +135,7 @@ public class UsuarioController extends Controller {
         String emailBody = views.html.email.emailBody.render(usuario).body();
         try {
             Email emailUser = new Email()
-                    .setSubject("Cadastro na Biblioteca")
+                    .setSubject("Biblioteca Digital CIBiogás - Bem vindo")
                     .setFrom("Biblioteca CIBiogás <biblioteca@email.com>")
                     .addTo(usuario.getEmail())
                     .setBodyHtml(emailBody);

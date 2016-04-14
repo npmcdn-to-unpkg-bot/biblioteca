@@ -149,7 +149,7 @@ public class Token extends Model {
         String emailBody = views.html.email.emailSenhaBody.render(usuario,url.toString()).body();
         try {
             Email emailUser = new Email()
-                    .setSubject("Cadastro na Biblioteca")
+                    .setSubject("Cadastro na Biblioteca - Alterar senha")
                     .setFrom("Biblioteca CIBiogás <biblioteca@email.com>")
                     .addTo(usuario.getEmail())
                     .setBodyHtml(emailBody);

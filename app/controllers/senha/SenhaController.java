@@ -85,13 +85,13 @@ public class SenhaController extends Controller {
         Token resetToken = Token.findByTokenAndType(token, Token.TypeToken.password);
 
         if (resetToken == null) {
-            mensagem = "O reset token é nulo";
+            mensagem = "O link para atualizar a senha é inválido, por favor verifique e tente novamente.";
             tipoMensagem = "Erro";
             return badRequest(views.html.mensagens.info.reset.render(mensagem,tipoMensagem));
         }
 
         if (resetToken.isExpired()) {
-            mensagem = "O token expirou!";
+            mensagem = "O link para atualizar a senha expirou.";
             tipoMensagem = "Invalido";
             return badRequest(views.html.mensagens.info.reset.render(mensagem,tipoMensagem));
         }
@@ -119,14 +119,14 @@ public class SenhaController extends Controller {
             Token resetToken = Token.findByTokenAndType(token, Token.TypeToken.password);
             if (resetToken == null) {
                 DynamicForm formDeErro = form.fill(formPreenchido.data());
-                formDeErro.reject("Reset token vazio!");
+                formDeErro.reject("O link para atualizar a senha é inválido, por favor verifique e tente novamente.");
                 return badRequest(views.html.senha.altera.render(formDeErro,token));
             }
 
             if (resetToken.isExpired()) {
                 resetToken.delete();
                 DynamicForm formDeErro = form.fill(formPreenchido.data());
-                formDeErro.reject("Token expirou!");
+                formDeErro.reject("O link para atualizar a senha expirou.");
                 return badRequest(views.html.senha.altera.render(formDeErro,token));
             }
 
@@ -148,12 +148,13 @@ public class SenhaController extends Controller {
 
             // Send email saying that the password has just been changed.
             enviarEmailConfirmacao(usuario);
-            mensagem = "Senha alterada com sucesso!";
+            mensagem = "Senha alterada com sucesso! Você já pode realizar a autenticação.";
             tipoMensagem = "Validado";
             return ok(views.html.mensagens.info.reset.render(mensagem,tipoMensagem));
         } catch (Exception e) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
-            formDeErro.reject("Usuário não encontrado!");
+            formDeErro.reject("Erro interno de sistema.");
+            Logger.error(e.getMessage());
             return badRequest(views.html.senha.altera.render(formDeErro,token));
         }
 
@@ -169,7 +170,7 @@ public class SenhaController extends Controller {
         String emailBody = views.html.email.emailSenhaAlteradaBody.render(usuario).body();
         try {
             Email emailUser = new Email()
-                    .setSubject("Cadastro na Biblioteca")
+                    .setSubject("Biblioteca Digital CIBiogás- Senha alterada")
                     .setFrom("Biblioteca CIBiogás <biblioteca@email.com>")
                     .addTo(usuario.getEmail())
                     .setBodyHtml(emailBody);
