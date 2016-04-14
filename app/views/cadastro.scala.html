@@ -28,16 +28,27 @@
                 <label>Confirmação: </label>
                 <input name="confirm_senha" type="password" id="confirm_senha" class="form-control" maxlength="60" required>
                 <br>
-                <input class="btn btn-lg btn-success btn-block" type="submit" value="Cadastrar">
+                <input class="btn btn-lg btn-success btn-block" type="submit" id="btnSubmit" value="Cadastrar"/>
         }
-            <hr>
-            <p class="text-center">&copy; 2016 CIBiogás</p>
-        </div>
+                <hr>
+                <p class="text-center">&copy; 2016 CIBiogás</p>
+            </div>
     </div> <!-- /container -->
 
+    <script type="text/javascript">
+        window.onbeforeunload = function () {
+            var inputs = document.getElementsByTagName("INPUT");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].type == "button" || inputs[i].type == "submit" || inputs[i].type == "password" || inputs[i].type == "text" || inputs[i].type == "email") {
+                    inputs[i].disabled = true;
+                }
+            }
+        };
+    </script>
     <script src="@routes.Assets.versioned("bower_components/jquery/dist/jquery.js")" type="text/javascript"></script>
     <script src="@routes.Assets.versioned("bower_components/bootstrap/dist/js/bootstrap.js")" type="text/javascript"></script>
     <script src="@routes.Assets.versioned("bower_components/angular/angular.js")" type="text/javascript"></script>
     <script src="@routes.Assets.versioned("javascripts/passcheck.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("javascripts/hello.js")" type="text/javascript"></script>
 </body>
 </html>

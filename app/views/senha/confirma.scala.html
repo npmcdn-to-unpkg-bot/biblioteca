@@ -16,12 +16,23 @@
                 <hr>
                 <p class="alert alert-info text-center">Deseja redefinir a sua senha?</p>
                 <br>
-                <input class="btn btn-lg btn-warning text-center btn-block" type="submit" value="Redefinir">
+                <input class="btn btn-lg btn-warning btn-block" type="submit" id="btnSubmit" value="Redefinir"/>
                 <hr>
                 <p class="text-center">&copy; 2016 CIBiogás</p>
             </div>
         }
     </div> <!-- /container -->
+
+    <script type="text/javascript">
+        window.onbeforeunload = function () {
+            var inputs = document.getElementsByTagName("INPUT");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].type == "button" || inputs[i].type == "submit") {
+                    inputs[i].disabled = true;
+                }
+            }
+        };
+    </script>
     <script src="@routes.Assets.versioned("bower_components/jquery/dist/jquery.js")" type="text/javascript"></script>
     <script src="@routes.Assets.versioned("bower_components/bootstrap/dist/js/bootstrap.js")" type="text/javascript"></script>
 </body>

@@ -24,7 +24,7 @@
 
                 @helper.inputPassword(usuarioForm("senha"), 'class -> "form-control", 'placeholder -> "Insira a senha", '_label -> "Senha")
 
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Acessar</button>
+                <input class="btn btn-lg btn-primary btn-block" type="submit" id="btnSubmit" value="Acessar"/>
             }
             <hr>
             <a href="/cadastro"><span class="fa fa-user-plus pull-right"> Registrar</span></a>
@@ -32,6 +32,16 @@
         </div>
     </div> <!-- /container -->
 
+    <script type="text/javascript">
+        window.onbeforeunload = function () {
+            var inputs = document.getElementsByTagName("INPUT");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].type == "button" || inputs[i].type == "submit") {
+                    inputs[i].disabled = true;
+                }
+            }
+        };
+    </script>
     <script src="@routes.Assets.versioned("bower_components/jquery/dist/jquery.js")" type="text/javascript"></script>
     <script src="@routes.Assets.versioned("bower_components/bootstrap/dist/js/bootstrap.js")" type="text/javascript"></script>
 </body>

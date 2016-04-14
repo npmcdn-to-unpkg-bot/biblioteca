@@ -110,7 +110,7 @@ angular.module('architectplay')
 
        $scope.opendialog = function() {
            ngDialog.open({
-               template: 'templateId',
+               template: 'templateDialog',
                controller:'usuario.perfil.controller'
            });
        };
