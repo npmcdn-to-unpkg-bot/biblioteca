@@ -104,6 +104,7 @@ angular.module('architectplay')
       Usuario.getAutenticado(function(data) {
           $rootScope.usuario = data;
        },function(data) {
+            $location.path('/');
             toastr.error('Não autorizado');
          });
        }
@@ -120,7 +121,8 @@ angular.module('architectplay')
             toastr.success('O email foi enviado com sucesso!');
             $scope.closeThisDialog('Fechar');
             },function(data) {
-                toastr.error('Não foi possível executar esta operação!');
+                toastr.error(data.data, 'Não foi possível executar esta operação!');
+                $scope.closeThisDialog('Fechar');
             });
           };
   });

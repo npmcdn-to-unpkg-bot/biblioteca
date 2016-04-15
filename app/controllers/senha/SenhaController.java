@@ -53,6 +53,10 @@ public class SenhaController extends Controller {
 
         Usuario usuario = atual();
 
+        if (usuario == null) {
+            return badRequest("Usuário não autenticado.");
+        }
+
         try {
             Token t = new Token();
             t.sendMailResetPassword(usuario,mailerClient);
