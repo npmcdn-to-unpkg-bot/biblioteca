@@ -3,6 +3,15 @@
 
 # --- !Ups
 
+create table artigo (
+  id                        bigserial not null,
+  titulo                    varchar(100) not null,
+  resumo                    varchar(200) not null,
+  data_cadastro             timestamp,
+  data_alteracao            timestamp,
+  constraint pk_artigo primary key (id))
+;
+
 create table contato (
   id                        bigserial not null,
   nome                      varchar(60) not null,
@@ -43,6 +52,8 @@ create table usuario (
 
 
 # --- !Downs
+
+drop table if exists artigo cascade;
 
 drop table if exists contato cascade;
 
