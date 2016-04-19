@@ -17,8 +17,8 @@
                     Limpar
                 </div>
              </span>
-            <p><b>{{filtrados}}</b> registros filtrados</p>
-            <p ng-show="usuarios.length != 0">Total de <b>{{quantidade}}</b> Registros</p>
+            <p ng-show="usuarios.length > 0"><b>{{filtrados}}</b> registros filtrados</p>
+            <p ng-show="usuarios.length > 0">Total de <b>{{quantidade}}</b> Registros</p>
             <p ng-show="usuarios.length == 0">Nenhum registro encontrado</p>
         </div>
 

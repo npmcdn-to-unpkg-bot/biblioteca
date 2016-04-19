@@ -1,5 +1,5 @@
 angular.module('architectplay')
-    .controller('usuario.list.controller', function ($scope, $rootScope, Usuario, toastr, $routeParams) {
+    .controller('usuario.list.controller', function ($scope, $rootScope, Usuario, toastr, $routeParams, $location) {
 
     $rootScope.title = 'Usuários';
 
@@ -22,7 +22,7 @@ angular.module('architectplay')
                 $scope.usuarios = data;
                 $scope.filtrados = $scope.usuarios.length;
             }, function(data) {
-                 toastr.error(data.data,'Não autorizado');
+                 toastr.error('Não autorizado');
              });
        } else {
             Usuario.getAll(function(data) {
@@ -45,7 +45,7 @@ angular.module('architectplay')
     $scope.init = function() {
         $scope.usuario = Usuario.get({id:$routeParams.id}, function(data) {
         },function(data) {
-            toastr.error(data.data);
+            toastr.error('Não encontrado');
         });
     };
 
@@ -85,7 +85,7 @@ angular.module('architectplay')
     $scope.init = function() {
         $scope.usuario = Usuario.get({id:$routeParams.id}, function(data) {
         },function(data) {
-            toastr.error(data.data);
+            toastr.error('Não encontrado');
         });
     };
 
@@ -100,10 +100,14 @@ angular.module('architectplay')
 
   }).controller('usuario.perfil.controller', function ($scope, $rootScope, $routeParams, $location, Usuario, toastr, ngDialog) {
 
+    $scope.mostrar = false;
+
     $scope.init = function() {
       Usuario.getAutenticado(function(data) {
           $rootScope.usuario = data;
+          $scope.mostrar = true;
        },function(data) {
+            $scope.mostrar = false;
             $location.path('/');
             toastr.error('Não autorizado');
          });

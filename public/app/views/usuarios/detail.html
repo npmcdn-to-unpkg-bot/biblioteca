@@ -17,6 +17,9 @@
             <p>{{usuario.nome}}</p>
             <strong>Email</strong>
             <p>{{usuario.email}}</p>
+            <strong>Confirmado</strong>
+            <p ng-if="usuario.validado===false">Não</p>
+            <p ng-if="usuario.validado===true">Sim</p>
             <div data-ng-show="usuario.dataCadastro">
             <strong>Data de Cadastro</strong>
                 <p>{{usuario.dataCadastro | date:'dd/MM/yyyy : HH:mm'}}</p>

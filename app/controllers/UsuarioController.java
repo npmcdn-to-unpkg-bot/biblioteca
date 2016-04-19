@@ -65,19 +65,21 @@ public class UsuarioController extends Controller {
 
         String mensagem = "";
         String tipoMensagem = "";
+        String usuarioEmail = "";
 
         Usuario usuario = buscaPorConfirmacaoToken(token);
+
 
         if (usuario == null) {
             mensagem = "Seu código de ativação é inválido ou expirou!";
             tipoMensagem = "Invalido";
-            return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem));
+            return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
         }
 
         if (usuario.getValidado()) {
             mensagem = "Esta conta de usuário já foi confirmada!";
             tipoMensagem = "Validado";
-            return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem));
+            return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
         }
 
         try {
@@ -85,19 +87,20 @@ public class UsuarioController extends Controller {
                 enviarEmailConfirmacao(usuario);
                 mensagem = "Sua conta foi ativada com sucesso!";
                 tipoMensagem = "Sucesso";
-                return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem));
+                usuarioEmail = usuario.getEmail();
+                return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
             } else {
                 Logger.debug("Signup.confirm cannot confirm user");
                 mensagem = "Erro de confirmação do cadastro do usuário!";
                 tipoMensagem = "Erro";
-                return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem));
+                return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
             }
         } catch (Exception e) {
             Logger.error("Cannot signup", e);
             mensagem = "Erro na aplicação!";
             tipoMensagem = "Erro";
         }
-        return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem));
+        return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
     }
 
     /**

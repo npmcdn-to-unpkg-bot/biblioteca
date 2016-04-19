@@ -1,4 +1,4 @@
-@(mensagem:String)(tipoMensagem:String)
+@(mensagem:String)(tipoMensagem:String)(usuarioEmail:String)
 <html>
 <head lang="en">
     <meta charset="UTF-8">
@@ -15,7 +15,7 @@
             <hr>
             @if(tipoMensagem.equals("Sucesso")){
                 <p class="alert alert-success text-center">
-                    @mensagem
+                    Holá "<b>@usuarioEmail</b>", @mensagem
                 </p>
             }
             @if(tipoMensagem.equals("Validado")){

@@ -2,11 +2,13 @@ angular.module('architectplay')
     .controller('livro.controller', function ($scope, $rootScope, Usuario, toastr, $location) {
         $rootScope.title = 'Livros';
 
+        $scope.mostrar = false;
+
         Usuario.getAutenticado(function(data) {
             $rootScope.usuario = data;
-            mostrar = true;
+            $scope.mostrar = true;
         },function(data) {
-            mostrar = false;
+            $scope.mostrar = false;
             $location.path('/');
             toastr.error('Não autorizado');
         });
