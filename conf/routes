@@ -15,8 +15,7 @@ DELETE  /contato/:id                        controllers.ContatoController.remove
 # Artigo
 GET     /novo                               controllers.ArtigoController.novoTela()
 POST    /artigo                             controllers.ArtigoController.inserir()
-POST	/artigoUpload				        controllers.ArtigoController.upload()
-GET		/artigoPdf				            controllers.ArtigoController.pdf(id:Long)
+GET     /artigo/pdf/:titulo                 controllers.ArtigoController.pdf(titulo:String)
 GET     /artigos                            controllers.ArtigoController.buscaTodos()
 GET     /artigos/filtro/:filtro             controllers.ArtigoController.filtra(filtro:String)
 GET     /artigo/:id                         controllers.ArtigoController.buscaPorId(id:Long)

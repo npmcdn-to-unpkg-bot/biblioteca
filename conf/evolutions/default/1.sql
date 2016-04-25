@@ -6,7 +6,7 @@
 create table artigo (
   id                        bigserial not null,
   titulo                    varchar(100) not null,
-  resumo                    varchar(200) not null,
+  resumo                    varchar(254) not null,
   data_cadastro             timestamp,
   data_alteracao            timestamp,
   constraint pk_artigo primary key (id))

@@ -15,4 +15,11 @@ angular.module('architectplay')
            getAll: {method: 'GET', url: BaseUrl + '/contatos', isArray: true},
            getFiltroContatos: {method: 'GET', url: BaseUrl + '/contatos/filtro/:filtro', isArray: true}
         });
+    }]).service('Artigo',['$resource', 'BaseUrl',
+      function($resource, BaseUrl){
+        return $resource(BaseUrl + '/artigo/:id', {}, {
+           getAll: {method: 'GET', url: BaseUrl + '/artigos', isArray: true},
+           getPdf: {method: 'GET', url: BaseUrl + '/artigo/pdf/:titulo', isArray: false},
+           getFiltroArtigos: {method: 'GET', url: BaseUrl + '/artigos/filtro/:filtro', isArray: true}
+        });
     }]);

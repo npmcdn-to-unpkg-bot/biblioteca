@@ -64,7 +64,7 @@ angular
             })
             .when('/artigos', {
                 templateUrl: '/assets/app/views/artigos/list.html',
-                controller: 'artigo.controller',
+                controller: 'artigo.list.controller',
                 activetab: 'artigos'
             })
             .when('/artigos/energiasrenovaveis/biogas', {
@@ -92,7 +92,7 @@ angular
                 controller: 'direito.controller',
                 activetab: 'direitos'
             })
-            .otherwise({redirectTo:'/'});
+            //.otherwise({redirectTo:'/'});
    // se tirar esse .run as funções do material design lite
    //não carrega corretamente na página, precisa apertar f5 várias vezes
    }).run(function ($rootScope,$timeout) {

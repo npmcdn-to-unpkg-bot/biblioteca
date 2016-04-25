@@ -1,7 +1,6 @@
 package controllers;
 
 import actions.Secured;
-import akka.util.Crypt;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Query;
 import models.Artigo;
@@ -21,7 +20,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import static play.data.Form.form;
 
@@ -57,17 +55,50 @@ public class ArtigoController extends Controller {
      * @return a artigo json
      */
     public Result inserir() {
-
         Form<DynamicForm.Dynamic> formPreenchido = form.bindFromRequest();
 
         String titulo = formPreenchido.data().get("titulo");
         String resumo = formPreenchido.data().get("resumo");
 
-        Artigo novo = new Artigo();
+        //valida se o email e a senha não estejam vazios
+        if (titulo.equals("") || resumo.equals("")) {
+            DynamicForm formDeErro = form.fill(formPreenchido.data());
+            formDeErro.reject("Título ou Resumo não podem estar vazios!");
+            return badRequest(views.html.artigo.novo.render(formDeErro));
+        }
 
+        Http.MultipartFormData body = request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
+
+        String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
+
+        if (arquivo != null) {
+            String arquivoTitulo = form().bindFromRequest().get("titulo");
+            String pdf = arquivoTitulo + extensaoPadraoDePdfs;
+            String tipoDeConteudo = arquivo.getContentType();
+            File file = arquivo.getFile();
+            String diretorioDePdfs = Play.application().configuration().getString("diretorioDePdfs");
+            String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
+
+            if (tipoDeConteudo.equals(contentTypePadraoDePdfs)) {
+                file.renameTo(new File(diretorioDePdfs,pdf));
+            } else {
+                DynamicForm formDeErro = form.fill(formPreenchido.data());
+                formDeErro.reject("Apenas arquivos em formato PDF é aceito");
+                return badRequest(views.html.artigo.novo.render(formDeErro));
+            }
+        } else {
+            DynamicForm formDeErro = form.fill(formPreenchido.data());
+            formDeErro.reject("Selecione um arquivo no formato PDF");
+            return badRequest(views.html.artigo.novo.render(formDeErro));
+        }
+
+
+        Artigo novo = new Artigo();
         novo.setTitulo(titulo);
         novo.setResumo(resumo);
         novo.setDataCadastro(new Date());
+
 
         try {
             Ebean.save(novo);
@@ -78,9 +109,7 @@ public class ArtigoController extends Controller {
             return badRequest(views.html.cadastro.render(formDeErro));
         }
 
-        String artigoTitulo = novo.getTitulo();
-
-        return ok(views.html.mensagens.info.cadastrado.render(artigoTitulo));
+        return ok(views.html.mensagens.info.artigoCadastrado.render(titulo));
     }
 
     /**
@@ -192,54 +221,19 @@ public class ArtigoController extends Controller {
     }
 
     /**
-     * upload a pdf file from request
+     * return the pdf from a titulo
      *
-     * @return ok file uploaded
+     * @param titulo
+     * @return ok pdf by name
      */
-    public Result upload() {
-
-        Http.MultipartFormData body = request().body().asMultipartFormData();
-        Http.MultipartFormData.FilePart pdf = body.getFile("pdf");
-        String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
-        if (pdf != null) {
-
-            String artigoId = form().bindFromRequest().get("artigoId");
-            String arquivo = artigoId + extensaoPadraoDePdfs;
-            String contentType = pdf.getContentType();
-            File documento = pdf.getFile();
-
-            String diretorioDePdfs = Play.application().configuration().getString("diretorioDePdfs");
-            String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
-
-            if (contentType.equals(contentTypePadraoDePdfs)) {
-
-                documento.renameTo(new File(diretorioDePdfs,arquivo));
-                return ok("Arquivo carregado com sucesso");
-
-            } else {
-                return ok("Arquivo apenas com formato pdf é aceito");
-
-            }
-
-        } else {
-            flash("error","Erro ao fazer upload");
-            return redirect(routes.Application.index());
-        }
-    }
-
-    /**
-     * return a pdf from a id
-     *
-     * @param id
-     * @return ok pdf
-     */
-    public Result pdf(Long id) throws IOException {
+    public Result pdf(String titulo) throws IOException {
 
         String diretorioDePdfs = Play.application().configuration().getString("diretorioDePdfs");
 
-        File pdf = new File(diretorioDePdfs,id + ".pdf");
+        File pdf = new File(diretorioDePdfs,titulo + ".pdf");
 
         return ok(new FileInputStream(pdf));
 
     }
+
 }
