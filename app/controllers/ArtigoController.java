@@ -1,12 +1,15 @@
 package controllers;
 
 import actions.Secured;
+import akka.util.Crypt;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Query;
 import models.Artigo;
 import models.Usuario;
 import play.Logger;
 import play.Play;
+import play.data.DynamicForm;
+import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
@@ -18,17 +21,20 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import static play.data.Form.form;
 
 @Security.Authenticated(Secured.class)
 public class ArtigoController extends Controller {
 
+    private static DynamicForm form = Form.form();
+
     /**
      * @return autenticado form if auth OK or login form is auth KO
      */
     public Result novoTela() {
-        return ok(views.html.artigo.novo.render());
+        return ok(views.html.artigo.novo.render(form));
     }
 
     /**
@@ -52,18 +58,29 @@ public class ArtigoController extends Controller {
      */
     public Result inserir() {
 
-        Artigo artigo = Json.fromJson(request().body().asJson(), Artigo.class);
+        Form<DynamicForm.Dynamic> formPreenchido = form.bindFromRequest();
 
-        artigo.setDataCadastro(new Date());
+        String titulo = formPreenchido.data().get("titulo");
+        String resumo = formPreenchido.data().get("resumo");
+
+        Artigo novo = new Artigo();
+
+        novo.setTitulo(titulo);
+        novo.setResumo(resumo);
+        novo.setDataCadastro(new Date());
 
         try {
-            Ebean.save(artigo);
+            Ebean.save(novo);
         } catch (Exception e) {
-            Logger.error(e.getMessage());
-            return badRequest("Erro interno de sistema");
+            DynamicForm formDeErro = form.fill(formPreenchido.data());
+            formDeErro.reject("Erro interno de sistema!");
+            Logger.info(e.getMessage());
+            return badRequest(views.html.cadastro.render(formDeErro));
         }
 
-        return created(Json.toJson(artigo));
+        String artigoTitulo = novo.getTitulo();
+
+        return ok(views.html.mensagens.info.cadastrado.render(artigoTitulo));
     }
 
     /**
