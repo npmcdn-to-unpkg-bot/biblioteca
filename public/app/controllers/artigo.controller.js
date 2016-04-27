@@ -3,17 +3,6 @@ angular.module('architectplay')
 
     $rootScope.title = 'Artigos';
 
-//    $scope.mostrar = false;
-//
-//    Usuario.getAutenticado(function(data) {
-//        $rootScope.usuario = data;
-//        $scope.mostrar = true;
-//    },function(data) {
-//        $scope.mostrar = false;
-//        $location.path('/');
-//        toastr.error('Não autorizado');
-//    });
-
     $scope.init = function() {
         $scope.nomeFiltro = '';
         $scope.filtrados = 0;
@@ -22,6 +11,7 @@ angular.module('architectplay')
            $scope.artigos = data;
            $scope.quantidade = $scope.artigos.length;
         }, function(data) {
+            $location.path('/');
             toastr.error('Não autorizado.');
         });
     };

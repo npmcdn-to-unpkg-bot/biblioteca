@@ -17,7 +17,7 @@ public class Artigo extends Model {
     @Id
     private Long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 150)
     private String titulo;
 
     @Column(nullable = false, length = 254)

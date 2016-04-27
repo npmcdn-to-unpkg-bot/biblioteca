@@ -33,6 +33,14 @@ public class ArtigoController extends Controller {
      * @return autenticado form if auth OK or login form is auth KO
      */
     public Result novoTela() {
+        //busca o usuário atual que esteja logado no sistema
+        Usuario usuarioAtual = atual();
+
+        //verificar se o usuario atual encontrado é administrador
+        if (usuarioAtual.getPrivilegio() != 1) {
+            return badRequest(views.html.mensagens.erro.naoAutorizado.render());
+        }
+
         return ok(views.html.artigo.novo.render(form));
     }
 
@@ -56,6 +64,15 @@ public class ArtigoController extends Controller {
      * @return a render view to inform OK
      */
     public Result inserir() {
+
+        //busca o usuário atual que esteja logado no sistema
+        Usuario usuarioAtual = atual();
+
+        //verificar se o usuario atual encontrado é administrador
+        if (usuarioAtual.getPrivilegio() != 1) {
+            return badRequest(views.html.mensagens.erro.naoAutorizado.render());
+        }
+
         Form<DynamicForm.Dynamic> formPreenchido = form.bindFromRequest();
 
         String titulo = formPreenchido.data().get("titulo");
@@ -117,19 +134,6 @@ public class ArtigoController extends Controller {
      * @return a list of all artigos in json
      */
     public Result buscaTodos() {
-
-        //busca o usuário atual que esteja logado no sistema
-        Usuario usuarioAtual = atual();
-
-        if (usuarioAtual == null) {
-            return notFound("Usuario não autenticado");
-        }
-
-        //verificar se o usuario atual encontrado é administrador
-        if (usuarioAtual.getPrivilegio() != 1) {
-            return badRequest("Você não tem privilégios de Administrador");
-        }
-
         return ok(Json.toJson(Ebean.find(Artigo.class).findList()));
     }
 
@@ -166,12 +170,6 @@ public class ArtigoController extends Controller {
      * @return a artigo json
      */
     public Result buscaPorId(Long id) {
-        //busca o usuário atual que esteja logado no sistema
-        Usuario usuarioAtual = atual();
-
-        if (usuarioAtual == null) {
-            return notFound("Usuario não autenticado");
-        }
 
         //busca o contato
         Artigo artigo = Ebean.find(Artigo.class, id);

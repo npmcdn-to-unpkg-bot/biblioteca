@@ -19,7 +19,6 @@ angular.module('architectplay')
       function($resource, BaseUrl){
         return $resource(BaseUrl + '/artigo/:id', {}, {
            getAll: {method: 'GET', url: BaseUrl + '/artigos', isArray: true},
-           getPdf: {method: 'GET', url: BaseUrl + '/artigo/pdf/:titulo', isArray: false},
            getFiltroArtigos: {method: 'GET', url: BaseUrl + '/artigos/filtro/:filtro', isArray: true}
         });
     }]);

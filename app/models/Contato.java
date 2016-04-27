@@ -23,8 +23,6 @@ public class Contato extends Model {
     @Column(nullable = false, length = 60)
     private String email;
 
-    private String email2;
-
     @Column(nullable = false, length = 30)
     private String assunto;
 

@@ -96,43 +96,44 @@ angular
    // se tirar esse .run as funções do material design lite
    //não carrega corretamente na página, precisa apertar f5 várias vezes
    }).run(function ($rootScope,$timeout) {
-     $rootScope.$on('$viewContentLoaded', ()=> {
-       $timeout(() => {
-         componentHandler.upgradeAllRegistered();
-       })
-     })
+        $rootScope.$on('$viewContentLoaded', ()=> {
+            $timeout(() => {
+                componentHandler.upgradeAllRegistered();
+            })
+        })
    }).config(function(cfpLoadingBarProvider) {
-      // carrega o loading bar
-     // true is the default, but I left this here as an example:
-     cfpLoadingBarProvider.includeSpinner = false;
+        // carrega o loading bar
+        // true e o padrao, mas pode deixar false caso nao queria o loading bar
+        cfpLoadingBarProvider.includeSpinner = false;
    }).config(function(toastrConfig) {
-        //configurações do toastr
-       angular.extend(toastrConfig, {
-         positionClass: 'toast-bottom-right',
-         allowHtml: false,
-         closeButton: true,
-         closeHtml: '<button>&times;</button>',
-         extendedTimeOut: 1000,
-         iconClasses: {
-           error: 'toast-error',
-           info: 'toast-info',
-           success: 'toast-success',
-           warning: 'toast-warning'
-         },
-         messageClass: 'toast-message',
-         onHidden: null,
-         onShown: null,
-         onTap: null,
-         progressBar: false,
-         tapToDismiss: true,
-         templates: {
-           toast: 'directives/toast/toast.html',
-           progressbar: 'directives/progressbar/progressbar.html'
-         },
-         timeOut: 4000,
-         titleClass: 'toast-title',
-         toastClass: 'toast'
+       //configurações do toastr
+        angular.extend(toastrConfig, {
+            positionClass: 'toast-bottom-right',
+            allowHtml: false,
+            closeButton: true,
+            closeHtml: '<button>&times;</button>',
+            extendedTimeOut: 1000,
+            iconClasses: {
+                error: 'toast-error',
+                info: 'toast-info',
+                success: 'toast-success',
+                warning: 'toast-warning'
+            },
+            messageClass: 'toast-message',
+            onHidden: null,
+            onShown: null,
+            onTap: null,
+            progressBar: false,
+            tapToDismiss: true,
+            templates: {
+                toast: 'directives/toast/toast.html',
+                progressbar: 'directives/progressbar/progressbar.html'
+            },
+            timeOut: 4000,
+            titleClass: 'toast-title',
+            toastClass: 'toast'
        });
+   // diretiva para quando a pessoa pressionar o enter no campo busca
    }).directive('myEnter', function () {
         return function (scope, element, attrs) {
             element.bind("keydown keypress", function (event) {
@@ -144,41 +145,43 @@ angular
                 }
             });
         };
-    }).directive('clickOnce', function($timeout) {
-          return {
-              restrict: 'A',
-              link: function(scope, element, attrs) {
-                  var replacementText = attrs.clickOnce;
-
-                  element.bind('click', function() {
-                      $timeout(function() {
-                          if (replacementText) {
-                              element.html(replacementText);
-                          }
-                          element.attr('disabled', true);
-                      }, 0);
-                  });
-              }
-          };
-      }).config(['ngDialogProvider', function (ngDialogProvider) {
-            ngDialogProvider.setDefaults({
-                showClose: false,
-                closeByDocument: false,
-                closeByEscape: false,
-                className: 'ngdialog-theme-default'
-            });
-        }]).directive('clickAndDisable', function() {
-             return {
-               scope: {
-                 clickAndDisable: '&'
-               },
-               link: function(scope, iElement, iAttrs) {
-                 iElement.bind('click', function() {
-                   iElement.prop('disabled',true);
-                   scope.clickAndDisable().finally(function() {
-                     iElement.prop('disabled',false);
-                   })
-                 });
-               }
-             };
+   //diretiva que ao realizar um click no botao ele e desativado disabled class
+   }).directive('clickOnce', function($timeout) {
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+                var replacementText = attrs.clickOnce;
+                element.bind('click', function() {
+                    $timeout(function() {
+                        if (replacementText) {
+                            element.html(replacementText);
+                        }
+                        element.attr('disabled', true);
+                    }, 0);
+                });
+            }
+        };
+   //configuracao do dialogo quando o admin deseja excluir um usuario por exemplo
+   }).config(['ngDialogProvider', function (ngDialogProvider) {
+        ngDialogProvider.setDefaults({
+            showClose: false,
+            closeByDocument: false,
+            closeByEscape: false,
+            className: 'ngdialog-theme-default'
         });
+   //outra diretiva que ao realizar um click no botao ele e desativado disabled class
+   }]).directive('clickAndDisable', function() {
+        return {
+            scope: {
+                clickAndDisable: '&'
+            },
+            link: function(scope, iElement, iAttrs) {
+                iElement.bind('click', function() {
+                    iElement.prop('disabled',true);
+                    scope.clickAndDisable().finally(function() {
+                        iElement.prop('disabled',false);
+                    })
+                });
+            }
+        };
+   });
