@@ -17,6 +17,7 @@ import play.mvc.Security;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -52,7 +53,7 @@ public class ArtigoController extends Controller {
     /**
      * Save a artigo
      *
-     * @return a artigo json
+     * @return a render view to inform OK
      */
     public Result inserir() {
         Form<DynamicForm.Dynamic> formPreenchido = form.bindFromRequest();
@@ -93,12 +94,10 @@ public class ArtigoController extends Controller {
             return badRequest(views.html.artigo.novo.render(formDeErro));
         }
 
-
         Artigo novo = new Artigo();
         novo.setTitulo(titulo);
         novo.setResumo(resumo);
         novo.setDataCadastro(new Date());
-
 
         try {
             Ebean.save(novo);
@@ -226,13 +225,20 @@ public class ArtigoController extends Controller {
      * @param titulo
      * @return ok pdf by name
      */
-    public Result pdf(String titulo) throws IOException {
+    public Result pdf(String titulo) {
 
         String diretorioDePdfs = Play.application().configuration().getString("diretorioDePdfs");
+        String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
 
-        File pdf = new File(diretorioDePdfs,titulo + ".pdf");
+        File pdf = new File(diretorioDePdfs,titulo+extensaoPadraoDePdfs);
 
-        return ok(new FileInputStream(pdf));
+        try {
+            return ok(new FileInputStream(pdf));
+        } catch (FileNotFoundException e) {
+            return notFound("Arquivo não encontrado.");
+        } catch (Exception e) {
+            return badRequest("Erro interno de sistema.");
+        }
 
     }
 
