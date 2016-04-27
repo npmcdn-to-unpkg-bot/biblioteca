@@ -233,7 +233,7 @@ public class ArtigoController extends Controller {
         try {
             return ok(new FileInputStream(pdf));
         } catch (FileNotFoundException e) {
-            return notFound("Arquivo não encontrado.");
+            return notFound(views.html.mensagens.erro.naoEncontrado.render(titulo+extensaoPadraoDePdfs));
         } catch (Exception e) {
             return badRequest("Erro interno de sistema.");
         }

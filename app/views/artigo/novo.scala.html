@@ -12,7 +12,7 @@
         @form(routes.ArtigoController.inserir(), 'enctype -> "multipart/form-data") {
         <div class="form-signin well well-sm">
             <a href="/#/" class="btn btn-default pull-right"> Início</a>
-            <h4>Cadastro de Artigos</h4>
+            <h3>Cadastro de Artigos</h3>
             <hr>
             @if(formPreenchido.hasGlobalErrors) {
                 <p class="alert alert-danger text-center">@formPreenchido.globalError.message</p>
