@@ -17,6 +17,7 @@ GET     /novo                               controllers.ArtigoController.novoTel
 POST    /artigo                             controllers.ArtigoController.inserir()
 GET     /artigo/pdf/:titulo                 controllers.ArtigoController.pdf(titulo:String)
 GET     /artigos                            controllers.ArtigoController.buscaTodos()
+GET     /artigo/lista/todos                 controllers.ArtigoController.lista()
 GET     /artigos/filtro/:filtro             controllers.ArtigoController.filtra(filtro:String)
 GET     /artigo/:id                         controllers.ArtigoController.buscaPorId(id:Long)
 DELETE  /artigo/:id                         controllers.ArtigoController.remover(id:Long)

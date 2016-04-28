@@ -1,11 +1,12 @@
 @(formPreenchido:DynamicForm)
 @import helper._
 <html>
-<meta charset="UTF-8">
-<link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
-<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/bootstrap/dist/css/bootstrap.css")">
-<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/novo.css")">
-<title>Biblioteca - cadastro</title>
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/bootstrap/dist/css/bootstrap.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/novo.css")">
+    <title>Biblioteca - Cadastro</title>
 </head>
 <body>
     <div class="container">
@@ -15,7 +16,7 @@
             <h3>Cadastro de Artigos</h3>
             <hr>
             @if(formPreenchido.hasGlobalErrors) {
-                <p class="alert alert-danger text-center">@formPreenchido.globalError.message</p>
+            <p class="alert alert-danger text-center">@formPreenchido.globalError.message</p>
             }
             <label>Título: </label>
             <input type="text" name="titulo" class="form-control" maxlength="150" required/>

@@ -41,7 +41,7 @@ public class ArtigoController extends Controller {
             return badRequest(views.html.mensagens.erro.naoAutorizado.render());
         }
 
-        return ok(views.html.artigo.novo.render(form));
+        return ok(views.html.admin.artigos.create.render(form));
     }
 
     /**
@@ -82,7 +82,7 @@ public class ArtigoController extends Controller {
         if (titulo.equals("") || resumo.equals("")) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject("Título ou Resumo não podem estar vazios!");
-            return badRequest(views.html.artigo.novo.render(formDeErro));
+            return badRequest(views.html.admin.artigos.create.render(formDeErro));
         }
 
         Http.MultipartFormData body = request().body().asMultipartFormData();
@@ -103,12 +103,12 @@ public class ArtigoController extends Controller {
             } else {
                 DynamicForm formDeErro = form.fill(formPreenchido.data());
                 formDeErro.reject("Apenas arquivos em formato PDF é aceito");
-                return badRequest(views.html.artigo.novo.render(formDeErro));
+                return badRequest(views.html.admin.artigos.create.render(formDeErro));
             }
         } else {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject("Selecione um arquivo no formato PDF");
-            return badRequest(views.html.artigo.novo.render(formDeErro));
+            return badRequest(views.html.admin.artigos.create.render(formDeErro));
         }
 
         Artigo novo = new Artigo();
@@ -135,6 +135,11 @@ public class ArtigoController extends Controller {
      */
     public Result buscaTodos() {
         return ok(Json.toJson(Ebean.find(Artigo.class).findList()));
+    }
+
+    public Result lista() {
+        List<Artigo> artigos = Ebean.find(Artigo.class).findList();
+        return ok(views.html.admin.artigos.list.render(artigos));
     }
 
     /**
