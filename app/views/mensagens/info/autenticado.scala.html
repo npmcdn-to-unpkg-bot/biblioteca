@@ -8,22 +8,29 @@
     <title>Bibliteca - Autenticado</title>
 </head>
 <body>
-    <div class="container">
-        <div class="form-signin well well-sm">
-            <a href="/#/" class="btn btn-default pull-right"> Início</a>
-            <h4 class="form-signin-heading">Informação:</h4>
-            <hr>
-            @if(username == null) {
-            <p class="alert alert-danger text-center">
-                <b>Usuário não autenticado!</b>
-            </p>
-            }  else {
-                <p class="alert alert-success text-center">Você esta logado como: <b>"@username"</b></p>
-            }
-            <hr>
-            <p class="text-center">&copy; 2016 CIBiogás</p>
+    <div class="row">
+        <div class="container-fluid">
+            <div class="mensagens">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Biblioteca Digital
+                        <a href="/#/" class="pull-right">Início</a>
+                    </div>
+                    <div class="panel-body">
+                        @if(username == null) {
+                        <p class="mensagem alert alert-danger text-center">
+                            <b>Usuário não autenticado!</b>
+                        </p>
+                        }  else {
+                        <p class="mensagem alert alert-success text-center">Você esta logado como: <b>"@username"</b></p>
+                        }
+                    </div>
+                    <div class="panel-footer">
+                        <p class="text-center">&copy; 2016 CIBiogás</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div> <!-- /container -->
+    </div>
 
     <script src="@routes.Assets.versioned("bower_components/jquery/dist/jquery.js")" type="text/javascript"></script>
     <script src="@routes.Assets.versioned("bower_components/bootstrap/dist/js/bootstrap.js")" type="text/javascript"></script>

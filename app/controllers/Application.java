@@ -36,4 +36,9 @@ public class Application extends Controller {
         return ok(views.html.index.render(username, privilegio));
 
     }
+
+    public Result sobre() {
+        return ok(views.html.admin.sobre.render(play.core.PlayVersion.current()));
+    }
+
 }

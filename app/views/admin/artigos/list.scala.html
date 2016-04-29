@@ -1,51 +1,22 @@
 @(artigos: List[Artigo])
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
-    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/bootstrap/dist/css/bootstrap.css")">
-    <title>Biblioteca - Artigos</title>
-</head>
-<body>
-    <div class="container">
-        <div class="well">
-
-            <!-- Título da Página-->
-            <legend>
-                <h1 class="font-style">
-                    <i class="fa fa-flag"></i> Lista de Artigos<a class="btn btn-success pull-right" href="">
-                    <span class="fa fa-plus"></span> Cadastrar Artigo</a>
-                </h1>
-            </legend>
-
-            <!--Input de Busca-->
-            <div class="col-md-5 input-group">
-                <input maxlength="25" type="search" class="form-control" placeholder="digite o título">
-                <span class="input-group-btn">
-                    <button class="btn btn-primary"><span class="fa fa-search"></span> Filtrar</button>
-                    <button class="btn btn-default">Limpar</button>
-                </span>
+@views.html.admin.main("Usuários") {
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Lista de Artigos
+                <a href="/novo" class="pull-right">Adicionar</a>
             </div>
-
-            <div class="pull-right">
-                <h4 class="font-style">Total de <b>0</b> Registros</h4>
-            </div>
-
-            <!--Tabela-->
-            <table class="table-striped table table-hover table-bordered">
-                <tr>
-                    <th>Título</th>
-                </tr>
-                @for(artigo <- artigos) {
+            <div class="panel-body">
+                <table class="table-striped table table-hover table-bordered">
+                    <tr>
+                        <th>Título</th>
+                    </tr>
+                    @for(artigo <- artigos) {
                     <tr>
                         <td><a href="">@artigo.getTitulo()</a></td>
                     </tr>
-                }
-            </table>
+                    }
+                </table>
+            </div>
         </div>
     </div>
-
-    <script src="@routes.Assets.versioned("bower_components/jquery/dist/jquery.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("bower_components/bootstrap/dist/js/bootstrap.js")" type="text/javascript"></script>
-</body>
-</html>
+}
