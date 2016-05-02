@@ -137,6 +137,11 @@ public class ArtigoController extends Controller {
         return ok(Json.toJson(Ebean.find(Artigo.class).findList()));
     }
 
+    /**
+     * Retrieve a list of all artigos
+     *
+     * @return a list of all artigos in a render template
+     */
     public Result lista() {
         List<Artigo> artigos = Ebean.find(Artigo.class).findList();
         return ok(views.html.admin.artigos.list.render(artigos));

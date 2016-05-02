@@ -1,18 +1,16 @@
-@(artigos: List[Artigo])
-@views.html.admin.main("Administração - Artigos") {
+@(usuarios: List[Usuario])
+@views.html.admin.main("Administração - Usuários") {
     <div class="col-sm-6">
         <div class="panel panel-default">
-            <div class="panel-heading">Lista de Artigos
-                <a href="/novo" class="pull-right">Adicionar</a>
-            </div>
+            <div class="panel-heading">Lista de Usuários</div>
             <div class="panel-body">
                 <table class="table-striped table table-hover table-bordered">
                     <tr>
-                        <th>Título</th>
+                        <th>Nome</th>
                     </tr>
-                    @for(artigo <- artigos) {
+                    @for(usuario <- usuarios) {
                     <tr>
-                        <td><a href="">@artigo.getTitulo()</a></td>
+                        <td><a href="@routes.UsuarioController.">@usuario.getNome()</a></td>
                     </tr>
                     }
                 </table>

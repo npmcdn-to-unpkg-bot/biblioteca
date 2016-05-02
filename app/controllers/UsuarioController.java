@@ -336,6 +336,32 @@ public class UsuarioController extends Controller {
     }
 
     /**
+     * Retrieve a list of all usuarios
+     *
+     * @return a list of all usuarios in a render template
+     */
+    public Result lista() {
+
+        //busca o usuário atual que esteja logado no sistema
+        Usuario usuarioAtual = atual();
+
+        if (usuarioAtual == null) {
+            return notFound("Usuario não autenticado");
+        }
+
+        //verificar se o usuario atual encontrado é administrador
+        if (usuarioAtual.getPrivilegio() != 1) {
+            return badRequest(views.html.mensagens.erro.naoAutorizado.render());
+        }
+
+        //busca todos os usuários menos o usuário padrão do sistema
+        Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where (email != 'admin')");
+        List<Usuario> filtroDeUsuarios = query.findList();
+
+        return ok(views.html.admin.usuarios.list.render(filtroDeUsuarios));
+    }
+
+    /**
      * Remove a user from a id
      *
      * @param id

@@ -14,8 +14,6 @@ public class LoginController extends Controller {
 
     private static DynamicForm form = Form.form();
 
-    public Result GO_INDEX = redirect(routes.Application.index());
-
     /**
      * @return autenticado form if auth OK or login form is auth KO
      */

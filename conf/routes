@@ -42,6 +42,7 @@ GET     /usuario/cadastrado                 controllers.UsuarioController.telaCa
 GET     /current                            controllers.UsuarioController.autenticado()
 GET     /usuarios/filtro/:filtro            controllers.UsuarioController.filtra(filtro:String)
 GET     /usuarios                           controllers.UsuarioController.buscaTodos()
+GET     /usuario/lista/todos                controllers.UsuarioController.lista()
 GET     /cadastro                           controllers.UsuarioController.telaCadastro()
 
 # Acessado quando o usuario confirma o registro
