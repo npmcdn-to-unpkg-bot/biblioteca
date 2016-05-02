@@ -125,7 +125,7 @@ public class ArtigoController extends Controller {
             return badRequest(views.html.cadastro.render(formDeErro));
         }
 
-        return ok(views.html.mensagens.info.artigoCadastrado.render(titulo));
+        return ok(views.html.mensagens.artigo.cadastrado.render(titulo));
     }
 
     /**
@@ -243,7 +243,7 @@ public class ArtigoController extends Controller {
         try {
             return ok(new FileInputStream(pdf));
         } catch (FileNotFoundException e) {
-            return notFound(views.html.mensagens.erro.naoEncontrado.render(titulo+extensaoPadraoDePdfs));
+            return notFound(views.html.mensagens.erro.naoEncontrado.render(titulo+extensaoPadraoDePdfs+" não foi encontrado"));
         } catch (Exception e) {
             return badRequest("Erro interno de sistema.");
         }

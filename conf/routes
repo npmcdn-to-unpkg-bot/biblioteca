@@ -9,34 +9,16 @@ GET     /sobre                              controllers.Application.sobre()
 #Admin
 GET     /admin                              controllers.admin.AdminController.inicio()
 
-# Contato
-POST    /contato                            controllers.ContatoController.inserir()
-GET     /contatos                           controllers.ContatoController.buscaTodos()
-GET     /contatos/filtro/:filtro            controllers.ContatoController.filtra(filtro:String)
-GET     /contato/:id                        controllers.ContatoController.buscaPorId(id:Long)
-DELETE  /contato/:id                        controllers.ContatoController.remover(id:Long)
-
-# Artigo
-GET     /novo                               controllers.ArtigoController.novoTela()
-POST    /artigo                             controllers.ArtigoController.inserir()
-GET     /artigo/pdf/:titulo                 controllers.ArtigoController.pdf(titulo:String)
-GET     /artigos                            controllers.ArtigoController.buscaTodos()
-GET     /artigo/lista/todos                 controllers.ArtigoController.lista()
-GET     /artigos/filtro/:filtro             controllers.ArtigoController.filtra(filtro:String)
-GET     /artigo/:id                         controllers.ArtigoController.buscaPorId(id:Long)
-DELETE  /artigo/:id                         controllers.ArtigoController.remover(id:Long)
-
 # Login
-POST    /autenticar                         controllers.LoginController.autenticar()
+GET     /logout                             controllers.LoginController.logout()
 GET     /login                              controllers.LoginController.loginTela()
 GET     /autenticado                        controllers.LoginController.telaAutenticado()
 GET     /saiu                               controllers.LoginController.telaLogout()
-GET     /logout                             controllers.LoginController.logout()
+POST    /autenticar                         controllers.LoginController.autenticar()
 
 # Usuario
-POST    /usuario                            controllers.UsuarioController.inserir()
+GET		/usuario/detalhe/:id				controllers.UsuarioController.detalhe(id:Long)
 PUT     /usuario/:id                        controllers.UsuarioController.atualizar(id:Long)
-DELETE  /usuario/:id                        controllers.UsuarioController.remover(id:Long)
 GET     /usuario/:id                        controllers.UsuarioController.buscaPorId(id:Long)
 GET     /usuario/cadastrado                 controllers.UsuarioController.telaCadastrado()
 GET     /current                            controllers.UsuarioController.autenticado()
@@ -44,6 +26,25 @@ GET     /usuarios/filtro/:filtro            controllers.UsuarioController.filtra
 GET     /usuarios                           controllers.UsuarioController.buscaTodos()
 GET     /usuario/lista/todos                controllers.UsuarioController.lista()
 GET     /cadastro                           controllers.UsuarioController.telaCadastro()
+POST    /usuario                            controllers.UsuarioController.inserir()
+POST	/usuario/:id/remover		        controllers.UsuarioController.remover(id:Long)
+
+# Contato
+GET     /contatos                           controllers.ContatoController.buscaTodos()
+GET     /contatos/filtro/:filtro            controllers.ContatoController.filtra(filtro:String)
+GET     /contato/:id                        controllers.ContatoController.buscaPorId(id:Long)
+DELETE  /contato/:id                        controllers.ContatoController.remover(id:Long)
+POST    /contato                            controllers.ContatoController.inserir()
+
+# Artigo
+GET     /novo                               controllers.ArtigoController.novoTela()
+GET     /artigo/pdf/:titulo                 controllers.ArtigoController.pdf(titulo:String)
+GET     /artigos                            controllers.ArtigoController.buscaTodos()
+GET     /artigo/lista/todos                 controllers.ArtigoController.lista()
+GET     /artigos/filtro/:filtro             controllers.ArtigoController.filtra(filtro:String)
+GET     /artigo/:id                         controllers.ArtigoController.buscaPorId(id:Long)
+DELETE  /artigo/:id                         controllers.ArtigoController.remover(id:Long)
+POST    /artigo                             controllers.ArtigoController.inserir()
 
 # Acessado quando o usuario confirma o registro
 GET     /confirma/:confirmaToken            controllers.UsuarioController.confirma(confirmaToken:String)

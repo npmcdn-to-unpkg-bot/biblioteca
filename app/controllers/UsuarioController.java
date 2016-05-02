@@ -29,6 +29,7 @@ public class UsuarioController extends Controller {
     @Inject
     MailerClient mailerClient;
 
+    private static final Form<Usuario> diretorForm = Form.form(Usuario.class);
     private static DynamicForm form = Form.form();
 
     /**
@@ -90,14 +91,12 @@ public class UsuarioController extends Controller {
                 usuarioEmail = usuario.getEmail();
                 return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
             } else {
-                Logger.debug("Signup.confirm cannot confirm user");
                 mensagem = "Erro de confirmação do cadastro do usuário!";
                 tipoMensagem = "Erro";
                 return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
             }
         } catch (Exception e) {
-            Logger.error("Cannot signup", e);
-            mensagem = "Erro na aplicação!";
+            mensagem = "Erro interno de sistema";
             tipoMensagem = "Erro";
         }
         return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
@@ -358,7 +357,7 @@ public class UsuarioController extends Controller {
         Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where (email != 'admin')");
         List<Usuario> filtroDeUsuarios = query.findList();
 
-        return ok(views.html.admin.usuarios.list.render(filtroDeUsuarios));
+        return ok(views.html.admin.usuarios.list.render(filtroDeUsuarios,""));
     }
 
     /**
@@ -369,43 +368,58 @@ public class UsuarioController extends Controller {
      */
     @Security.Authenticated(Secured.class)
     public Result remover(Long id) {
+
+        String mensagem = "";
+        String tipoMensagem = "";
+
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
 
         if (usuarioAtual == null) {
-            return notFound("Usuario não autenticado");
+            mensagem = "Usuario não autenticado";
+            tipoMensagem = "Erro";
+            return notFound(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
         }
 
         //verifica para nao excluir o usuario admin
         if (!usuarioAtual.getEmail().equals("admin")) {
-            return badRequest("Não autorizado!");
+            mensagem = "Não autorizado!";
+            tipoMensagem = "Erro";
+            return badRequest(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
         }
 
         //verificar se o usuario atual encontrado é administrador
         if (usuarioAtual.getPrivilegio() != 1) {
-            return badRequest("Você não tem privilégios de Administrador");
+            mensagem = "Você não tem privilégios de Administrador";
+            tipoMensagem = "Erro";
+            return badRequest(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
         }
 
         //busca o usuario para ser excluido
         Usuario usuario = Ebean.find(Usuario.class, id);
 
         if (usuario == null) {
-            return notFound("Usuário não encontrado");
+            return notFound(views.html.mensagens.erro.naoEncontrado.render("Usuário não encontrado"));
         }
 
-        //caso o usuario administrador querer excluir outro administrador
+        //caso o usuario administrador quere excluir outro administrador enquanto estiver autenticado
         if (usuarioAtual.getEmail().equals(usuario.getEmail())) {
-            return badRequest("Não excluir seu próprio usuário enquanto ele estiver autenticado.");
+            mensagem = "Não excluir seu próprio usuário enquanto ele estiver autenticado.";
+            tipoMensagem = "Erro";
+            return badRequest(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
         }
 
         try {
             Ebean.delete(usuario);
+            mensagem = "Usuário excluído com sucesso";
+            tipoMensagem = "Sucesso";
         }  catch (Exception e) {
-            Logger.info(e.getMessage());
-            return badRequest("Erro interno de sistema.");
+            mensagem = "Erro interno de sistema";
+            tipoMensagem = "Erro";
+            return badRequest(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
         }
 
-        return ok(Json.toJson(usuario));
+        return ok(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
     }
 
     /**
@@ -437,6 +451,16 @@ public class UsuarioController extends Controller {
         filtroDeUsuarios.remove(usuarioAtual);
 
         return ok(Json.toJson(filtroDeUsuarios));
+    }
+
+    public Result detalhe(Long id) {
+        Usuario usuario = Ebean.find(Usuario.class, id);
+
+        if (usuario == null) {
+            return notFound(views.html.mensagens.erro.naoEncontrado.render("Usuário não encontrado"));
+        }
+
+        return ok(views.html.admin.usuarios.detail.render(usuario));
     }
 
 }
