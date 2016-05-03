@@ -17,7 +17,6 @@ GET     /saiu                               controllers.LoginController.telaLogo
 POST    /autenticar                         controllers.LoginController.autenticar()
 
 # Usuario
-GET		/usuario/detalhe/:id				controllers.UsuarioController.detalhe(id:Long)
 PUT     /usuario/:id                        controllers.UsuarioController.atualizar(id:Long)
 GET     /usuario/:id                        controllers.UsuarioController.buscaPorId(id:Long)
 GET     /usuario/cadastrado                 controllers.UsuarioController.telaCadastrado()
@@ -28,6 +27,9 @@ GET     /usuario/lista/todos                controllers.UsuarioController.lista(
 GET     /cadastro                           controllers.UsuarioController.telaCadastro()
 POST    /usuario                            controllers.UsuarioController.inserir()
 POST	/usuario/:id/remover		        controllers.UsuarioController.remover(id:Long)
+GET		/usuario/detalhe/:id				controllers.UsuarioController.detalhe(id:Long)
+GET     /usuario/editar/:id                 controllers.UsuarioController.telaEditar(id:Long)
+POST     /usuario/editar/:id                 controllers.UsuarioController.editar(id:Long)
 
 # Contato
 GET     /contatos                           controllers.ContatoController.buscaTodos()

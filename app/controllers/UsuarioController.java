@@ -29,7 +29,6 @@ public class UsuarioController extends Controller {
     @Inject
     MailerClient mailerClient;
 
-    private static final Form<Usuario> diretorForm = Form.form(Usuario.class);
     private static DynamicForm form = Form.form();
 
     /**
@@ -454,6 +453,7 @@ public class UsuarioController extends Controller {
     }
 
     public Result detalhe(Long id) {
+        DynamicForm requestData = Form.form().bindFromRequest();
         Usuario usuario = Ebean.find(Usuario.class, id);
 
         if (usuario == null) {
@@ -461,6 +461,35 @@ public class UsuarioController extends Controller {
         }
 
         return ok(views.html.admin.usuarios.detail.render(usuario));
+    }
+
+    public Result telaEditar(Long id) {
+        Usuario usuario = Ebean.find(Usuario.class, id);
+
+        if (usuario == null) {
+            return notFound(views.html.mensagens.erro.naoEncontrado.render("Usuário não encontrado"));
+        }
+
+        return ok(views.html.admin.usuarios.edit.render(usuario));
+    }
+
+    public Result editar(Long id) {
+        Form<DynamicForm.Dynamic> formPreenchido = form.bindFromRequest();
+
+        String nome = formPreenchido.data().get("nome");
+        String email = formPreenchido.data().get("email");
+
+        Usuario usuario = new Usuario();
+        usuario.setNome(nome);
+        usuario.setEmail(email);
+
+        try {
+            Ebean.update(usuario);
+        } catch (Exception e) {
+            return badRequest("Erro interno de sistema");
+        }
+
+        return ok(views.html.admin.usuarios.edit.render(usuario));
     }
 
 }
