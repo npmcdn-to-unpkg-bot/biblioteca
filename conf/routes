@@ -2,6 +2,14 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
+# Diretores
+GET		/testes					    controllers.TesteController.lista()
+GET		/teste/novo				    controllers.TesteController.novo()
+GET		/teste/:id				    controllers.TesteController.detalhar(id:Long)
+POST	/teste/:id				    controllers.TesteController.alterar(id:Long)
+POST	/teste/					    controllers.TesteController.gravar()
+POST	/teste/:id/remover		    controllers.TesteController.remover(id:Long)
+
 # Application
 GET     /                                   controllers.Application.index()
 GET     /sobre                              controllers.Application.sobre()
@@ -29,7 +37,7 @@ POST    /usuario                            controllers.UsuarioController.inseri
 POST	/usuario/:id/remover		        controllers.UsuarioController.remover(id:Long)
 GET		/usuario/detalhe/:id				controllers.UsuarioController.detalhe(id:Long)
 GET     /usuario/editar/:id                 controllers.UsuarioController.telaEditar(id:Long)
-POST     /usuario/editar/:id                 controllers.UsuarioController.editar(id:Long)
+POST    /usuario/editar/:id                 controllers.UsuarioController.editar(id:Long)
 
 # Contato
 GET     /contatos                           controllers.ContatoController.buscaTodos()

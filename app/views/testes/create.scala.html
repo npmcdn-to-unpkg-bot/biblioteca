@@ -1,0 +1,35 @@
+@(formPreenchido:DynamicForm)
+@views.html.admin.main("Novo Teste"){
+
+<div class="container">
+    <div class="header">
+        <ul class="nav nav-pills pull-right">
+            <li class="active"><a href="/">Home</a></li>
+        </ul>
+    </div>
+    <div>
+        @helper.form(action=routes.TesteController.gravar()) {
+            <form class="form-horizontal">
+                <fieldset>
+
+                    <legend>Novo teste</legend>
+
+                    <div class="control-group">
+                        <div class="controls">
+                            @helper.inputText(formPreenchido("nome"))
+                            <p class="help-block">informe o nome</p>
+                        </div>
+                    </div>
+                    }
+
+                    <div class="control-group">
+                        <label class="control-label" for="singlebutton"></label>
+                        <div class="controls">
+                            <button id="singlebutton" name="singlebutton" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </div>
+                    </fieldset>
+            </form>
+    </div>
+</div>
+}

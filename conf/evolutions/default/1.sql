@@ -22,6 +22,12 @@ create table contato (
   constraint pk_contato primary key (id))
 ;
 
+create table teste (
+  id                        bigserial not null,
+  nome                      varchar(150) not null,
+  constraint pk_teste primary key (id))
+;
+
 create table token (
   token                     varchar(255) not null,
   usuario_id                bigint,
@@ -55,6 +61,8 @@ create table usuario (
 drop table if exists artigo cascade;
 
 drop table if exists contato cascade;
+
+drop table if exists teste cascade;
 
 drop table if exists token cascade;
 
