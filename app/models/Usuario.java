@@ -5,12 +5,15 @@ import com.avaje.ebean.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import play.data.format.Formats;
+import play.data.validation.Constraints;
 import play.libs.Json;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Entity
 public class Usuario extends Model {
@@ -25,6 +28,7 @@ public class Usuario extends Model {
     @Formats.NonEmpty
     private Boolean validado = false;
 
+    @Constraints.Required
     @Column(nullable = false, length = 60)
     private String nome;
 
@@ -157,6 +161,16 @@ public class Usuario extends Model {
         this.senha = Crypt.sha1(senha);
         this.dataAlteracao = new Date();
         this.save();
+    }
+
+    public static Finder<Long, Usuario> find = new Finder<>(Usuario.class);
+
+    public static Map<String,String> options() {
+        LinkedHashMap<String,String> options = new LinkedHashMap<>();
+        for (Usuario c : Usuario.find.orderBy("nome").findList()) {
+            options.put(c.id.toString(),c.nome);
+        }
+        return options;
     }
 
     @Override

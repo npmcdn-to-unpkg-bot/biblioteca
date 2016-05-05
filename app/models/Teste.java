@@ -1,10 +1,13 @@
 package models;
 
 import com.avaje.ebean.Model;
+import play.data.validation.Constraints;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Created by harol on 04/05/2016.
@@ -18,7 +21,7 @@ public class Teste extends Model {
     @Id
     private Long id;
 
-    @Column(nullable = false, length = 150)
+    @Constraints.Required
     private String nome;
 
     public Long getId() {
@@ -35,5 +38,15 @@ public class Teste extends Model {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public static Finder<Long, Teste> find = new Finder<>(Teste.class);
+
+    public static Map<String,String> options() {
+        LinkedHashMap<String,String> options = new LinkedHashMap<>();
+        for (Teste c : Teste.find.orderBy("nome").findList()) {
+            options.put(c.id.toString(),c.nome);
+        }
+        return options;
     }
 }

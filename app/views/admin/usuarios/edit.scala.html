@@ -1,37 +1,41 @@
-@(usuario: Usuario)
+@(id: Long, usuarioForm: Form[Usuario])
+
 @import helper._
+
 @views.html.admin.main("Editar Usuário") {
 <div class="col-sm-6">
     <div class="panel panel-default">
         <div class="panel-heading">Editar Usuário</div>
         <div class="panel-body">
-            @form(routes.UsuarioController.editar(usuario.getId()), 'class -> "form-horizontal") {
+            @form(routes.UsuarioController.editar(id), 'class -> "form-horizontal") {
+
+            @if(usuarioForm.hasGlobalErrors) {
+                <div class="form-group">
+                    <label class="col-sm-3 control-label"></label>
+                    <div class="col-sm-6">
+                        <p class="alert alert-danger text-center">@usuarioForm.globalError.message</p>
+                    </div>
+                </div>
+            }
 
             <div class="form-group">
                 <label class="col-sm-3 control-label"></label>
                 <div class="col-sm-6">
-                    <p class="alert alert-danger text-center"></p>
+                    @helper.inputText(usuarioForm("nome"), 'class -> "form-control", 'placeholder -> "Insira o nome", '_label -> "Nome:")
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">Nome:</label>
+                <label class="col-sm-3 control-label"></label>
                 <div class="col-sm-6">
-                    <input type="text" name="nome" class="form-control" maxlength="150" required/>
+                    @helper.inputText(usuarioForm("email"), 'class -> "form-control", 'placeholder -> "Insira o email", '_label -> "Email:")
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label">Email:</label>
+                <label class="col-sm-3 control-label"></label>
                 <div class="col-sm-6">
-                    <input type="text" name="email" class="form-control" maxlength="150" required/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Senha:</label>
-                <div class="col-sm-6">
-                    <input type="password" name="senha" class="form-control" maxlength="150" required/>
+                    @helper.inputPassword(usuarioForm("senha"), 'class -> "form-control", '_label -> "Senha:")
                 </div>
             </div>
 
@@ -40,7 +44,7 @@
                 <label class="col-md-3 control-label"></label>
                 <div class="col-md-6">
                     <input class="btn btn-primary" type="submit" id="btnSubmit" value="Editar"/>
-                    <a href="/artigo/lista/todos" class="btn btn-default" type="button">Cancelar</a>
+                    <a href="/usuario/lista/todos" class="btn btn-default" type="button">Cancelar</a>
                 </div>
             </div>
             }

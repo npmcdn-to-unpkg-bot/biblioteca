@@ -24,7 +24,7 @@ create table contato (
 
 create table teste (
   id                        bigserial not null,
-  nome                      varchar(150) not null,
+  nome                      varchar(255),
   constraint pk_teste primary key (id))
 ;
 

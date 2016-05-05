@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar</title>
-</head>
-<body>
+@(id: Long, testeForm: Form[Teste])
 
-</body>
-</html>
+@import helper._
+
+@views.html.admin.main("Alterar"){
+
+    <div class="container">
+        <h1>Edit computer</h1>
+
+        @form(routes.TesteController.alterar(id)) {
+
+        <fieldset>
+
+            @inputText(testeForm("nome"), '_label -> "Teste nome", '_help -> "")
+
+        </fieldset>
+
+        <div class="actions">
+            <input type="submit" value="Salvar" class="btn primary"> or
+            <a href="@routes.TesteController.lista()" class="btn">Cancel</a>
+        </div>
+
+        }
+
+        @form(routes.TesteController.remover(id)) {
+            <input type="submit" value="Remover" class="btn danger">
+        }
+    </div>
+
+}

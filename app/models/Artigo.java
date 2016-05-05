@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Entity
 public class Artigo extends Model {
@@ -67,6 +69,16 @@ public class Artigo extends Model {
 
     public void setDataAlteracao(Date dataAlteracao) {
         this.dataAlteracao = dataAlteracao;
+    }
+
+    public static Finder<Long, Artigo> find = new Finder<>(Artigo.class);
+
+    public static Map<String,String> options() {
+        LinkedHashMap<String,String> options = new LinkedHashMap<>();
+        for (Artigo c : Artigo.find.orderBy("titulo").findList()) {
+            options.put(c.id.toString(),c.titulo);
+        }
+        return options;
     }
 
     @Override

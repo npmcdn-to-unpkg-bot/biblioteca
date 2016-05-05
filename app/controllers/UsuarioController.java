@@ -24,12 +24,20 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import static play.data.Form.form;
+
 public class UsuarioController extends Controller {
 
     @Inject
     MailerClient mailerClient;
 
     private static DynamicForm form = Form.form();
+
+    public Form<Usuario> usuarioForm = Form.form(Usuario.class);
+
+    String mensagem = "";
+    String tipoMensagem = "";
+    String usuarioEmail = "";
 
     /**
      * Retrieve a user from an email.
@@ -62,10 +70,6 @@ public class UsuarioController extends Controller {
      * @return Confirmationpage
      */
     public Result confirma(String token) {
-
-        String mensagem = "";
-        String tipoMensagem = "";
-        String usuarioEmail = "";
 
         Usuario usuario = buscaPorConfirmacaoToken(token);
 
@@ -179,6 +183,7 @@ public class UsuarioController extends Controller {
      * @return ok user json
      */
     public Result inserir(){
+
         Form<DynamicForm.Dynamic> formPreenchido = form.bindFromRequest();
 
         String email = formPreenchido.data().get("email");
@@ -263,9 +268,7 @@ public class UsuarioController extends Controller {
             usuario.setSenha(senha);
             usuario.setDataAlteracao(new Date());
             Ebean.update(usuario);
-            Logger.info("Usuario atualizado.");
         } catch (Exception e) {
-            Logger.info(e.getMessage());
             return badRequest("Erro interno de sistema!");
         }
 
@@ -338,6 +341,7 @@ public class UsuarioController extends Controller {
      *
      * @return a list of all usuarios in a render template
      */
+    @Security.Authenticated(Secured.class)
     public Result lista() {
 
         //busca o usuário atual que esteja logado no sistema
@@ -452,8 +456,8 @@ public class UsuarioController extends Controller {
         return ok(Json.toJson(filtroDeUsuarios));
     }
 
+    @Security.Authenticated(Secured.class)
     public Result detalhe(Long id) {
-        DynamicForm requestData = Form.form().bindFromRequest();
         Usuario usuario = Ebean.find(Usuario.class, id);
 
         if (usuario == null) {
@@ -463,33 +467,67 @@ public class UsuarioController extends Controller {
         return ok(views.html.admin.usuarios.detail.render(usuario));
     }
 
+    @Security.Authenticated(Secured.class)
     public Result telaEditar(Long id) {
-        Usuario usuario = Ebean.find(Usuario.class, id);
 
-        if (usuario == null) {
+        Form<Usuario> usuarioForm = form(Usuario.class).fill(Usuario.find.byId(id));
+
+
+        if (usuarioForm == null) {
             return notFound(views.html.mensagens.erro.naoEncontrado.render("Usuário não encontrado"));
         }
 
-        return ok(views.html.admin.usuarios.edit.render(usuario));
+        return ok(views.html.admin.usuarios.edit.render(id,usuarioForm));
     }
 
+    /**
+     * Update a user from id
+     *
+     * @param id
+     * @return a user updated with a form
+     */
+    @Security.Authenticated(Secured.class)
     public Result editar(Long id) {
-        Form<DynamicForm.Dynamic> formPreenchido = form.bindFromRequest();
 
-        String nome = formPreenchido.data().get("nome");
-        String email = formPreenchido.data().get("email");
+        Form<Usuario> form = usuarioForm.fill(Usuario.find.byId(id)).bindFromRequest();
 
-        Usuario usuario = new Usuario();
-        usuario.setNome(nome);
-        usuario.setEmail(email);
-
-        try {
-            Ebean.update(usuario);
-        } catch (Exception e) {
-            return badRequest("Erro interno de sistema");
+        if(form.hasErrors()){
+            return badRequest(views.html.admin.usuarios.edit.render(id, usuarioForm));
         }
 
-        return ok(views.html.admin.usuarios.edit.render(usuario));
+        Usuario usuario = form.get();
+
+        if (usuario == null) {
+            form.reject("Erro interno de sistema!");
+            return badRequest(views.html.admin.usuarios.edit.render(id, usuarioForm));
+        }
+
+        Usuario usuarioBusca = Ebean.find(Usuario.class, id);
+
+        if (usuarioBusca == null) {
+            return badRequest("Usuário não encontrado.");
+        }
+
+        if (usuarioBusca.getValidado() == true) {
+            //precisa setar o id, pois por algum motivo ele se perde no formulário
+            usuario.setId(id);
+            usuario.setValidado(true);
+        }
+
+        try {
+            String senha = Crypt.sha1(usuario.getSenha());
+            usuario.setSenha(senha);
+            usuario.setDataAlteracao(new Date());
+            usuario.update();
+            tipoMensagem = "Sucesso";
+            mensagem = "Usuário atualizado com sucesso.";
+        } catch (Exception e) {
+            tipoMensagem = "Erro";
+            mensagem = "Erro Interno de sistema";
+            return badRequest(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
+        }
+
+        return ok(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
     }
 
 }
