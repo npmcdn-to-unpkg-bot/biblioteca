@@ -22,10 +22,17 @@ public class AdminController extends Controller {
                 .findUnique();
     }
 
+    /**
+     * show inicio page
+     *
+     * @return inicio page if user auth
+     */
     public Result inicio() {
 
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
+
+        String username = usuarioAtual.getEmail();
 
         if (usuarioAtual == null) {
             return notFound("Usuario não autenticado");
@@ -36,6 +43,6 @@ public class AdminController extends Controller {
             return badRequest(views.html.mensagens.erro.naoAutorizado.render());
         }
 
-        return ok(views.html.admin.inicio.render());
+        return ok(views.html.admin.inicio.render(username));
     }
 }

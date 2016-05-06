@@ -73,7 +73,6 @@ public class UsuarioController extends Controller {
 
         Usuario usuario = buscaPorConfirmacaoToken(token);
 
-
         if (usuario == null) {
             mensagem = "Seu código de ativação é inválido ou expirou!";
             tipoMensagem = "Invalido";
@@ -102,7 +101,9 @@ public class UsuarioController extends Controller {
             mensagem = "Erro interno de sistema";
             tipoMensagem = "Erro";
         }
+
         return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
+
     }
 
     /**
@@ -456,6 +457,9 @@ public class UsuarioController extends Controller {
         return ok(Json.toJson(filtroDeUsuarios));
     }
 
+    /**
+     * @return detail form with a user
+     */
     @Security.Authenticated(Secured.class)
     public Result detalhe(Long id) {
         Usuario usuario = Ebean.find(Usuario.class, id);
@@ -467,6 +471,9 @@ public class UsuarioController extends Controller {
         return ok(views.html.admin.usuarios.detail.render(usuario));
     }
 
+    /**
+     * @return edit form with a user
+     */
     @Security.Authenticated(Secured.class)
     public Result telaEditar(Long id) {
 
@@ -489,41 +496,35 @@ public class UsuarioController extends Controller {
     @Security.Authenticated(Secured.class)
     public Result editar(Long id) {
 
-        Form<Usuario> form = usuarioForm.fill(Usuario.find.byId(id)).bindFromRequest();
-
-        if(form.hasErrors()){
-            return badRequest(views.html.admin.usuarios.edit.render(id, usuarioForm));
-        }
-
-        Usuario usuario = form.get();
-
-        if (usuario == null) {
-            form.reject("Erro interno de sistema!");
-            return badRequest(views.html.admin.usuarios.edit.render(id, usuarioForm));
-        }
-
         Usuario usuarioBusca = Ebean.find(Usuario.class, id);
 
         if (usuarioBusca == null) {
-            return badRequest("Usuário não encontrado.");
+            return notFound(views.html.mensagens.erro.naoEncontrado.render("Usuário não encontrado"));
         }
 
-        if (usuarioBusca.getValidado() == true) {
-            //precisa setar o id, pois por algum motivo ele se perde no formulário
-            usuario.setId(id);
-            usuario.setValidado(true);
-        }
+        Form<Usuario> form = usuarioForm.fill(Usuario.find.byId(id)).bindFromRequest();
 
         try {
+            Usuario usuario = form.get();
+
+            if (usuarioBusca.getValidado() == true) {
+                //precisa setar o id, pois por algum motivo ele se perde no formulário
+                usuario.setId(id);
+                usuario.setValidado(true);
+            }
+
             String senha = Crypt.sha1(usuario.getSenha());
             usuario.setSenha(senha);
             usuario.setDataAlteracao(new Date());
             usuario.update();
             tipoMensagem = "Sucesso";
             mensagem = "Usuário atualizado com sucesso.";
+        } catch (IllegalStateException e) {
+            usuarioForm.reject("Os campos nome ou email não podem estar vazios!");
+            return badRequest(views.html.admin.usuarios.edit.render(id,usuarioForm));
         } catch (Exception e) {
             tipoMensagem = "Erro";
-            mensagem = "Erro Interno de sistema";
+            mensagem = "Erro Interno de sistema.";
             return badRequest(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
         }
 

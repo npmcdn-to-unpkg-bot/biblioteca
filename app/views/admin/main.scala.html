@@ -1,7 +1,5 @@
 @(title: String)(content: Html)
 
-<!DOCTYPE html>
-
 <html>
 <head>
     <meta charset="utf-8">
@@ -24,22 +22,22 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/admin">Biblioteca</a>
+                <a class="navbar-brand" href="/admin"><span class="glyphicon glyphicon-home"></span> Materiais</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="/artigo/lista/todos">Artigos</a></li>
-                    <li disabled ><a href="/livro/lista/todos">Livros</a></li>
-                    <li><a href="/usuario/lista/todos">Usuários</a></li>
+                    <li><a href="/artigo/lista/todos"><span class="glyphicon glyphicon-education"></span> Artigos</a></li>
+                    <li disabled ><a href="/livro/lista/todos"><span class="glyphicon glyphicon-book"></span> Livros</a></li>
+                    <li><a href="/usuario/lista/todos"><span class="glyphicon glyphicon-user"></span> Usuários</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/sobre">Sobre</a></li>
                     <li class="dropdown">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></span>Opções <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/#/">Home</a></li>
+                            <li><a href="/sobre">Sobre</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="/logout">Sair</a></li>
                         </ul>

@@ -1,7 +1,9 @@
 @(formPreenchido:DynamicForm)
+
 @import helper._
+
 @views.html.admin.main("Cadastro de Artigo") {
-    <div class="col-sm-6">
+    <div class="col-sm-5">
         <div class="panel panel-default">
             <div class="panel-heading">Cadastro de Artigo</div>
             <div class="panel-body">
@@ -17,22 +19,25 @@
                     }
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Título:</label>
+                        <label class="col-sm-3"></label>
                         <div class="col-sm-6">
+                            <label class="control-label">Título:</label>
                             <input type="text" name="titulo" class="form-control" maxlength="150" required/>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Resumo:</label>
+                        <label class="col-sm-3"></label>
                         <div class="col-sm-6">
+                            <label class="control-label">Resumo:</label>
                             <textarea style="overflow:auto;resize:none" type="text" name="resumo" class="form-control" maxlength="254" required/></textarea>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">Enviar Arquivo:</label>
+                        <label class="col-sm-3"></label>
                         <div class="col-sm-6">
+                            <label class="control-label">Enviar:</label>
                             <input type="file" name="arquivo" class="form-control" required>
                         </div>
                     </div>
@@ -50,3 +55,14 @@
         </div>
     </div>
 }
+
+    <script type="text/javascript">
+        window.onbeforeunload = function () {
+            var inputs = document.getElementsByTagName("INPUT");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].type == "button" || inputs[i].type == "submit") {
+                    inputs[i].disabled = true;
+                }
+            }
+        };
+    </script>

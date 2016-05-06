@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.libs.Json;
+import scala.collection.immutable.Page;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +33,7 @@ public class Usuario extends Model {
     @Column(nullable = false, length = 60)
     private String nome;
 
+    @Constraints.Required
     @Column(nullable = false, unique = true, length = 30)
     private String email;
 
@@ -177,4 +179,5 @@ public class Usuario extends Model {
     public String toString() {
         return Json.toJson(this).toString();
     }
+
 }

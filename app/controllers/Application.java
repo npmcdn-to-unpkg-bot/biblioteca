@@ -1,10 +1,12 @@
 package controllers;
 
 
+import actions.Secured;
 import com.avaje.ebean.Ebean;
 import models.Usuario;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 
 public class Application extends Controller {
 
@@ -37,6 +39,12 @@ public class Application extends Controller {
 
     }
 
+    /**
+     * show version of play page
+     *
+     * @return version page if user auth or not auth
+     */
+    @Security.Authenticated(Secured.class)
     public Result sobre() {
         return ok(views.html.admin.sobre.render(play.core.PlayVersion.current()));
     }

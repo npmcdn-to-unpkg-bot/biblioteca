@@ -1,7 +1,9 @@
 @(usuario: Usuario)
+
 @import helper._
+
 @views.html.admin.main("Administração - Detalhe do Usuário") {
-<div class="col-sm-6">
+<div class="col-sm-5">
     <div class="panel panel-default">
         <div class="panel-heading">Detalhe do Usuário
             <div class="btn-group pull-right">
@@ -25,19 +27,22 @@
                     <p class="display-block margin-left-027em">@usuario.getEmail()</p>
                 </div>
                 <div class="item-form width-600 margin-bottom-15">
-                    <label class="display-block strong">Situação</label>
+                    <label class="display-block strong">Confirmado</label>
                     @if(usuario.getValidado()) {
-                        <p class="display-block margin-left-027em">Confirmado</p>
+                        <p class="display-block margin-left-027em">Sim</p>
+                    }
+                    @if(!usuario.getValidado()) {
+                        <p class="display-block margin-left-027em">Não</p>
                     }
                 </div>
                 <div class="item-form width-600 margin-bottom-15">
                     <label class="display-block strong">Data/Hora de Cadastro</label>
-                    <p type="date" class="display-block margin-left-027em">@usuario.getDataCadastro()</p>
+                    <p type="date" class="display-block margin-left-027em">@usuario.getDataCadastro().format("dd MMMM yyyy - hh:mm:ss")</p>
                 </div>
                 @if(usuario.getDataAlteracao() != null){
                     <div class="item-form width-600 margin-bottom-15">
                         <label class="display-block strong">Data/Hora de Alteração</label>
-                        <p class="display-block margin-left-027em">@usuario.getDataAlteracao()</p>
+                        <p class="display-block margin-left-027em">@usuario.getDataAlteracao().format("dd MMMM yyyy - hh:mm:ss")</p>
                     </div>
                 }
             </form>
