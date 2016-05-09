@@ -18,7 +18,6 @@ import play.mvc.Security;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +26,26 @@ import static play.data.Form.form;
 @Security.Authenticated(Secured.class)
 public class ArtigoController extends Controller {
 
+    String mensagem = "";
+    String tipoMensagem = "";
+
     private static DynamicForm form = Form.form();
+
+    public Form<Artigo> artigoForm = Form.form(Artigo.class);
+
+    /**
+     * @return a object user authenticated
+     */
+    private Usuario atual() {
+        String username = session().get("email");
+
+        //busca o usuário atual que esteja logado no sistema
+        Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
+                .setParameter("email", username)
+                .findUnique();
+
+        return usuarioAtual;
+    }
 
     /**
      * @return autenticado form if auth OK or login form is auth KO
@@ -42,20 +60,6 @@ public class ArtigoController extends Controller {
         }
 
         return ok(views.html.admin.artigos.create.render(form));
-    }
-
-    /**
-     * @return a object user authenticated
-     */
-    private Usuario atual() {
-        String username = session().get("email");
-
-        //busca o usuário atual que esteja logado no sistema
-        Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
-                .setParameter("email", username)
-                .findUnique();
-
-        return usuarioAtual;
     }
 
     /**
@@ -82,6 +86,15 @@ public class ArtigoController extends Controller {
         if (titulo.equals("") || resumo.equals("")) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject("Título ou Resumo não podem estar vazios!");
+            return badRequest(views.html.admin.artigos.create.render(formDeErro));
+        }
+
+        //faz uma busca do artigo na base de dados
+        Artigo artigoBusca = Ebean.find(Artigo.class).where().eq("titulo", formPreenchido.data().get("titulo")).findUnique();
+
+        if (artigoBusca != null) {
+            DynamicForm formDeErro = form.fill(formPreenchido.data());
+            formDeErro.reject("Artigo '" + artigoBusca.getTitulo() + "' já esta Cadastrado!");
             return badRequest(views.html.admin.artigos.create.render(formDeErro));
         }
 
@@ -131,20 +144,38 @@ public class ArtigoController extends Controller {
     /**
      * Retrieve a list of all artigos
      *
-     * @return a list of all artigos in json
+     * @return a list of all artigos in a render template
      */
-    public Result buscaTodos() {
-        return ok(Json.toJson(Ebean.find(Artigo.class).findList()));
+    public Result telaLista() {
+
+        //busca o usuário atual que esteja logado no sistema
+        Usuario usuarioAtual = atual();
+
+        //verificar se o usuario atual encontrado é administrador
+        if (usuarioAtual.getPrivilegio() != 1) {
+            return badRequest(views.html.mensagens.erro.naoAutorizado.render());
+        }
+
+        List<Artigo> artigos = Ebean.find(Artigo.class).findList();
+        return ok(views.html.admin.artigos.list.render(artigos,""));
     }
 
     /**
      * Retrieve a list of all artigos
      *
-     * @return a list of all artigos in a render template
+     * @return a list of all artigos in json
      */
-    public Result lista() {
-        List<Artigo> artigos = Ebean.find(Artigo.class).findList();
-        return ok(views.html.admin.artigos.list.render(artigos));
+    public Result buscaTodos() {
+
+        //busca o usuário atual que esteja logado no sistema
+        Usuario usuarioAtual = atual();
+
+        //verificar se o usuario atual encontrado é administrador
+        if (usuarioAtual.getPrivilegio() != 1) {
+            return badRequest(views.html.mensagens.erro.naoAutorizado.render());
+        }
+
+        return ok(Json.toJson(Ebean.find(Artigo.class).findList()));
     }
 
     /**
@@ -181,6 +212,14 @@ public class ArtigoController extends Controller {
      */
     public Result buscaPorId(Long id) {
 
+        //busca o usuário atual que esteja logado no sistema
+        Usuario usuarioAtual = atual();
+
+        //verificar se o usuario atual encontrado é administrador
+        if (usuarioAtual.getPrivilegio() != 1) {
+            return badRequest(views.html.mensagens.erro.naoAutorizado.render());
+        }
+
         //busca o contato
         Artigo artigo = Ebean.find(Artigo.class, id);
 
@@ -195,36 +234,49 @@ public class ArtigoController extends Controller {
      * Remove a artigo from a id
      *
      * @param id
-     * @return ok artigo on json
+     * @return ok artigo removed
      */
     public Result remover(Long id) {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
 
+        String diretorioDePdfs = Play.application().configuration().getString("diretorioDePdfs");
+        String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
+
         if (usuarioAtual == null) {
-            return notFound("Usuario não autenticado");
+            mensagem = "Usuario não autenticado";
+            tipoMensagem = "Erro";
+            return notFound(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
         }
 
         //verificar se o usuario atual encontrado é administrador
         if (usuarioAtual.getPrivilegio() != 1) {
-            return badRequest("Você não tem privilégios de Administrador");
+            mensagem = "Você não tem privilégios de Administrador";
+            tipoMensagem = "Erro";
+            return badRequest(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
         }
 
-        //busca o contato para ser excluido
+        //busca o artigo para ser excluido
         Artigo artigo = Ebean.find(Artigo.class, id);
 
         if (artigo == null) {
-            return notFound("Artigo não encontrado");
+            return notFound(views.html.mensagens.erro.naoEncontrado.render("Artigo não encontrado"));
         }
+
+        File pdf = new File(diretorioDePdfs,artigo.getTitulo()+extensaoPadraoDePdfs);
 
         try {
             Ebean.delete(artigo);
-        }  catch (Exception e) {
-            Logger.info(e.getMessage());
-            return badRequest("Erro interno de sistema.");
+            pdf.delete();
+            mensagem = "Artigo excluído com sucesso";
+            tipoMensagem = "Sucesso";
+        } catch (Exception e) {
+            mensagem = "Erro interno de sistema";
+            tipoMensagem = "Erro";
+            return badRequest(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
         }
 
-        return ok(Json.toJson(artigo));
+        return ok(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
     }
 
     /**
@@ -248,6 +300,119 @@ public class ArtigoController extends Controller {
             return badRequest("Erro interno de sistema.");
         }
 
+    }
+
+    /**
+     * @return render a detail form with a artigo data
+     */
+    public Result telaDetalhe(Long id) {
+
+        //busca o usuário atual que esteja logado no sistema
+        Usuario usuarioAtual = atual();
+
+        //verificar se o usuario atual encontrado é administrador
+        if (usuarioAtual.getPrivilegio() != 1) {
+            return badRequest(views.html.mensagens.erro.naoAutorizado.render());
+        }
+
+        Artigo artigo = Ebean.find(Artigo.class, id);
+
+        if (artigo == null) {
+            return notFound(views.html.mensagens.erro.naoEncontrado.render("Artigo não encontrado"));
+        }
+
+        return ok(views.html.admin.artigos.detail.render(artigo));
+    }
+
+    /**
+     * @return render edit form with a artigo data
+     */
+    public Result telaEditar(Long id) {
+
+        //busca o usuário atual que esteja logado no sistema
+        Usuario usuarioAtual = atual();
+
+        //verificar se o usuario atual encontrado é administrador
+        if (usuarioAtual.getPrivilegio() != 1) {
+            return badRequest(views.html.mensagens.erro.naoAutorizado.render());
+        }
+
+        Form<Artigo> artigoForm = form(Artigo.class).fill(Artigo.find.byId(id));
+
+
+        if (artigoForm == null) {
+            return notFound(views.html.mensagens.erro.naoEncontrado.render("Artigo não encontrado"));
+        }
+
+        return ok(views.html.admin.artigos.edit.render(id,artigoForm));
+    }
+
+    /**
+     * Update a artigo from id
+     *
+     * @param id
+     * @return a artigo updated with a form
+     */
+    public Result editar(Long id) {
+
+        //busca o usuário atual que esteja logado no sistema
+        Usuario usuarioAtual = atual();
+
+        //verificar se o usuario atual encontrado é administrador
+        if (usuarioAtual.getPrivilegio() != 1) {
+            return badRequest(views.html.mensagens.erro.naoAutorizado.render());
+        }
+
+        Artigo artigoBusca = Ebean.find(Artigo.class, id);
+
+        if (artigoBusca == null) {
+            return notFound(views.html.mensagens.erro.naoEncontrado.render("Usuário não encontrado"));
+        }
+
+        Form<Artigo> form = artigoForm.fill(Artigo.find.byId(id)).bindFromRequest();
+
+        Http.MultipartFormData body = request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
+
+        String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
+
+        if (arquivo != null) {
+            String arquivoTitulo = form().bindFromRequest().get("titulo");
+            String pdf = arquivoTitulo + extensaoPadraoDePdfs;
+            String tipoDeConteudo = arquivo.getContentType();
+            File file = arquivo.getFile();
+            String diretorioDePdfs = Play.application().configuration().getString("diretorioDePdfs");
+            String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
+
+            if (tipoDeConteudo.equals(contentTypePadraoDePdfs)) {
+                file.renameTo(new File(diretorioDePdfs,pdf));
+            } else {
+                artigoForm.reject("Apenas arquivos em formato PDF é aceito");
+                return badRequest(views.html.admin.artigos.edit.render(id,artigoForm));
+            }
+        } else {
+            artigoForm.reject("Selecione um arquivo no formato PDF");
+            return badRequest(views.html.admin.artigos.edit.render(id,artigoForm));
+        }
+
+        try {
+            Artigo artigo = form.get();
+            artigo.setId(id);
+            artigo.setDataAlteracao(new Date());
+            artigo.update();
+            tipoMensagem = "Sucesso";
+            mensagem = "Artigo atualizado com sucesso.";
+        } catch (IllegalStateException e) {
+            artigoForm.reject("Os campos título, resumo não podem estar vazios!");
+            return badRequest(views.html.admin.artigos.edit.render(id,artigoForm));
+        } catch (Exception e) {
+            tipoMensagem = "Erro";
+            mensagem = "Erro Interno de sistema.";
+            Logger.info(e.getMessage());
+            return badRequest(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
+        }
+
+        return ok(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
     }
 
 }

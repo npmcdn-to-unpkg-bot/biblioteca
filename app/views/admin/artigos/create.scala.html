@@ -3,7 +3,7 @@
 @import helper._
 
 @views.html.admin.main("Cadastro de Artigo") {
-    <div class="col-sm-5">
+    <div class="col-sm-6">
         <div class="panel panel-default">
             <div class="panel-heading">Cadastro de Artigo</div>
             <div class="panel-body">
@@ -56,13 +56,13 @@
     </div>
 }
 
-    <script type="text/javascript">
-        window.onbeforeunload = function () {
-            var inputs = document.getElementsByTagName("INPUT");
-            for (var i = 0; i < inputs.length; i++) {
-                if (inputs[i].type == "button" || inputs[i].type == "submit") {
-                    inputs[i].disabled = true;
-                }
+<script type="text/javascript">
+    window.onbeforeunload = function () {
+        var inputs = document.getElementsByTagName("INPUT");
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].type == "button" || inputs[i].type == "submit") {
+                inputs[i].disabled = true;
             }
-        };
-    </script>
+        }
+    };
+</script>

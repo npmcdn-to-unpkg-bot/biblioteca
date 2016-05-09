@@ -2,14 +2,6 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Diretores
-GET		/testes					    controllers.TesteController.lista()
-GET		/teste/novo				    controllers.TesteController.novo()
-GET		/teste/:id				    controllers.TesteController.detalhar(id:Long)
-POST	/teste/:id				    controllers.TesteController.alterar(id:Long)
-POST	/teste/					    controllers.TesteController.gravar()
-POST	/teste/:id/remover		    controllers.TesteController.remover(id:Long)
-
 # Application
 GET     /                                   controllers.Application.index()
 GET     /sobre                              controllers.Application.sobre()
@@ -17,44 +9,44 @@ GET     /sobre                              controllers.Application.sobre()
 #Admin
 GET     /admin                              controllers.admin.AdminController.inicio()
 
-# Login
-GET     /logout                             controllers.LoginController.logout()
+# Login Telas
 GET     /login                              controllers.LoginController.loginTela()
 GET     /autenticado                        controllers.LoginController.telaAutenticado()
 GET     /saiu                               controllers.LoginController.telaLogout()
+
+# Login Servicos
+GET     /logout                             controllers.LoginController.logout()
 POST    /autenticar                         controllers.LoginController.autenticar()
 
-# Usuario
-PUT     /usuario/:id                        controllers.UsuarioController.atualizar(id:Long)
-GET     /usuario/:id                        controllers.UsuarioController.buscaPorId(id:Long)
+# Usuario telas
+GET     /cadastro                           controllers.UsuarioController.telaCadastro()
+GET     /usuario/editar/:id                 controllers.UsuarioController.telaEditar(id:Long)
 GET     /usuario/cadastrado                 controllers.UsuarioController.telaCadastrado()
+GET		/usuario/detalhe/:id				controllers.UsuarioController.telaDetalhe(id:Long)
+GET     /usuario/lista/todos                controllers.UsuarioController.telaLista()
+
+# Usuario Servicos
+POST    /usuario                            controllers.UsuarioController.inserir()
+POST    /usuario/editar/:id                 controllers.UsuarioController.editar(id:Long)
+GET     /usuario/:id                        controllers.UsuarioController.buscaPorId(id:Long)
 GET     /current                            controllers.UsuarioController.autenticado()
 GET     /usuarios/filtro/:filtro            controllers.UsuarioController.filtra(filtro:String)
-GET     /usuarios                           controllers.UsuarioController.buscaTodos()
-GET     /usuario/lista/todos                controllers.UsuarioController.lista()
-GET     /cadastro                           controllers.UsuarioController.telaCadastro()
-POST    /usuario                            controllers.UsuarioController.inserir()
 POST	/usuario/:id/remover		        controllers.UsuarioController.remover(id:Long)
-GET		/usuario/detalhe/:id				controllers.UsuarioController.detalhe(id:Long)
-GET     /usuario/editar/:id                 controllers.UsuarioController.telaEditar(id:Long)
-POST    /usuario/editar/:id                 controllers.UsuarioController.editar(id:Long)
 
-# Contato
-GET     /contatos                           controllers.ContatoController.buscaTodos()
-GET     /contatos/filtro/:filtro            controllers.ContatoController.filtra(filtro:String)
-GET     /contato/:id                        controllers.ContatoController.buscaPorId(id:Long)
-DELETE  /contato/:id                        controllers.ContatoController.remover(id:Long)
-POST    /contato                            controllers.ContatoController.inserir()
-
-# Artigo
+# Artigo Telas
 GET     /novo                               controllers.ArtigoController.novoTela()
-GET     /artigo/pdf/:titulo                 controllers.ArtigoController.pdf(titulo:String)
+GET     /artigo/editar/:id                  controllers.ArtigoController.telaEditar(id:Long)
+GET		/artigo/detalhe/:id				    controllers.ArtigoController.telaDetalhe(id:Long)
+GET     /artigo/lista/todos                 controllers.ArtigoController.telaLista()
+
+# Artigo Servicos
 GET     /artigos                            controllers.ArtigoController.buscaTodos()
-GET     /artigo/lista/todos                 controllers.ArtigoController.lista()
+GET     /artigo/pdf/:titulo                 controllers.ArtigoController.pdf(titulo:String)
 GET     /artigos/filtro/:filtro             controllers.ArtigoController.filtra(filtro:String)
 GET     /artigo/:id                         controllers.ArtigoController.buscaPorId(id:Long)
-DELETE  /artigo/:id                         controllers.ArtigoController.remover(id:Long)
 POST    /artigo                             controllers.ArtigoController.inserir()
+POST	/artigo/:id/remover		            controllers.ArtigoController.remover(id:Long)
+POST    /artigo/editar/:id                  controllers.ArtigoController.editar(id:Long)
 
 # Acessado quando o usuario confirma o registro
 GET     /confirma/:confirmaToken            controllers.UsuarioController.confirma(confirmaToken:String)
@@ -66,6 +58,21 @@ POST    /reset/senha                        controllers.senha.SenhaController.ru
 # Reseta a senha
 GET     /reset/:token                       controllers.senha.SenhaController.reset(token:String)
 POST    /reset/:token                       controllers.senha.SenhaController.runReset(token:String)
+
+# Contato
+GET     /contatos                           controllers.ContatoController.buscaTodos()
+GET     /contatos/filtro/:filtro            controllers.ContatoController.filtra(filtro:String)
+GET     /contato/:id                        controllers.ContatoController.buscaPorId(id:Long)
+DELETE  /contato/:id                        controllers.ContatoController.remover(id:Long)
+POST    /contato                            controllers.ContatoController.inserir()
+
+# Testes e estudos
+GET		/testes					    controllers.TesteController.lista()
+GET		/teste/novo				    controllers.TesteController.novo()
+GET		/teste/:id				    controllers.TesteController.detalhar(id:Long)
+POST	/teste/:id				    controllers.TesteController.alterar(id:Long)
+POST	/teste/					    controllers.TesteController.gravar()
+POST	/teste/:id/remover		    controllers.TesteController.remover(id:Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

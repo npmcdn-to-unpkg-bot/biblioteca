@@ -1,0 +1,41 @@
+@(mensagem:String)(tipoMensagem:String)
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/bootstrap/dist/css/bootstrap.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/mensagens.css")">
+    <title>Biblioteca - confirmação</title>
+</head>
+<body>
+<div class="row">
+    <div class="container-fluid">
+        <div class="mensagens">
+            <div class="panel panel-default">
+                <div class="panel-heading">Biblioteca Digital
+                    <a href="/artigo/lista/todos" class="pull-right">Artigos</a>
+                </div>
+                <div class="panel-body">
+                    @if(tipoMensagem.equals("Sucesso")){
+                    <p class="mensagem alert alert-success text-center">
+                        @mensagem
+                    </p>
+                    }
+                    @if(tipoMensagem.equals("Erro")){
+                    <p class="mensagem alert alert-danger text-center">
+                        @mensagem
+                    </p>
+                    }
+                </div>
+                <div class="panel-footer">
+                    <p class="text-center">&copy; 2016 CIBiogás</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="@routes.Assets.versioned("bower_components/jquery/dist/jquery.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("bower_components/bootstrap/dist/js/bootstrap.js")" type="text/javascript"></script>
+</body>
+</html>

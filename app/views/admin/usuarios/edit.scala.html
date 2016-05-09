@@ -3,7 +3,7 @@
 @import helper._
 
 @views.html.admin.main("Editar Usuário") {
-    <div class="col-sm-5">
+    <div class="col-sm-6">
         <div class="panel panel-default">
             <div class="panel-heading">Editar Usuário</div>
             <div class="panel-body">
@@ -23,7 +23,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label"></label>
                     <div class="col-sm-6">
-                        @helper.inputText(usuarioForm("nome"), 'class -> "form-control espacos", 'placeholder -> "Insira o nome", '_label -> "Nome:", 'size -> 60, '_help -> "")
+                        @helper.inputText(usuarioForm("nome"), 'class -> "form-control", 'placeholder -> "Insira o nome", '_label -> "Nome:", 'size -> 60, '_help -> "")
                     </div>
                 </div>
 

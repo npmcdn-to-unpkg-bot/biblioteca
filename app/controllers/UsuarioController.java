@@ -40,15 +40,15 @@ public class UsuarioController extends Controller {
     String usuarioEmail = "";
 
     /**
-     * Retrieve a user from an email.
-     *
-     * @param email email to search
-     * @return a user
+     * @return a object user authenticated
      */
-    private Usuario buscaPorEmail(String email) {
-        Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where (email = :email)");
-        query.setParameter("email", email);
-        return query.findUnique();
+    private Usuario atual() {
+        String username = session().get("email");
+
+        //retorna o usuário atual que esteja logado no sistema
+        return Ebean.createQuery(Usuario.class, "find usuario where email = :email")
+                .setParameter("email", username)
+                .findUnique();
     }
 
     /**
@@ -61,49 +61,6 @@ public class UsuarioController extends Controller {
         Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where (confirmacao_token = :confirmacao_token)");
         query.setParameter("confirmacao_token", token);
         return query.findUnique();
-    }
-
-    /**
-     * Valid an account with the url in the confirm mail.
-     *
-     * @param token a token attached to the user we're confirming.
-     * @return Confirmationpage
-     */
-    public Result confirma(String token) {
-
-        Usuario usuario = buscaPorConfirmacaoToken(token);
-
-        if (usuario == null) {
-            mensagem = "Seu código de ativação é inválido ou expirou!";
-            tipoMensagem = "Invalido";
-            return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
-        }
-
-        if (usuario.getValidado()) {
-            mensagem = "Esta conta de usuário já foi confirmada!";
-            tipoMensagem = "Validado";
-            return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
-        }
-
-        try {
-            if (usuario.confirmado(usuario)) {
-                enviarEmailConfirmacao(usuario);
-                mensagem = "Sua conta foi ativada com sucesso!";
-                tipoMensagem = "Sucesso";
-                usuarioEmail = usuario.getEmail();
-                return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
-            } else {
-                mensagem = "Erro de confirmação do cadastro do usuário!";
-                tipoMensagem = "Erro";
-                return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
-            }
-        } catch (Exception e) {
-            mensagem = "Erro interno de sistema";
-            tipoMensagem = "Erro";
-        }
-
-        return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
-
     }
 
     /**
@@ -152,6 +109,49 @@ public class UsuarioController extends Controller {
     }
 
     /**
+     * Valid an account with the url in the confirm mail.
+     *
+     * @param token a token attached to the user we're confirming.
+     * @return Confirmationpage
+     */
+    public Result confirma(String token) {
+
+        Usuario usuario = buscaPorConfirmacaoToken(token);
+
+        if (usuario == null) {
+            mensagem = "Seu código de ativação é inválido ou expirou!";
+            tipoMensagem = "Invalido";
+            return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
+        }
+
+        if (usuario.getValidado()) {
+            mensagem = "Esta conta de usuário já foi confirmada!";
+            tipoMensagem = "Validado";
+            return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
+        }
+
+        try {
+            if (usuario.confirmado(usuario)) {
+                enviarEmailConfirmacao(usuario);
+                mensagem = "Sua conta foi ativada com sucesso!";
+                tipoMensagem = "Sucesso";
+                usuarioEmail = usuario.getEmail();
+                return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
+            } else {
+                mensagem = "Erro de confirmação do cadastro do usuário!";
+                tipoMensagem = "Erro";
+                return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
+            }
+        } catch (Exception e) {
+            mensagem = "Erro interno de sistema";
+            tipoMensagem = "Erro";
+        }
+
+        return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
+
+    }
+
+    /**
      * @return cadastrado form if register success
      */
     public Result telaCadastrado() {
@@ -164,18 +164,6 @@ public class UsuarioController extends Controller {
      */
     public Result telaCadastro() {
         return ok(views.html.cadastro.render(form));
-    }
-
-    /**
-     * @return a object user authenticated
-     */
-    private Usuario atual() {
-        String username = session().get("email");
-
-        //retorna o usuário atual que esteja logado no sistema
-        return Ebean.createQuery(Usuario.class, "find usuario where email = :email")
-                .setParameter("email", username)
-                .findUnique();
     }
 
     /**
@@ -248,35 +236,6 @@ public class UsuarioController extends Controller {
     }
 
     /**
-     * Update a user from id
-     *
-     * @param id
-     * @return a user updated in json
-     */
-    @Security.Authenticated(Secured.class)
-    public Result atualizar(Long id) {
-
-        Usuario usuario = Json.fromJson(request().body().asJson(), Usuario.class);
-
-        Usuario usuarioBusca = Ebean.find(Usuario.class, id);
-
-        if (usuarioBusca == null) {
-            return badRequest("Usuário não encontrado.");
-        }
-
-        try {
-            String senha = Crypt.sha1(usuario.getSenha());
-            usuario.setSenha(senha);
-            usuario.setDataAlteracao(new Date());
-            Ebean.update(usuario);
-        } catch (Exception e) {
-            return badRequest("Erro interno de sistema!");
-        }
-
-        return ok(Json.toJson(usuario));
-    }
-
-    /**
      * Retrieve a user from id
      *
      * @param id
@@ -311,39 +270,12 @@ public class UsuarioController extends Controller {
     }
 
     /**
-     * Retrieve a list of all users
-     *
-     * @return a list of all users in json
-     */
-    @Security.Authenticated(Secured.class)
-    public Result buscaTodos() {
-
-        //busca o usuário atual que esteja logado no sistema
-        Usuario usuarioAtual = atual();
-
-        if (usuarioAtual == null) {
-            return notFound("Usuario não autenticado");
-        }
-
-        //verificar se o usuario atual encontrado é administrador
-        if (usuarioAtual.getPrivilegio() != 1) {
-            return badRequest(views.html.mensagens.erro.naoAutorizado.render());
-        }
-
-        //busca todos os usuários menos o usuário padrão do sistema
-        Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where (email != 'admin')");
-        List<Usuario> filtroDeUsuarios = query.findList();
-
-        return ok(Json.toJson(filtroDeUsuarios));
-    }
-
-    /**
      * Retrieve a list of all usuarios
      *
      * @return a list of all usuarios in a render template
      */
     @Security.Authenticated(Secured.class)
-    public Result lista() {
+    public Result telaLista() {
 
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -372,9 +304,6 @@ public class UsuarioController extends Controller {
      */
     @Security.Authenticated(Secured.class)
     public Result remover(Long id) {
-
-        String mensagem = "";
-        String tipoMensagem = "";
 
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -461,7 +390,7 @@ public class UsuarioController extends Controller {
      * @return detail form with a user
      */
     @Security.Authenticated(Secured.class)
-    public Result detalhe(Long id) {
+    public Result telaDetalhe(Long id) {
         Usuario usuario = Ebean.find(Usuario.class, id);
 
         if (usuario == null) {

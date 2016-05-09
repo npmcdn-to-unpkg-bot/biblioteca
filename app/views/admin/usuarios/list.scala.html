@@ -3,23 +3,24 @@
 @import helper._
 
 @views.html.admin.main("Administração - Usuários") {
-    <div class="col-sm-5">
-        @mensagem
+    <div class="col-sm-6">
         <div class="panel panel-default">
             <div class="panel-heading">Lista de Usuários</div>
             <div class="panel-body">
-                <table class="table-striped table table-hover table-bordered">
-                    <tr>
-                        <th>Nome</th>
-                        <th>Email</th>
-                    </tr>
-                    @for(usuario <- usuarios) {
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
                         <tr>
-                            <td><a href="@routes.UsuarioController.detalhe(usuario.getId())">@usuario.getNome()</a></td>
+                            <th>Nome</th>
+                            <th>Email</th>
+                        </tr>
+                        @for(usuario <- usuarios) {
+                        <tr>
+                            <td><a href="@routes.UsuarioController.telaDetalhe(usuario.getId())">@usuario.getNome()</a></td>
                             <td>@usuario.getEmail()</td>
                         </tr>
-                    }
-                </table>
+                        }
+                    </table>
+                </div>
             </div>
         </div>
     </div>
