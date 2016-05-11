@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+@(livros: List[Livro])(mensagem : String)
 
-</body>
-</html>
+@import helper._
+
+@views.html.admin.main("Administração - Livros") {
+    <div class="col-sm-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">Lista de Livros
+                <a href="/livro/novo/" class="pull-right">Adicionar</a>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>Título</th>
+                        </tr>
+                        @for(livro <- livros) {
+                            <tr>
+                                <td><a href="@routes.LivroController.telaDetalhe(livro.getId())">@livro.getTitulo()</a></td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}

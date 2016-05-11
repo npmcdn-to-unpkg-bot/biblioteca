@@ -22,6 +22,20 @@ create table contato (
   constraint pk_contato primary key (id))
 ;
 
+create table livro (
+  id                        bigserial not null,
+  titulo                    varchar(150) not null,
+  sub_titulo                varchar(255),
+  paginas                   integer,
+  ano                       integer,
+  isbn                      varchar(255),
+  editora                   varchar(255),
+  autores                   varchar(255),
+  data_cadastro             timestamp,
+  data_alteracao            timestamp,
+  constraint pk_livro primary key (id))
+;
+
 create table teste (
   id                        bigserial not null,
   nome                      varchar(255),
@@ -61,6 +75,8 @@ create table usuario (
 drop table if exists artigo cascade;
 
 drop table if exists contato cascade;
+
+drop table if exists livro cascade;
 
 drop table if exists teste cascade;
 

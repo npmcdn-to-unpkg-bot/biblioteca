@@ -34,7 +34,7 @@ GET     /usuarios/filtro/:filtro            controllers.UsuarioController.filtra
 POST	/usuario/:id/remover		        controllers.UsuarioController.remover(id:Long)
 
 # Artigo Telas
-GET     /novo                               controllers.ArtigoController.novoTela()
+GET     /artigo/novo/                       controllers.ArtigoController.novoTela()
 GET     /artigo/editar/:id                  controllers.ArtigoController.telaEditar(id:Long)
 GET		/artigo/detalhe/:id				    controllers.ArtigoController.telaDetalhe(id:Long)
 GET     /artigo/lista/todos                 controllers.ArtigoController.telaLista()
@@ -47,6 +47,17 @@ GET     /artigo/:id                         controllers.ArtigoController.buscaPo
 POST    /artigo                             controllers.ArtigoController.inserir()
 POST	/artigo/:id/remover		            controllers.ArtigoController.remover(id:Long)
 POST    /artigo/editar/:id                  controllers.ArtigoController.editar(id:Long)
+
+# Livro Telas
+GET     /livro/novo/                        controllers.LivroController.novoTela()
+GET		/livro/detalhe/:id				    controllers.LivroController.telaDetalhe(id:Long)
+GET     /livro/editar/:id                   controllers.LivroController.telaEditar(id:Long)
+GET     /livro/lista/todos                  controllers.LivroController.telaLista()
+
+# Livro Servicos
+POST    /livro                              controllers.LivroController.inserir()
+POST	/livro/:id/remover		            controllers.LivroController.remover(id:Long)
+POST    /livro/editar/:id                   controllers.LivroController.editar(id:Long)
 
 # Acessado quando o usuario confirma o registro
 GET     /confirma/:confirmaToken            controllers.UsuarioController.confirma(confirmaToken:String)

@@ -83,7 +83,7 @@ public class ArtigoController extends Controller {
         String titulo = formPreenchido.data().get("titulo");
         String resumo = formPreenchido.data().get("resumo");
 
-        //valida se o email e a senha não estejam vazios
+        //valida se o titulo e o resumo não estejam vazios
         if (titulo.equals("") || resumo.equals("")) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject("Título ou Resumo não podem estar vazios!");
@@ -394,9 +394,14 @@ public class ArtigoController extends Controller {
             if (tipoDeConteudo.equals(contentTypePadraoDePdfs)) {
                 file.renameTo(new File(diretorioDePdfs,pdf));
             } else {
-                artigoForm.reject("Apenas arquivos em formato PDF é aceito");
-                return badRequest(views.html.admin.artigos.edit.render(id,artigoForm));
+                Form<Artigo> formDeErro = artigoForm.fill(Artigo.find.byId(id));
+                formDeErro.reject("Apenas arquivos em formato PDF é aceito");
+                return badRequest(views.html.admin.artigos.edit.render(id,formDeErro));
             }
+        }else {
+            Form<Artigo> formDeErro = artigoForm.fill(Artigo.find.byId(id));
+            formDeErro.reject("Selecione um arquivo em formato PDF");
+            return badRequest(views.html.admin.artigos.edit.render(id,formDeErro));
         }
 
         try {

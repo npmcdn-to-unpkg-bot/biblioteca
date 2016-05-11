@@ -13,18 +13,18 @@
             <div class="mensagens">
                 <div class="panel panel-default">
                     <div class="panel-heading">Biblioteca Digital
-                        <a href="/artigo/lista/todos" class="pull-right">Lista de Artigos</a>
+                        <a href="/livro/lista/todos" class="pull-right">Lista de Livros</a>
                     </div>
                     <div class="panel-body">
                         @if(tipoMensagem.equals("Sucesso")){
-                        <p class="mensagem alert alert-success text-center">
-                            @mensagem
-                        </p>
+                            <p class="mensagem alert alert-success text-center">
+                                @mensagem
+                            </p>
                         }
                         @if(tipoMensagem.equals("Erro")){
-                        <p class="mensagem alert alert-danger text-center">
-                            @mensagem
-                        </p>
+                            <p class="mensagem alert alert-danger text-center">
+                                @mensagem
+                            </p>
                         }
                     </div>
                     <div class="panel-footer">

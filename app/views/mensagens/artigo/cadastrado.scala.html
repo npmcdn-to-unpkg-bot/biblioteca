@@ -13,13 +13,13 @@
             <div class="mensagens">
                 <div class="panel panel-default">
                     <div class="panel-heading">Biblioteca Digital
-                        <a href="/#/" class="pull-right">Início</a>
+                        <a href="/artigo/lista/todos" class="pull-right">Lista de Artigos</a>
                     </div>
                     <div class="panel-body">
                         @if(artigoTitulo == null) {
-                        <p class="mensagem alert alert-danger text-center">Artigo não encontrado!</p>
+                            <p class="mensagem alert alert-danger text-center">Artigo não encontrado!</p>
                         } else {
-                        <p class="mensagem alert alert-success text-center">Artigo "<b>@artigoTitulo</b>" cadastrado com sucesso!</p>
+                            <p class="mensagem alert alert-success text-center">Artigo "<b>@artigoTitulo</b>" cadastrado com sucesso!</p>
                         }
                     </div>
                     <div class="panel-footer">

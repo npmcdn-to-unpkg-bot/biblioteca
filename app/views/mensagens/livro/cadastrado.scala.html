@@ -1,11 +1,11 @@
-@(mensagem:String)(tipoMensagem:String)
+@(livroTitulo: String)
 <html>
 <head lang="en">
     <meta charset="UTF-8">
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/bootstrap/dist/css/bootstrap.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/mensagens.css")">
-    <title>Biblioteca - confirmação</title>
+    <title>Biblioteca - cadastrado</title>
 </head>
 <body>
     <div class="row">
@@ -13,18 +13,13 @@
             <div class="mensagens">
                 <div class="panel panel-default">
                     <div class="panel-heading">Biblioteca Digital
-                        <a href="/artigo/lista/todos" class="pull-right">Lista de Artigos</a>
+                        <a href="/livro/lista/todos" class="pull-right">Lista de Livros</a>
                     </div>
                     <div class="panel-body">
-                        @if(tipoMensagem.equals("Sucesso")){
-                        <p class="mensagem alert alert-success text-center">
-                            @mensagem
-                        </p>
-                        }
-                        @if(tipoMensagem.equals("Erro")){
-                        <p class="mensagem alert alert-danger text-center">
-                            @mensagem
-                        </p>
+                        @if(livroTitulo == null) {
+                            <p class="mensagem alert alert-danger text-center">Livro não encontrado!</p>
+                        } else {
+                            <p class="mensagem alert alert-success text-center">Livro "<b>@livroTitulo</b>" foi cadastrado com sucesso!</p>
                         }
                     </div>
                     <div class="panel-footer">
