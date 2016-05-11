@@ -24,7 +24,7 @@
                 <label class="col-sm-3 control-label"></label>
                 <div class="col-sm-6">
                     @helper.inputText(artigoForm("titulo"), 'class -> "form-control", 'placeholder -> "Insira o título", '_label -> "Título:", 'size -> 160, '_help -> "")
-                    @helper.textarea(field = artigoForm("resumo"), 'rows -> 3, 'cols -> 10, 'class -> "form-control", '_label -> "Resumo:", '_help -> "", 'size -> 254)
+                    @helper.textarea(field = artigoForm("resumo"), 'rows -> 4, 'class -> "form-control", '_label -> "Resumo:", '_help -> "", 'size -> 254)
                     <label class="control-label">Enviar:</label>
                     <input type="file" name="arquivo" class="form-control" required>
                 </div>

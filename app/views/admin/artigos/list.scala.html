@@ -3,27 +3,27 @@
 @import helper._
 
 @views.html.admin.main("Administração - Artigos") {
-<div class="col-sm-6">
-    <div class="panel panel-default">
-        <div class="panel-heading">Lista de Artigos
-            <a href="/novo" class="pull-right">Adicionar</a>
-        </div>
-        <div class="panel-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <tr>
-                        <th>Título</th>
-                        <th>Resumo</th>
-                    </tr>
-                    @for(artigo <- artigos) {
-                    <tr>
-                        <td><a href="@routes.ArtigoController.telaDetalhe(artigo.getId())">@artigo.getTitulo()</a></td>
-                        <td>@artigo.getResumo()</td>
-                    </tr>
-                    }
-                </table>
+    <div class="col-sm-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">Lista de Artigos
+                <a href="/novo" class="pull-right">Adicionar</a>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>Título</th>
+                            <th>Resumo</th>
+                        </tr>
+                        @for(artigo <- artigos) {
+                            <tr>
+                                <td><a href="@routes.ArtigoController.telaDetalhe(artigo.getId())">@artigo.getTitulo()</a></td>
+                                <td>@artigo.getResumo()</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
 }
