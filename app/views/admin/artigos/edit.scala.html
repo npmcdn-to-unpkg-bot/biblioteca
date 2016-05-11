@@ -7,7 +7,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">Editar Artigo</div>
         <div class="panel-body">
-            @form(routes.ArtigoController.editar(id), 'enctype -> "multipart/form-data", 'class -> "form-horizontal") {
+            @form(routes.ArtigoController.editar(id), 'enctype -> "multipart/form-data", 'class -> "form-horizontal", 'id -> "artigoForm") {
 
             @if(artigoForm.hasGlobalErrors) {
                 <div class="form-group">
@@ -24,19 +24,7 @@
                 <label class="col-sm-3 control-label"></label>
                 <div class="col-sm-6">
                     @helper.inputText(artigoForm("titulo"), 'class -> "form-control", 'placeholder -> "Insira o título", '_label -> "Título:", 'size -> 160, '_help -> "")
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-3 control-label"></label>
-                <div class="col-sm-6">
-                    @helper.textarea(field = artigoForm("resumo"), args = 'rows -> 3, 'cols -> 50, 'class -> "form-control", '_label -> "Resumo:", '_help -> "")
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-3"></label>
-                <div class="col-sm-6">
+                    @helper.textarea(field = artigoForm("resumo"), 'rows -> 3, 'cols -> 10, 'class -> "form-control", '_label -> "Resumo:", '_help -> "", 'size -> 254)
                     <label class="control-label">Enviar:</label>
                     <input type="file" name="arquivo" class="form-control" required>
                 </div>

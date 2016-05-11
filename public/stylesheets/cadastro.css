@@ -14,3 +14,8 @@ body {
 .form-signin .checkbox {
   margin-bottom: 10px;
 }
+
+.textarea {
+    overflow:auto;
+    resize:none;
+}

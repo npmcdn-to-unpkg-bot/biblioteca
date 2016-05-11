@@ -15,6 +15,7 @@ import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.Security;
 
+import javax.persistence.PersistenceException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -366,7 +367,7 @@ public class ArtigoController extends Controller {
         Artigo artigoBusca = Ebean.find(Artigo.class, id);
 
         if (artigoBusca == null) {
-            return notFound(views.html.mensagens.erro.naoEncontrado.render("Usuário não encontrado"));
+            return notFound(views.html.mensagens.erro.naoEncontrado.render("Artigo não encontrado"));
         }
 
         Form<Artigo> form = artigoForm.fill(Artigo.find.byId(id)).bindFromRequest();
@@ -384,31 +385,42 @@ public class ArtigoController extends Controller {
             String diretorioDePdfs = Play.application().configuration().getString("diretorioDePdfs");
             String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
 
+            //necessario para excluir o artigo antigo
+            File pdfAntigo = new File(diretorioDePdfs,artigoBusca.getTitulo()+extensaoPadraoDePdfs);
+
+            //exclui o artigo antigo
+            pdfAntigo.delete();
+
             if (tipoDeConteudo.equals(contentTypePadraoDePdfs)) {
                 file.renameTo(new File(diretorioDePdfs,pdf));
             } else {
                 artigoForm.reject("Apenas arquivos em formato PDF é aceito");
                 return badRequest(views.html.admin.artigos.edit.render(id,artigoForm));
             }
-        } else {
-            artigoForm.reject("Selecione um arquivo no formato PDF");
-            return badRequest(views.html.admin.artigos.edit.render(id,artigoForm));
         }
 
         try {
             Artigo artigo = form.get();
+
+            if (artigo.getTitulo().isEmpty() || artigo.getResumo().isEmpty()) {
+                Form<Artigo> formDeErro = artigoForm.fill(Artigo.find.byId(id));
+                formDeErro.reject("O campo 'Título' ou 'Resumo' não podem estar vazios");
+                return badRequest(views.html.admin.artigos.edit.render(id,formDeErro));
+            }
+
             artigo.setId(id);
             artigo.setDataAlteracao(new Date());
             artigo.update();
             tipoMensagem = "Sucesso";
             mensagem = "Artigo atualizado com sucesso.";
-        } catch (IllegalStateException e) {
-            artigoForm.reject("Os campos título, resumo não podem estar vazios!");
-            return badRequest(views.html.admin.artigos.edit.render(id,artigoForm));
-        } catch (Exception e) {
+        } catch (PersistenceException e) {
+            Form<Artigo> formDeErro = artigoForm.fill(Artigo.find.byId(id));
+            formDeErro.reject("O campo 'Resumo' suporta no máximo 254 caractéres");
+            return badRequest(views.html.admin.artigos.edit.render(id,formDeErro));
+        }  catch (Exception e) {
             tipoMensagem = "Erro";
             mensagem = "Erro Interno de sistema.";
-            Logger.info(e.getMessage());
+            Logger.info(e.toString());
             return badRequest(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
         }
 
