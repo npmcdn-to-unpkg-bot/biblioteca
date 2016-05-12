@@ -109,11 +109,11 @@ public class ArtigoController extends Controller {
             String pdf = arquivoTitulo + extensaoPadraoDePdfs;
             String tipoDeConteudo = arquivo.getContentType();
             File file = arquivo.getFile();
-            String diretorioDePdfs = Play.application().configuration().getString("diretorioDePdfs");
+            String diretorioDePdfsArtigos = Play.application().configuration().getString("diretorioDePdfsArtigos");
             String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
 
             if (tipoDeConteudo.equals(contentTypePadraoDePdfs)) {
-                file.renameTo(new File(diretorioDePdfs,pdf));
+                file.renameTo(new File(diretorioDePdfsArtigos,pdf));
             } else {
                 DynamicForm formDeErro = form.fill(formPreenchido.data());
                 formDeErro.reject("Apenas arquivos em formato PDF é aceito");
@@ -241,7 +241,7 @@ public class ArtigoController extends Controller {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
 
-        String diretorioDePdfs = Play.application().configuration().getString("diretorioDePdfs");
+        String diretorioDePdfsArtigos = Play.application().configuration().getString("diretorioDePdfsArtigos");
         String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
 
         if (usuarioAtual == null) {
@@ -264,7 +264,7 @@ public class ArtigoController extends Controller {
             return notFound(views.html.mensagens.erro.naoEncontrado.render("Artigo não encontrado"));
         }
 
-        File pdf = new File(diretorioDePdfs,artigo.getTitulo()+extensaoPadraoDePdfs);
+        File pdf = new File(diretorioDePdfsArtigos,artigo.getTitulo()+extensaoPadraoDePdfs);
 
         try {
             Ebean.delete(artigo);
@@ -288,10 +288,10 @@ public class ArtigoController extends Controller {
      */
     public Result pdf(String titulo) {
 
-        String diretorioDePdfs = Play.application().configuration().getString("diretorioDePdfs");
+        String diretorioDePdfsArtigos = Play.application().configuration().getString("diretorioDePdfsArtigos");
         String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
 
-        File pdf = new File(diretorioDePdfs,titulo+extensaoPadraoDePdfs);
+        File pdf = new File(diretorioDePdfsArtigos,titulo+extensaoPadraoDePdfs);
 
         try {
             return ok(new FileInputStream(pdf));
@@ -382,17 +382,17 @@ public class ArtigoController extends Controller {
             String pdf = arquivoTitulo + extensaoPadraoDePdfs;
             String tipoDeConteudo = arquivo.getContentType();
             File file = arquivo.getFile();
-            String diretorioDePdfs = Play.application().configuration().getString("diretorioDePdfs");
+            String diretorioDePdfsArtigos = Play.application().configuration().getString("diretorioDePdfsArtigos");
             String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
 
             //necessario para excluir o artigo antigo
-            File pdfAntigo = new File(diretorioDePdfs,artigoBusca.getTitulo()+extensaoPadraoDePdfs);
+            File pdfAntigo = new File(diretorioDePdfsArtigos,artigoBusca.getTitulo()+extensaoPadraoDePdfs);
 
             //exclui o artigo antigo
             pdfAntigo.delete();
 
             if (tipoDeConteudo.equals(contentTypePadraoDePdfs)) {
-                file.renameTo(new File(diretorioDePdfs,pdf));
+                file.renameTo(new File(diretorioDePdfsArtigos,pdf));
             } else {
                 Form<Artigo> formDeErro = artigoForm.fill(Artigo.find.byId(id));
                 formDeErro.reject("Apenas arquivos em formato PDF é aceito");

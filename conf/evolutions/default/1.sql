@@ -26,14 +26,15 @@ create table livro (
   id                        bigserial not null,
   titulo                    varchar(150) not null,
   sub_titulo                varchar(254) not null,
+  isbn                      varchar(17),
+  editora                   varchar(100) not null,
+  autores                   varchar(254) not null,
   edicao                    integer,
   paginas                   integer,
   ano                       integer,
-  isbn                      varchar(255),
-  editora                   varchar(255),
-  autores                   varchar(255),
   data_cadastro             timestamp,
   data_alteracao            timestamp,
+  constraint uq_livro_isbn unique (isbn),
   constraint pk_livro primary key (id))
 ;
 

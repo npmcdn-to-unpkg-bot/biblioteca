@@ -4,6 +4,7 @@ import com.avaje.ebean.Model;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.libs.Json;
+import views.validators.LivroFormData;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,29 +29,26 @@ public class Livro extends Model {
     @Column(nullable = false, length = 254)
     private String subTitulo;
 
-//    @Constraints.Required
-//    @Column(nullable = false)
-    private Integer edicao;
-
-//    @Constraints.Required
-//    @Column(nullable = false)
-    private Integer paginas;
-
-//    @Constraints.Required
-//    @Column(nullable = false)
-    private Integer ano;
-
-//    @Constraints.Required
-//    @Column(nullable = false, unique = true, length = 15)
+    @Constraints.Required
+    @Column(unique = true, length = 17)
     private String isbn;
 
-//    @Constraints.Required
-//    @Column(nullable = false, length = 100)
+    @Constraints.Required
+    @Column(nullable = false, length = 100)
     private String editora;
 
-//    @Constraints.Required
-//    @Column(nullable = false, length = 254)
+    @Constraints.Required
+    @Column(nullable = false, length = 254)
     private String autores;
+
+    @Constraints.Required
+    private Integer edicao;
+
+    @Constraints.Required
+    private Integer paginas;
+
+    @Constraints.Required
+    private Integer ano;
 
     @Formats.DateTime(pattern="dd-MM-yyyy")
     private Date dataCadastro;
@@ -154,6 +152,19 @@ public class Livro extends Model {
             options.put(c.id.toString(),c.titulo);
         }
         return options;
+    }
+
+    public static Livro makeInstance(LivroFormData formData) {
+        Livro livro = new Livro();
+        livro.setTitulo(formData.titulo);
+        livro.setSubTitulo(formData.subTitulo);
+        livro.setEdicao(formData.edicao);
+        livro.setPaginas(formData.paginas);
+        livro.setAno(formData.ano);
+        livro.setAutores(formData.autores);
+        livro.setEditora(formData.editora);
+        livro.setIsbn(formData.isbn);
+        return livro;
     }
 
     @Override
