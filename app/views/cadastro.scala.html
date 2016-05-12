@@ -1,7 +1,8 @@
 @(formPreenchido:DynamicForm)
-@import helper._
+
 <html>
 <meta charset="UTF-8">
+<head>
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/bootstrap/dist/css/bootstrap.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/signin.css")">
@@ -9,7 +10,7 @@
 </head>
 <body>
     <div class="container">
-        @form(routes.UsuarioController.inserir()) {
+        @helper.form(routes.UsuarioController.inserir()) {
             <div class="form-signin well well-sm">
                 <a href="/#/" class="btn btn-default pull-right"> Início</a>
                 <h4>Registro de Usuário</h4>

@@ -1,5 +1,4 @@
 @(formPreenchido:DynamicForm, token: String)
-@import helper._
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        @form(controllers.senha.routes.SenhaController.runReset(token)) {
+        @helper.form(controllers.senha.routes.SenhaController.runReset(token)) {
             <div class="form-signin well well-sm">
                 <a href="/#/" class="btn btn-default pull-right"> Início</a>
                 <h4>Atualizar sua senha</h4>

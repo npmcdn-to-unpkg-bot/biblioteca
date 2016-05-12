@@ -2,7 +2,6 @@ package models;
 
 import com.avaje.ebean.Model;
 import play.data.format.Formats;
-import play.data.validation.Constraints;
 import play.libs.Json;
 
 import javax.persistence.Column;

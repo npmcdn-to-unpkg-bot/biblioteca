@@ -1,17 +1,16 @@
 @(usuarioForm:DynamicForm)
 
-@import helper._
-
 <html>
-    <meta charset="UTF-8">
-    <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
-    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/bootstrap/dist/css/bootstrap.css")">
-    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/signin.css")">
-    <title>Biblioteca - login</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/bootstrap/dist/css/bootstrap.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/signin.css")">
+        <title>Biblioteca - login</title>
+    </head>
 <body>
     <div class="container">
-        @form(routes.LoginController.autenticar()) {
+        @helper.form(routes.LoginController.autenticar()) {
         <div class="form-signin well well-sm">
                 <a href="/#/" class="btn btn-default pull-right"> Início</a>
                 <h4 class="form-signin-heading">Login</h4>

@@ -1,4 +1,3 @@
-@import helper._
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        @form(controllers.senha.routes.SenhaController.runPassword()) {
+        @helper.form(controllers.senha.routes.SenhaController.runPassword()) {
             <div class="form-signin well well-sm">
                 <a href="/#/" class="btn btn-default pull-right"> Início</a>
                 <h4 class="form-signin-heading">Informação:</h4>

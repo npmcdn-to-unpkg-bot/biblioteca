@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.libs.Json;
-import scala.collection.immutable.Page;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

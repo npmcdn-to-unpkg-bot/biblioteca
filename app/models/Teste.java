@@ -9,10 +9,6 @@ import javax.persistence.Id;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Created by harol on 04/05/2016.
- */
-
 @Entity
 public class Teste extends Model {
 
