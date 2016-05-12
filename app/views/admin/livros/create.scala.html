@@ -1,6 +1,7 @@
 @(livroForm: Form[Livro])
 
 @import helper._
+@import templates._
 
 @views.html.admin.main("Cadastro de Livro") {
     <div class="col-sm-6">
@@ -10,18 +11,26 @@
                 @form(routes.LivroController.inserir(), 'enctype -> "multipart/form-data", 'class -> "form-horizontal") {
 
                     @if(livroForm.hasGlobalErrors) {
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label"></label>
-                            <div class="col-sm-6">
-                                <p class="alert alert-danger text-center">@livroForm.globalError.message</p>
-                            </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"></label>
+                        <div class="col-sm-6">
+                            <p class="alert alert-danger text-center">@livroForm.globalError.message</p>
                         </div>
+                    </div>
                     }
 
                     <div class="form-group">
                         <label class="col-sm-3"></label>
                         <div class="col-sm-6">
-                            @helper.inputText(livroForm("titulo"), 'class -> "form-control", 'placeholder -> "Insira o título", '_label -> "Título:", 'size -> 160, '_help -> "")
+                            <!-- Título -->
+                            @texto(livroForm("titulo"),
+                                label = "Título:",
+                                placeholder = "Insira o Título")
+
+                            <!-- Subtítulo -->
+                            @texto(livroForm("subTitulo"),
+                            label = "Subtítulo:",
+                            placeholder = "Insira o Subtítulo")
                         </div>
                     </div>
 
@@ -30,7 +39,7 @@
                         <label class="col-md-3 control-label"></label>
                         <div class="col-md-6">
                             <input class="btn btn-success" type="submit" id="btnSubmit" value="Cadastrar"/>
-                            <a class="btn btn-default" type="button" href="/artigo/lista/todos">Cancelar</a>
+                            <a class="btn btn-default" type="button" href="/livro/lista/todos">Cancelar</a>
                         </div>
                     </div>
                 }

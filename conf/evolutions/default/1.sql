@@ -25,7 +25,8 @@ create table contato (
 create table livro (
   id                        bigserial not null,
   titulo                    varchar(150) not null,
-  sub_titulo                varchar(255),
+  sub_titulo                varchar(254) not null,
+  edicao                    integer,
   paginas                   integer,
   ano                       integer,
   isbn                      varchar(255),

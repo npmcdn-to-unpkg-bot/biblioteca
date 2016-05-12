@@ -13,10 +13,12 @@
                     <table class="table table-bordered table-hover">
                         <tr>
                             <th>Título</th>
+                            <th>Subtítulo</th>
                         </tr>
                         @for(livro <- livros) {
                             <tr>
                                 <td><a href="@routes.LivroController.telaDetalhe(livro.getId())">@livro.getTitulo()</a></td>
+                                <td>@livro.getSubTitulo()</td>
                             </tr>
                         }
                     </table>

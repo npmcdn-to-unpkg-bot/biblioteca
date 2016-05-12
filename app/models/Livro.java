@@ -24,21 +24,31 @@ public class Livro extends Model {
     @Column(nullable = false, length = 150)
     private String titulo;
 
-//    @Column(nullable = false, length = 254)
+    @Constraints.Required
+    @Column(nullable = false, length = 254)
     private String subTitulo;
 
+//    @Constraints.Required
+//    @Column(nullable = false)
+    private Integer edicao;
+
+//    @Constraints.Required
 //    @Column(nullable = false)
     private Integer paginas;
 
+//    @Constraints.Required
 //    @Column(nullable = false)
     private Integer ano;
 
+//    @Constraints.Required
 //    @Column(nullable = false, unique = true, length = 15)
     private String isbn;
 
+//    @Constraints.Required
 //    @Column(nullable = false, length = 100)
     private String editora;
 
+//    @Constraints.Required
 //    @Column(nullable = false, length = 254)
     private String autores;
 
@@ -126,6 +136,14 @@ public class Livro extends Model {
 
     public void setDataAlteracao(Date dataAlteracao) {
         this.dataAlteracao = dataAlteracao;
+    }
+
+    public Integer getEdicao() {
+        return edicao;
+    }
+
+    public void setEdicao(Integer edicao) {
+        this.edicao = edicao;
     }
 
     public static Finder<Long, Livro> find = new Finder<>(Livro.class);

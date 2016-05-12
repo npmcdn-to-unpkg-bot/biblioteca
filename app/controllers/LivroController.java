@@ -57,7 +57,7 @@ public class LivroController extends Controller {
         Form<Livro> livroForm = form(Livro.class).bindFromRequest();
 
         if(livroForm.hasErrors()) {
-            livroForm.reject("Ocorreu um erro, verifique caso tenha algum campo vazio.");
+            livroForm.reject("Não foi possível salvar o Livro");
             return badRequest(views.html.admin.livros.create.render(livroForm));
         }
 
