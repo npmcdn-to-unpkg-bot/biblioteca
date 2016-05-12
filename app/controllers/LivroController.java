@@ -7,6 +7,7 @@ import models.Usuario;
 import play.Logger;
 import play.Play;
 import play.data.Form;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -21,9 +22,6 @@ import static play.data.Form.form;
 
 @Security.Authenticated(Secured.class)
 public class LivroController extends Controller {
-
-    String mensagem = "";
-    String tipoMensagem = "";
 
     /**
      * @return a object user authenticated
@@ -56,6 +54,11 @@ public class LivroController extends Controller {
         return ok(views.html.admin.livros.create.render(livroForm));
     }
 
+    /**
+     * Save Livro
+     *
+     * @return a render view to inform CREATED
+     */
     public Result inserir() {
 
         //Resgata os dados do formario atraves de uma requisicao e realiza a validacao dos campos
@@ -148,7 +151,7 @@ public class LivroController extends Controller {
     }
 
     /**
-     * @return render a detail form with a artigo data
+     * @return render a detail form with a livro data
      */
     public Result telaDetalhe(Long id) {
 
@@ -170,7 +173,7 @@ public class LivroController extends Controller {
     }
 
     /**
-     * @return render edit form with a artigo data
+     * @return render edit form with a livro data
      */
     public Result telaEditar(Long id) {
 
@@ -192,11 +195,26 @@ public class LivroController extends Controller {
         return ok(views.html.admin.livros.edit.render(id,livroForm));
     }
 
+    /**
+     * Update a livro from id
+     *
+     * @param id
+     * @return a livro updated with a form
+     */
     public Result editar(Long id) {
         return TODO;
     }
 
+    /**
+     * Remove a livro from a id
+     *
+     * @param id
+     * @return ok livro removed
+     */
     public Result remover(Long id) {
+
+        String mensagem = "";
+        String tipoMensagem = "";
 
         //busca o artigo para ser excluido
         Livro livro = Ebean.find(Livro.class, id);
@@ -216,6 +234,24 @@ public class LivroController extends Controller {
         }
 
         return ok(views.html.mensagens.livro.mensagens.render(mensagem,tipoMensagem));
+    }
+
+    /**
+     * Retrieve a list of all livros
+     *
+     * @return a list of all livros in json
+     */
+    public Result buscaTodos() {
+
+        //busca o usuário atual que esteja logado no sistema
+        Usuario usuarioAtual = atual();
+
+        //verificar se o usuario atual encontrado é administrador
+        if (usuarioAtual.getPrivilegio() != 1) {
+            return badRequest(views.html.mensagens.erro.naoAutorizado.render());
+        }
+
+        return ok(Json.toJson(Ebean.find(Livro.class).findList()));
     }
 
 }

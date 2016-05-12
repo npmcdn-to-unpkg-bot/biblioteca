@@ -27,9 +27,6 @@ import static play.data.Form.form;
 @Security.Authenticated(Secured.class)
 public class ArtigoController extends Controller {
 
-    String mensagem = "";
-    String tipoMensagem = "";
-
     private static DynamicForm form = Form.form();
 
     public Form<Artigo> artigoForm = Form.form(Artigo.class);
@@ -238,6 +235,10 @@ public class ArtigoController extends Controller {
      * @return ok artigo removed
      */
     public Result remover(Long id) {
+
+        String mensagem = "";
+        String tipoMensagem = "";
+
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
 
@@ -355,6 +356,9 @@ public class ArtigoController extends Controller {
      * @return a artigo updated with a form
      */
     public Result editar(Long id) {
+
+        String mensagem = "";
+        String tipoMensagem = "";
 
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
