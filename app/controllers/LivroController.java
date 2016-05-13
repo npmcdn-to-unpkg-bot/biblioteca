@@ -187,13 +187,15 @@ public class LivroController extends Controller {
 
         Form<Livro> livroForm = form(Livro.class).fill(Livro.find.byId(id));
 
-        //Resgata os dados do formario atraves de uma requisicao e realiza a validacao dos campos
-        Form<LivroFormData> formData = Form.form(LivroFormData.class).bindFromRequest();
-
 
         if (livroForm == null) {
             return notFound(views.html.mensagens.erro.naoEncontrado.render("Livro não encontrado"));
         }
+
+        LivroFormData livroData = (id == 0) ? new LivroFormData() : new LivroFormData();
+
+
+        Form<LivroFormData> formData = Form.form(LivroFormData.class).fill(livroData);
 
         return ok(views.html.admin.livros.edit.render(id, formData));
     }

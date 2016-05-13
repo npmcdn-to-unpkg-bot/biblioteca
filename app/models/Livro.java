@@ -168,6 +168,18 @@ public class Livro extends Model {
         return livro;
     }
 
+    /**
+     * Return a StudentFormData instance constructed from a student instance.
+     * @param id The ID of a student instance.
+     * @return The StudentFormData instance, or throws a RuntimeException.
+     */
+    public static LivroFormData makeLivroFormData(long id) {
+
+        Livro livro = Ebean.find(Livro.class, id);
+
+        return new LivroFormData();
+    }
+
     @Override
     public String toString() {
         return Json.toJson(this).toString();
