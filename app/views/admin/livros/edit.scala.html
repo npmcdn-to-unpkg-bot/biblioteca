@@ -1,47 +1,82 @@
-@(id: Long, livroForm: Form[Livro])
+@(id: Long, livroForm: Form[views.validators.LivroFormData])
 
 @import helper._
+@import templates._
 
 @views.html.admin.main("Editar Livro") {
-    <div class="col-sm-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">Editar Livro</div>
-            <div class="panel-body">
-                @form(routes.LivroController.editar(id), 'enctype -> "multipart/form-data", 'class -> "form-horizontal", 'id -> "livroForm") {
+<div class="col-sm-6">
+    <div class="panel panel-default">
+        <div class="panel-heading">Editar Livro</div>
+        <div class="panel-body">
+            @form(routes.LivroController.editar(id), 'enctype -> "multipart/form-data", 'class -> "form-horizontal", 'id -> "livroForm") {
 
-                @if(livroForm.hasGlobalErrors) {
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label"></label>
-                        <div class="col-sm-6">
-                            <p class="alert alert-danger text-center">
-                                @livroForm.globalError.message
-                            </p>
-                        </div>
-                    </div>
-                }
-
+            @if(livroForm.hasGlobalErrors) {
                 <div class="form-group">
                     <label class="col-sm-3 control-label"></label>
                     <div class="col-sm-6">
-                        @helper.inputText(livroForm("titulo"), 'class -> "form-control", 'placeholder -> "Insira o título", '_label -> "Título:", 'size -> 160, '_help -> "")
-                        <label class="control-label">Enviar:</label>
-                        <input type="file" name="arquivo" class="form-control">
+                        <p class="alert alert-danger text-center">@livroForm.globalError.message</p>
                     </div>
                 </div>
+            }
 
-                <!-- Button -->
-                <div class="form-group">
-                    <label class="col-md-3 control-label"></label>
-                    <div class="col-md-6">
-                        <input class="btn btn-primary" type="submit" id="btnSubmit" value="Editar"/>
-                        <a href="/livro/lista/todos" class="btn btn-default" type="button">Cancelar</a>
-                    </div>
+            <!-- Título -->
+            @texto(livroForm("titulo"),
+            label = "Título:",
+            placeholder = "Insira o Título")
+
+            <!-- Subtítulo -->
+            @texto(livroForm("subTitulo"),
+            label = "Subtítulo:",
+            placeholder = "Insira o Subtítulo")
+
+            <!-- Autores -->
+            @texto(livroForm("autores"),
+            label = "Autores:",
+            placeholder = "Insira o Autor")
+
+            <!-- Editora -->
+            @texto(livroForm("editora"),
+            label = "Editora:",
+            placeholder = "Insira a Editora")
+
+            <!-- ISBN -->
+            @texto(livroForm("isbn"),
+            label = "ISBN:",
+            placeholder = "Insira o ISBN")
+
+            <!-- Páginas -->
+            @numero(livroForm("paginas"),
+            label = "Páginas:",
+            placeholder = "Insira a quantidade de páginas")
+
+            <!-- Ano -->
+            @numero(livroForm("ano"),
+            label = "Ano:",
+            placeholder = "Insira o ano")
+
+            <!-- Edição -->
+            @numero(livroForm("edicao"),
+            label = "Edição:",
+            placeholder = "Insira a edição")
+
+            <!-- Arquivo -->
+            @arquivo(livroForm("arquivo"),
+            label = "Enviar:")
+
+            <!-- Button -->
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-12">
+                    <input class="btn btn-primay" type="submit" id="btnSubmit" value="Editar"/>
+                    <a class="btn btn-default" type="button" href="/livro/lista/todos">Cancelar</a>
                 </div>
-                }
             </div>
+            }
         </div>
     </div>
+</div>
+
 }
+
 <script type="text/javascript">
     window.onbeforeunload = function () {
         var inputs = document.getElementsByTagName("INPUT");

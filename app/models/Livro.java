@@ -1,6 +1,8 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
+import com.avaje.ebeaninternal.server.lib.util.Str;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.libs.Json;
@@ -9,9 +11,7 @@ import views.validators.LivroFormData;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 @Entity
 public class Livro extends Model {

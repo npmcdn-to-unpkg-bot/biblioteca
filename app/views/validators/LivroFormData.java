@@ -16,6 +16,24 @@ public class LivroFormData {
     public Integer edicao = 0;
     public Integer paginas = 0;
 
+    /** Required for form instantiation. */
+    public LivroFormData() {
+    }
+
+    /**
+     * Creates an initialized form instance. Assumes the passed data is valid.
+     */
+    public LivroFormData(String titulo, String subTitulo, String editora, String autores, String isbn, Integer ano, Integer edicao, Integer paginas) {
+        this.titulo = titulo;
+        this.subTitulo = subTitulo;
+        this.editora = editora;
+        this.autores = autores;
+        this.isbn = isbn;
+        this.ano = ano;
+        this.edicao = edicao;
+        this.paginas = paginas;
+    }
+
     public List<ValidationError> validate() {
 
         List<ValidationError> errors = new ArrayList<>();
