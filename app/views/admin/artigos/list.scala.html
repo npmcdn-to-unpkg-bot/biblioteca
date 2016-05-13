@@ -15,8 +15,8 @@
                         </tr>
                         @for(artigo <- artigos) {
                             <tr>
-                                <td><a href="@routes.ArtigoController.telaDetalhe(artigo.getId())">@artigo.getTitulo()</a></td>
-                                <td>@artigo.getResumo()</td>
+                                <td><a href="@routes.ArtigoController.telaDetalhe(artigo.getId)">@artigo.getTitulo</a></td>
+                                <td>@artigo.getResumo</td>
                             </tr>
                         }
                     </table>

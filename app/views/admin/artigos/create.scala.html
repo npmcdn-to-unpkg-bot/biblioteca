@@ -7,7 +7,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">Cadastro de Artigo</div>
             <div class="panel-body">
-                @form(routes.ArtigoController.inserir(), 'enctype -> "multipart/form-data", 'class -> "form-horizontal") {
+                @form(routes.ArtigoController.inserir, 'enctype -> "multipart/form-data", 'class -> "form-horizontal") {
 
                     @if(formPreenchido.hasGlobalErrors) {
                         <div class="form-group">
@@ -30,7 +30,7 @@
                         <label class="col-sm-3"></label>
                         <div class="col-sm-6">
                             <label class="control-label">Resumo:</label>
-                            <textarea type="text" name="resumo" class="form-control" maxlength="254" rows="4" required/></textarea>
+                            <textarea type="text" name="resumo" class="form-control" maxlength="254" rows="4" required/>
                         </div>
                     </div>
 

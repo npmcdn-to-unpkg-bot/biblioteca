@@ -12,8 +12,6 @@ import java.util.Map;
 @Entity
 public class Teste extends Model {
 
-    private static final long serialVersionUID = 1L;
-
     @Id
     private Long id;
 

@@ -16,8 +16,6 @@ import java.util.Map;
 @Entity
 public class Livro extends Model {
 
-    private static final long serialVersionUID = 1L;
-
     @Id
     private Long id;
 
@@ -154,6 +152,9 @@ public class Livro extends Model {
         return options;
     }
 
+    /**
+     * @return a objeto livro atraves da um formData onde o parametro FormData que validou os campos inputs
+     */
     public static Livro makeInstance(LivroFormData formData) {
         Livro livro = new Livro();
         livro.setTitulo(formData.titulo);

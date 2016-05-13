@@ -1,7 +1,5 @@
 @(usuarios: List[Usuario])(mensagem : String)
 
-@import helper._
-
 @views.html.admin.main("Administração - Usuários") {
     <div class="col-sm-8">
         <div class="panel panel-default">
@@ -15,8 +13,8 @@
                         </tr>
                         @for(usuario <- usuarios) {
                         <tr>
-                            <td><a href="@routes.UsuarioController.telaDetalhe(usuario.getId())">@usuario.getNome()</a></td>
-                            <td>@usuario.getEmail()</td>
+                            <td><a href="@routes.UsuarioController.telaDetalhe(usuario.getId())">@usuario.getNome</a></td>
+                            <td>@usuario.getEmail</td>
                         </tr>
                         }
                     </table>

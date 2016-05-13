@@ -11,7 +11,7 @@
                     Opções <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a href="@routes.UsuarioController.telaEditar(usuario.getId())">Editar</a></li>
+                    <li><a href="@routes.UsuarioController.telaEditar(usuario.getId)">Editar</a></li>
                     <li><a data-toggle="modal" data-target=".bs-example-modal-sm" href="">Excluir</a></li>
                 </ul>
             </div>
@@ -20,29 +20,29 @@
             <form>
                 <div class="item-form width-600 margin-bottom-15">
                     <label class="display-block strong">Nome</label>
-                    <p class="display-block margin-left-027em">@usuario.getNome()</p>
+                    <p class="display-block margin-left-027em">@usuario.getNome</p>
                 </div>
                 <div class="item-form width-600 margin-bottom-15">
                     <label class="display-block strong">Email</label>
-                    <p class="display-block margin-left-027em">@usuario.getEmail()</p>
+                    <p class="display-block margin-left-027em">@usuario.getEmail</p>
                 </div>
                 <div class="item-form width-600 margin-bottom-15">
                     <label class="display-block strong">Confirmado</label>
-                    @if(usuario.getValidado()) {
+                    @if(usuario.getValidado) {
                         <p class="display-block margin-left-027em">Sim</p>
                     }
-                    @if(!usuario.getValidado()) {
+                    @if(!usuario.getValidado) {
                         <p class="display-block margin-left-027em">Não</p>
                     }
                 </div>
                 <div class="item-form width-600 margin-bottom-15">
                     <label class="display-block strong">Data/Hora de Cadastro</label>
-                    <p type="date" class="display-block margin-left-027em">@usuario.getDataCadastro().format("dd MMMM yyyy - hh:mm:ss")</p>
+                    <p type="date" class="display-block margin-left-027em">@usuario.getDataCadastro.format("dd MMMM yyyy - hh:mm:ss")</p>
                 </div>
-                @if(usuario.getDataAlteracao() != null){
+                @if(usuario.getDataAlteracao != null){
                     <div class="item-form width-600 margin-bottom-15">
                         <label class="display-block strong">Data/Hora de Alteração</label>
-                        <p class="display-block margin-left-027em">@usuario.getDataAlteracao().format("dd MMMM yyyy - hh:mm:ss")</p>
+                        <p class="display-block margin-left-027em">@usuario.getDataAlteracao.format("dd MMMM yyyy - hh:mm:ss")</p>
                     </div>
                 }
             </form>
@@ -56,10 +56,10 @@
                     <h4 class="modal-title">Biblioteca</h4>
                 </div>
                 <div class="modal-body">
-                    <p class="text-center">Deseja remover o usuário <b>"@usuario.getNome()"</b>?</p>
+                    <p class="text-center">Deseja remover o usuário <b>"@usuario.getNome"</b>?</p>
                 </div>
                 <div class="modal-footer">
-                    @form(routes.UsuarioController.remover(usuario.getId())) {
+                    @form(routes.UsuarioController.remover(usuario.getId)) {
                         <input type="submit" value="Remover" class="btn btn-warning">
                     }
                 </div>

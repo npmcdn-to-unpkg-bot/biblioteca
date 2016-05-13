@@ -8,7 +8,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">Cadastro de Livro</div>
             <div class="panel-body">
-                @form(routes.LivroController.inserir(), 'enctype -> "multipart/form-data", 'class -> "form-horizontal") {
+                @form(routes.LivroController.inserir, 'enctype -> "multipart/form-data", 'class -> "form-horizontal") {
 
                     @if(livroForm.hasGlobalErrors) {
                         <div class="form-group">

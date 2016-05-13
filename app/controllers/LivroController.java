@@ -85,7 +85,7 @@ public class LivroController extends Controller {
             //Converte os dados do formularios para uma instancia do Livro
             Livro livro = Livro.makeInstance(formData.get());
 
-            //faz uma busca na base de dados do usuario
+            //faz uma busca na base de dados do livro
             Livro livroBusca = Ebean.find(Livro.class).where().eq("isbn", formData.data().get("isbn")).findUnique();
 
             if (livroBusca != null) {

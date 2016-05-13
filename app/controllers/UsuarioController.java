@@ -33,11 +33,7 @@ public class UsuarioController extends Controller {
 
     private static DynamicForm form = Form.form();
 
-    public Form<Usuario> usuarioForm = Form.form(Usuario.class);
-
-    String mensagem = "";
-    String tipoMensagem = "";
-    String usuarioEmail = "";
+    private Form<Usuario> usuarioForm = Form.form(Usuario.class);
 
     /**
      * @return a object user authenticated
@@ -78,10 +74,10 @@ public class UsuarioController extends Controller {
 
         try {
             Email emailUser = new Email()
-                .setSubject("Cadastro na Biblioteca - Confirme seu email")
-                .setFrom("Biblioteca CIBiogás <biblioteca@email.com>")
-                .addTo(usuario.getEmail())
-                .setBodyHtml(emailConfirmacaoBody);
+                    .setSubject("Cadastro na Biblioteca - Confirme seu email")
+                    .setFrom("Biblioteca CIBiogás <biblioteca@email.com>")
+                    .addTo(usuario.getEmail())
+                    .setBodyHtml(emailConfirmacaoBody);
             mailerClient.send(emailUser);
         } catch (Exception e) {
             Logger.error(e.getMessage());
@@ -116,6 +112,10 @@ public class UsuarioController extends Controller {
      */
     public Result confirma(String token) {
 
+        String mensagem = "";
+        String tipoMensagem = "";
+        String usuarioEmail = "";
+
         Usuario usuario = buscaPorConfirmacaoToken(token);
 
         if (usuario == null) {
@@ -149,21 +149,6 @@ public class UsuarioController extends Controller {
 
         return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
 
-    }
-
-    /**
-     * @return cadastrado form if register success
-     */
-    public Result telaCadastrado() {
-        String username = session().get("email");
-        return ok(views.html.mensagens.info.cadastrado.render(username));
-    }
-
-    /**
-     * @return cadastro form for register a new user
-     */
-    public Result telaCadastro() {
-        return ok(views.html.cadastro.render(form));
     }
 
     /**
@@ -220,6 +205,78 @@ public class UsuarioController extends Controller {
     }
 
     /**
+     * @return cadastrado form if register success
+     */
+    public Result telaCadastrado() {
+        String username = session().get("email");
+        return ok(views.html.mensagens.info.cadastrado.render(username));
+    }
+
+    /**
+     * @return cadastro form for register a new user
+     */
+    public Result telaCadastro() {
+        return ok(views.html.cadastro.render(form));
+    }
+
+    /**
+     * @return detail form with a user
+     */
+    @Security.Authenticated(Secured.class)
+    public Result telaDetalhe(Long id) {
+        Usuario usuario = Ebean.find(Usuario.class, id);
+
+        if (usuario == null) {
+            return notFound(views.html.mensagens.erro.naoEncontrado.render("Usuário não encontrado"));
+        }
+
+        return ok(views.html.admin.usuarios.detail.render(usuario));
+    }
+
+    /**
+     * @return edit form with a user
+     */
+    @Security.Authenticated(Secured.class)
+    public Result telaEditar(Long id) {
+
+        Form<Usuario> usuarioForm = form(Usuario.class).fill(Usuario.find.byId(id));
+
+
+        if (usuarioForm == null) {
+            return notFound(views.html.mensagens.erro.naoEncontrado.render("Usuário não encontrado"));
+        }
+
+        return ok(views.html.admin.usuarios.edit.render(id,usuarioForm));
+    }
+
+    /**
+     * Retrieve a list of all usuarios
+     *
+     * @return a list of all usuarios in a render template
+     */
+    @Security.Authenticated(Secured.class)
+    public Result telaLista() {
+
+        //busca o usuário atual que esteja logado no sistema
+        Usuario usuarioAtual = atual();
+
+        if (usuarioAtual == null) {
+            return notFound("Usuario não autenticado");
+        }
+
+        //verificar se o usuario atual encontrado é administrador
+        if (usuarioAtual.getPrivilegio() != 1) {
+            return badRequest(views.html.mensagens.erro.naoAutorizado.render());
+        }
+
+        //busca todos os usuários menos o usuário padrão do sistema
+        Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where (email != 'admin')");
+        List<Usuario> filtroDeUsuarios = query.findList();
+
+        return ok(views.html.admin.usuarios.list.render(filtroDeUsuarios,""));
+    }
+
+    /**
      * Retrieve a autenticated user
      *
      * @return a user json
@@ -270,33 +327,6 @@ public class UsuarioController extends Controller {
     }
 
     /**
-     * Retrieve a list of all usuarios
-     *
-     * @return a list of all usuarios in a render template
-     */
-    @Security.Authenticated(Secured.class)
-    public Result telaLista() {
-
-        //busca o usuário atual que esteja logado no sistema
-        Usuario usuarioAtual = atual();
-
-        if (usuarioAtual == null) {
-            return notFound("Usuario não autenticado");
-        }
-
-        //verificar se o usuario atual encontrado é administrador
-        if (usuarioAtual.getPrivilegio() != 1) {
-            return badRequest(views.html.mensagens.erro.naoAutorizado.render());
-        }
-
-        //busca todos os usuários menos o usuário padrão do sistema
-        Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where (email != 'admin')");
-        List<Usuario> filtroDeUsuarios = query.findList();
-
-        return ok(views.html.admin.usuarios.list.render(filtroDeUsuarios,""));
-    }
-
-    /**
      * Remove a user from a id
      *
      * @param id
@@ -304,6 +334,9 @@ public class UsuarioController extends Controller {
      */
     @Security.Authenticated(Secured.class)
     public Result remover(Long id) {
+
+        String mensagem = "";
+        String tipoMensagem = "";
 
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -387,36 +420,6 @@ public class UsuarioController extends Controller {
     }
 
     /**
-     * @return detail form with a user
-     */
-    @Security.Authenticated(Secured.class)
-    public Result telaDetalhe(Long id) {
-        Usuario usuario = Ebean.find(Usuario.class, id);
-
-        if (usuario == null) {
-            return notFound(views.html.mensagens.erro.naoEncontrado.render("Usuário não encontrado"));
-        }
-
-        return ok(views.html.admin.usuarios.detail.render(usuario));
-    }
-
-    /**
-     * @return edit form with a user
-     */
-    @Security.Authenticated(Secured.class)
-    public Result telaEditar(Long id) {
-
-        Form<Usuario> usuarioForm = form(Usuario.class).fill(Usuario.find.byId(id));
-
-
-        if (usuarioForm == null) {
-            return notFound(views.html.mensagens.erro.naoEncontrado.render("Usuário não encontrado"));
-        }
-
-        return ok(views.html.admin.usuarios.edit.render(id,usuarioForm));
-    }
-
-    /**
      * Update a user from id
      *
      * @param id
@@ -424,6 +427,9 @@ public class UsuarioController extends Controller {
      */
     @Security.Authenticated(Secured.class)
     public Result editar(Long id) {
+
+        String mensagem = "";
+        String tipoMensagem = "";
 
         Usuario usuarioBusca = Ebean.find(Usuario.class, id);
 
@@ -437,7 +443,7 @@ public class UsuarioController extends Controller {
             Usuario usuario = form.get();
 
             if (usuarioBusca.getValidado() == true) {
-                //precisa setar o id, pois por algum motivo ele se perde no formulário
+                //precisa setar o id, pois por algum motivo ele se perde no formulário deve ser por ser de um form dinamico
                 usuario.setId(id);
                 usuario.setValidado(true);
             }

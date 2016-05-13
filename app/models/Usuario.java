@@ -18,14 +18,14 @@ import java.util.Map;
 @Entity
 public class Usuario extends Model {
 
-    private static final long serialVersionUID = 1L;
-
     @Id
     private Long id;
 
+    @JsonIgnore
     private String confirmacaoToken;
 
     @Formats.NonEmpty
+    @JsonIgnore
     private Boolean validado = false;
 
     @Constraints.Required
@@ -48,9 +48,11 @@ public class Usuario extends Model {
     private Boolean status;
 
     @Formats.DateTime(pattern="dd-MM-yyyy")
+    @JsonIgnore
     private Date dataCadastro;
 
     @Formats.DateTime(pattern="dd-MM-yyyy")
+    @JsonIgnore
     private Date dataAlteracao;
 
     @JsonIgnore
@@ -61,6 +63,56 @@ public class Usuario extends Model {
     @JsonProperty
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    @JsonIgnore
+    public String getSenha() {
+        return senha;
+    }
+
+    @JsonProperty
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    @JsonIgnore
+    public Date getDataCadastro() {
+        return dataCadastro;
+    }
+
+    @JsonProperty
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    @JsonIgnore
+    public Date getDataAlteracao() {
+        return dataAlteracao;
+    }
+
+    @JsonProperty
+    public void setDataAlteracao(Date dataAlteracao) {
+        this.dataAlteracao = dataAlteracao;
+    }
+
+    @JsonIgnore
+    public String getConfirmacaoToken() {
+        return confirmacaoToken;
+    }
+
+    @JsonProperty
+    public void setConfirmacaoToken(String confirmacaoToken) {
+        this.confirmacaoToken = confirmacaoToken;
+    }
+
+    @JsonIgnore
+    public Boolean getValidado() {
+        return validado;
+    }
+
+    @JsonProperty
+    public void setValidado(Boolean validado) {
+        this.validado = validado;
     }
 
     public Long getId() {
@@ -87,54 +139,12 @@ public class Usuario extends Model {
         this.email = email;
     }
 
-    @JsonIgnore
-    public String getSenha() {
-        return senha;
-    }
-
-    @JsonProperty
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public Integer getPrivilegio() {
         return privilegio;
     }
 
     public void setPrivilegio(Integer privilegio) {
         this.privilegio = privilegio;
-    }
-
-    public Date getDataCadastro() {
-        return dataCadastro;
-    }
-
-    public void setDataCadastro(Date dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
-
-    public Date getDataAlteracao() {
-        return dataAlteracao;
-    }
-
-    public void setDataAlteracao(Date dataAlteracao) {
-        this.dataAlteracao = dataAlteracao;
-    }
-
-    public String getConfirmacaoToken() {
-        return confirmacaoToken;
-    }
-
-    public void setConfirmacaoToken(String confirmacaoToken) {
-        this.confirmacaoToken = confirmacaoToken;
-    }
-
-    public Boolean getValidado() {
-        return validado;
-    }
-
-    public void setValidado(Boolean validado) {
-        this.validado = validado;
     }
 
     /**

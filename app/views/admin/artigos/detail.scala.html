@@ -11,7 +11,7 @@
                         Opções <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="@routes.ArtigoController.telaEditar(artigo.getId())">Editar</a></li>
+                        <li><a href="@routes.ArtigoController.telaEditar(artigo.getId)">Editar</a></li>
                         <li><a data-toggle="modal" data-target=".bs-example-modal-sm" href="">Excluir</a></li>
                     </ul>
                 </div>
@@ -19,20 +19,20 @@
             <div class="panel-body">
                     <div class="item-form width-600 margin-bottom-15">
                         <label class="display-block strong">Título</label>
-                        <p class="display-block margin-left-027em">@artigo.getTitulo()</p>
+                        <p class="display-block margin-left-027em">@artigo.getTitulo</p>
                     </div>
                     <div class="item-form width-600 margin-bottom-15">
                         <label class="display-block strong">Resumo</label>
-                        <p class="display-block margin-left-027em">@artigo.getResumo()</p>
+                        <p class="display-block margin-left-027em">@artigo.getResumo</p>
                     </div>
                     <div class="item-form width-600 margin-bottom-15">
                         <label class="display-block strong">Data/Hora de Cadastro</label>
-                        <p type="date" class="display-block margin-left-027em">@artigo.getDataCadastro().format("dd MMMM yyyy - hh:mm:ss")</p>
+                        <p type="date" class="display-block margin-left-027em">@artigo.getDataCadastro.format("dd MMMM yyyy - hh:mm:ss")</p>
                     </div>
-                    @if(artigo.getDataAlteracao() != null){
+                    @if(artigo.getDataAlteracao != null){
                         <div class="item-form width-600 margin-bottom-15">
                             <label class="display-block strong">Data/Hora de Alteração</label>
-                            <p class="display-block margin-left-027em">@artigo.getDataAlteracao().format("dd MMMM yyyy - hh:mm:ss")</p>
+                            <p class="display-block margin-left-027em">@artigo.getDataAlteracao.format("dd MMMM yyyy - hh:mm:ss")</p>
                         </div>
                     }
             </div>
@@ -46,10 +46,10 @@
                     <h4 class="modal-title">Biblioteca</h4>
                 </div>
                 <div class="modal-body">
-                    <p class="text-center">Deseja remover o artigo <b>"@artigo.getTitulo()"</b>?</p>
+                    <p class="text-center">Deseja remover o artigo <b>"@artigo.getTitulo"</b>?</p>
                 </div>
                 <div class="modal-footer">
-                    @form(routes.ArtigoController.remover(artigo.getId())) {
+                    @form(routes.ArtigoController.remover(artigo.getId)) {
                         <input type="submit" value="Remover" class="btn btn-warning">
                     }
                 </div>

@@ -19,12 +19,12 @@
                         </tr>
                         @for(livro <- livros) {
                             <tr>
-                                <td><a href="@routes.LivroController.telaDetalhe(livro.getId())">@livro.getTitulo()</a></td>
-                                <td>@livro.getSubTitulo()</td>
-                                <td>@livro.getEdicao()</td>
-                                <td>@livro.getIsbn()</td>
-                                <td>@livro.getAutores()</td>
-                                <td>@livro.getEditora()</td>
+                                <td><a href="@routes.LivroController.telaDetalhe(livro.getId)">@livro.getTitulo</a></td>
+                                <td>@livro.getSubTitulo</td>
+                                <td>@livro.getEdicao</td>
+                                <td>@livro.getIsbn</td>
+                                <td>@livro.getAutores</td>
+                                <td>@livro.getEditora</td>
                             </tr>
                         }
                     </table>

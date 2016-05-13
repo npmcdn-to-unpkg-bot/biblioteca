@@ -17,36 +17,6 @@ angular
                 controller: 'home.controller',
                 activetab: 'home'
             })
-            .when('/contato', {
-                templateUrl: '/assets/app/views/contato.html',
-                controller: 'contato.create.controller',
-                activetab: 'contato'
-            })
-            .when('/contato/detalhe/:id', {
-                templateUrl: '/assets/app/views/contatos/detail.html',
-                controller: 'contato.detail.controller',
-                activetab: 'contato'
-            })
-            .when('/contatos', {
-                templateUrl: '/assets/app/views/contatos/list.html',
-                controller: 'contato.list.controller',
-                activetab: 'contato'
-            })
-            .when('/usuarios/detalhe/:id', {
-                templateUrl: '/assets/app/views/usuarios/detail.html',
-                controller: 'usuario.detail.controller',
-                activetab: 'usuarios'
-            })
-            .when('/usuarios/editar/:id', {
-                templateUrl: '/assets/app/views/usuarios/edit.html',
-                controller: 'usuario.edit.controller',
-                activetab: 'usuarios'
-            })
-            .when('/usuarios', {
-                templateUrl: '/assets/app/views/usuarios/list.html',
-                controller: 'usuario.list.controller',
-                activetab: 'usuarios'
-            })
             .when('/usuario/perfil', {
                 templateUrl: '/assets/app/views/usuarios/perfil.html',
                 controller: 'usuario.perfil.controller',
@@ -93,14 +63,6 @@ angular
                 activetab: 'direitos'
             })
             .otherwise({redirectTo:'/'});
-   // se tirar esse .run as funções do material design lite
-   //não carrega corretamente na página, precisa apertar f5 várias vezes
-   }).run(function ($rootScope,$timeout) {
-        $rootScope.$on('$viewContentLoaded', ()=> {
-            $timeout(() => {
-                componentHandler.upgradeAllRegistered();
-            })
-        })
    }).config(function(cfpLoadingBarProvider) {
         // carrega o loading bar
         // true e o padrao, mas pode deixar false caso nao queria o loading bar
@@ -184,4 +146,12 @@ angular
                 });
             }
         };
+    // se tirar esse .run as funções do material design lite
+    //não carrega corretamente na página, precisa apertar f5 várias vezes
+   }).run(function ($rootScope,$timeout) {
+        $rootScope.$on('$viewContentLoaded', ()=> {
+            $timeout(()=> {
+                componentHandler.upgradeAllRegistered();
+            })
+        })
    });
