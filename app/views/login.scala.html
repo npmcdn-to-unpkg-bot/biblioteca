@@ -1,51 +1,59 @@
 @(usuarioForm:DynamicForm)
 
+@import helper._
+@import templates.mdl._
+
 <html>
     <head>
         <meta charset="UTF-8">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/bootstrap/dist/css/bootstrap.css")">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/signin.css")">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/material-design-lite/material.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/login.css")">
         <title>Biblioteca - login</title>
     </head>
 <body>
-    <div class="container">
-        @helper.form(routes.LoginController.autenticar()) {
-        <div class="form-signin well well-sm">
-                <a href="/#/" class="btn btn-default pull-right"> Início</a>
-                <h4 class="form-signin-heading">Login</h4>
-                <hr>
+    <div class="mdl-layout mdl-js-layout mdl-color--grey-100">
+        <main class="mdl-layout__content">
+            <div class="mdl-card mdl-shadow--6dp">
+                <div class="mdl-card__title mdl-color-text--white mdl-color--deep-orange-cibiogas">
+                    <h2 class="mdl-card__title-text">Biblioteca Digital</h2>
+                </div>
+                @form(routes.LoginController.autenticar()) {
+                <div class="mdl-card__supporting-text">
 
-                @if(usuarioForm.hasGlobalErrors) {
-                    <p class="alert alert-danger text-center">
-                        @usuarioForm.globalError.message
-                    </p>
+                    @if(usuarioForm.hasGlobalErrors) {
+                        <p align="center" class="login-message">
+                            <b>@usuarioForm.globalError.message</b>
+                        </p>
+                    }
+
+                    <!-- Email -->
+                    @texto(usuarioForm("email"),
+                    label = "Email:")
+
+                    <!-- Senha -->
+                    @senha(usuarioForm("senha"),
+                    label = "Senha:")
+
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                    <input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-color--primary" type="submit" id="btnSubmit" value="Log in"/>
+                    <a href="/cadastro" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Registrar</a>
+                </div>
                 }
+                <div class="mdl-card__menu">
+                    <a href="/#/" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                        <i class="material-icons mdl-color-text--white">home</i>
+                    </a>
+                </div>
+                <p align="center">&copy; 2016 CIBiogás</p>
+            </div>
+        </main>
+    </div>
+    <script src="@routes.Assets.versioned("javascripts/login.js")" type="text/javascript"></script>
+    <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
 
-                @helper.inputText(usuarioForm("email"), 'class -> "form-control", 'placeholder -> "Insira o email", '_label -> "Email", 'size -> 30, 'value -> "")
-
-                @helper.inputPassword(usuarioForm("senha"), 'class -> "form-control", 'placeholder -> "Insira a senha", '_label -> "Senha", 'size -> 60, 'value -> "")
-
-                <input class="btn btn-lg btn-primary btn-block" type="submit" id="btnSubmit" value="Acessar"/>
-            }
-            <hr>
-            <a href="/cadastro"><span class="fa fa-user-plus pull-right"> Registrar</span></a>
-            <p>&copy; 2016 CIBiogás</p>
-        </div>
-    </div> <!-- /container -->
-
-    <script type="text/javascript">
-        window.onbeforeunload = function () {
-            var inputs = document.getElementsByTagName("INPUT");
-            for (var i = 0; i < inputs.length; i++) {
-                if (inputs[i].type == "button" || inputs[i].type == "submit") {
-                    inputs[i].disabled = true;
-                }
-            }
-        };
-    </script>
-
-    <script src="@routes.Assets.versioned("bower_components/jquery/dist/jquery.js")" type="text/javascript"></script>
-    <script src="@routes.Assets.versioned("bower_components/bootstrap/dist/js/bootstrap.js")" type="text/javascript"></script>
 </body>
 </html>

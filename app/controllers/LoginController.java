@@ -4,6 +4,7 @@ import akka.util.Crypt;
 import com.avaje.ebean.Ebean;
 import models.Usuario;
 import models.Usuarios;
+import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.libs.F;
@@ -59,7 +60,7 @@ public class LoginController extends Controller {
         String email = requestForm.data().get("email");
         String senha = requestForm.data().get("senha");
 
-        if (email.equals("") || senha.equals("")) {
+        if (email == null || senha == null) {
             DynamicForm formDeErro = form.fill(requestForm.data());
             formDeErro.reject("Email ou Senha não podem estar vazios!");
             return badRequest(views.html.login.render(formDeErro));
@@ -87,7 +88,7 @@ public class LoginController extends Controller {
      */
     public Result logout() {
         session().clear();
-        return redirect(routes.LoginController.telaLogout());
+        return redirect(routes.Application.index());
     }
 
 }

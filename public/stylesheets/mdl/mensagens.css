@@ -1,0 +1,25 @@
+.mdl-layout {
+	align-items: center;
+    justify-content: center;
+}
+
+.mdl-layout__content {
+	padding: 24px;
+	flex: auto;
+}
+
+.mdl-color--deep-orange-cibiogas {
+  background-color: rgb(245, 134, 52) !important;
+}
+
+.erro {
+    color:#721903;
+    background-color:#fddfde;
+    border-color:#fbc7c6;
+}
+
+.sucesso {
+    color:#246c19;
+    background-color:#c7f1c1;
+    border-color:#fbc7c6;
+}
