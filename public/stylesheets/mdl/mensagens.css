@@ -23,3 +23,7 @@
     background-color:#c7f1c1;
     border-color:#fbc7c6;
 }
+
+.tamanho {
+    min-height: 0px;
+}
