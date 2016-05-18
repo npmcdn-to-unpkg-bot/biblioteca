@@ -177,27 +177,37 @@ public class LivroController extends Controller {
      */
     public Result telaEditar(Long id) {
 
+        String mensagem = "";
+        String tipoMensagem = "";
+
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
+
+        if (usuarioAtual == null) {
+            mensagem = "Usuário não autenticado";
+            tipoMensagem = "Erro";
+            return badRequest(views.html.mensagens.livro.mensagens.render(mensagem,tipoMensagem));
+        }
 
         //verificar se o usuario atual encontrado é administrador
         if (usuarioAtual.getPrivilegio() != 1) {
             return badRequest(views.html.mensagens.erro.naoAutorizado.render());
         }
 
-        Form<Livro> livroForm = form(Livro.class).fill(Livro.find.byId(id));
+        try {
+            //logica onde instanciamos um objeto livro que esteja cadastrado na base de dados
+            LivroFormData livroFormData = (id == 0) ? new LivroFormData() : models.Livro.makeLivroFormData(id);
 
+            //apos o objeto ser instanciado passamos os dados para o livroformdata e os dados sera carregados no form edit
+            Form<LivroFormData> formData = Form.form(LivroFormData.class).fill(livroFormData);
 
-        if (livroForm == null) {
-            return notFound(views.html.mensagens.erro.naoEncontrado.render("Livro não encontrado"));
+            return ok(views.html.admin.livros.edit.render(id,formData));
+        } catch (Exception e) {
+            mensagem = "Erro interno de sistema";
+            tipoMensagem = "Erro";
         }
+        return badRequest(views.html.mensagens.livro.mensagens.render(mensagem,tipoMensagem));
 
-        LivroFormData livroData = (id == 0) ? new LivroFormData() : new LivroFormData();
-
-
-        Form<LivroFormData> formData = Form.form(LivroFormData.class).fill(livroData);
-
-        return ok(views.html.admin.livros.edit.render(id, formData));
     }
 
     /**
@@ -207,7 +217,84 @@ public class LivroController extends Controller {
      * @return a livro updated with a form
      */
     public Result editar(Long id) {
-        return TODO;
+
+        String mensagem;
+        String tipoMensagem;
+
+        //Resgata os dados do formario atraves de uma requisicao e realiza a validacao dos campos
+        Form<LivroFormData> formData = Form.form(LivroFormData.class).bindFromRequest();
+
+        //busca o usuário atual que esteja logado no sistema
+        Usuario usuarioAtual = atual();
+
+        if (usuarioAtual == null) {
+            formData.reject("Usuário não autenticado");
+            return badRequest(views.html.admin.livros.edit.render(id,formData));
+        }
+
+        //verificar se o usuario atual encontrado é administrador
+        if (usuarioAtual.getPrivilegio() != 1) {
+            formData.reject("Você não tem privilégios de Administrador");
+            return badRequest(views.html.admin.livros.edit.render(id,formData));
+        }
+
+        if (formData.hasErrors()) {
+            return badRequest(views.html.admin.livros.edit.render(id,formData));
+        } else {
+            Livro livroBusca = Ebean.find(Livro.class, id);
+
+            if (livroBusca == null) {
+                return notFound(views.html.mensagens.erro.naoEncontrado.render("Livro não encontrado"));
+            }
+
+            //Converte os dados do formularios para uma instancia do Livro
+            Livro livro = Livro.makeInstance(formData.get());
+
+            Http.MultipartFormData body = request().body().asMultipartFormData();
+            Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
+
+            String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
+
+            if (arquivo != null) {
+                String arquivoTitulo = form().bindFromRequest().get("titulo");
+                String pdf = arquivoTitulo + extensaoPadraoDePdfs;
+                String tipoDeConteudo = arquivo.getContentType();
+                File file = arquivo.getFile();
+                String diretorioDePdfsLivros = Play.application().configuration().getString("diretorioDePdfsLivros");
+                String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
+
+                //necessario para excluir o artigo antigo
+                File pdfAntigo = new File(diretorioDePdfsLivros,livroBusca.getTitulo()+extensaoPadraoDePdfs);
+
+                //exclui o artigo antigo
+                pdfAntigo.delete();
+
+                if (tipoDeConteudo.equals(contentTypePadraoDePdfs)) {
+                    file.renameTo(new File(diretorioDePdfsLivros,pdf));
+                } else {
+                    formData.reject("Apenas arquivos em formato PDF é aceito");
+                    return badRequest(views.html.admin.livros.create.render(formData));
+                }
+            } else {
+                formData.reject("Selecione um arquivo no formato PDF");
+                return badRequest(views.html.admin.livros.create.render(formData));
+            }
+
+            try {
+                livro.setId(id);
+                livro.setDataAlteracao(new Date());
+                livro.update();
+                tipoMensagem = "Sucesso";
+                mensagem = "Artigo atualizado com sucesso.";
+                return ok(views.html.mensagens.livro.mensagens.render(mensagem,tipoMensagem));
+            } catch (Exception e) {
+                tipoMensagem = "Erro";
+                mensagem = "Erro Interno de sistema.";
+                Logger.error(e.toString());
+            }
+
+            return badRequest(views.html.mensagens.livro.mensagens.render(mensagem,tipoMensagem));
+        }
     }
 
     /**
@@ -221,6 +308,25 @@ public class LivroController extends Controller {
         String mensagem = "";
         String tipoMensagem = "";
 
+        //busca o usuário atual que esteja logado no sistema
+        Usuario usuarioAtual = atual();
+
+        String diretorioDePdfsLivros = Play.application().configuration().getString("diretorioDePdfsLivros");
+        String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
+
+        if (usuarioAtual == null) {
+            mensagem = "Usuario não autenticado";
+            tipoMensagem = "Erro";
+            return notFound(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
+        }
+
+        //verificar se o usuario atual encontrado é administrador
+        if (usuarioAtual.getPrivilegio() != 1) {
+            mensagem = "Você não tem privilégios de Administrador";
+            tipoMensagem = "Erro";
+            return badRequest(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
+        }
+
         //busca o artigo para ser excluido
         Livro livro = Ebean.find(Livro.class, id);
 
@@ -228,8 +334,11 @@ public class LivroController extends Controller {
             return notFound(views.html.mensagens.erro.naoEncontrado.render("Livro não encontrado"));
         }
 
+        File pdf = new File(diretorioDePdfsLivros,livro.getTitulo()+extensaoPadraoDePdfs);
+
         try {
             Ebean.delete(livro);
+            pdf.delete();
             mensagem = "Livro excluído com sucesso";
             tipoMensagem = "Sucesso";
         } catch (Exception e) {

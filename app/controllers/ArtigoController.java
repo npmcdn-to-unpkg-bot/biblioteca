@@ -149,9 +149,21 @@ public class ArtigoController extends Controller {
         String resumo = formPreenchido.data().get("resumo");
 
         //valida se o titulo e o resumo não estejam vazios
-        if (titulo.equals("") || resumo.equals("") || titulo == null || resumo == null) {
+        if (titulo.equals("") || resumo.equals("") || titulo.isEmpty() || resumo.isEmpty()) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject("Título ou Resumo não podem estar vazios!");
+            return badRequest(views.html.admin.artigos.create.render(formDeErro));
+        }
+
+        if (titulo.length() > 150) {
+            DynamicForm formDeErro = form.fill(formPreenchido.data());
+            formDeErro.reject("Título não pode passar de 150 caractéres");
+            return badRequest(views.html.admin.artigos.create.render(formDeErro));
+        }
+
+        if (resumo.length() > 254) {
+            DynamicForm formDeErro = form.fill(formPreenchido.data());
+            formDeErro.reject("Resumo não pode passar de 254 caractéres");
             return badRequest(views.html.admin.artigos.create.render(formDeErro));
         }
 
@@ -164,44 +176,46 @@ public class ArtigoController extends Controller {
             return badRequest(views.html.admin.artigos.create.render(formDeErro));
         }
 
-        Http.MultipartFormData body = request().body().asMultipartFormData();
-        Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
+        try {
 
-        String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
+            Artigo novo = new Artigo();
 
-        if (arquivo != null) {
-            String arquivoTitulo = form().bindFromRequest().get("titulo");
-            String pdf = arquivoTitulo + extensaoPadraoDePdfs;
-            String tipoDeConteudo = arquivo.getContentType();
-            File file = arquivo.getFile();
-            String diretorioDePdfsArtigos = Play.application().configuration().getString("diretorioDePdfsArtigos");
-            String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
+            novo.setTitulo(titulo);
+            novo.setResumo(resumo);
+            novo.setDataCadastro(new Date());
 
-            if (tipoDeConteudo.equals(contentTypePadraoDePdfs)) {
-                file.renameTo(new File(diretorioDePdfsArtigos,pdf));
+            Ebean.save(novo);
+
+            Http.MultipartFormData body = request().body().asMultipartFormData();
+            Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
+
+            String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
+
+            if (arquivo != null) {
+                String arquivoTitulo = form().bindFromRequest().get("titulo");
+                String pdf = arquivoTitulo + extensaoPadraoDePdfs;
+                String tipoDeConteudo = arquivo.getContentType();
+                File file = arquivo.getFile();
+                String diretorioDePdfsArtigos = Play.application().configuration().getString("diretorioDePdfsArtigos");
+                String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
+
+                if (tipoDeConteudo.equals(contentTypePadraoDePdfs)) {
+                    file.renameTo(new File(diretorioDePdfsArtigos,pdf));
+                } else {
+                    DynamicForm formDeErro = form.fill(formPreenchido.data());
+                    formDeErro.reject("Apenas arquivos em formato PDF é aceito");
+                    return badRequest(views.html.admin.artigos.create.render(formDeErro));
+                }
             } else {
                 DynamicForm formDeErro = form.fill(formPreenchido.data());
-                formDeErro.reject("Apenas arquivos em formato PDF é aceito");
+                formDeErro.reject("Selecione um arquivo no formato PDF");
                 return badRequest(views.html.admin.artigos.create.render(formDeErro));
             }
-        } else {
-            DynamicForm formDeErro = form.fill(formPreenchido.data());
-            formDeErro.reject("Selecione um arquivo no formato PDF");
-            return badRequest(views.html.admin.artigos.create.render(formDeErro));
-        }
-
-        Artigo novo = new Artigo();
-        novo.setTitulo(titulo);
-        novo.setResumo(resumo);
-        novo.setDataCadastro(new Date());
-
-        try {
-            Ebean.save(novo);
         } catch (Exception e) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject("Erro interno de sistema!");
             Logger.info(e.getMessage());
-            return badRequest(views.html.cadastro.render(formDeErro));
+            return badRequest(views.html.admin.artigos.create.render(formDeErro));
         }
 
         return ok(views.html.mensagens.artigo.cadastrado.render(titulo));
@@ -294,8 +308,8 @@ public class ArtigoController extends Controller {
     @Security.Authenticated(Secured.class)
     public Result editar(Long id) {
 
-        String mensagem = "";
-        String tipoMensagem = "";
+        String mensagem;
+        String tipoMensagem;
 
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();

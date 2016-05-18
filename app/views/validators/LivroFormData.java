@@ -9,12 +9,27 @@ public class LivroFormData {
 
     public String titulo = "";
     public String subTitulo = "";
+    public String isbn = "";
     public String editora = "";
     public String autores = "";
-    public String isbn = "";
-    public Integer ano = 0;
     public Integer edicao = 0;
     public Integer paginas = 0;
+    public Integer ano = 0;
+
+    /** Necessario para instanciar o form */
+    public LivroFormData() {
+    }
+
+    public LivroFormData(String titulo, String subTitulo, String isbn, String editora, String autores, Integer edicao, Integer paginas, Integer ano) {
+        this.titulo = titulo;
+        this.subTitulo = subTitulo;
+        this.isbn = isbn;
+        this.editora = editora;
+        this.autores = autores;
+        this.edicao = edicao;
+        this.paginas = paginas;
+        this.ano = ano;
+    }
 
     public List<ValidationError> validate() {
 
@@ -30,6 +45,10 @@ public class LivroFormData {
 
         if (isbn == null || isbn.length() == 0) {
             errors.add(new ValidationError("isbn", "Preencha o ISBN"));
+        }
+
+        if (isbn.length() > 17) {
+            errors.add(new ValidationError("isbn", "Preencha o ISBN corretamente"));
         }
 
         if (editora == null || editora.length() == 0) {

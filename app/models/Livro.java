@@ -2,7 +2,6 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
-import com.avaje.ebeaninternal.server.lib.util.Str;
 import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.libs.Json;
@@ -11,7 +10,9 @@ import views.validators.LivroFormData;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.*;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Entity
 public class Livro extends Model {
@@ -53,6 +54,53 @@ public class Livro extends Model {
 
     @Formats.DateTime(pattern="dd-MM-yyyy")
     private Date dataAlteracao;
+
+    public Livro() {
+    }
+
+    public Livro(Long id, String titulo, String subTitulo, String isbn, String editora, String autores, Integer edicao, Integer paginas, Integer ano) {
+        this.setId(id);
+        this.titulo = titulo;
+        this.subTitulo = subTitulo;
+        this.isbn = isbn;
+        this.editora = editora;
+        this.autores = autores;
+        this.edicao = edicao;
+        this.paginas = paginas;
+        this.ano = ano;
+    }
+
+    /**
+     * @return a objeto livro atraves da um formData onde o parametro FormData que validou os campos inputs
+     */
+    public static Livro makeInstance(LivroFormData formData) {
+        Livro livro = new Livro();
+        livro.setTitulo(formData.titulo);
+        livro.setSubTitulo(formData.subTitulo);
+        livro.setIsbn(formData.isbn);
+        livro.setEditora(formData.editora);
+        livro.setAutores(formData.autores);
+        livro.setEdicao(formData.edicao);
+        livro.setPaginas(formData.paginas);
+        livro.setAno(formData.ano);
+        return livro;
+    }
+
+    /**
+     * Return a StudentFormData instance constructed from a student instance.
+     * @param id The ID of a student instance.
+     * @return The StudentFormData instance, or throws a RuntimeException.
+     */
+    public static LivroFormData makeLivroFormData(Long id) {
+
+        Livro livro = Ebean.find(Livro.class, id);
+
+        if (livro == null) {
+            throw new RuntimeException("Livro não encontrado");
+        }
+
+        return new LivroFormData(livro.titulo, livro.subTitulo, livro.isbn, livro.editora, livro.autores, livro.edicao, livro.paginas, livro.ano);
+    }
 
     public Long getId() {
         return id;
@@ -150,34 +198,6 @@ public class Livro extends Model {
             options.put(c.id.toString(),c.titulo);
         }
         return options;
-    }
-
-    /**
-     * @return a objeto livro atraves da um formData onde o parametro FormData que validou os campos inputs
-     */
-    public static Livro makeInstance(LivroFormData formData) {
-        Livro livro = new Livro();
-        livro.setTitulo(formData.titulo);
-        livro.setSubTitulo(formData.subTitulo);
-        livro.setEdicao(formData.edicao);
-        livro.setPaginas(formData.paginas);
-        livro.setAno(formData.ano);
-        livro.setAutores(formData.autores);
-        livro.setEditora(formData.editora);
-        livro.setIsbn(formData.isbn);
-        return livro;
-    }
-
-    /**
-     * Return a StudentFormData instance constructed from a student instance.
-     * @param id The ID of a student instance.
-     * @return The StudentFormData instance, or throws a RuntimeException.
-     */
-    public static LivroFormData makeLivroFormData(long id) {
-
-        Livro livro = Ebean.find(Livro.class, id);
-
-        return new LivroFormData();
     }
 
     @Override
