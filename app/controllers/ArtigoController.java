@@ -149,7 +149,7 @@ public class ArtigoController extends Controller {
         String resumo = formPreenchido.data().get("resumo");
 
         //valida se o titulo e o resumo não estejam vazios
-        if (titulo.equals("") || resumo.equals("")) {
+        if (titulo.equals("") || resumo.equals("") || titulo == null || resumo == null) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject("Título ou Resumo não podem estar vazios!");
             return badRequest(views.html.admin.artigos.create.render(formDeErro));

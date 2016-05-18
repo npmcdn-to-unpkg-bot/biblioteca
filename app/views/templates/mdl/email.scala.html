@@ -1,0 +1,11 @@
+@(field: Field, label: String = "", placeholder: String = "", help: String = "")
+
+<div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input"
+           required
+           type="email"
+           id="@field.id"
+           name="@field.name"
+           value="@field.value.getOrElse("")"/>
+    <label class="mdl-textfield__label" for="@field.id">@label</label>
+</div>

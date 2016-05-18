@@ -1,7 +1,9 @@
 @(username: String)
-<html>
-<head lang="en">
+<html lang="en">
+<head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -25,7 +27,9 @@
                     </p>
                     }  else {
                     <div align="center">
-                        <p class="sucesso">Você esta logado como: <b>"@username"</b></p>
+                        <p align="center" class="sucesso">
+                            Você esta logado como: <b>"@username"</b>
+                        </p>
                     </div>
                     }
 
