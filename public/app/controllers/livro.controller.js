@@ -1,15 +1,18 @@
 angular.module('architectplay')
-    .controller('livro.controller', function ($scope, $rootScope, Usuario, toastr, $location) {
-        $rootScope.title = 'Livros';
+    .controller('livro.list.controller', function ($scope, $rootScope, Livro, toastr, $routeParams, $location) {
+        
+    $rootScope.title = 'Livros';
 
-        $scope.mostrar = false;
+    $scope.init = function() {
+        $scope.nomeFiltro = '';
+        $scope.filtrados = 0;
 
-        Usuario.getAutenticado(function(data) {
-            $rootScope.usuario = data;
-            $scope.mostrar = true;
-        },function(data) {
-            $scope.mostrar = false;
+        Livro.getAll(function(data) {
+            $scope.livros = data;
+            $scope.quantidade = $scope.livros.length;
+        }, function(data) {
             $location.path('/');
-            toastr.error('Não autorizado');
+            toastr.error('Não autorizado.');
         });
+    };
 });

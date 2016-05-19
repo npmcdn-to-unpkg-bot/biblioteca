@@ -15,6 +15,8 @@ import play.mvc.Security;
 import views.validators.LivroFormData;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +42,7 @@ public class LivroController extends Controller {
     /**
      * @return autenticado form if auth OK or login form is auth KO
      */
-    public Result novoTela() {
+    public Result telaNovo() {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
 
@@ -52,83 +54,6 @@ public class LivroController extends Controller {
         Form<LivroFormData> livroForm = form(LivroFormData.class);
 
         return ok(views.html.admin.livros.create.render(livroForm));
-    }
-
-    /**
-     * Save Livro
-     *
-     * @return a render view to inform CREATED
-     */
-    public Result inserir() {
-
-        //Resgata os dados do formario atraves de uma requisicao e realiza a validacao dos campos
-        Form<LivroFormData> formData = Form.form(LivroFormData.class).bindFromRequest();
-
-        //busca o usuário atual que esteja logado no sistema
-        Usuario usuarioAtual = atual();
-
-        if (usuarioAtual == null) {
-            formData.reject("Usuário não autenticado");
-            return badRequest(views.html.admin.livros.create.render(formData));
-        }
-
-        //verificar se o usuario atual encontrado é administrador
-        if (usuarioAtual.getPrivilegio() != 1) {
-            formData.reject("Você não tem privilégios de Administrador");
-            return badRequest(views.html.admin.livros.create.render(formData));
-        }
-
-        if (formData.hasErrors()) {
-            return badRequest(views.html.admin.livros.create.render(formData));
-        }
-        else {
-            //Converte os dados do formularios para uma instancia do Livro
-            Livro livro = Livro.makeInstance(formData.get());
-
-            //faz uma busca na base de dados do livro
-            Livro livroBusca = Ebean.find(Livro.class).where().eq("isbn", formData.data().get("isbn")).findUnique();
-
-            if (livroBusca != null) {
-                formData.reject("O Livro '" + livroBusca.getTitulo() + "' já esta Cadastrado!");
-                return badRequest(views.html.admin.livros.create.render(formData));
-            }
-
-            Http.MultipartFormData body = request().body().asMultipartFormData();
-            Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
-
-            String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
-
-            if (arquivo != null) {
-                String arquivoTitulo = form().bindFromRequest().get("titulo");
-                String pdf = arquivoTitulo + extensaoPadraoDePdfs;
-                String tipoDeConteudo = arquivo.getContentType();
-                File file = arquivo.getFile();
-                String diretorioDePdfsLivros = Play.application().configuration().getString("diretorioDePdfsLivros");
-                String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
-
-                if (tipoDeConteudo.equals(contentTypePadraoDePdfs)) {
-                    file.renameTo(new File(diretorioDePdfsLivros,pdf));
-                } else {
-                    formData.reject("Apenas arquivos em formato PDF é aceito");
-                    return badRequest(views.html.admin.livros.create.render(formData));
-                }
-            } else {
-                formData.reject("Selecione um arquivo no formato PDF");
-                return badRequest(views.html.admin.livros.create.render(formData));
-            }
-
-            livro.setDataCadastro(new Date());
-
-            try {
-                livro.save();
-                return created(views.html.mensagens.livro.cadastrado.render(livro.getTitulo()));
-            } catch (Exception e) {
-                Logger.error(e.toString());
-            }
-
-            formData.reject("Não foi possível cadastrar, erro interno de sistema.");
-            return badRequest(views.html.admin.livros.create.render(formData));
-        }
     }
 
     /**
@@ -208,6 +133,84 @@ public class LivroController extends Controller {
         }
         return badRequest(views.html.mensagens.livro.mensagens.render(mensagem,tipoMensagem));
 
+    }
+
+    /**
+     * Save Livro
+     *
+     * @return a render view to inform CREATED
+     */
+    public Result inserir() {
+
+        //Resgata os dados do formulario atraves de uma requisicao e realiza a validacao dos campos
+        Form<LivroFormData> formData = Form.form(LivroFormData.class).bindFromRequest();
+
+        //busca o usuário atual que esteja logado no sistema
+        Usuario usuarioAtual = atual();
+
+        if (usuarioAtual == null) {
+            formData.reject("Usuário não autenticado");
+            return badRequest(views.html.admin.livros.create.render(formData));
+        }
+
+        //verificar se o usuario atual encontrado é administrador
+        if (usuarioAtual.getPrivilegio() != 1) {
+            formData.reject("Você não tem privilégios de Administrador");
+            return badRequest(views.html.admin.livros.create.render(formData));
+        }
+
+        //se existir erros nos campos do formulario retorne o LivroFormData com os erros
+        if (formData.hasErrors()) {
+            return badRequest(views.html.admin.livros.create.render(formData));
+        }
+        else {
+            //Converte os dados do formularios para uma instancia do Livro
+            Livro livro = Livro.makeInstance(formData.get());
+
+            //faz uma busca na base de dados do livro
+            Livro livroBusca = Ebean.find(Livro.class).where().eq("isbn", formData.data().get("isbn")).findUnique();
+
+            if (livroBusca != null) {
+                formData.reject("O Livro '" + livroBusca.getTitulo() + "' já esta Cadastrado!");
+                return badRequest(views.html.admin.livros.create.render(formData));
+            }
+
+            Http.MultipartFormData body = request().body().asMultipartFormData();
+            Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
+
+            String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
+
+            if (arquivo != null) {
+                String arquivoTitulo = form().bindFromRequest().get("titulo");
+                String pdf = arquivoTitulo + extensaoPadraoDePdfs;
+                String tipoDeConteudo = arquivo.getContentType();
+                File file = arquivo.getFile();
+                String diretorioDePdfsLivros = Play.application().configuration().getString("diretorioDePdfsLivros");
+                String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
+
+                if (tipoDeConteudo.equals(contentTypePadraoDePdfs)) {
+                    file.renameTo(new File(diretorioDePdfsLivros,pdf));
+                } else {
+                    formData.reject("Apenas arquivos em formato PDF é aceito");
+                    return badRequest(views.html.admin.livros.create.render(formData));
+                }
+            } else {
+                formData.reject("Selecione um arquivo no formato PDF");
+                return badRequest(views.html.admin.livros.create.render(formData));
+            }
+
+            livro.setDataCadastro(new Date());
+
+            try {
+                livro.save();
+                return created(views.html.mensagens.livro.cadastrado.render(livro.getTitulo()));
+            } catch (Exception e) {
+                Logger.error(e.toString());
+            }
+
+            formData.reject("Não foi possível cadastrar, erro interno de sistema.");
+            return badRequest(views.html.admin.livros.create.render(formData));
+        }
     }
 
     /**
@@ -356,16 +359,30 @@ public class LivroController extends Controller {
      * @return a list of all livros in json
      */
     public Result buscaTodos() {
+        return ok(Json.toJson(Ebean.find(Livro.class).findList()));
+    }
 
-        //busca o usuário atual que esteja logado no sistema
-        Usuario usuarioAtual = atual();
+    /**
+     * return the pdf from a titulo
+     *
+     * @param titulo
+     * @return ok pdf by name
+     */
+    public Result pdf(String titulo) {
 
-        //verificar se o usuario atual encontrado é administrador
-        if (usuarioAtual.getPrivilegio() != 1) {
-            return badRequest(views.html.mensagens.erro.naoAutorizado.render());
+        String diretorioDePdfsLivros = Play.application().configuration().getString("diretorioDePdfsLivros");
+        String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
+
+        File pdf = new File(diretorioDePdfsLivros,titulo+extensaoPadraoDePdfs);
+
+        try {
+            return ok(new FileInputStream(pdf));
+        } catch (FileNotFoundException e) {
+            return notFound(views.html.mensagens.erro.naoEncontrado.render(titulo+extensaoPadraoDePdfs+" não foi encontrado"));
+        } catch (Exception e) {
+            return badRequest("Erro interno de sistema.");
         }
 
-        return ok(Json.toJson(Ebean.find(Livro.class).findList()));
     }
 
 }

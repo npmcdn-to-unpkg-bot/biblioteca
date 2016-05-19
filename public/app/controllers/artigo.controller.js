@@ -8,8 +8,8 @@ angular.module('architectplay')
         $scope.filtrados = 0;
 
         Artigo.getAll(function(data) {
-           $scope.artigos = data;
-           $scope.quantidade = $scope.artigos.length;
+            $scope.artigos = data;
+            $scope.quantidade = $scope.artigos.length;
         }, function(data) {
             $location.path('/');
             toastr.error('Não autorizado.');

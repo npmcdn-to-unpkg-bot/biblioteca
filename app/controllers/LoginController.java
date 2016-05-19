@@ -4,7 +4,6 @@ import akka.util.Crypt;
 import com.avaje.ebean.Ebean;
 import models.Usuario;
 import models.Usuarios;
-import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.libs.F;
@@ -18,7 +17,7 @@ public class LoginController extends Controller {
     /**
      * @return autenticado form if auth OK or login form is auth KO
      */
-    public Result loginTela() {
+    public Result telaLogin() {
         String username = session().get("email");
 
         //busca o usuário atual que esteja logado no sistema

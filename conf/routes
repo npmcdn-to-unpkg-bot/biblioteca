@@ -10,7 +10,7 @@ GET     /sobre                              controllers.Application.sobre()
 GET     /admin                              controllers.admin.AdminController.inicio()
 
 # Login Telas
-GET     /login                              controllers.LoginController.loginTela()
+GET     /login                              controllers.LoginController.telaLogin()
 GET     /autenticado                        controllers.LoginController.telaAutenticado()
 GET     /saiu                               controllers.LoginController.telaLogout()
 
@@ -34,7 +34,7 @@ GET     /usuarios/filtro/:filtro            controllers.UsuarioController.filtra
 POST	/usuario/:id/remover		        controllers.UsuarioController.remover(id:Long)
 
 # Artigo Telas
-GET     /artigo/novo/                       controllers.ArtigoController.novoTela()
+GET     /artigo/novo/                       controllers.ArtigoController.telaNovo()
 GET     /artigo/editar/:id                  controllers.ArtigoController.telaEditar(id:Long)
 GET		/artigo/detalhe/:id				    controllers.ArtigoController.telaDetalhe(id:Long)
 GET     /artigo/lista/todos                 controllers.ArtigoController.telaLista()
@@ -43,22 +43,22 @@ GET     /artigo/lista/todos                 controllers.ArtigoController.telaLis
 GET     /artigos                            controllers.ArtigoController.buscaTodos()
 GET     /artigo/pdf/:titulo                 controllers.ArtigoController.pdf(titulo:String)
 GET     /artigos/filtro/:filtro             controllers.ArtigoController.filtra(filtro:String)
-GET     /artigo/:id                         controllers.ArtigoController.buscaPorId(id:Long)
 POST    /artigo                             controllers.ArtigoController.inserir()
 POST	/artigo/:id/remover		            controllers.ArtigoController.remover(id:Long)
 POST    /artigo/editar/:id                  controllers.ArtigoController.editar(id:Long)
 
 # Livro Telas
-GET     /livro/novo/                        controllers.LivroController.novoTela()
+GET     /livro/novo/                        controllers.LivroController.telaNovo()
 GET		/livro/detalhe/:id				    controllers.LivroController.telaDetalhe(id:Long)
 GET     /livro/editar/:id                   controllers.LivroController.telaEditar(id:Long)
 GET     /livro/lista/todos                  controllers.LivroController.telaLista()
 
 # Livro Servicos
+GET     /livros                             controllers.LivroController.buscaTodos()
+GET     /livro/pdf/:titulo                  controllers.LivroController.pdf(titulo:String)
 POST    /livro                              controllers.LivroController.inserir()
 POST	/livro/:id/remover		            controllers.LivroController.remover(id:Long)
 POST    /livro/editar/:id                   controllers.LivroController.editar(id:Long)
-GET     /livros                             controllers.LivroController.buscaTodos()
 
 # Acessado quando o usuario confirma o registro
 GET     /confirma/:confirmaToken            controllers.UsuarioController.confirma(confirmaToken:String)

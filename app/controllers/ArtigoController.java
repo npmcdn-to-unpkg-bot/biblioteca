@@ -24,6 +24,7 @@ import java.util.List;
 
 import static play.data.Form.form;
 
+@Security.Authenticated(Secured.class)
 public class ArtigoController extends Controller {
 
     private static DynamicForm form = Form.form();
@@ -47,8 +48,7 @@ public class ArtigoController extends Controller {
     /**
      * @return autenticado form if auth OK or login form is auth KO
      */
-    @Security.Authenticated(Secured.class)
-    public Result novoTela() {
+    public Result telaNovo() {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
 
@@ -65,7 +65,6 @@ public class ArtigoController extends Controller {
      *
      * @return a list of all artigos in a render template
      */
-    @Security.Authenticated(Secured.class)
     public Result telaLista() {
 
         //busca o usuário atual que esteja logado no sistema
@@ -77,13 +76,13 @@ public class ArtigoController extends Controller {
         }
 
         List<Artigo> artigos = Ebean.find(Artigo.class).findList();
+
         return ok(views.html.admin.artigos.list.render(artigos,""));
     }
 
     /**
      * @return render a detail form with a artigo data
      */
-    @Security.Authenticated(Secured.class)
     public Result telaDetalhe(Long id) {
 
         //busca o usuário atual que esteja logado no sistema
@@ -106,7 +105,6 @@ public class ArtigoController extends Controller {
     /**
      * @return render edit form with a artigo data
      */
-    @Security.Authenticated(Secured.class)
     public Result telaEditar(Long id) {
 
         //busca o usuário atual que esteja logado no sistema
@@ -132,7 +130,6 @@ public class ArtigoController extends Controller {
      *
      * @return a render view to inform OK
      */
-    @Security.Authenticated(Secured.class)
     public Result inserir() {
 
         //busca o usuário atual que esteja logado no sistema
@@ -222,90 +219,11 @@ public class ArtigoController extends Controller {
     }
 
     /**
-     * Remove a artigo from a id
-     *
-     * @param id
-     * @return ok artigo removed
-     */
-    @Security.Authenticated(Secured.class)
-    public Result remover(Long id) {
-
-        String mensagem = "";
-        String tipoMensagem = "";
-
-        //busca o usuário atual que esteja logado no sistema
-        Usuario usuarioAtual = atual();
-
-        String diretorioDePdfsArtigos = Play.application().configuration().getString("diretorioDePdfsArtigos");
-        String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
-
-        if (usuarioAtual == null) {
-            mensagem = "Usuario não autenticado";
-            tipoMensagem = "Erro";
-            return notFound(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
-        }
-
-        //verificar se o usuario atual encontrado é administrador
-        if (usuarioAtual.getPrivilegio() != 1) {
-            mensagem = "Você não tem privilégios de Administrador";
-            tipoMensagem = "Erro";
-            return badRequest(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
-        }
-
-        //busca o artigo para ser excluido
-        Artigo artigo = Ebean.find(Artigo.class, id);
-
-        if (artigo == null) {
-            return notFound(views.html.mensagens.erro.naoEncontrado.render("Artigo não encontrado"));
-        }
-
-        File pdf = new File(diretorioDePdfsArtigos,artigo.getTitulo()+extensaoPadraoDePdfs);
-
-        try {
-            Ebean.delete(artigo);
-            pdf.delete();
-            mensagem = "Artigo excluído com sucesso";
-            tipoMensagem = "Sucesso";
-        } catch (Exception e) {
-            mensagem = "Erro interno de sistema";
-            tipoMensagem = "Erro";
-            return badRequest(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
-        }
-
-        return ok(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
-    }
-
-    /**
-     * return the pdf from a titulo
-     *
-     * @param titulo
-     * @return ok pdf by name
-     */
-    @Security.Authenticated(Secured.class)
-    public Result pdf(String titulo) {
-
-        String diretorioDePdfsArtigos = Play.application().configuration().getString("diretorioDePdfsArtigos");
-        String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
-
-        File pdf = new File(diretorioDePdfsArtigos,titulo+extensaoPadraoDePdfs);
-
-        try {
-            return ok(new FileInputStream(pdf));
-        } catch (FileNotFoundException e) {
-            return notFound(views.html.mensagens.erro.naoEncontrado.render(titulo+extensaoPadraoDePdfs+" não foi encontrado"));
-        } catch (Exception e) {
-            return badRequest("Erro interno de sistema.");
-        }
-
-    }
-
-    /**
      * Update a artigo from id
      *
      * @param id
      * @return a artigo updated with a form
      */
-    @Security.Authenticated(Secured.class)
     public Result editar(Long id) {
 
         String mensagem;
@@ -388,13 +306,88 @@ public class ArtigoController extends Controller {
     }
 
     /**
+     * Remove a artigo from a id
+     *
+     * @param id
+     * @return ok artigo removed
+     */
+    public Result remover(Long id) {
+
+        String mensagem = "";
+        String tipoMensagem = "";
+
+        //busca o usuário atual que esteja logado no sistema
+        Usuario usuarioAtual = atual();
+
+        String diretorioDePdfsArtigos = Play.application().configuration().getString("diretorioDePdfsArtigos");
+        String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
+
+        if (usuarioAtual == null) {
+            mensagem = "Usuario não autenticado";
+            tipoMensagem = "Erro";
+            return notFound(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
+        }
+
+        //verificar se o usuario atual encontrado é administrador
+        if (usuarioAtual.getPrivilegio() != 1) {
+            mensagem = "Você não tem privilégios de Administrador";
+            tipoMensagem = "Erro";
+            return badRequest(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
+        }
+
+        //busca o artigo para ser excluido
+        Artigo artigo = Ebean.find(Artigo.class, id);
+
+        if (artigo == null) {
+            return notFound(views.html.mensagens.erro.naoEncontrado.render("Artigo não encontrado"));
+        }
+
+        File pdf = new File(diretorioDePdfsArtigos,artigo.getTitulo()+extensaoPadraoDePdfs);
+
+        try {
+            Ebean.delete(artigo);
+            pdf.delete();
+            mensagem = "Artigo excluído com sucesso";
+            tipoMensagem = "Sucesso";
+        } catch (Exception e) {
+            mensagem = "Erro interno de sistema";
+            tipoMensagem = "Erro";
+            return badRequest(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
+        }
+
+        return ok(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
+    }
+
+    /**
      * Retrieve a list of all artigos
      *
      * @return a list of all artigos in json
      */
-    @Security.Authenticated(Secured.class)
     public Result buscaTodos() {
         return ok(Json.toJson(Ebean.find(Artigo.class).findList()));
+    }
+
+    /**
+     * return the pdf from a titulo
+     *
+     * @param titulo
+     * @return ok pdf by name
+     */
+    public Result pdf(String titulo) {
+
+        String diretorioDePdfsArtigos = Play.application().configuration().getString("diretorioDePdfsArtigos");
+        String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
+
+        File pdf = new File(diretorioDePdfsArtigos,titulo+extensaoPadraoDePdfs);
+
+        try {
+            return ok(new FileInputStream(pdf));
+        } catch (FileNotFoundException e) {
+            return notFound(views.html.mensagens.erro.naoEncontrado.render(titulo+extensaoPadraoDePdfs+" não foi encontrado"));
+        } catch (Exception e) {
+            return badRequest("Erro interno de sistema.");
+        }
+
     }
 
     /**
@@ -403,32 +396,12 @@ public class ArtigoController extends Controller {
      * @param filtro
      * @return a list of filter artigos in json
      */
-    @Security.Authenticated(Secured.class)
     public Result filtra(String filtro) {
         Query<Artigo> query = Ebean.createQuery(Artigo.class, "find artigo where (titulo like :titulo)");
         query.setParameter("titulo", "%" + filtro + "%");
         List<Artigo> filtroDeArtigos = query.findList();
 
         return ok(Json.toJson(filtroDeArtigos));
-    }
-
-    /**
-     * Retrieve a artigo from id
-     *
-     * @param id
-     * @return a artigo json
-     */
-    @Security.Authenticated(Secured.class)
-    public Result buscaPorId(Long id) {
-
-        //busca o artigo
-        Artigo artigo = Ebean.find(Artigo.class, id);
-
-        if (artigo == null) {
-            return notFound("Artigo não encontrado");
-        }
-
-        return ok(Json.toJson(artigo));
     }
 
 }

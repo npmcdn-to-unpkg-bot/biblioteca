@@ -24,7 +24,7 @@ angular.module('architectplay')
     }]).service('Livro',['$resource', 'BaseUrl',
       function($resource, BaseUrl){
         return $resource(BaseUrl + '/livro/:id', {}, {
-           getAll: {method: 'GET', url: BaseUrl + '/livro', isArray: true},
+           getAll: {method: 'GET', url: BaseUrl + '/livros', isArray: true},
            getFiltroLivros: {method: 'GET', url: BaseUrl + '/livros/filtro/:filtro', isArray: true}
         });
     }]);
