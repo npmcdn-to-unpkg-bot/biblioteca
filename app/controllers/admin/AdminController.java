@@ -32,11 +32,11 @@ public class AdminController extends Controller {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
 
-        String username = usuarioAtual.getEmail();
-
         if (usuarioAtual == null) {
             return notFound("Usuario não autenticado");
         }
+
+        String username = usuarioAtual.getEmail();
 
         //verificar se o usuario atual encontrado é administrador caso nao retorna a pagina de nao autorizado
         if (usuarioAtual.getPrivilegio() != 1) {

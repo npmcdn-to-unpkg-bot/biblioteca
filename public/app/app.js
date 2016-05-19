@@ -62,6 +62,11 @@ angular
                 controller: 'direito.controller',
                 activetab: 'direitos'
             })
+            .when('/contato', {
+                templateUrl: '/assets/app/views/contato.html',
+                controller: 'contato.create.controller',
+                activetab: 'contato'
+            })
             .otherwise({redirectTo:'/'});
    }).config(function(cfpLoadingBarProvider) {
         // carrega o loading bar
