@@ -153,10 +153,8 @@ angular
         };
     // se tirar esse .run as funções do material design lite
     //não carrega corretamente na página, precisa apertar f5 várias vezes
-   }).run(function ($rootScope,$timeout) {
-        $rootScope.$on('$viewContentLoaded', ()=> {
-            $timeout(()=> {
-                componentHandler.upgradeAllRegistered();
-            })
-        })
-   });
+   }).run(function ($rootScope) {
+    $rootScope.$on('$viewContentLoaded', function upgradeAllRegistered() {
+        componentHandler.upgradeAllRegistered();
+    });
+});
