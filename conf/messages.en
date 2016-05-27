@@ -1,0 +1,20 @@
+# Login form
+login.form.title=Digital Library
+login.username=Username
+login.password=Password
+login.remember=Remember me
+login.register=Register
+login=Login
+login.error=Unknown username or password.
+login.error.register=User not found.
+login.success=User successfully Authenticated.
+
+# Register form
+register.form.title=Digital Library
+register.username=Full name
+register.email=Email
+register.password=Password
+register.confirm.password=Confirmation
+register=Register
+register.error=User already registered.
+register.success=User successfully registered.

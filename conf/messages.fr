@@ -1,0 +1,20 @@
+# Login
+login.form.title=Bibliothèque numérique
+login.username=Nom d'utilisateur:
+login.password=Mot de passe:
+login.remember=Souviens-toi de moi
+login.register=Enregistrer
+login=Login
+login.error=Nom d'utilisateur ou mot de passe inconnu.
+login.error.register=Utilisateur non trouvé.
+login.success=Utilisateur authentifié avec succès.
+
+# Register form
+register.form.title=Bibliothèque numérique
+register.username=Nom complet
+register.email=Email
+register.password=Mot de passe
+register.confirm.password=Confirmation
+register=Registre
+register.error=Utilisateur déjà enregistré.
+register.success=L'utilisateur enregistré avec succès.
