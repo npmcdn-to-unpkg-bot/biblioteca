@@ -241,6 +241,7 @@ public class LivroController extends Controller {
             return badRequest(views.html.admin.livros.edit.render(id,formData));
         }
 
+        //verificar se tem erros no formData, caso tiver erros retorna o formulario com os erros caso não tiver continua o processo de alteracao do livro
         if (formData.hasErrors()) {
             return badRequest(views.html.admin.livros.edit.render(id,formData));
         } else {
@@ -266,7 +267,7 @@ public class LivroController extends Controller {
                 String diretorioDePdfsLivros = Play.application().configuration().getString("diretorioDePdfsLivros");
                 String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
 
-                //necessario para excluir o artigo antigo
+                //necessario para excluir o livro antigo
                 File pdfAntigo = new File(diretorioDePdfsLivros,livroBusca.getTitulo()+extensaoPadraoDePdfs);
 
                 //exclui o artigo antigo
