@@ -12,3 +12,5 @@ project/target
 tmp
 bower_components
 .cache
+pdf/artigos/
+pdf/livros/
