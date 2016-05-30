@@ -1,3 +1,6 @@
+# Titulo do sistema
+app.title=Biblioteca
+
 # Login
 login.form.title=Biblioteca digital
 login.username=Nome do usuário:
@@ -18,3 +21,21 @@ register.confirm.password=Confirmação
 register=Cadastrar
 register.error=Usuário já cadastrado.
 register.success=Usuário registado com sucesso.
+
+# Menu
+menu.1=Início
+menu.2=Cursos
+menu.3=Materiais
+menu.4=Artigos
+menu.5=Livros
+menu.6=Vídeos
+menu.7=Fotos
+menu.8=Contato
+menu.9=Fale conosco
+menu.10=Direitos
+menu.11=Conheça o nosso site
+menu.12=Administração
+menu.13=Entrar
+menu.14=Perfil
+menu.15=Sair
+menu.16=Entrar

@@ -1,3 +1,6 @@
+# Titulo do sistema
+app.title=bibliothèque
+
 # Login
 login.form.title=Bibliothèque numérique
 login.username=Nom d'utilisateur:
@@ -18,3 +21,21 @@ register.confirm.password=Confirmation
 register=Registre
 register.error=Utilisateur déjà enregistré.
 register.success=L'utilisateur enregistré avec succès.
+
+# Menu
+menu.1=Home
+menu.2=Cours
+menu.3=Matériels
+menu.4=Des articles
+menu.5=Livres
+menu.6=Vidéos
+menu.7=Photos
+menu.8=Contacts
+menu.9=Contactez nous
+menu.10=Droits
+menu.11=Rencontrez notre site
+menu.12=La gestion
+menu.13=Entrer
+menu.14=Profil
+menu.15=Se déconnecter
+menu.16=S'identifier

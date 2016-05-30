@@ -1,3 +1,6 @@
+# Titulo do sistema
+app.title=Library
+
 # Login form
 login.form.title=Digital Library
 login.username=Username
@@ -18,3 +21,21 @@ register.confirm.password=Confirmation
 register=Register
 register.error=User already registered.
 register.success=User successfully registered.
+
+# Menu
+menu.1=Home
+menu.2=Courses
+menu.3=Materials
+menu.4=Articles
+menu.5=Books
+menu.6=Videos
+menu.7=Photos
+menu.8=Contacts
+menu.9=Contact us
+menu.10=Rights
+menu.11=Meet our site
+menu.12=Management
+menu.13=Get in
+menu.14=Profile
+menu.15=Logout
+menu.16=Login

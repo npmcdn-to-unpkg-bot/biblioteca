@@ -25,7 +25,7 @@ angular
             .when('/livros', {
                 templateUrl: '/assets/app/views/livros/list.html',
                 controller: 'livro.list.controller',
-                 activetab: 'livros'
+                activetab: 'livros'
             })
             .when('/cursos', {
                 templateUrl: '/assets/app/views/cursos/list.html',

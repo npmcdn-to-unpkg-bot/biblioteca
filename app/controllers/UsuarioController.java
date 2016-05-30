@@ -112,8 +112,8 @@ public class UsuarioController extends Controller {
      */
     public Result confirma(String token) {
 
-        String mensagem = "";
-        String tipoMensagem = "";
+        String mensagem;
+        String tipoMensagem;
         String usuarioEmail = "";
 
         Usuario usuario = buscaPorConfirmacaoToken(token);

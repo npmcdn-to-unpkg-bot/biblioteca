@@ -22,7 +22,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Biblioteca</title>
+    <title>@Messages("app.title")</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -64,7 +64,7 @@
 <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     <header class="demo-header mdl-layout__header mdl-color--deep-orange-cibiogas mdl-color-text--white">
         <div class="mdl-layout__header-row">
-            <span data-ng-show="title" class="mdl-layout-title">{{title}}</span>
+            <span data-ng-show="title" class="mdl-layout-title">@Messages("app.title")</span>
             <div class="mdl-layout-spacer"></div>
                 @if(username){
                     <span>@username</span>
@@ -74,13 +74,13 @@
             </button>
             <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
                 @if(username){
-                    <a href="/#/usuario/perfil" class="mdl-menu__item mdl-menu__item--full-bleed-divider">Perfil</a>
+                    <a href="/#/usuario/perfil" class="mdl-menu__item mdl-menu__item--full-bleed-divider">@Messages("menu.14")</a>
                 }
                 @if(!username){
-                    <a href="/login" class="mdl-menu__item">Login</a>
+                    <a href="/login" class="mdl-menu__item">@Messages("menu.16")</a>
                 }
                 @if(username){
-                    <a type="reset" href="/logout" class="mdl-menu__item">Logout</a>
+                    <a type="reset" href="/logout" class="mdl-menu__item">@Messages("menu.15")</a>
                 }
             </ul>
         </div>
@@ -92,26 +92,26 @@
             </div>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--white">
-            <a ng-class="{active: $route.current.activetab == 'home'}" class="mdl-navigation__link" href="/#/"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">home</i>Home</a>
-            <a ng-class="{active: $route.current.activetab == 'cursos'}" class="mdl-navigation__link" href="/#/cursos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">school</i>Cursos Ead</a>
+            <a ng-class="{active: $route.current.activetab == 'home'}" class="mdl-navigation__link" href="/#/"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">home</i>@Messages("menu.1")</a>
+            <a ng-class="{active: $route.current.activetab == 'cursos'}" class="mdl-navigation__link" href="/#/cursos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">school</i>@Messages("menu.2")</a>
                 <div class="separador"></div>
             @if(username){
-                <span class="mdl-navigation__link">Media</span>
-                <a ng-class="{active: $route.current.activetab == 'artigos'}" class="mdl-navigation__link" href="/#/artigos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">book</i>Artigos</a>
-                <a ng-class="{active: $route.current.activetab == 'livros'}" class="mdl-navigation__link" href="/#/livros"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">library_books</i>Livros</a>
-                <a ng-class="{active: $route.current.activetab == 'videos'}" class="mdl-navigation__link" href="/#/videos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">video_library</i>Videos</a>
-                <a ng-class="{active: $route.current.activetab == 'fotos'}" class="mdl-navigation__link" href="/#/fotos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">photo</i>Fotos</a>
+                <span class="mdl-navigation__link">@Messages("menu.3")</span>
+                <a ng-class="{active: $route.current.activetab == 'artigos'}" class="mdl-navigation__link" href="/#/artigos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">book</i>@Messages("menu.4")</a>
+                <a ng-class="{active: $route.current.activetab == 'livros'}" class="mdl-navigation__link" href="/#/livros"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">library_books</i>@Messages("menu.5")</a>
+                <a ng-class="{active: $route.current.activetab == 'videos'}" class="mdl-navigation__link" href="/#/videos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">video_library</i>@Messages("menu.6")</a>
+                <a ng-class="{active: $route.current.activetab == 'fotos'}" class="mdl-navigation__link" href="/#/fotos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">photo</i>@Messages("menu.7")</a>
                 <div class="separador"></div>
             }
-            <span class="mdl-navigation__link">Contato</span>
-            <a ng-class="{active: $route.current.activetab == 'contato'}" class="mdl-navigation__link" href="/#/contato"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">contact_mail</i>Fale conosco</a>
-            <a ng-class="{active: $route.current.activetab == 'direitos'}" class="mdl-navigation__link" href="/#/direitos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">copyright</i>Direitos</a>
-            <a class="mdl-navigation__link" href="https://cibiogas.org/" target="_blank"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">public</i>Conheça nosso site</a>
+            <span class="mdl-navigation__link">@Messages("menu.8")</span>
+            <a ng-class="{active: $route.current.activetab == 'contato'}" class="mdl-navigation__link" href="/#/contato"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">contact_mail</i>@Messages("menu.9")</a>
+            <a ng-class="{active: $route.current.activetab == 'direitos'}" class="mdl-navigation__link" href="/#/direitos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">copyright</i>@Messages("menu.10")</a>
+            <a class="mdl-navigation__link" href="https://cibiogas.org/" target="_blank"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">public</i>@Messages("menu.11")</a>
             @if(username){
                 @if(privilegio == 1){
                     <div class="separador"></div>
-                    <span class="mdl-navigation__link">Administração</span>
-                    <a class="mdl-navigation__link" href="/admin"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">collections_bookmark</i>Entrar</a>
+                    <span class="mdl-navigation__link">@Messages("menu.12")</span>
+                    <a class="mdl-navigation__link" href="/admin"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">collections_bookmark</i>@Messages("menu.13")</a>
                 }
             }
             <div class="mdl-layout-spacer"></div>
