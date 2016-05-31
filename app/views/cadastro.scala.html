@@ -28,7 +28,7 @@
 
                     @if(formPreenchido.hasGlobalErrors) {
                     <p align="center" class="login-message">
-                        @Messages("register.error")
+                        @formPreenchido.globalError.message
                     </p>
                     }
 

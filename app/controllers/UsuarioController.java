@@ -10,6 +10,7 @@ import play.Configuration;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
+import play.i18n.Messages;
 import play.libs.Json;
 import play.libs.mailer.Email;
 import play.libs.mailer.MailerClient;
@@ -160,15 +161,15 @@ public class UsuarioController extends Controller {
 
         Form<DynamicForm.Dynamic> formPreenchido = form.bindFromRequest();
 
+        String nome = formPreenchido.data().get("nome");
         String email = formPreenchido.data().get("email");
         String senha = Crypt.sha1(formPreenchido.data().get("confirm_senha"));
-        String nome = formPreenchido.data().get("nome");
 
         //valida se o email e a senha não estejam vazios
-        if (email.equals("") || senha.equals("")) {
+        if (nome.equals("") || email.equals("") || senha.equals("")) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
-            formDeErro.reject("Email ou Senha não podem estar vazios!");
-            return badRequest(views.html.login.render(formDeErro));
+            formDeErro.reject(Messages.get("register.error.field"));
+            return badRequest(views.html.cadastro.render(formDeErro));
         }
 
         //faz uma busca na base de dados do usuario
@@ -176,7 +177,7 @@ public class UsuarioController extends Controller {
 
         if (usuarioBusca != null) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
-            formDeErro.reject("Usuário '" + usuarioBusca.getEmail() + "' já esta Cadastrado!");
+            formDeErro.reject(Messages.get("register.error.already.registered"));
             return badRequest(views.html.cadastro.render(formDeErro));
         }
 
@@ -194,7 +195,7 @@ public class UsuarioController extends Controller {
             enviarEmailToken(novo);
         } catch (Exception e) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
-            formDeErro.reject("Erro interno de sistema!");
+            formDeErro.reject(Messages.get("app.error"));
             Logger.info(e.getMessage());
             return badRequest(views.html.cadastro.render(formDeErro));
         }

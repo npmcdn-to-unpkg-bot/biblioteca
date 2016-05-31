@@ -6,6 +6,7 @@ import models.Usuario;
 import models.Usuarios;
 import play.data.DynamicForm;
 import play.data.Form;
+import play.i18n.Messages;
 import play.libs.F;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -59,9 +60,9 @@ public class LoginController extends Controller {
         String email = requestForm.data().get("email");
         String senha = requestForm.data().get("senha");
 
-        if (email == null || senha == null) {
+        if (email.equals("") || senha.equals("")) {
             DynamicForm formDeErro = form.fill(requestForm.data());
-            formDeErro.reject("Email ou Senha não podem estar vazios!");
+            formDeErro.reject(Messages.get("login.error.field"));
             return badRequest(views.html.login.render(formDeErro));
         }
 
@@ -70,7 +71,7 @@ public class LoginController extends Controller {
         if (talvesUmUsuario.isDefined()) {
             if (!talvesUmUsuario.get().getValidado()) {
                 DynamicForm formDeErro = form.fill(requestForm.data());
-                formDeErro.reject("O usuário não foi confirmado! Acesse seu email!");
+                formDeErro.reject(Messages.get("login.error.confirm"));
                 return badRequest(views.html.login.render(formDeErro));
             }
             session().put("email", talvesUmUsuario.get().getEmail());
@@ -78,7 +79,7 @@ public class LoginController extends Controller {
         }
 
         DynamicForm formDeErro = form.fill(requestForm.data());
-        formDeErro.reject("O email ou senha não existem!");
+        formDeErro.reject(Messages.get("login.error"));
         return forbidden(views.html.login.render(formDeErro));
     }
 

@@ -1,11 +1,10 @@
 @(field: Field, label: String = "", placeholder: String = "", help: String = "")
 
-<div class="mdl-textfield mdl-js-textfield">
+<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
     <input class="mdl-textfield__input"
-           required
            type="text"
            id="@field.id"
            name="@field.name"
            value="@field.value.getOrElse("")"/>
-    <label class="mdl-textfield__label" for="@field.id">@label</label>
+    <label class="mdl-textfield__label" for="@field.name">@label</label>
 </div>

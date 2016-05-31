@@ -1,26 +1,6 @@
 # Titulo do sistema
 app.title=Library
-
-# Login form
-login.form.title=Digital Library
-login.username=Username
-login.password=Password
-login.remember=Remember me
-login.register=Register
-login=Login
-login.error=Unknown username or password.
-login.error.register=User not found.
-login.success=User successfully Authenticated.
-
-# Register form
-register.form.title=Digital Library
-register.username=Full name
-register.email=Email
-register.password=Password
-register.confirm.password=Confirmation
-register=Register
-register.error=User already registered.
-register.success=User successfully registered.
+app.error=Internal server error
 
 # Menu
 menu.1=Home
@@ -39,3 +19,30 @@ menu.13=Get in
 menu.14=Profile
 menu.15=Logout
 menu.16=Login
+
+# Login form
+login.form.title=Digital Library
+login.username=Email
+login.password=Password
+login.register=Register
+login=Login
+login.success=User successfully Authenticated.
+
+# Login form errors
+login.error=Unknown username or password.
+login.error.found=User not found.
+login.error.field=Please complete with email and password.
+login.error.confirm=The user has not been confirmed! Please check your email!
+
+# Register form
+register.form.title=Digital Library
+register.username=Full name
+register.email=Email
+register.password=Password
+register.confirm.password=Confirmation
+register=Register
+
+# Register form errors
+register.error.field=Please complete all fields.
+register.error.already.registered=User already registered.
+register.success=User successfully registered.

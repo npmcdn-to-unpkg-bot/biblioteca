@@ -27,9 +27,7 @@
                 <div class="mdl-card__supporting-text">
 
                     @if(usuarioForm.hasGlobalErrors) {
-                        <p align="center" class="login-message">
-                            <b>@Messages("login.error")</b>
-                        </p>
+                        <p align="center" class="login-message">@usuarioForm.globalError.message</p>
                     }
 
                     <!-- Email -->
