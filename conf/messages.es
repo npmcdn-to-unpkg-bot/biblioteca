@@ -1,25 +1,22 @@
 # Titulo do sistema
-app.title=Biblioteca
+app.title=Biblioteca Digital
 
 # Login form
-login.form.title=Libreria digital
-login.username=Nombre de usuário:
+login.form.title=Libreria Digital
+login.username=Email:
 login.password=Contraseña:
-login.remember=Recuérdame
 login.register=Registrar
 login=Login
 login.error=Usuário o contraseña inválidos!
-login.error.register=Usuário no encontrado.
 login.success=Usuario autenticado con éxito.
 
 # Register form
-register.form.title=Libreria digital
+register.form.title=Libreria Digital
 register.username=Nombre completo
 register.email=Correo eletrónico
 register.password=Contraseña
 register.confirm.password=Confirmación
 register=Registrar
-register.error=El usuario ya registrado.
 register.success=Usuário registrado correctamente.
 
 # Menu
@@ -45,3 +42,6 @@ app.error=Error interno de sistema
 login.error.found=No se encontró el usuario.
 login.error.field=Por favor completar con el correo electrónico y contraseña.
 login.error.confirm=El usuario no se ha confirmado! Por favor, consultar su correo electrónico!
+register.bad.password=Contraseñas não conferem.
+login.page.title=Login
+register.page.title=Registro

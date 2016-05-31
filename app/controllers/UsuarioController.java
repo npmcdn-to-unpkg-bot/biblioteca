@@ -163,12 +163,20 @@ public class UsuarioController extends Controller {
 
         String nome = formPreenchido.data().get("nome");
         String email = formPreenchido.data().get("email");
-        String senha = Crypt.sha1(formPreenchido.data().get("confirm_senha"));
+        String senha = formPreenchido.data().get("senha");
+        String confirm_senha = formPreenchido.data().get("confirm_senha");
 
         //valida se o email e a senha não estejam vazios
-        if (nome.equals("") || email.equals("") || senha.equals("")) {
+        if (nome.equals("") || email.equals("") || confirm_senha.equals("") || senha.equals("")) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject(Messages.get("register.error.field"));
+            return badRequest(views.html.cadastro.render(formDeErro));
+        }
+
+        //valida se o campo da senha e igual ao campo de validacao
+        if (!confirm_senha.equals(senha)) {
+            DynamicForm formDeErro = form.fill(formPreenchido.data());
+            formDeErro.reject(Messages.get("register.bad.password"));
             return badRequest(views.html.cadastro.render(formDeErro));
         }
 
@@ -183,7 +191,7 @@ public class UsuarioController extends Controller {
 
         Usuario novo = new Usuario();
         novo.setEmail(email);
-        novo.setSenha(senha);
+        novo.setSenha(Crypt.sha1(confirm_senha));
         novo.setNome(nome);
         novo.setStatus(true);
         novo.setDataCadastro(new Date());

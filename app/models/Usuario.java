@@ -33,7 +33,7 @@ public class Usuario extends Model {
     private String nome;
 
     @Constraints.Required
-    @Column(nullable = false, unique = true, length = 30)
+    @Column(nullable = false, unique = true, length = 40)
     private String email;
 
     @Column(nullable = false, length = 60)

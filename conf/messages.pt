@@ -1,25 +1,22 @@
 # Titulo do sistema
-app.title=Biblioteca
+app.title=Biblioteca Digital
 
 # Login
-login.form.title=Biblioteca digital
-login.username=Nome do usuário:
+login.form.title=Biblioteca Digital
+login.username=Email:
 login.password=Senha:
-login.remember=Lembre de mim
 login.register=Cadastrar
 login=Login
 login.error=Usuário ou senha inválidos!
-login.error.register=Usuário não encontrado.
 login.success=Usuário autenticado com sucesso.
 
 # Register form
-register.form.title=Biblioteca digital
+register.form.title=Biblioteca Digital
 register.username=Nome completo
 register.email=Email
 register.password=Senha
 register.confirm.password=Confirmação
 register=Cadastrar
-register.error=Usuário já cadastrado.
 register.success=Usuário registado com sucesso.
 
 # Menu
@@ -45,3 +42,6 @@ app.error=Erro interno de sistema
 login.error.found=Usuário não encontrado.
 login.error.field=Por favor, preencha os campos email e senha.
 login.error.confirm=O usuário não foi confirmado! Por favor, acesse seu email!
+register.bad.password=Senhas não conferem.
+login.page.title=Login
+register.page.title=Cadastro

@@ -1,25 +1,22 @@
 # Titulo do sistema
-app.title=bibliothèque
+app.title=Bibliothèque Numérique
 
 # Login
-login.form.title=Bibliothèque numérique
-login.username=Nom d'utilisateur:
+login.form.title=Bibliothèque Numérique
+login.username=Email:
 login.password=Mot de passe:
-login.remember=Souviens-toi de moi
 login.register=Enregistrer
 login=Login
 login.error=Nom d'utilisateur ou mot de passe inconnu.
-login.error.register=Utilisateur non trouvé.
 login.success=Utilisateur authentifié avec succès.
 
 # Register form
-register.form.title=Bibliothèque numérique
+register.form.title=Bibliothèque Numérique
 register.username=Nom complet
 register.email=Email
 register.password=Mot de passe
 register.confirm.password=Confirmation
 register=Registre
-register.error=Utilisateur déjà enregistré.
 register.success=L'utilisateur enregistré avec succès.
 
 # Menu
@@ -45,3 +42,6 @@ app.error=Internal server error
 login.error.found=Utilisateur non trouvé.
 login.error.field=S'il vous plaît compléter avec email et mot de passe.
 login.error.confirm=L'utilisateur n'a pas été confirmée! S'il vous plaît vérifier votre email!
+register.bad.password=Les mots de passe ne correspondent pas.
+login.page.title=Login
+register.page.title=Registre

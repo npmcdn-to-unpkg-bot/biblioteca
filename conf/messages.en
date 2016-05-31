@@ -1,5 +1,5 @@
 # Titulo do sistema
-app.title=Library
+app.title=Digital Library
 app.error=Internal server error
 
 # Menu
@@ -21,9 +21,10 @@ menu.15=Logout
 menu.16=Login
 
 # Login form
+login.page.title=Login
 login.form.title=Digital Library
-login.username=Email
-login.password=Password
+login.username=Email:
+login.password=Password:
 login.register=Register
 login=Login
 login.success=User successfully Authenticated.
@@ -35,14 +36,16 @@ login.error.field=Please complete with email and password.
 login.error.confirm=The user has not been confirmed! Please check your email!
 
 # Register form
+register.page.title=Register
 register.form.title=Digital Library
 register.username=Full name
 register.email=Email
 register.password=Password
 register.confirm.password=Confirmation
 register=Register
+register.success=User successfully registered.
 
 # Register form errors
 register.error.field=Please complete all fields.
 register.error.already.registered=User already registered.
-register.success=User successfully registered.
+register.bad.password=Passwords do not match.

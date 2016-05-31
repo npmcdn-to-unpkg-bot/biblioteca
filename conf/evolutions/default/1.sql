@@ -59,7 +59,7 @@ create table usuario (
   confirmacao_token         varchar(255),
   validado                  boolean,
   nome                      varchar(60) not null,
-  email                     varchar(30) not null,
+  email                     varchar(40) not null,
   senha                     varchar(60) not null,
   privilegio                integer not null,
   status                    boolean not null,
