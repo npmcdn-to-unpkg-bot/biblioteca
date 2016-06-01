@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <p>Olá @usuario.getNome</p>
-    <p>Parece que você acabou de registrar-se na Biblioteca Digital do CIBiogás.
-        Se você o fez, para concluir o processo de registro, basta clicar no link abaixo, ou copie e cole-o no seu navegador.
-    </p>
+    <p>@Messages("app.hello"), @usuario.getNome</p>
+    <p>@Messages("app.send.confirm.email.message")</p>
     <br>
     <p><label>Link:</label> @url</p>
     <br>
-    <p>Atenciosamente,<br>Equipe do Núcleo pedagógico.</p>
+    <p>@Messages("app.best"),<br> @Messages("app.title")</p>
 </body>
 </html>

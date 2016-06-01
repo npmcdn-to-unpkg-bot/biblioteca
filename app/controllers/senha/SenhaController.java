@@ -107,38 +107,42 @@ public class SenhaController extends Controller {
     public Result runReset(String token) throws EmailException {
         Form<DynamicForm.Dynamic> formPreenchido = form.bindFromRequest();
 
-        if (formPreenchido.hasErrors()) {
-            DynamicForm formDeErro = form.fill(formPreenchido.data());
-            formDeErro.reject("O campo senha não pode estar vazio!");
-            return badRequest(views.html.senha.altera.render(formDeErro,token));
-        }
-
         try {
             Token resetToken = Token.findByTokenAndType(token, Token.TypeToken.password);
             if (resetToken == null) {
                 DynamicForm formDeErro = form.fill(formPreenchido.data());
-                formDeErro.reject("O link para atualizar a senha é inválido, por favor verifique e tente novamente.");
+                formDeErro.reject(Messages.get("confirmation.invalid"));
                 return badRequest(views.html.senha.altera.render(formDeErro,token));
             }
 
             if (resetToken.isExpired()) {
                 resetToken.delete();
                 DynamicForm formDeErro = form.fill(formPreenchido.data());
-                formDeErro.reject("O link para atualizar a senha expirou.");
+                formDeErro.reject(Messages.get("reset.token.invalid"));
                 return badRequest(views.html.senha.altera.render(formDeErro,token));
             }
 
             // check email
             Usuario usuario = Ebean.find(Usuario.class, resetToken.usuarioId);
+
             if (usuario == null) {
                 // display no detail (email unknown for example) to
                 // avoir check email by foreigner
                 DynamicForm formDeErro = form.fill(formPreenchido.data());
-                formDeErro.reject("Usuário não encontrado!");
+                formDeErro.reject(Messages.get("password.change.user.error"));
                 return badRequest(views.html.senha.altera.render(formDeErro,token));
             }
 
-            String senha = formPreenchido.data().get("confirm_senha");
+            String senha = formPreenchido.data().get("senha");
+            String confirm_senha = formPreenchido.data().get("confirm_senha");
+
+            //valida se o email e a senha não estejam vazios
+            if (confirm_senha.equals("") || senha.equals("")) {
+                DynamicForm formDeErro = form.fill(formPreenchido.data());
+                formDeErro.reject(Messages.get("password.change.error.field"));
+                return badRequest(views.html.senha.altera.render(formDeErro,token));
+            }
+
             usuario.mudarSenha(senha);
 
             String mensagem = "";
@@ -146,12 +150,12 @@ public class SenhaController extends Controller {
 
             // Send email saying that the password has just been changed.
             enviarEmailConfirmacao(usuario);
-            mensagem = "Senha alterada com sucesso! Você já pode realizar a autenticação.";
+            mensagem = Messages.get("password.change.success");
             tipoMensagem = "Validado";
             return ok(views.html.mensagens.info.reset.render(mensagem,tipoMensagem));
         } catch (Exception e) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
-            formDeErro.reject("Erro interno de sistema.");
+            formDeErro.reject(Messages.get("app.error"));
             Logger.error(e.getMessage());
             return badRequest(views.html.senha.altera.render(formDeErro,token));
         }

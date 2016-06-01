@@ -1,6 +1,12 @@
 # Titulo do sistema
 app.title=Digital Library
 app.error=Internal server error
+app.hello=Hello
+app.welcome.message=Welcome
+app.best=Best regards
+app.send.confirm.email.message=It looks like you just registered in the Digital Library of CIBiogás. If you did, to complete the registration process, simply click the link below, or copy and paste it into your browser.
+app.send.register.email.message=Your account was registered successfully!
+app.send.password.email.change.message=The password was successfully changed!
 
 # Menu
 menu.1=Home
@@ -64,3 +70,7 @@ password.change.page.title=Change password
 password.change=Password
 password.confirm=Confirmation
 password.register=Change
+password.change.email.message=You made a request to change your password in the Digital Library of CIBiogás. Just click the link below, or copy and paste it into your browser.
+password.change.error.field=Please complete with Password and Confirmation.
+password.change.user.error=User not found.
+password.change.success=Password changed successfully! You can now perform authentication.

@@ -11,7 +11,7 @@
             </tr>
             <tr>
                 <td width="32px"></td>
-                <td style="font-family:Roboto-Regular,Helvetica,Arial,sans-serif;font-size:24px;color:#ffffff;line-height:1.25">Bem vindo</td>
+                <td style="font-family:Roboto-Regular,Helvetica,Arial,sans-serif;font-size:24px;color:#ffffff;line-height:1.25">@Messages("app.welcome.message")</td>
                 <td width="32px"></td>
             </tr>
             <tr>
@@ -27,17 +27,17 @@
                 <table style="min-width:300px" border="0" cellspacing="0" cellpadding="0">
                     <tbody>
                         <tr>
-                            <td style="font-family:Roboto-Regular,Helvetica,Arial,sans-serif;font-size:13px;color:#202020;line-height:1.5">Olá @usuario.getNome,</td>
+                            <td style="font-family:Roboto-Regular,Helvetica,Arial,sans-serif;font-size:13px;color:#202020;line-height:1.5">@Messages("app.hello"), @usuario.getNome</td>
                         </tr>
                         <tr>
                             <td style="font-family:Roboto-Regular,Helvetica,Arial,sans-serif;font-size:13px;color:#202020;line-height:1.5">
-                                Sua conta da Biblioteca digital foi cadastrada com sucesso!
+                                @Messages("app.send.register.email.message")
                                 <p>Login: <b>@usuario.getEmail</b></p>
                                 <table border="0" cellspacing="0" cellpadding="0" style="margin-top:48px;margin-bottom:48px">
                                     <tbody>
                                         <tr>
                                             <td style="font-family:Roboto-Regular,Helvetica,Arial,sans-serif;font-size:13px;color:#202020;line-height:1.5">
-                                                Atenciosamente,<br>Equipe do Núcleo pedagógico.
+                                                <p>@Messages("app.best"),<br> @Messages("app.title")</p>
                                             </td>
                                         </tr>
                                     </tbody>
