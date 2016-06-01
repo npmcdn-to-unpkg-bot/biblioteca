@@ -22,12 +22,12 @@ menu.16=Login
 
 # Login form
 login.page.title=Login
-login.form.title=Digital Library
 login.username=Email:
 login.password=Password:
 login.register=Register
 login=Login
-login.success=User successfully Authenticated.
+login.success=User Successfully Authenticated.
+authenticated.page.title=Authenticated
 
 # Login form errors
 login.error=Unknown username or password.
@@ -37,7 +37,6 @@ login.error.confirm=The user has not been confirmed! Please check your email!
 
 # Register form
 register.page.title=Register
-register.form.title=Digital Library
 register.username=Full name
 register.email=Email
 register.password=Password
@@ -45,7 +44,23 @@ register.confirm.password=Confirmation
 register=Register
 register.success=User successfully registered.
 
+confirmation.page.title=Confirmation
+confirmation.success=Your account has been successfully activated!
+confirmation.error=Confirmation Error
+confirmation.already.success=This user account has been confirmed. Just log in.
+confirmation.invalid=Your activation code is invalid!
+
 # Register form errors
 register.error.field=Please complete all fields.
 register.error.already.registered=User already registered.
 register.bad.password=Passwords do not match.
+
+reset.page.title=Reset
+token.null=Token is null
+reset.token.null=The link to update the password is invalid, please check and try again.
+reset.token.invalid=The link to update the password has expired.
+
+password.change.page.title=Change password
+password.change=Password
+password.confirm=Confirmation
+password.register=Change

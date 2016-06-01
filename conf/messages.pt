@@ -2,7 +2,6 @@
 app.title=Biblioteca Digital
 
 # Login
-login.form.title=Biblioteca Digital
 login.username=Email:
 login.password=Senha:
 login.register=Cadastrar
@@ -11,7 +10,6 @@ login.error=Usuário ou senha inválidos!
 login.success=Usuário autenticado com sucesso.
 
 # Register form
-register.form.title=Biblioteca Digital
 register.username=Nome completo
 register.email=Email
 register.password=Senha
@@ -43,5 +41,19 @@ login.error.found=Usuário não encontrado.
 login.error.field=Por favor, preencha os campos email e senha.
 login.error.confirm=O usuário não foi confirmado! Por favor, acesse seu email!
 register.bad.password=Senhas não conferem.
-login.page.title=Login
+login.page.title=Autenticado
 register.page.title=Cadastro
+confirmation.page.title=Confirmação
+confirmation.success=Sua conta foi ativada com sucesso!
+authenticated.page.title=Autenticado
+confirmation.already.success=Esta conta de usuário já foi confirmada. Apenas faça o login.
+confirmation.invalid=Seu código de ativação é inválido!
+reset.page.title=Reset
+confirmation.error=Erro de confirmação.
+token.null=O token esta nulo
+reset.token.null=O link para atualizar a senha é inválido, por favor verifique e tente novamente.
+reset.token.invalid=O link para atualizar a senha expirou.
+password.change.page.title=Trocar senha
+password.change=Alterar
+password.confirm=Confirmação
+password.register=Alterar

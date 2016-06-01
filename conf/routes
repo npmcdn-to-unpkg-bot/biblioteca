@@ -64,7 +64,6 @@ POST    /livro/editar/:id                   controllers.LivroController.editar(i
 GET     /confirma/:confirmaToken            controllers.UsuarioController.confirma(confirmaToken:String)
 
 # Senha
-GET     /reset/confirma                     controllers.senha.SenhaController.resetConfirmaTela()
 POST    /reset/senha                        controllers.senha.SenhaController.runPassword()
 
 # Reseta a senha

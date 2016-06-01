@@ -8,6 +8,7 @@ import org.apache.commons.mail.EmailException;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
+import play.i18n.Messages;
 import play.libs.mailer.Email;
 import play.libs.mailer.MailerClient;
 import play.mvc.Controller;
@@ -35,16 +36,9 @@ public class SenhaController extends Controller {
     }
 
     /**
-     * Display the reset password confirm form.
-     */
-    public Result resetConfirmaTela() {
-        return ok(views.html.senha.confirma.render());
-    }
-
-    /**
      * Send a mail with the reset link.
      *
-     * @return info error page with flash error
+     * @return info error page with flash error, function works with autenticated users
      */
     public Result runPassword() throws EmailException, MalformedURLException {
 
@@ -62,8 +56,8 @@ public class SenhaController extends Controller {
             t.sendMailResetPassword(usuario,mailerClient);
             return ok();
         } catch (MalformedURLException e) {
-            Logger.error("Cannot validate URL", e);
-            mensagem = "Impossível validar a URL";
+            Logger.error("Impossível validar a URL", e);
+            mensagem = "Impossible validated the URL";
             tipoMensagem = "Erro";
         }
         return badRequest(views.html.mensagens.info.reset.render(mensagem,tipoMensagem));
@@ -81,7 +75,7 @@ public class SenhaController extends Controller {
         String tipoMensagem;
 
         if (token == null) {
-            mensagem = "O token é nulo!";
+            mensagem = Messages.get("token.null");
             tipoMensagem = "Erro";
             return badRequest(views.html.mensagens.info.reset.render(mensagem,tipoMensagem));
         }
@@ -89,13 +83,13 @@ public class SenhaController extends Controller {
         Token resetToken = Token.findByTokenAndType(token, Token.TypeToken.password);
 
         if (resetToken == null) {
-            mensagem = "O link para atualizar a senha é inválido, por favor verifique e tente novamente.";
+            mensagem = Messages.get("reset.token.null");
             tipoMensagem = "Erro";
             return badRequest(views.html.mensagens.info.reset.render(mensagem,tipoMensagem));
         }
 
         if (resetToken.isExpired()) {
-            mensagem = "O link para atualizar a senha expirou.";
+            mensagem = Messages.get("reset.token.invalid");
             tipoMensagem = "Invalido";
             return badRequest(views.html.mensagens.info.reset.render(mensagem,tipoMensagem));
         }

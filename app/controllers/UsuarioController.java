@@ -115,40 +115,40 @@ public class UsuarioController extends Controller {
 
         String mensagem;
         String tipoMensagem;
-        String usuarioEmail = "";
+        String usuarioNome = "";
 
         Usuario usuario = buscaPorConfirmacaoToken(token);
 
         if (usuario == null) {
-            mensagem = "Seu código de ativação é inválido ou expirou!";
+            mensagem = Messages.get("confirmation.invalid");
             tipoMensagem = "Invalido";
-            return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
+            return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioNome));
         }
 
         if (usuario.getValidado()) {
-            mensagem = "Esta conta de usuário já foi confirmada!";
+            mensagem = Messages.get("confirmation.already.success");
             tipoMensagem = "Validado";
-            return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
+            return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioNome));
         }
 
         try {
             if (usuario.confirmado(usuario)) {
                 enviarEmailConfirmacao(usuario);
-                mensagem = "Sua conta foi ativada com sucesso!";
+                mensagem = Messages.get("confirmation.success");
                 tipoMensagem = "Sucesso";
-                usuarioEmail = usuario.getEmail();
-                return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
+                usuarioNome = usuario.getNome();
+                return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioNome));
             } else {
-                mensagem = "Erro de confirmação do cadastro do usuário!";
+                mensagem = Messages.get("confirmation.error");
                 tipoMensagem = "Erro";
-                return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
+                return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioNome));
             }
         } catch (Exception e) {
-            mensagem = "Erro interno de sistema";
+            mensagem = Messages.get("app.error");
             tipoMensagem = "Erro";
         }
 
-        return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioEmail));
+        return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioNome));
 
     }
 
