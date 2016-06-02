@@ -201,10 +201,11 @@ public class UsuarioController extends Controller {
         try {
             Ebean.save(novo);
             enviarEmailToken(novo);
+            Logger.info("Criado novo usuário");
         } catch (Exception e) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject(Messages.get("app.error"));
-            Logger.info(e.getMessage());
+            Logger.error(e.getMessage());
             return badRequest(views.html.cadastro.render(formDeErro));
         }
 
