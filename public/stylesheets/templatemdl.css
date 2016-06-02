@@ -79,6 +79,7 @@ html, body {
           align-items: center;
   color: rgba(0, 0, 0, 0.56);
   font-weight: 500;
+    padding: 16px 33px;
 }
 
 .active{
@@ -93,7 +94,7 @@ html, body {
 /* tamanho dos ícones do menu esquerdo e distância*/
 .demo-navigation .mdl-navigation__link .material-icons {
   font-size: 24px;
-  margin-right: 32px;
+  margin-right: 15px;
 }
 
 .demo-content {
@@ -110,4 +111,3 @@ html, body {
     padding-bottom: 24px;
     margin-bottom: 0;
 }
-

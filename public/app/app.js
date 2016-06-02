@@ -37,11 +37,6 @@ angular
                 controller: 'artigo.list.controller',
                 activetab: 'artigos'
             })
-            .when('/artigos/energiasrenovaveis/biogas', {
-                templateUrl: '/assets/app/views/artigos/energiasrenovaveis/biogas.html',
-                controller: 'artigo.controller',
-                activetab: 'artigos'
-            })
             .when('/videos', {
                 templateUrl: '/assets/app/views/videos/list.html',
                 controller: 'video.controller',
@@ -67,10 +62,16 @@ angular
                 controller: 'contato.create.controller',
                 activetab: 'contato'
             })
+            //Inicio das funcoes do menu biogas
+            .when('/biogas/sobre', {
+                templateUrl: '/assets/app/views/biogas/sobre.html',
+                controller: 'sobre.controller',
+                activetab: 'sobre'
+            })
             .otherwise({redirectTo:'/'});
    }).config(function(cfpLoadingBarProvider) {
         // carrega o loading bar
-        // true e o padrao, mas pode deixar false caso nao queria o loading bar
+        // true e o padrao, mas pode deixar false caso nao queira o loading bar
         cfpLoadingBarProvider.includeSpinner = false;
    }).config(function(toastrConfig) {
        //configurações do toastr

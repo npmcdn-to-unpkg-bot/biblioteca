@@ -21,13 +21,17 @@ public class LoginController extends Controller {
     public Result telaLogin() {
         String username = session().get("email");
 
-        //busca o usuário atual que esteja logado no sistema
-        Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
-                .setParameter("email", username)
-                .findUnique();
+        try {
+            //busca o usuário atual que esteja logado no sistema
+            Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
+                    .setParameter("email", username)
+                    .findUnique();
 
-        if (usuarioAtual != null) {
-            return ok(views.html.mensagens.info.autenticado.render(username));
+            if (usuarioAtual != null) {
+                return ok(views.html.mensagens.info.autenticado.render(username));
+            }
+        }catch (Exception e) {
+            return badRequest(views.html.error.render(e.getMessage()));
         }
 
         return ok(views.html.login.render(form));
@@ -80,6 +84,7 @@ public class LoginController extends Controller {
 
         DynamicForm formDeErro = form.fill(requestForm.data());
         formDeErro.reject(Messages.get("login.error"));
+
         return forbidden(views.html.login.render(formDeErro));
     }
 
