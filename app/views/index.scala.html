@@ -59,6 +59,7 @@
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/cartao.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/video.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/tabela.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/IconHoverEffects/css/component.css")">
 </head>
 <body>
 <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
@@ -92,33 +93,33 @@
     <div ng-controller="drawer" class="demo-drawer mdl-layout__drawer examples">
         <header class="demo-drawer-header">
             <div class="site-logo">
-                <img src="assets/images/cibiogas-logo.jpg" width="222" height="88">
+                <img src="assets/images/cibiogas-logo.jpg" width="190" height="79">
             </div>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--white">
-            <a ng-class="{active: $route.current.activetab == 'home'}" class="mdl-navigation__link" href="/#/"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">home</i>@Messages("menu.1")</a>
-            <a ng-class="{active: $route.current.activetab == 'cursos'}" class="mdl-navigation__link" href="/#/cursos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">school</i>@Messages("menu.2")</a>
+            <a ng-class="{active: $route.current.activetab == 'home'}" class="mdl-navigation__link" href="/#/"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">home</i>@Messages("menu.1")</a>
+            <a ng-class="{active: $route.current.activetab == 'cursos'}" class="mdl-navigation__link" href="/#/cursos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">school</i>@Messages("menu.2")</a>
             <div class="separador"></div>
             @if(username){
                 <span class="mdl-navigation__link">@Messages("menu.3")</span>
-                <a ng-class="{active: $route.current.activetab == 'artigos'}" class="mdl-navigation__link" href="/#/artigos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">book</i>@Messages("menu.4")</a>
-                <a ng-class="{active: $route.current.activetab == 'livros'}" class="mdl-navigation__link" href="/#/livros"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">library_books</i>@Messages("menu.5")</a>
-                <a ng-class="{active: $route.current.activetab == 'videos'}" class="mdl-navigation__link" href="/#/videos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">video_library</i>@Messages("menu.6")</a>
-                <a ng-class="{active: $route.current.activetab == 'fotos'}" class="mdl-navigation__link" href="/#/fotos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">photo</i>@Messages("menu.7")</a>
+                <a ng-class="{active: $route.current.activetab == 'artigos'}" class="mdl-navigation__link" href="/#/artigos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">book</i>@Messages("menu.4")</a>
+                <a ng-class="{active: $route.current.activetab == 'livros'}" class="mdl-navigation__link" href="/#/livros"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">library_books</i>@Messages("menu.5")</a>
+                <a ng-class="{active: $route.current.activetab == 'videos'}" class="mdl-navigation__link" href="/#/videos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">video_library</i>@Messages("menu.6")</a>
+                <a ng-class="{active: $route.current.activetab == 'fotos'}" class="mdl-navigation__link" href="/#/fotos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">photo</i>@Messages("menu.7")</a>
                 <div class="separador"></div>
             }
             <span class="mdl-navigation__link">@Messages("menu.biogas.1")</span>
-            <a ng-class="{active: $route.current.activetab == 'sobre'}" class="mdl-navigation__link" href="/#/biogas/sobre"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">ev_station</i>@Messages("menu.biogas.2")</a>
-            <a ng-class="{active: $route.current.activetab == 'casos'}" class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">extension</i>@Messages("menu.biogas.3")</a>
-            <a ng-class="{active: $route.current.activetab == 'ferramentas'}" class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">build</i>@Messages("menu.biogas.4")</a>
-            <a ng-class="{active: $route.current.activetab == 'ped'}" class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">explore</i>@Messages("menu.biogas.5")</a>
-            <a ng-class="{active: $route.current.activetab == 'marcos'}" class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">account_balance</i>@Messages("menu.biogas.6")</a>
-            <a ng-class="{active: $route.current.activetab == 'aspectos'}" class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">monetization_on</i>@Messages("menu.biogas.7")</a>
-            <a ng-class="{active: $route.current.activetab == 'registros'}" class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">map</i>@Messages("menu.biogas.8")</a>
+            <a ng-class="{active: $route.current.activetab == 'sobre'}" class="mdl-navigation__link" href="/#/biogas/sobre"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">ev_station</i>@Messages("menu.biogas.2")</a>
+            <a ng-class="{active: $route.current.activetab == 'casos'}" class="mdl-navigation__link" href=""><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">extension</i>@Messages("menu.biogas.3")</a>
+            <a ng-class="{active: $route.current.activetab == 'ferramentas'}" class="mdl-navigation__link" href=""><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">build</i>@Messages("menu.biogas.4")</a>
+            <a ng-class="{active: $route.current.activetab == 'ped'}" class="mdl-navigation__link" href=""><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">explore</i>@Messages("menu.biogas.5")</a>
+            <a ng-class="{active: $route.current.activetab == 'marcos'}" class="mdl-navigation__link" href=""><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">account_balance</i>@Messages("menu.biogas.6")</a>
+            <a ng-class="{active: $route.current.activetab == 'aspectos'}" class="mdl-navigation__link" href=""><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">monetization_on</i>@Messages("menu.biogas.7")</a>
+            <a ng-class="{active: $route.current.activetab == 'registros'}" class="mdl-navigation__link" href=""><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">map</i>@Messages("menu.biogas.8")</a>
             <div class="separador"></div>
             <span class="mdl-navigation__link">@Messages("menu.8")</span>
-            <a ng-class="{active: $route.current.activetab == 'contato'}" class="mdl-navigation__link" href="/#/contato"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">contact_mail</i>@Messages("menu.9")</a>
-            <a ng-class="{active: $route.current.activetab == 'direitos'}" class="mdl-navigation__link" href="/#/direitos"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">copyright</i>@Messages("menu.10")</a>
+            <a ng-class="{active: $route.current.activetab == 'contato'}" class="mdl-navigation__link" href="/#/contato"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">contact_mail</i>@Messages("menu.9")</a>
+            <a ng-class="{active: $route.current.activetab == 'direitos'}" class="mdl-navigation__link" href="/#/direitos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">copyright</i>@Messages("menu.10")</a>
             @if(username){
                 @if(privilegio == 1){
                     <div class="separador"></div>

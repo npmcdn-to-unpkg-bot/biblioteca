@@ -1,5 +1,6 @@
 .site-logo {
-    max-height:81px;
+    display: block;
+    margin: 0 auto;
 }
 
 .site-a {
@@ -20,7 +21,11 @@
 }
 
 .mdl-color--deep-orange-cibiogas {
-  background-color: rgb(245, 134, 52) !important;
+    background-color: rgb(245, 134, 52) !important;
+}
+
+.mdl-color--deep-orange-cibiogas-text {
+    color: rgb(245, 134, 52) !important;
 }
 
 #loading-bar .bar {

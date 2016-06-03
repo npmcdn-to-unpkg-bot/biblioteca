@@ -4,6 +4,7 @@ import akka.util.Crypt;
 import com.avaje.ebean.Ebean;
 import models.Usuario;
 import models.Usuarios;
+import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.i18n.Messages;
@@ -31,6 +32,7 @@ public class LoginController extends Controller {
                 return ok(views.html.mensagens.info.autenticado.render(username));
             }
         }catch (Exception e) {
+            Logger.error(e.getMessage());
             return badRequest(views.html.error.render(e.getMessage()));
         }
 
