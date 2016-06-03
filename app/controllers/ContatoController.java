@@ -7,6 +7,7 @@ import models.Contato;
 import models.Usuario;
 import org.apache.commons.mail.EmailException;
 import play.Logger;
+import play.i18n.Messages;
 import play.libs.Json;
 import play.libs.mailer.Email;
 import play.libs.mailer.MailerClient;
@@ -14,6 +15,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
@@ -26,15 +28,19 @@ public class ContatoController extends Controller {
     /**
      * @return a object user authenticated
      */
+    @Nullable
     private Usuario atual() {
         String username = session().get("email");
 
-        //busca o usuário atual que esteja logado no sistema
-        Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
-                .setParameter("email", username)
-                .findUnique();
-
-        return usuarioAtual;
+        try {
+            //retorna o usuário atual que esteja logado no sistema
+            return Ebean.createQuery(Usuario.class, "find usuario where email = :email")
+                    .setParameter("email", username)
+                    .findUnique();
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return null;
+        }
     }
 
     /**
@@ -44,19 +50,21 @@ public class ContatoController extends Controller {
      */
     public Result inserir() {
 
-        Contato contato = Json.fromJson(request().body().asJson(), Contato.class);
-
-        contato.setDataCadastro(new Date());
-
         try {
+            Contato contato = Json.fromJson(request().body().asJson(), Contato.class);
+
+            contato.setDataCadastro(new Date());
+
             Ebean.save(contato);
+
             enviarEmail(contato);
+
+            return created(Json.toJson(contato));
         } catch (Exception e) {
             Logger.error(e.getMessage());
-            return badRequest("Erro interno de sistema");
+            return badRequest(Messages.get("app.error"));
         }
 
-        return created(Json.toJson(contato));
     }
 
     /**
@@ -79,7 +87,13 @@ public class ContatoController extends Controller {
             return badRequest("Você não tem privilégios de Administrador");
         }
 
-        return ok(Json.toJson(Ebean.find(Contato.class).findList()));
+        try {
+            return ok(Json.toJson(Ebean.find(Contato.class).findList()));
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest(views.html.error.render(e.getMessage()));
+        }
+
     }
 
     /**
@@ -102,12 +116,18 @@ public class ContatoController extends Controller {
             return badRequest("Você não tem privilégios de Administrador.");
         }
 
-        Query<Contato> query = Ebean.createQuery(Contato.class, "find contato where (email like :email or nome like :nomeContato)");
-        query.setParameter("email", "%" + filtro + "%");
-        query.setParameter("nomeContato", "%" + filtro + "%");
-        List<Contato> filtroDeContatos = query.findList();
+        try {
+            Query<Contato> query = Ebean.createQuery(Contato.class, "find contato where (email like :email or nome like :nomeContato)");
+            query.setParameter("email", "%" + filtro + "%");
+            query.setParameter("nomeContato", "%" + filtro + "%");
+            List<Contato> filtroDeContatos = query.findList();
 
-        return ok(Json.toJson(filtroDeContatos));
+            return ok(Json.toJson(filtroDeContatos));
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest(views.html.error.render(e.getMessage()));
+        }
+
     }
 
     /**
@@ -125,14 +145,20 @@ public class ContatoController extends Controller {
             return notFound("Usuario não autenticado");
         }
 
-        //busca o contato
-        Contato contato = Ebean.find(Contato.class, id);
+        try {
+            //busca o contato
+            Contato contato = Ebean.find(Contato.class, id);
 
-        if (contato == null) {
-            return notFound("Contato não encontrado");
+            if (contato == null) {
+                return notFound("Contato não encontrado");
+            }
+
+            return ok(Json.toJson(contato));
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest(views.html.error.render(e.getMessage()));
         }
 
-        return ok(Json.toJson(contato));
     }
 
     /**
@@ -155,21 +181,21 @@ public class ContatoController extends Controller {
             return badRequest("Você não tem privilégios de Administrador");
         }
 
-        //busca o contato para ser excluido
-        Contato contato = Ebean.find(Contato.class, id);
-
-        if (contato == null) {
-            return notFound("Contato não encontrado");
-        }
-
         try {
+            //busca o contato para ser excluido
+            Contato contato = Ebean.find(Contato.class, id);
+
+            if (contato == null) {
+                return notFound("Contato não encontrado");
+            }
+
             Ebean.delete(contato);
+            return ok(Json.toJson(contato));
         }  catch (Exception e) {
             Logger.info(e.getMessage());
-            return badRequest("Erro interno de sistema.");
+            return badRequest(views.html.error.render(e.getMessage()));
         }
 
-        return ok(Json.toJson(contato));
     }
 
     /**

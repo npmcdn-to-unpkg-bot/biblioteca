@@ -7,6 +7,7 @@ import models.Usuario;
 import play.Logger;
 import play.Play;
 import play.data.Form;
+import play.i18n.Messages;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
@@ -14,6 +15,7 @@ import play.mvc.Result;
 import play.mvc.Security;
 import views.validators.LivroFormData;
 
+import javax.annotation.Nullable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -28,15 +30,19 @@ public class LivroController extends Controller {
     /**
      * @return a object user authenticated
      */
+    @Nullable
     private Usuario atual() {
         String username = session().get("email");
 
-        //busca o usuário atual que esteja logado no sistema
-        Usuario usuarioAtual = Ebean.createQuery(Usuario.class, "find usuario where email = :email")
-                .setParameter("email", username)
-                .findUnique();
-
-        return usuarioAtual;
+        try {
+            //retorna o usuário atual que esteja logado no sistema
+            return Ebean.createQuery(Usuario.class, "find usuario where email = :email")
+                    .setParameter("email", username)
+                    .findUnique();
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return null;
+        }
     }
 
     /**
@@ -45,6 +51,10 @@ public class LivroController extends Controller {
     public Result telaNovo() {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
+
+        if (usuarioAtual == null) {
+            return notFound(views.html.mensagens.erro.naoEncontrado.render("Usuário não encontrado"));
+        }
 
         //verificar se o usuario atual encontrado é administrador
         if (usuarioAtual.getPrivilegio() != 1) {
@@ -66,13 +76,23 @@ public class LivroController extends Controller {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
 
+        if (usuarioAtual == null) {
+            return notFound(views.html.mensagens.erro.naoEncontrado.render("Usuário não encontrado"));
+        }
+
         //verificar se o usuario atual encontrado é administrador
         if (usuarioAtual.getPrivilegio() != 1) {
             return badRequest(views.html.mensagens.erro.naoAutorizado.render());
         }
 
-        List<Livro> livro = Ebean.find(Livro.class).findList();
-        return ok(views.html.admin.livros.list.render(livro,""));
+        try {
+            List<Livro> livro = Ebean.find(Livro.class).findList();
+            return ok(views.html.admin.livros.list.render(livro,""));
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest(views.html.error.render(e.getMessage()));
+        }
+
     }
 
     /**
@@ -83,18 +103,28 @@ public class LivroController extends Controller {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
 
+        if (usuarioAtual == null) {
+            return notFound(views.html.mensagens.erro.naoEncontrado.render("Usuário não encontrado"));
+        }
+
         //verificar se o usuario atual encontrado é administrador
         if (usuarioAtual.getPrivilegio() != 1) {
             return badRequest(views.html.mensagens.erro.naoAutorizado.render());
         }
 
-        Livro livro = Ebean.find(Livro.class, id);
+        try {
+            Livro livro = Ebean.find(Livro.class, id);
 
-        if (livro == null) {
-            return notFound(views.html.mensagens.erro.naoEncontrado.render("Livro não encontrado"));
+            if (livro == null) {
+                return notFound(views.html.mensagens.erro.naoEncontrado.render("Livro não encontrado"));
+            }
+
+            return ok(views.html.admin.livros.detail.render(livro));
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest(views.html.error.render(e.getMessage()));
         }
 
-        return ok(views.html.admin.livros.detail.render(livro));
     }
 
     /**
@@ -102,8 +132,8 @@ public class LivroController extends Controller {
      */
     public Result telaEditar(Long id) {
 
-        String mensagem = "";
-        String tipoMensagem = "";
+        String mensagem;
+        String tipoMensagem;
 
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -130,8 +160,9 @@ public class LivroController extends Controller {
         } catch (Exception e) {
             mensagem = "Erro interno de sistema";
             tipoMensagem = "Erro";
+            Logger.error(e.getMessage());
+            return badRequest(views.html.mensagens.livro.mensagens.render(mensagem,tipoMensagem));
         }
-        return badRequest(views.html.mensagens.livro.mensagens.render(mensagem,tipoMensagem));
 
     }
 
@@ -164,53 +195,54 @@ public class LivroController extends Controller {
             return badRequest(views.html.admin.livros.create.render(formData));
         }
         else {
-            //Converte os dados do formularios para uma instancia do Livro
-            Livro livro = Livro.makeInstance(formData.get());
+            try {
+                //Converte os dados do formularios para uma instancia do Livro
+                Livro livro = Livro.makeInstance(formData.get());
 
-            //faz uma busca na base de dados do livro
-            Livro livroBusca = Ebean.find(Livro.class).where().eq("isbn", formData.data().get("isbn")).findUnique();
+                //faz uma busca na base de dados do livro
+                Livro livroBusca = Ebean.find(Livro.class).where().eq("isbn", formData.data().get("isbn")).findUnique();
 
-            if (livroBusca != null) {
-                formData.reject("O Livro '" + livroBusca.getTitulo() + "' já esta Cadastrado!");
-                return badRequest(views.html.admin.livros.create.render(formData));
-            }
-
-            Http.MultipartFormData body = request().body().asMultipartFormData();
-            Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
-
-            String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
-
-            if (arquivo != null) {
-                String arquivoTitulo = form().bindFromRequest().get("titulo");
-                String pdf = arquivoTitulo + extensaoPadraoDePdfs;
-                String tipoDeConteudo = arquivo.getContentType();
-                File file = arquivo.getFile();
-                String diretorioDePdfsLivros = Play.application().configuration().getString("diretorioDePdfsLivros");
-                String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
-
-                if (tipoDeConteudo.equals(contentTypePadraoDePdfs)) {
-                    file.renameTo(new File(diretorioDePdfsLivros,pdf));
-                } else {
-                    formData.reject("Apenas arquivos em formato PDF é aceito");
+                if (livroBusca != null) {
+                    formData.reject("O Livro '" + livroBusca.getTitulo() + "' já esta Cadastrado!");
                     return badRequest(views.html.admin.livros.create.render(formData));
                 }
-            } else {
-                formData.reject("Selecione um arquivo no formato PDF");
-                return badRequest(views.html.admin.livros.create.render(formData));
-            }
 
-            livro.setDataCadastro(new Date());
+                Http.MultipartFormData body = request().body().asMultipartFormData();
+                Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
 
-            try {
+                String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
+
+                if (arquivo != null) {
+                    String arquivoTitulo = form().bindFromRequest().get("titulo");
+                    String pdf = arquivoTitulo + extensaoPadraoDePdfs;
+                    String tipoDeConteudo = arquivo.getContentType();
+                    File file = arquivo.getFile();
+                    String diretorioDePdfsLivros = Play.application().configuration().getString("diretorioDePdfsLivros");
+                    String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
+
+                    if (tipoDeConteudo.equals(contentTypePadraoDePdfs)) {
+                        file.renameTo(new File(diretorioDePdfsLivros,pdf));
+                    } else {
+                        formData.reject("Apenas arquivos em formato PDF é aceito");
+                        return badRequest(views.html.admin.livros.create.render(formData));
+                    }
+                } else {
+                    formData.reject("Selecione um arquivo no formato PDF");
+                    return badRequest(views.html.admin.livros.create.render(formData));
+                }
+
+                livro.setDataCadastro(new Date());
                 livro.save();
                 return created(views.html.mensagens.livro.cadastrado.render(livro.getTitulo()));
             } catch (Exception e) {
-                Logger.error(e.toString());
+                Logger.error(e.getMessage());
+                formData.reject("Não foi possível cadastrar, erro interno de sistema.");
+                return badRequest(views.html.admin.livros.create.render(formData));
+
             }
 
-            formData.reject("Não foi possível cadastrar, erro interno de sistema.");
-            return badRequest(views.html.admin.livros.create.render(formData));
         }
+
     }
 
     /**
@@ -245,46 +277,46 @@ public class LivroController extends Controller {
         if (formData.hasErrors()) {
             return badRequest(views.html.admin.livros.edit.render(id,formData));
         } else {
-            Livro livroBusca = Ebean.find(Livro.class, id);
+            try {
+                Livro livroBusca = Ebean.find(Livro.class, id);
 
-            if (livroBusca == null) {
-                return notFound(views.html.mensagens.erro.naoEncontrado.render("Livro não encontrado"));
-            }
+                if (livroBusca == null) {
+                    return notFound(views.html.mensagens.erro.naoEncontrado.render("Livro não encontrado"));
+                }
 
-            //Converte os dados do formularios para uma instancia do Livro
-            Livro livro = Livro.makeInstance(formData.get());
+                //Converte os dados do formularios para uma instancia do Livro
+                Livro livro = Livro.makeInstance(formData.get());
 
-            Http.MultipartFormData body = request().body().asMultipartFormData();
-            Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
+                Http.MultipartFormData body = request().body().asMultipartFormData();
+                Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
 
-            String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
+                String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
 
-            if (arquivo != null) {
-                String arquivoTitulo = form().bindFromRequest().get("titulo");
-                String pdf = arquivoTitulo + extensaoPadraoDePdfs;
-                String tipoDeConteudo = arquivo.getContentType();
-                File file = arquivo.getFile();
-                String diretorioDePdfsLivros = Play.application().configuration().getString("diretorioDePdfsLivros");
-                String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
+                if (arquivo != null) {
+                    String arquivoTitulo = form().bindFromRequest().get("titulo");
+                    String pdf = arquivoTitulo + extensaoPadraoDePdfs;
+                    String tipoDeConteudo = arquivo.getContentType();
+                    File file = arquivo.getFile();
+                    String diretorioDePdfsLivros = Play.application().configuration().getString("diretorioDePdfsLivros");
+                    String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
 
-                //necessario para excluir o livro antigo
-                File pdfAntigo = new File(diretorioDePdfsLivros,livroBusca.getTitulo()+extensaoPadraoDePdfs);
+                    //necessario para excluir o livro antigo
+                    File pdfAntigo = new File(diretorioDePdfsLivros,livroBusca.getTitulo()+extensaoPadraoDePdfs);
 
-                //exclui o artigo antigo
-                pdfAntigo.delete();
+                    //exclui o artigo antigo
+                    pdfAntigo.delete();
 
-                if (tipoDeConteudo.equals(contentTypePadraoDePdfs)) {
-                    file.renameTo(new File(diretorioDePdfsLivros,pdf));
+                    if (tipoDeConteudo.equals(contentTypePadraoDePdfs)) {
+                        file.renameTo(new File(diretorioDePdfsLivros,pdf));
+                    } else {
+                        formData.reject("Apenas arquivos em formato PDF é aceito");
+                        return badRequest(views.html.admin.livros.create.render(formData));
+                    }
                 } else {
-                    formData.reject("Apenas arquivos em formato PDF é aceito");
+                    formData.reject("Selecione um arquivo no formato PDF");
                     return badRequest(views.html.admin.livros.create.render(formData));
                 }
-            } else {
-                formData.reject("Selecione um arquivo no formato PDF");
-                return badRequest(views.html.admin.livros.create.render(formData));
-            }
 
-            try {
                 livro.setId(id);
                 livro.setDataAlteracao(new Date());
                 livro.update();
@@ -294,7 +326,7 @@ public class LivroController extends Controller {
             } catch (Exception e) {
                 tipoMensagem = "Erro";
                 mensagem = "Erro Interno de sistema.";
-                Logger.error(e.toString());
+                Logger.error(e.getMessage());
             }
 
             return badRequest(views.html.mensagens.livro.mensagens.render(mensagem,tipoMensagem));
@@ -309,14 +341,11 @@ public class LivroController extends Controller {
      */
     public Result remover(Long id) {
 
-        String mensagem = "";
-        String tipoMensagem = "";
+        String mensagem;
+        String tipoMensagem;
 
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
-
-        String diretorioDePdfsLivros = Play.application().configuration().getString("diretorioDePdfsLivros");
-        String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
 
         if (usuarioAtual == null) {
             mensagem = "Usuario não autenticado";
@@ -331,16 +360,19 @@ public class LivroController extends Controller {
             return badRequest(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
         }
 
-        //busca o artigo para ser excluido
-        Livro livro = Ebean.find(Livro.class, id);
-
-        if (livro == null) {
-            return notFound(views.html.mensagens.erro.naoEncontrado.render("Livro não encontrado"));
-        }
-
-        File pdf = new File(diretorioDePdfsLivros,livro.getTitulo()+extensaoPadraoDePdfs);
-
         try {
+            //busca o artigo para ser excluido
+            Livro livro = Ebean.find(Livro.class, id);
+
+            if (livro == null) {
+                return notFound(views.html.mensagens.erro.naoEncontrado.render("Livro não encontrado"));
+            }
+
+            String diretorioDePdfsLivros = Play.application().configuration().getString("diretorioDePdfsLivros");
+            String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
+
+            File pdf = new File(diretorioDePdfsLivros,livro.getTitulo()+extensaoPadraoDePdfs);
+
             Ebean.delete(livro);
             pdf.delete();
             mensagem = "Livro excluído com sucesso";
@@ -348,6 +380,7 @@ public class LivroController extends Controller {
         } catch (Exception e) {
             mensagem = "Erro interno de sistema";
             tipoMensagem = "Erro";
+            Logger.error(e.getMessage());
             return badRequest(views.html.mensagens.livro.mensagens.render(mensagem,tipoMensagem));
         }
 
@@ -360,7 +393,13 @@ public class LivroController extends Controller {
      * @return a list of all livros in json
      */
     public Result buscaTodos() {
-        return ok(Json.toJson(Ebean.find(Livro.class).findList()));
+        try {
+            return ok(Json.toJson(Ebean.find(Livro.class).findList()));
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest(Json.toJson(Messages.get("error.app")));
+        }
+
     }
 
     /**
@@ -374,14 +413,17 @@ public class LivroController extends Controller {
         String diretorioDePdfsLivros = Play.application().configuration().getString("diretorioDePdfsLivros");
         String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
 
-        File pdf = new File(diretorioDePdfsLivros,titulo+extensaoPadraoDePdfs);
-
         try {
+
+            File pdf = new File(diretorioDePdfsLivros,titulo+extensaoPadraoDePdfs);
+
             return ok(new FileInputStream(pdf));
         } catch (FileNotFoundException e) {
+            Logger.error(e.getMessage());
             return notFound(views.html.mensagens.erro.naoEncontrado.render(titulo+extensaoPadraoDePdfs+" não foi encontrado"));
         } catch (Exception e) {
-            return badRequest("Erro interno de sistema.");
+            Logger.error(e.getMessage());
+            return badRequest(Json.toJson(Messages.get("app.error")));
         }
 
     }

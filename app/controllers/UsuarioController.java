@@ -18,6 +18,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -39,13 +40,19 @@ public class UsuarioController extends Controller {
     /**
      * @return a object user authenticated
      */
+    @Nullable
     private Usuario atual() {
         String username = session().get("email");
 
-        //retorna o usuário atual que esteja logado no sistema
-        return Ebean.createQuery(Usuario.class, "find usuario where email = :email")
-                .setParameter("email", username)
-                .findUnique();
+        try {
+            //retorna o usuário atual que esteja logado no sistema
+            return Ebean.createQuery(Usuario.class, "find usuario where email = :email")
+                    .setParameter("email", username)
+                    .findUnique();
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return null;
+        }
     }
 
     /**
@@ -54,10 +61,17 @@ public class UsuarioController extends Controller {
      * @param token the confirmation token to use.
      * @return a user if the confirmation token is found, null otherwise.
      */
+    @Nullable
     private Usuario buscaPorConfirmacaoToken(String token) {
-        Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where (confirmacao_token = :confirmacao_token)");
-        query.setParameter("confirmacao_token", token);
-        return query.findUnique();
+        try {
+            Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where (confirmacao_token = :confirmacao_token)");
+            query.setParameter("confirmacao_token", token);
+            return query.findUnique();
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return null;
+        }
+
     }
 
     /**
@@ -93,6 +107,7 @@ public class UsuarioController extends Controller {
      */
     private void enviarEmailConfirmacao(Usuario usuario) throws EmailException {
         String emailBody = views.html.email.emailBody.render(usuario).body();
+
         try {
             Email emailUser = new Email()
                     .setSubject("Biblioteca Digital CIBiogás - Bem vindo")
@@ -146,6 +161,7 @@ public class UsuarioController extends Controller {
         } catch (Exception e) {
             mensagem = Messages.get("app.error");
             tipoMensagem = "Erro";
+            Logger.error(e.getMessage());
         }
 
         return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioNome));
@@ -201,7 +217,6 @@ public class UsuarioController extends Controller {
         try {
             Ebean.save(novo);
             enviarEmailToken(novo);
-            Logger.info("Criado novo usuário");
         } catch (Exception e) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject(Messages.get("app.error"));
@@ -234,13 +249,19 @@ public class UsuarioController extends Controller {
      */
     @Security.Authenticated(Secured.class)
     public Result telaDetalhe(Long id) {
-        Usuario usuario = Ebean.find(Usuario.class, id);
+        try {
+            Usuario usuario = Ebean.find(Usuario.class, id);
 
-        if (usuario == null) {
-            return notFound(views.html.mensagens.erro.naoEncontrado.render("Usuário não encontrado"));
+            if (usuario == null) {
+                return notFound(views.html.mensagens.erro.naoEncontrado.render("Usuário não encontrado"));
+            }
+
+            return ok(views.html.admin.usuarios.detail.render(usuario));
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest(views.html.error.render(e.getMessage()));
         }
 
-        return ok(views.html.admin.usuarios.detail.render(usuario));
     }
 
     /**
@@ -279,11 +300,16 @@ public class UsuarioController extends Controller {
             return badRequest(views.html.mensagens.erro.naoAutorizado.render());
         }
 
-        //busca todos os usuários menos o usuário padrão do sistema
-        Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where (email != 'admin')");
-        List<Usuario> filtroDeUsuarios = query.findList();
+        try {
+            //busca todos os usuários menos o usuário padrão do sistema
+            Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where (email != 'admin')");
+            List<Usuario> filtroDeUsuarios = query.findList();
+            return ok(views.html.admin.usuarios.list.render(filtroDeUsuarios,""));
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest(views.html.error.render(e.getMessage()));
+        }
 
-        return ok(views.html.admin.usuarios.list.render(filtroDeUsuarios,""));
     }
 
     /**
@@ -318,22 +344,28 @@ public class UsuarioController extends Controller {
             return notFound("Usuario não autenticado");
         }
 
-        //busca o usuário para excluir
-        Usuario usuario = Ebean.find(Usuario.class, id);
+        try {
+            //busca o usuário
+            Usuario usuario = Ebean.find(Usuario.class, id);
 
-        if (usuario == null) {
-            return notFound("Usuário não encontrado");
+            if (usuario == null) {
+                return notFound("Usuário não encontrado");
+            }
+
+            /**
+             * @return badrequest if user authenticated email and user not a administrator. Special case
+             * verifica se o email do usuario logado no sistema é o mesmo do buscado e se ele e administrador
+             */
+            if (!usuarioAtual.getEmail().equals(usuario.getEmail()) && (usuarioAtual.getPrivilegio() != 1)) {
+                return badRequest("Não é possível realizar esta operação");
+            }
+
+            return ok(Json.toJson(usuario));
+
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest(views.html.error.render(e.getMessage()));
         }
-
-        /**
-         * @return badrequest if user authenticated email and user not a administrator. Special case
-         * verifica se o email do usuario logado no sistema é o mesmo do buscado e se ele e administrador
-         */
-        if (!usuarioAtual.getEmail().equals(usuario.getEmail()) && (usuarioAtual.getPrivilegio() != 1)) {
-            return badRequest("Não é possível realizar esta operação");
-        }
-
-        return ok(Json.toJson(usuario));
     }
 
     /**
@@ -345,10 +377,10 @@ public class UsuarioController extends Controller {
     @Security.Authenticated(Secured.class)
     public Result remover(Long id) {
 
-        String mensagem = "";
-        String tipoMensagem = "";
+        String mensagem;
+        String tipoMensagem;
 
-        //busca o usuário atual que esteja logado no sistema
+        //busca o usuario atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
 
         if (usuarioAtual == null) {
@@ -364,34 +396,35 @@ public class UsuarioController extends Controller {
             return badRequest(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
         }
 
-        //verificar se o usuario atual encontrado é administrador
+        //verificar se o usuario atual encontrado e administrador
         if (usuarioAtual.getPrivilegio() != 1) {
             mensagem = "Você não tem privilégios de Administrador";
             tipoMensagem = "Erro";
             return badRequest(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
         }
 
-        //busca o usuario para ser excluido
-        Usuario usuario = Ebean.find(Usuario.class, id);
-
-        if (usuario == null) {
-            return notFound(views.html.mensagens.erro.naoEncontrado.render("Usuário não encontrado"));
-        }
-
-        //caso o usuario administrador quere excluir outro administrador enquanto estiver autenticado
-        if (usuarioAtual.getEmail().equals(usuario.getEmail())) {
-            mensagem = "Não excluir seu próprio usuário enquanto ele estiver autenticado.";
-            tipoMensagem = "Erro";
-            return badRequest(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
-        }
-
         try {
+            //busca o usuario para ser excluido
+            Usuario usuario = Ebean.find(Usuario.class, id);
+
+            if (usuario == null) {
+                return notFound(views.html.mensagens.erro.naoEncontrado.render("Usuário não encontrado"));
+            }
+
+            //caso o usuario administrador quer excluir outro administrador enquanto estiver autenticado
+            if (usuarioAtual.getEmail().equals(usuario.getEmail())) {
+                mensagem = "Não excluir seu próprio usuário enquanto ele estiver autenticado.";
+                tipoMensagem = "Erro";
+                return badRequest(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
+            }
+
             Ebean.delete(usuario);
             mensagem = "Usuário excluído com sucesso";
             tipoMensagem = "Sucesso";
         }  catch (Exception e) {
             mensagem = "Erro interno de sistema";
             tipoMensagem = "Erro";
+            Logger.error(e.getMessage());
             return badRequest(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
         }
 
@@ -418,15 +451,21 @@ public class UsuarioController extends Controller {
             return badRequest("Você não tem privilégios de Administrador.");
         }
 
-        Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where (email like :email or nome like :nomeUsuario)");
-        query.setParameter("email", "%" + filtro + "%");
-        query.setParameter("nomeUsuario", "%" + filtro + "%");
-        List<Usuario> filtroDeUsuarios = query.findList();
+        try {
+            Query<Usuario> query = Ebean.createQuery(Usuario.class, "find usuario where (email like :email or nome like :nomeUsuario)");
+            query.setParameter("email", "%" + filtro + "%");
+            query.setParameter("nomeUsuario", "%" + filtro + "%");
+            List<Usuario> filtroDeUsuarios = query.findList();
 
-        //remove o usuario logado da lista dos filtrados
-        filtroDeUsuarios.remove(usuarioAtual);
+            //remove o usuario logado da lista dos filtrados
+            filtroDeUsuarios.remove(usuarioAtual);
 
-        return ok(Json.toJson(filtroDeUsuarios));
+            return ok(Json.toJson(filtroDeUsuarios));
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return badRequest(views.html.error.render(e.getMessage()));
+        }
+
     }
 
     /**
@@ -438,22 +477,23 @@ public class UsuarioController extends Controller {
     @Security.Authenticated(Secured.class)
     public Result editar(Long id) {
 
-        String mensagem = "";
-        String tipoMensagem = "";
-
-        Usuario usuarioBusca = Ebean.find(Usuario.class, id);
-
-        if (usuarioBusca == null) {
-            return notFound(views.html.mensagens.erro.naoEncontrado.render("Usuário não encontrado"));
-        }
-
-        Form<Usuario> form = usuarioForm.fill(Usuario.find.byId(id)).bindFromRequest();
+        String mensagem;
+        String tipoMensagem;
 
         try {
+
+            Usuario usuarioBusca = Ebean.find(Usuario.class, id);
+
+            if (usuarioBusca == null) {
+                return notFound(views.html.mensagens.erro.naoEncontrado.render("Usuário não encontrado"));
+            }
+
+            Form<Usuario> form = usuarioForm.fill(Usuario.find.byId(id)).bindFromRequest();
+
             Usuario usuario = form.get();
 
-            if (usuarioBusca.getValidado() == true) {
-                //precisa setar o id, pois por algum motivo ele se perde no formulário deve ser por ser de um form dinamico
+            if (usuarioBusca.getValidado()) {
+                //precisa setar o id, pois por algum motivo ele se perde no formulário acredito que deva ser por causa do form dinamico
                 usuario.setId(id);
                 usuario.setValidado(true);
             }
@@ -466,10 +506,12 @@ public class UsuarioController extends Controller {
             mensagem = "Usuário atualizado com sucesso.";
         } catch (IllegalStateException e) {
             usuarioForm.reject("Os campos nome ou email não podem estar vazios!");
+            Logger.error(e.getMessage());
             return badRequest(views.html.admin.usuarios.edit.render(id,usuarioForm));
         } catch (Exception e) {
             tipoMensagem = "Erro";
             mensagem = "Erro Interno de sistema.";
+            Logger.error(e.getMessage());
             return badRequest(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
         }
 
