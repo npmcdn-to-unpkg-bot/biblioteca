@@ -109,12 +109,12 @@
             }
             <span class="mdl-navigation__link">@Messages("menu.biogas.1")</span>
             <a ng-class="{active: $route.current.activetab == 'sobre'}" class="mdl-navigation__link" href="/#/biogas/sobre"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">ev_station</i>@Messages("menu.biogas.2")</a>
-            <a ng-class="{active: $route.current.activetab == 'casos'}" class="mdl-navigation__link" href=""><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">extension</i>@Messages("menu.biogas.3")</a>
-            <a ng-class="{active: $route.current.activetab == 'ferramentas'}" class="mdl-navigation__link" href=""><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">build</i>@Messages("menu.biogas.4")</a>
-            <a ng-class="{active: $route.current.activetab == 'ped'}" class="mdl-navigation__link" href=""><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">explore</i>@Messages("menu.biogas.5")</a>
-            <a ng-class="{active: $route.current.activetab == 'marcos'}" class="mdl-navigation__link" href=""><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">account_balance</i>@Messages("menu.biogas.6")</a>
-            <a ng-class="{active: $route.current.activetab == 'aspectos'}" class="mdl-navigation__link" href=""><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">monetization_on</i>@Messages("menu.biogas.7")</a>
-            <a ng-class="{active: $route.current.activetab == 'registros'}" class="mdl-navigation__link" href=""><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">map</i>@Messages("menu.biogas.8")</a>
+            <a ng-class="{active: $route.current.activetab == 'casos'}" class="mdl-navigation__link" href="/#/casos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">extension</i>@Messages("menu.biogas.3")</a>
+            <a ng-class="{active: $route.current.activetab == 'ferramentas'}" class="mdl-navigation__link" href="/#/ferramentas"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">build</i>@Messages("menu.biogas.4")</a>
+            <a ng-class="{active: $route.current.activetab == 'ped'}" class="mdl-navigation__link" href="/#/ped"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">explore</i>@Messages("menu.biogas.5")</a>
+            <a ng-class="{active: $route.current.activetab == 'marcos'}" class="mdl-navigation__link" href="/#/marcos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">account_balance</i>@Messages("menu.biogas.6")</a>
+            <a ng-class="{active: $route.current.activetab == 'aspectos'}" class="mdl-navigation__link" href="/#/aspectos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">monetization_on</i>@Messages("menu.biogas.7")</a>
+            <a ng-class="{active: $route.current.activetab == 'registros'}" class="mdl-navigation__link" href="/#/registros"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">map</i>@Messages("menu.biogas.8")</a>
             <div class="separador"></div>
             <span class="mdl-navigation__link">@Messages("menu.8")</span>
             <a ng-class="{active: $route.current.activetab == 'contato'}" class="mdl-navigation__link" href="/#/contato"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">contact_mail</i>@Messages("menu.9")</a>
@@ -169,6 +169,11 @@
 
     @*Inicio das funcionalidades biogas*@
 <script src="@routes.Assets.versioned("app/controllers/sobre.controller.js")" type="text/javascript"></script>
-
+<script src="@routes.Assets.versioned("app/controllers/casos.controller.js")" type="text/javascript"></script>
+<script src="@routes.Assets.versioned("app/controllers/ferramentas.controller.js")" type="text/javascript"></script>
+<script src="@routes.Assets.versioned("app/controllers/ped.controller.js")" type="text/javascript"></script>
+<script src="@routes.Assets.versioned("app/controllers/marcos.controller.js")" type="text/javascript"></script>
+<script src="@routes.Assets.versioned("app/controllers/aspectos.controller.js")" type="text/javascript"></script>
+<script src="@routes.Assets.versioned("app/controllers/registros.controller.js")" type="text/javascript"></script>
 </body>
 </html>

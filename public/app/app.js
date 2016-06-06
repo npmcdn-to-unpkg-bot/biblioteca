@@ -68,6 +68,36 @@ angular
                 controller: 'sobre.controller',
                 activetab: 'sobre'
             })
+            .when('/casos', {
+                templateUrl: '/assets/app/views/casos/list.html',
+                controller: 'casos.controller',
+                activetab: 'casos'
+            })
+            .when('/ferramentas', {
+                templateUrl: '/assets/app/views/ferramentas/list.html',
+                controller: 'ferramentas.controller',
+                activetab: 'ferramentas'
+            })
+            .when('/ped', {
+                templateUrl: '/assets/app/views/ped/list.html',
+                controller: 'ped.controller',
+                activetab: 'ped'
+            })
+            .when('/marcos', {
+                templateUrl: '/assets/app/views/marcos/list.html',
+                controller: 'marcos.controller',
+                activetab: 'marcos'
+            })
+            .when('/aspectos', {
+                templateUrl: '/assets/app/views/aspectos/list.html',
+                controller: 'aspectos.controller',
+                activetab: 'aspectos'
+            })
+            .when('/registros', {
+                templateUrl: '/assets/app/views/registros/list.html',
+                controller: 'registros.controller',
+                activetab: 'registros'
+            })
             .otherwise({redirectTo:'/'});
    }).config(function(cfpLoadingBarProvider) {
         // carrega o loading bar

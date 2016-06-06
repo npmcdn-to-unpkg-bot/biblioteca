@@ -17,6 +17,8 @@
 .artigo-ribbon {
   width: 100%;
   height: 40vh;
+  -webkit-flex-shrink: 0;
+  -ms-flex: 0;
   flex-shrink: 0;
 }
 

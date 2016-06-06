@@ -66,7 +66,7 @@ html, body {
   background-color: rgb(255, 255, 255);
 }
 
-/* cor da fonte do menu esquerdo e cor de fundo do menu esquerdo*/
+/* cor da fonte do menu esquerdo e cor de fundo do menu esquerdo distancia de todos os links do menu*/
 .demo-layout .demo-navigation .mdl-navigation__link {
   display: -webkit-flex !important;
   display: -ms-flexbox !important;
@@ -79,7 +79,7 @@ html, body {
           align-items: center;
     color: rgba(0, 0, 0, 0.56);
     font-weight: 500;
-    padding: 16px 33px;
+    padding: 15px 30px;
 }
 
 .active{
