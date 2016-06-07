@@ -435,7 +435,6 @@ public class ArtigoController extends Controller {
 
         try {
             File pdf = new File(diretorioDePdfsArtigos,titulo+extensaoPadraoDePdfs);
-
             return ok(new FileInputStream(pdf));
         } catch (FileNotFoundException e) {
             Logger.error(e.getMessage());
