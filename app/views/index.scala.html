@@ -45,14 +45,27 @@
     <link rel="canonical" href="http://www.example.com/">
     -->
 
+    @*Dependencias do Material Design Icons*@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    @*Material Design Lite*@
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/material-design-lite/material.min.css")">
+
+    @*Angular Loading Bar*@
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/angular-loading-bar/src/loading-bar.css")">
+
+    @*Angular Toastr*@
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/angular-toastr/dist/angular-toastr.css")">
+
+    @*Angular Motion*@
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/angular-motion/dist/angular-motion.css")">
+
+    @*Angular Ng Dialog*@
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/ng-dialog/css/ngDialog.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/ng-dialog/css/ngDialog-theme-default.css")">
+
+    @*Estilos do CIBIogas*@
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/templatemdl.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/stylebiblioteca.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/styleartigo.css")">
@@ -66,6 +79,7 @@
         <div class="mdl-layout__header-row">
             <span data-ng-show="title" class="mdl-layout-title"></span>
             <div class="mdl-layout-spacer"></div>
+
                 @if(username){
                     <span>@username</span>
                 }
@@ -73,18 +87,22 @@
                 @if(!username) {
                     <a href="/login" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">@Messages("menu.16")</a>
                 }
+
                 @if(username) {
                     <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
                         <i class="material-icons">more_vert</i>
                     </button>
 
                     <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
+
                         @if(username) {
                             <a href="/#/usuario/perfil" class="mdl-menu__item mdl-menu__item--full-bleed-divider">@Messages("menu.14")</a>
                         }
+
                         @if(username) {
                             <a type="reset" href="/logout" class="mdl-menu__item">@Messages("menu.15")</a>
                         }
+
                     </ul>
                 }
         </div>
@@ -99,6 +117,7 @@
             <a ng-class="{active: $route.current.activetab == 'home'}" class="mdl-navigation__link" href="/#/"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">home</i>@Messages("menu.1")</a>
             <a ng-class="{active: $route.current.activetab == 'cursos'}" class="mdl-navigation__link" href="/#/cursos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">school</i>@Messages("menu.2")</a>
             <div class="separador"></div>
+
             @if(username){
                 <span class="mdl-navigation__link">@Messages("menu.3")</span>
                 <a ng-class="{active: $route.current.activetab == 'artigos'}" class="mdl-navigation__link" href="/#/artigos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">book</i>@Messages("menu.4")</a>
@@ -107,6 +126,7 @@
                 <a ng-class="{active: $route.current.activetab == 'fotos'}" class="mdl-navigation__link" href="/#/fotos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">photo</i>@Messages("menu.7")</a>
                 <div class="separador"></div>
             }
+
             <span class="mdl-navigation__link">@Messages("menu.biogas.1")</span>
             <a ng-class="{active: $route.current.activetab == 'sobre'}" class="mdl-navigation__link" href="/#/biogas/sobre"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">ev_station</i>@Messages("menu.biogas.2")</a>
             <a ng-class="{active: $route.current.activetab == 'casos'}" class="mdl-navigation__link" href="/#/casos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">extension</i>@Messages("menu.biogas.3")</a>
@@ -119,6 +139,7 @@
             <span class="mdl-navigation__link">@Messages("menu.8")</span>
             <a ng-class="{active: $route.current.activetab == 'contato'}" class="mdl-navigation__link" href="/#/contato"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">contact_mail</i>@Messages("menu.9")</a>
             <a ng-class="{active: $route.current.activetab == 'direitos'}" class="mdl-navigation__link" href="/#/direitos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">copyright</i>@Messages("menu.10")</a>
+
             @if(username){
                 @if(privilegio == 1){
                     <div class="separador"></div>
@@ -126,15 +147,18 @@
                     <a class="mdl-navigation__link" href="/admin"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">collections_bookmark</i>@Messages("menu.13")</a>
                 }
             }
+
             <div class="mdl-layout-spacer"></div>
         </nav>
     </div>
+
     @*precisa pra carregar a content corretamente*@
     <main class="mdl-layout__content mdl-color--grey-100">
         <div ng-view="">
 
         </div>
     </main>
+
 </div>
 
     @*Recebe as mensagens atraves do idioma do navegador*@
