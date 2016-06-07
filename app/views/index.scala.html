@@ -129,7 +129,7 @@
             <div class="mdl-layout-spacer"></div>
         </nav>
     </div>
-    <!--precisa pra carregar a content corretamente-->
+    @*precisa pra carregar a content corretamente*@
     <main class="mdl-layout__content mdl-color--grey-100">
         <div ng-view="">
 
@@ -137,24 +137,36 @@
     </main>
 </div>
 
+    @*Recebe as mensagens atraves do idioma do navegador*@
+<script src="@routes.Application.jsMessages()" type="text/javascript"></script>
+
+    @*Angular*@
 <script src="@routes.Assets.versioned("bower_components/angular/angular.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("bower_components/angular-route/angular-route.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("bower_components/angular-resource/angular-resource.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("bower_components/angular-aria/angular-aria.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("bower_components/angular-animate/angular-animate.js")" type="text/javascript"></script>
 
+    @*Material Design*@
 <script src="@routes.Assets.versioned("bower_components/material-design-lite/material.js")" type="text/javascript"></script>
 
+    @*Angular Loading Bar*@
 <script src="@routes.Assets.versioned("bower_components/angular-loading-bar/src/loading-bar.js")" type="text/javascript"></script>
 
+    @*Angular Toastr*@
 <script src="@routes.Assets.versioned("bower_components/angular-toastr/dist/angular-toastr.tpls.js")" type="text/javascript"></script>
+
+    @*NG Dialog*@
 <script src="@routes.Assets.versioned("bower_components/ng-dialog/js/ngDialog.js")" type="text/javascript"></script>
 
+    @*Aplicacao Angular*@
 <script src="@routes.Assets.versioned("app/app.js")" type="text/javascript"></script>
 
+    @*Configuracao do endereco da aplicacao e as rotas implementadas*@
 <script src="@routes.Assets.versioned("app/services/address.service.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("app/services/baseurl.service.js")" type="text/javascript"></script>
 
+    @*Controllers*@
 <script src="@routes.Assets.versioned("app/controllers/drawer.controller.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("app/controllers/home.controller.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("app/controllers/menu.controller.js")" type="text/javascript"></script>
@@ -167,7 +179,7 @@
 <script src="@routes.Assets.versioned("app/controllers/foto.controller.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("app/controllers/direito.controller.js")" type="text/javascript"></script>
 
-    @*Inicio das funcionalidades biogas*@
+    @*Controllers biogas*@
 <script src="@routes.Assets.versioned("app/controllers/sobre.controller.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("app/controllers/casos.controller.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("app/controllers/ferramentas.controller.js")" type="text/javascript"></script>

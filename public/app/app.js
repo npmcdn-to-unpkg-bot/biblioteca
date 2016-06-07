@@ -188,4 +188,9 @@ angular
     $rootScope.$on('$viewContentLoaded', function upgradeAllRegistered() {
         componentHandler.upgradeAllRegistered();
     });
+    // necessario para utilizar as mensagens do internacionalization do play, isso faz com que seja reaproveitado a parte os arquivos messages
+}).run(function ($rootScope) {
+    //Put the jsMessage function in the root scope in order to be able to call
+    //{{ Messages('my.messages') }} from the templates.
+    $rootScope.Messages = window.Messages;
 });

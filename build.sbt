@@ -11,7 +11,8 @@ libraryDependencies ++= Seq(
   cache,
   javaWs,
   "org.postgresql" % "postgresql" % "9.4-1203-jdbc42",
-  "com.typesafe.play" %% "play-mailer" % "4.0.0-M1"
+  "com.typesafe.play" %% "play-mailer" % "4.0.0-M1",
+  "org.julienrf" %% "play-jsmessages" % "2.0.0"
 )
 
 // Play provides two styles of routers, one expects its actions to be injected, the

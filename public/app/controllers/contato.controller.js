@@ -5,11 +5,10 @@ angular.module('architectplay')
 
     $scope.save = function() {
         Contato.save($scope.contato, function(data) {
-            toastr.success('Mensagem enviada com Sucesso');
+            toastr.success(Messages('client.send.email.message'));
             $route.reload();
         }, function(data) {
-            console.log(data);
-            toastr.error(data.data,'Não foi possível Enviar');
+            toastr.error(Messages('app.error'));
         });
     };
 

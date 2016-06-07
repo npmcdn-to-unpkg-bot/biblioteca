@@ -10,7 +10,7 @@ angular.module('architectplay')
        },function(data) {
             $scope.mostrar = false;
             $location.path('/');
-            toastr.error('Não autorizado');
+            toastr.error(Messages('client.error'));
          });
        };
 
@@ -23,10 +23,10 @@ angular.module('architectplay')
 
        $scope.sim = function() {
           Usuario.reset(function(data) {
-            toastr.success('O email foi enviado com sucesso!');
+            toastr.success(Messages('client.send.email.message'));
             $scope.closeThisDialog('Fechar');
             },function(data) {
-                toastr.error(data.data, 'Não foi possível executar esta operação!');
+                toastr.error(data.data, Messages('client.error.operation'));
                 $scope.closeThisDialog('Fechar');
             });
           };

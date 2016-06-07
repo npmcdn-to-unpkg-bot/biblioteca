@@ -8,6 +8,31 @@ app.send.confirm.email.message=It looks like you just registered in the Digital 
 app.send.register.email.message=Your account was registered successfully!
 app.send.password.email.change.message=The password was successfully changed!
 
+client.confirm.email.message=Do you want to update your password? will be sent email to your account.
+client.confirm.email.button.update=Update
+client.cancel.email.button=Cancel
+client.send.email.message=The email has been sent!
+client.error=Not authorized
+client.error.operation=Could not perform this operation!
+client.profile.title=Profile
+client.profile.tooltip.title=Password
+client.profile.name=Name
+client.profile.email=Email
+
+contact.title=Contact
+contact.field.name=Name
+contact.field.email=Email
+contact.field.subject=Subject matter
+contact.field.message=Message
+contact.field.required=Required fields
+contact.button=Send
+
+contact.location.title=Location
+contact.location.company.title=Company Headquarters
+contact.location.address=Address
+contact.location.email=Email
+contact.location.phone=Phone
+
 # Menu
 menu.1=Home
 menu.2=Courses
