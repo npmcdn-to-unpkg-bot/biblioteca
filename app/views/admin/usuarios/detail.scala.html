@@ -3,68 +3,70 @@
 @import helper._
 
 @views.html.admin.main("Administração - Detalhe do Usuário") {
-<div class="col-sm-6">
-    <div class="panel panel-default">
-        <div class="panel-heading">Detalhe do Usuário
-            <div class="btn-group pull-right">
-                <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Opções <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="@routes.UsuarioController.telaEditar(usuario.getId)">Editar</a></li>
-                    <li><a data-toggle="modal" data-target=".bs-example-modal-sm" href="">Excluir</a></li>
-                </ul>
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Detalhe do Usuário
+                <div class="btn-group pull-right">
+                    <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Opções <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="@routes.UsuarioController.telaLista">Voltar</a></li>
+                        <li><a href="@routes.UsuarioController.telaEditar(usuario.getId)">Editar</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a data-toggle="modal" data-target=".bs-example-modal-sm" href="">Excluir</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <form>
+                    <div class="item-form width-600 margin-bottom-15">
+                        <label class="display-block strong">Nome</label>
+                        <p class="display-block margin-left-027em">@usuario.getNome</p>
+                    </div>
+                    <div class="item-form width-600 margin-bottom-15">
+                        <label class="display-block strong">Email</label>
+                        <p class="display-block margin-left-027em">@usuario.getEmail</p>
+                    </div>
+                    <div class="item-form width-600 margin-bottom-15">
+                        <label class="display-block strong">Confirmado</label>
+                        @if(usuario.getValidado) {
+                            <p class="display-block margin-left-027em">Sim</p>
+                        }
+                        @if(!usuario.getValidado) {
+                            <p class="display-block margin-left-027em">Não</p>
+                        }
+                    </div>
+                    <div class="item-form width-600 margin-bottom-15">
+                        <label class="display-block strong">Data/Hora de Cadastro</label>
+                        <p type="date" class="display-block margin-left-027em">@usuario.getDataCadastro.format("dd MMMM yyyy - hh:mm:ss")</p>
+                    </div>
+                    @if(usuario.getDataAlteracao != null){
+                        <div class="item-form width-600 margin-bottom-15">
+                            <label class="display-block strong">Data/Hora de Alteração</label>
+                            <p class="display-block margin-left-027em">@usuario.getDataAlteracao.format("dd MMMM yyyy - hh:mm:ss")</p>
+                        </div>
+                    }
+                </form>
             </div>
         </div>
-        <div class="panel-body">
-            <form>
-                <div class="item-form width-600 margin-bottom-15">
-                    <label class="display-block strong">Nome</label>
-                    <p class="display-block margin-left-027em">@usuario.getNome</p>
-                </div>
-                <div class="item-form width-600 margin-bottom-15">
-                    <label class="display-block strong">Email</label>
-                    <p class="display-block margin-left-027em">@usuario.getEmail</p>
-                </div>
-                <div class="item-form width-600 margin-bottom-15">
-                    <label class="display-block strong">Confirmado</label>
-                    @if(usuario.getValidado) {
-                        <p class="display-block margin-left-027em">Sim</p>
-                    }
-                    @if(!usuario.getValidado) {
-                        <p class="display-block margin-left-027em">Não</p>
-                    }
-                </div>
-                <div class="item-form width-600 margin-bottom-15">
-                    <label class="display-block strong">Data/Hora de Cadastro</label>
-                    <p type="date" class="display-block margin-left-027em">@usuario.getDataCadastro.format("dd MMMM yyyy - hh:mm:ss")</p>
-                </div>
-                @if(usuario.getDataAlteracao != null){
-                    <div class="item-form width-600 margin-bottom-15">
-                        <label class="display-block strong">Data/Hora de Alteração</label>
-                        <p class="display-block margin-left-027em">@usuario.getDataAlteracao.format("dd MMMM yyyy - hh:mm:ss")</p>
+        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Biblioteca</h4>
                     </div>
-                }
-            </form>
+                    <div class="modal-body">
+                        <p class="text-center">Deseja remover o usuário <b>"@usuario.getNome"</b>?</p>
+                    </div>
+                    <div class="modal-footer">
+                        @form(routes.UsuarioController.remover(usuario.getId)) {
+                            <input type="submit" value="Remover" class="btn btn-warning">
+                        }
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
         </div>
     </div>
-    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Biblioteca</h4>
-                </div>
-                <div class="modal-body">
-                    <p class="text-center">Deseja remover o usuário <b>"@usuario.getNome"</b>?</p>
-                </div>
-                <div class="modal-footer">
-                    @form(routes.UsuarioController.remover(usuario.getId)) {
-                        <input type="submit" value="Remover" class="btn btn-warning">
-                    }
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div>
-</div>
 }
