@@ -97,3 +97,5 @@ contact.location.company.title=Sede
 contact.location.address=Dirección
 contact.location.email=Correo Electrónico
 contact.location.phone=Teléfono
+card.button.title=Mas Informaciones
+card.button.pdf.title=Leer

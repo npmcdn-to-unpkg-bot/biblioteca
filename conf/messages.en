@@ -109,3 +109,6 @@ password.change.email.message=You made a request to change your password in the 
 password.change.error.field=Please complete with Password and Confirmation.
 password.change.user.error=User not found.
 password.change.success=Password changed successfully! You can now perform authentication.
+
+card.button.title=More Information
+card.button.pdf.title=To View
