@@ -1,6 +1,7 @@
 angular.module('architectplay')
   .controller('home.controller', function ($scope, $rootScope, $routeParams, cfpLoadingBar, Usuario, $location, toastr) {
-        // $rootScope.title = 'Home';
+
+          $rootScope.title = Messages('menu.top.title.1');
 
           // fake the initial load so first time users can see the bar right away:
           /*$scope.start = function() {

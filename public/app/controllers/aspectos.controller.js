@@ -1,4 +1,4 @@
 angular.module('architectplay')
-    .controller('aspectos.controller', function ($rootScope, $log) {
-        // $rootScope.title = 'Sobre';
+    .controller('aspectos.controller', function ($rootScope) {
+        $rootScope.title = Messages('menu.top.title.15');
     });

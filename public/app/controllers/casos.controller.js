@@ -1,4 +1,4 @@
 angular.module('architectplay')
-    .controller('casos.controller', function ($rootScope, $log) {
-        // $rootScope.title = 'Sobre';
+    .controller('casos.controller', function ($rootScope) {
+        $rootScope.title = Messages('menu.top.title.11');
     });

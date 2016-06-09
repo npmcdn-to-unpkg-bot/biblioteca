@@ -1,6 +1,8 @@
 angular.module('architectplay')
     .controller('usuario.perfil.controller', function ($scope, $rootScope, $routeParams, $location, Usuario, toastr, ngDialog) {
 
+    $rootScope.title = Messages('menu.top.title.17');
+
     $scope.mostrar = false;
 
     $scope.init = function() {

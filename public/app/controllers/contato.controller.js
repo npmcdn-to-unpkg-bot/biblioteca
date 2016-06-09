@@ -1,7 +1,7 @@
 angular.module('architectplay')
     .controller('contato.create.controller', function ($scope, $route, $rootScope, $log, Contato, toastr) {
 
-    // $rootScope.title = 'Fale conosco';
+    $rootScope.title = Messages('menu.top.title.8');
 
     $scope.save = function() {
         Contato.save($scope.contato, function(data) {

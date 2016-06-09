@@ -8,6 +8,7 @@ app.send.confirm.email.message=It looks like you just registered in the Digital 
 app.send.register.email.message=Your account was registered successfully!
 app.send.password.email.change.message=The password was successfully changed!
 
+# Mensagens de Email e perfil do usuario
 client.confirm.email.message=Do you want to update your password? will be sent email to your account.
 client.confirm.email.button.update=Update
 client.cancel.email.button=Cancel
@@ -19,6 +20,7 @@ client.profile.tooltip.title=Password
 client.profile.name=Name
 client.profile.email=Email
 
+# Pagina de fale conosco
 contact.title=Contact
 contact.field.name=Name
 contact.field.email=Email
@@ -27,13 +29,14 @@ contact.field.message=Message
 contact.field.required=Required fields
 contact.button=Send
 
+# Pagina de fle conosco mas na parte de localizacao
 contact.location.title=Location
 contact.location.company.title=Company Headquarters
 contact.location.address=Address
 contact.location.email=Email
 contact.location.phone=Phone
 
-# Menu
+# Menu Drawer
 menu.1=Home
 menu.2=Courses
 menu.3=Materials
@@ -47,11 +50,8 @@ menu.10=Rights
 menu.11=Meet our site
 menu.12=Management
 menu.13=Get in
-menu.14=Profile
-menu.15=Logout
-menu.16=Login
 
-# Menu biogas
+# Menu Drawer biogas
 menu.biogas.1=Biogas
 menu.biogas.2=About Biogas
 menu.biogas.3=Case Study
@@ -60,6 +60,31 @@ menu.biogas.5=P & D
 menu.biogas.6=Regulatory Marks
 menu.biogas.7=Financial and Economic Aspects
 menu.biogas.8=National Register and Biogasmap
+
+# Menu superior lado direito
+menu.top.title.1=Home
+menu.top.title.2=Courses
+menu.top.title.3=Materials
+menu.top.title.4=Articles
+menu.top.title.5=Books
+menu.top.title.6=Videos
+menu.top.title.7=Photos
+menu.top.title.8=Contact us
+menu.top.title.9=Rights
+
+menu.top.title.10=About Biogas
+menu.top.title.11=Case Study
+menu.top.title.12=Tools
+menu.top.title.13=P & D
+menu.top.title.14=Regulatory Marks
+menu.top.title.15=Financial and Economic Aspects
+menu.top.title.16=National Register and Biogasmap
+menu.top.title.17=User
+
+# Menu Superior lado esquerdo
+menu.14=Profile
+menu.15=Logout
+menu.16=Login
 
 # Login form
 login.page.title=Login
@@ -85,6 +110,7 @@ register.confirm.password=Confirmation
 register=Register
 register.success=User successfully registered.
 
+# Pagina de ativacao da conta
 confirmation.page.title=Confirmation
 confirmation.success=Your account has been successfully activated!
 confirmation.error=Confirmation Error
@@ -96,11 +122,13 @@ register.error.field=Please complete all fields.
 register.error.already.registered=User already registered.
 register.bad.password=Passwords do not match.
 
+# Pagina de pedido de modificar senha
 reset.page.title=Reset
 token.null=Token is null
 reset.token.null=The link to update the password is invalid, please check and try again.
 reset.token.invalid=The link to update the password has expired.
 
+# Pagina de modificar senha
 password.change.page.title=Change password
 password.change=Password
 password.confirm=Confirmation
@@ -110,5 +138,6 @@ password.change.error.field=Please complete with Password and Confirmation.
 password.change.user.error=User not found.
 password.change.success=Password changed successfully! You can now perform authentication.
 
+# Cartoes
 card.button.title=More Information
 card.button.pdf.title=To View
