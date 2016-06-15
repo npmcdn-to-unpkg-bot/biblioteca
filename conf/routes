@@ -7,7 +7,7 @@ GET     /                                   controllers.Application.index()
 GET     /sobre                              controllers.Application.sobre()
 GET     /messages.js                        controllers.Application.jsMessages()
 
-#Admin
+# Admin
 GET     /admin                              controllers.admin.AdminController.inicio()
 
 # Login Telas

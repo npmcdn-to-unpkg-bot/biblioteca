@@ -26,13 +26,13 @@
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="192x192" href="assets/images/favicon.png">
+    <link rel="icon" sizes="192x192" href="@routes.Assets.versioned("images/favicon.png")">
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
-    <link rel="apple-touch-icon-precomposed" href="assets/images/favicon.png">
+    <meta name="apple-mobile-web-app-status-bar-style" content="Biblioteca">
+    <meta name="apple-mobile-web-app-title" content="Biblioteca Digital">
+    <link rel="apple-touch-icon-precomposed" href="@routes.Assets.versioned("images/favicon.png")">
 
     <!-- Tile icon for Win8 (144x144 + tile color) -->
     <!--<meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">-->
@@ -50,7 +50,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     @*Material Design Lite*@
-    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/material-design-lite/material.min.css")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/material-design-lite/material.css")">
 
     @*Angular Loading Bar*@
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/angular-loading-bar/src/loading-bar.css")">
@@ -79,41 +79,42 @@
         <div class="mdl-layout__header-row">
             <span class="mdl-layout-title" ng-bind="title"></span>
             <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation-link">
+                    @if(username){
+                        <span>@username</span>
+                    }
 
-                @if(username){
-                    <span>@username</span>
-                }
+                    @if(!username) {
+                        <a href="/login" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">@Messages("menu.16")</a>
+                    }
 
-                @if(!username) {
-                    <a href="/login" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">@Messages("menu.16")</a>
-                }
+                    @if(username) {
+                        <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
+                            <i class="material-icons">more_vert</i>
+                        </button>
 
-                @if(username) {
-                    <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
-                        <i class="material-icons">more_vert</i>
-                    </button>
+                        <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
 
-                    <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
+                            @if(username) {
+                                <a href="/#/usuario/perfil" class="mdl-menu__item mdl-menu__item--full-bleed-divider">@Messages("menu.14")</a>
+                            }
 
-                        @if(username) {
-                            <a href="/#/usuario/perfil" class="mdl-menu__item mdl-menu__item--full-bleed-divider">@Messages("menu.14")</a>
-                        }
+                            @if(username) {
+                                <a type="reset" href="/logout" class="mdl-menu__item">@Messages("menu.15")</a>
+                            }
 
-                        @if(username) {
-                            <a type="reset" href="/logout" class="mdl-menu__item">@Messages("menu.15")</a>
-                        }
-
-                    </ul>
+                        </ul>
+                </nav>
                 }
         </div>
     </header>
     <div ng-controller="drawer" class="demo-drawer mdl-layout__drawer examples">
-        <header class="demo-drawer-header">
-            <div class="site-logo">
-                <img src="assets/images/cibiogas-logo.jpg" width="190" height="79">
-            </div>
-        </header>
+            <header class="demo-drawer-header">
+                <img src="@routes.Assets.versioned("images/CIBiogas_logo.png")">
+                <div class="mdl-layout-spacer"></div>
+            </header>
         <nav class="demo-navigation mdl-navigation mdl-color--white">
+
             <a ng-class="{active: $route.current.activetab == 'home'}" class="mdl-navigation__link" href="/#/"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">home</i>@Messages("menu.1")</a>
             <a ng-class="{active: $route.current.activetab == 'cursos'}" class="mdl-navigation__link" href="/#/cursos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">school</i>@Messages("menu.2")</a>
             <div class="separador"></div>

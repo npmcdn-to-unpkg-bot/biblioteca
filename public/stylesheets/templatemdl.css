@@ -19,7 +19,7 @@ html, body {
 }
 
 .demo-layout .demo-header .mdl-textfield {
-  padding: 0px;
+  padding: 0;
   margin-top: 41px;
 }
 
@@ -51,19 +51,35 @@ html, body {
 
 /*Modificado o height, propriedade do header do menu esquerdo*/
 .demo-drawer-header {
-  box-sizing: border-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-justify-content: flex-end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-  padding: 1px;
-  height: 73px;
-  background-color: rgb(255, 255, 255);
+    box-sizing: border-box;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    padding: 10px;
+    text-align: center;
+}
+
+.demo-avatar-dropdown {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 100%;
+}
+
+.demo-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
 }
 
 /* cor da fonte do menu esquerdo e cor de fundo do menu esquerdo distancia de todos os links do menu*/
@@ -114,4 +130,16 @@ html, body {
     padding-top: 24px;
     padding-bottom: 24px;
     margin-bottom: 0;
+}
+
+@media screen and (max-width: 500px) {
+    .esconde-celular {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 501px) {
+    .mostra-celular {
+        display: none;
+    }
 }
