@@ -1,7 +1,7 @@
 angular.module('architectplay')
     .controller('livro.list.controller', function ($scope, $rootScope, Livro, toastr, $routeParams, $location) {
 
-    $rootScope.title = Messages('menu.top.title.5');
+    // $rootScope.title = Messages('menu.top.title.5');
 
     $scope.init = function() {
         $scope.nomeFiltro = '';

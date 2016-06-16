@@ -143,3 +143,12 @@ html, body {
         display: none;
     }
 }
+
+@media screen and (max-width: 480px) {
+    .ellipsis-celular {
+        width: 100px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

@@ -1,6 +1,6 @@
 angular.module('architectplay')
     .controller('foto.controller', function ($scope, $rootScope, Usuario, toastr, $location) {
-        $rootScope.title = Messages('menu.top.title.7');
+        // $rootScope.title = Messages('menu.top.title.7');
 
         $scope.mostrar = false;
 

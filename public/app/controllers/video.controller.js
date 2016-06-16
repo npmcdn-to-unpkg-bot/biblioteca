@@ -1,6 +1,6 @@
 angular.module('architectplay')
     .controller('video.controller', function ($scope, $rootScope, Usuario, toastr, $location) {
-        $rootScope.title = Messages('menu.top.title.6');
+        // $rootScope.title = Messages('menu.top.title.6');
         
         $scope.mostrar = false;
 

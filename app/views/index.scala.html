@@ -77,11 +77,11 @@
 <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     <header class="demo-header mdl-layout__header mdl-color--deep-orange-cibiogas mdl-color-text--white">
         <div class="mdl-layout__header-row">
-            <span class="mdl-layout-title" ng-bind="title"></span>
+            <span class="mdl-layout-title">@Messages("app.title")</span>
             <div class="mdl-layout-spacer"></div>
                 <nav class="mdl-navigation-link">
                     @if(username){
-                        <span>@username</span>
+                        <span class="esconde-celular">@username</span>
                     }
 
                     @if(!username) {
@@ -96,6 +96,7 @@
                         <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
 
                             @if(username) {
+                                <a class="mdl-menu__item mdl-menu__item--full-bleed-divider mdl-color--deep-orange-cibiogas-text">@username</a>
                                 <a href="/#/usuario/perfil" class="mdl-menu__item mdl-menu__item--full-bleed-divider">@Messages("menu.14")</a>
                             }
 
