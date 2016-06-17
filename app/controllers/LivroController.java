@@ -46,7 +46,7 @@ public class LivroController extends Controller {
     }
 
     /**
-     * @return autenticado form if auth OK or login form is auth KO
+     * @return livro form if auth OK or not autorizado form is auth KO
      */
     public Result telaNovo() {
         //busca o usuário atual que esteja logado no sistema

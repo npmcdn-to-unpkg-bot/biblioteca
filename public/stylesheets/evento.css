@@ -1,0 +1,36 @@
+.agenda .data{
+    height:46px;
+    float:left;
+    padding-right:10px;
+}
+
+.agenda .data .dia{
+    width:35px;
+    height:46px;
+    float: left;
+    background: rgb(245, 166, 64) !important;
+}
+
+.agenda .data .dia .numero{
+    font-size:22px;
+    font-weight:bold;
+    color: #ffffff;
+    padding:3px;
+}
+
+.agenda .data .dia .mes{
+    font-size:14px;
+    font-weight:bold;
+    color: #ffffff;
+    text-align:center;
+}
+
+.agenda .data .semana{
+    width:115px;
+    height:46px;
+    background: #dedede;
+    font-size:14px;
+    font-weight:bold;
+    line-height:46px;
+    text-align:center;
+}

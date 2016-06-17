@@ -22,6 +22,16 @@ create table contato (
   constraint pk_contato primary key (id))
 ;
 
+create table evento (
+  id                        bigserial not null,
+  nome                      varchar(100) not null,
+  data_inicio               timestamp,
+  data_fim                  timestamp,
+  site                      varchar(80) not null,
+  local                     varchar(120) not null,
+  constraint pk_evento primary key (id))
+;
+
 create table livro (
   id                        bigserial not null,
   titulo                    varchar(150) not null,
@@ -71,6 +81,8 @@ create table usuario (
 drop table if exists artigo cascade;
 
 drop table if exists contato cascade;
+
+drop table if exists evento cascade;
 
 drop table if exists livro cascade;
 

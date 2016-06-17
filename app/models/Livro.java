@@ -87,9 +87,9 @@ public class Livro extends Model {
     }
 
     /**
-     * Return a StudentFormData instance constructed from a student instance.
-     * @param id The ID of a student instance.
-     * @return The StudentFormData instance, or throws a RuntimeException.
+     * Return a LivroFormData instance constructed from a livro instance.
+     * @param id The ID of a livro instance.
+     * @return The LivroFormData instance, or throws a RuntimeException.
      */
     public static LivroFormData makeLivroFormData(Long id) {
 

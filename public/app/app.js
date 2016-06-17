@@ -98,6 +98,11 @@ angular
                 controller: 'registros.controller',
                 activetab: 'registros'
             })
+            .when('/eventos', {
+                templateUrl: '/assets/app/views/eventos/list.html',
+                controller: 'evento.list.controller',
+                activetab: 'eventos'
+            })
             .otherwise({redirectTo:'/'});
    }).config(function(cfpLoadingBarProvider) {
         // carrega o loading bar
