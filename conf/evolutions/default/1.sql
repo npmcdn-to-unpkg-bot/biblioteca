@@ -29,6 +29,7 @@ create table evento (
   data_fim                  timestamp,
   site                      varchar(80) not null,
   local                     varchar(120) not null,
+  instituicao               varchar(100) not null,
   constraint pk_evento primary key (id))
 ;
 

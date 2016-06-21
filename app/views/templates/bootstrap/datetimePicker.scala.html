@@ -1,0 +1,14 @@
+@(field: Field, label: String = "", placeholder: String = "", help: String = "")
+
+<div class="form-group @if(field.hasErrors) {has-error}">
+    <label class="col-sm-3 control-label">@label</label>
+    <div class="col-sm-6">
+        <input type="datetime-local"
+                class="form-control"
+                id="@field.id"
+                name="@field.name"
+                value="@field.value.getOrElse("")"
+                placeholder="@placeholder"/>
+        <span class="help-block">@{field.error.map { error => error.message }}</span>
+    </div>
+</div>

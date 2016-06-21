@@ -72,6 +72,7 @@ public class Application extends Controller {
         Integer privilegio = 0;
 
         if (username == null) {
+            username = "";
             return ok(views.html.index.render(username, privilegio));
         }
 

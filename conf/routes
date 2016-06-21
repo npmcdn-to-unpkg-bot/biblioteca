@@ -61,6 +61,18 @@ POST    /livro                              controllers.LivroController.inserir(
 POST	/livro/:id/remover		            controllers.LivroController.remover(id:Long)
 POST    /livro/editar/:id                   controllers.LivroController.editar(id:Long)
 
+# Evento Telas
+GET     /evento/novo/                       controllers.EventoController.telaNovo()
+GET		/evento/detalhe/:id				    controllers.EventoController.telaDetalhe(id:Long)
+GET     /evento/editar/:id                  controllers.EventoController.telaEditar(id:Long)
+GET     /evento/lista/todos                 controllers.EventoController.telaLista()
+
+# Evento Servicos
+GET     /eventos                            controllers.EventoController.buscaTodos()
+POST    /evento                             controllers.EventoController.inserir()
+POST	/evento/:id/remover		            controllers.EventoController.remover(id:Long)
+POST    /evento/editar/:id                  controllers.EventoController.editar(id:Long)
+
 # Acessado quando o usuario confirma o registro
 GET     /confirma/:confirmaToken            controllers.UsuarioController.confirma(confirmaToken:String)
 

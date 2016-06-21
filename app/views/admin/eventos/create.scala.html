@@ -1,1 +1,74 @@
-@()
+@(eventoForm: play.data.Form[views.validators.EventoFormData])
+
+@import helper._
+@import templates.bootstrap._
+
+@views.html.admin.main("Cadastro de Evento") {
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Cadastro de Evento</div>
+            <div class="panel-body">
+                @form(routes.EventoController.inserir, 'class -> "form-horizontal") {
+
+                    @if(eventoForm.hasGlobalErrors) {
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"></label>
+                            <div class="col-sm-6">
+                                <p class="alert alert-danger text-center">@eventoForm.globalError.message</p>
+                            </div>
+                        </div>
+                    }
+
+                        <!-- nome -->
+                    @texto(eventoForm("nome"),
+                        label = "Nome:",
+                        placeholder = "Insira o Nome")
+
+                        <!-- nome -->
+                    @datetimePicker(eventoForm("dataInicio"),
+                        label = "Data de Início:",
+                        placeholder = "Insira a Data inicial")
+
+                        <!-- nome -->
+                    @datetimePicker(eventoForm("dataFim"),
+                        label = "Data de Término:",
+                        placeholder = "Insira a Data de término")
+
+                        <!-- Site -->
+                    @texto(eventoForm("site"),
+                        label = "Site:",
+                        placeholder = "Insira o Site")
+
+                        <!-- Local -->
+                    @texto(eventoForm("local"),
+                        label = "Local:",
+                        placeholder = "Insira o Local")
+
+                        <!-- Local -->
+                    @texto(eventoForm("instituicao"),
+                        label = "Instituição:",
+                        placeholder = "Insira a Instituição Organizadora")
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-12">
+                            <input class="btn btn-success" type="submit" id="btnSubmit" value="Cadastrar"/>
+                            <a class="btn btn-default" type="button" href="@routes.EventoController.telaLista()">Cancelar</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+}
+
+<script type="text/javascript">
+        window.onbeforeunload = function () {
+            var inputs = document.getElementsByTagName("INPUT");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].type == "button" || inputs[i].type == "submit") {
+                    inputs[i].disabled = true;
+                }
+            }
+        };
+</script>

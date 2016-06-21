@@ -2,12 +2,13 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
+import play.data.format.Formats;
 import play.libs.Json;
 import views.validators.EventoFormData;
-import views.validators.LivroFormData;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -20,11 +21,11 @@ public class Evento extends Model {
     @Column(nullable = false, length = 100)
     private String nome;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar dataInicio;
+    @Formats.DateTime(pattern="dd-MM-yyyy")
+    public Date dataInicio;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar dataFim;
+    @Formats.DateTime(pattern="dd-MM-yyyy")
+    public Date dataFim;
 
     @Column(nullable = false, length = 80)
     private String site;
@@ -32,17 +33,20 @@ public class Evento extends Model {
     @Column(nullable = false, length = 120)
     private String local;
 
+    @Column(nullable = false, length = 100)
+    private String instituicao;
+
     public Evento(){
     }
 
-    public Evento(Long id, String nome, Calendar dataInicio, Calendar dataFim, String site, String local) {
+    public Evento(Long id, String nome, Date dataInicio, Date dataFim, String site, String local, String instituicao) {
         this.setId(id);
         this.nome = nome;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.site = site;
         this.local = local;
-
+        this.instituicao = instituicao;
     }
 
     /**
@@ -55,6 +59,7 @@ public class Evento extends Model {
         evento.setDataFim(formData.dataFim);
         evento.setSite(formData.site);
         evento.setLocal(formData.local);
+        evento.setInstituicao(formData.instituicao);
         return evento;
     }
 
@@ -71,7 +76,7 @@ public class Evento extends Model {
             throw new RuntimeException("Evento não encontrado");
         }
 
-        return new EventoFormData(evento.nome, evento.dataInicio, evento.dataFim, evento.site, evento.local);
+        return new EventoFormData(evento.nome, evento.dataInicio, evento.dataFim, evento.site, evento.local, evento.instituicao);
     }
 
     public Long getId() {
@@ -90,19 +95,19 @@ public class Evento extends Model {
         this.nome = nome;
     }
 
-    public Calendar getDataInicio() {
+    public Date getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(Calendar dataInicio) {
+    public void setDataInicio(Date dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public Calendar getDataFim() {
+    public Date getDataFim() {
         return dataFim;
     }
 
-    public void setDataFim(Calendar dataFim) {
+    public void setDataFim(Date dataFim) {
         this.dataFim = dataFim;
     }
 
@@ -120,6 +125,14 @@ public class Evento extends Model {
 
     public void setLocal(String local) {
         this.local = local;
+    }
+
+    public String getInstituicao() {
+        return instituicao;
+    }
+
+    public void setInstituicao(String instituicao) {
+        this.instituicao = instituicao;
     }
 
     public static Finder<Long, Evento> find = new Finder<>(Evento.class);

@@ -153,7 +153,7 @@ public class LivroController extends Controller {
             //logica onde instanciamos um objeto livro que esteja cadastrado na base de dados
             LivroFormData livroFormData = (id == 0) ? new LivroFormData() : models.Livro.makeLivroFormData(id);
 
-            //apos o objeto ser instanciado passamos os dados para o livroformdata e os dados sera carregados no form edit
+            //apos o objeto ser instanciado passamos os dados para o livroformdata e os dados serao carregados no form edit
             Form<LivroFormData> formData = Form.form(LivroFormData.class).fill(livroFormData);
 
             return ok(views.html.admin.livros.edit.render(id,formData));
@@ -377,6 +377,7 @@ public class LivroController extends Controller {
             pdf.delete();
             mensagem = "Livro excluído com sucesso";
             tipoMensagem = "Sucesso";
+            return ok(views.html.mensagens.livro.mensagens.render(mensagem,tipoMensagem));
         } catch (Exception e) {
             mensagem = "Erro interno de sistema";
             tipoMensagem = "Erro";
@@ -384,7 +385,6 @@ public class LivroController extends Controller {
             return badRequest(views.html.mensagens.livro.mensagens.render(mensagem,tipoMensagem));
         }
 
-        return ok(views.html.mensagens.livro.mensagens.render(mensagem,tipoMensagem));
     }
 
     /**

@@ -1,1 +1,33 @@
-@()
+@(eventos: List[Evento])(mensagem : String)
+
+@views.html.admin.main("Administração - Eventos") {
+    <div class="col-sm-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">Lista de Eventos
+                <a href="/evento/novo/" class="pull-right">Adicionar</a>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>Nome</th>
+                            <th>Data de Início</th>
+                            <th>Data de Término</th>
+                            <th>Site</th>
+                            <th>Local</th>
+                        </tr>
+                        @for(evento <- eventos) {
+                            <tr>
+                                <td><a href="@routes.EventoController.telaDetalhe(evento.getId)">@evento.getNome</a></td>
+                                <td>@evento.getDataInicio</td>
+                                <td>@evento.getDataFim</td>
+                                <td>@evento.getSite</td>
+                                <td>@evento.getLocal</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
