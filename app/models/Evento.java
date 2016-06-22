@@ -7,7 +7,7 @@ import play.libs.Json;
 import views.validators.EventoFormData;
 
 import javax.persistence.*;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -21,11 +21,21 @@ public class Evento extends Model {
     @Column(nullable = false, length = 100)
     private String nome;
 
-    @Formats.DateTime(pattern="dd-MM-yyyy")
-    public Date dataInicio;
+    private String nome2;
 
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date dataInicio;
+//
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date dataFim;
+
+    @Column(nullable = false)
     @Formats.DateTime(pattern="dd-MM-yyyy")
-    public Date dataFim;
+    private Date dataInicio;
+
+    @Column(nullable = false)
+    @Formats.DateTime(pattern="dd-MM-yyyy")
+    private Date dataFim;
 
     @Column(nullable = false, length = 80)
     private String site;
@@ -144,6 +154,8 @@ public class Evento extends Model {
         }
         return options;
     }
+
+
 
     @Override
     public String toString() {

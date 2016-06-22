@@ -159,10 +159,10 @@ public class EventoController extends Controller {
         }
 
         //se existir erros nos campos do formulario retorne o EventoFormData com os erros
-        if (formData.hasErrors()) {
-            return badRequest(views.html.admin.eventos.create.render(formData));
-        }
-        else {
+//        if (formData.hasErrors()) {
+//            return badRequest(views.html.admin.eventos.create.render(formData));
+//        }
+//        else {
             try {
                 //Converte os dados do formularios para uma instancia do Evento
                 Evento evento = Evento.makeInstance(formData.get());
@@ -175,6 +175,7 @@ public class EventoController extends Controller {
                     return badRequest(views.html.admin.eventos.create.render(formData));
                 }
 
+                Logger.info(evento.toString());
                 evento.save();
                 return created(views.html.mensagens.evento.cadastrado.render(evento.getNome()));
             } catch (Exception e) {
@@ -186,7 +187,6 @@ public class EventoController extends Controller {
 
         }
 
-    }
 
     public Result editar(Long id) {
         String mensagem;
