@@ -48,6 +48,14 @@ public class EventoFormData {
             errors.add(new ValidationError("instituicao", "Preencha a instituição"));
         }
 
+        if (dataInicio == null) {
+            errors.add(new ValidationError("dataInicio", "Preencha a data de inicio"));
+        }
+
+        if (dataFim == null) {
+            errors.add(new ValidationError("dataFim", "Preencha a data de término"));
+        }
+
         return errors.isEmpty() ? null : errors;
     }
 

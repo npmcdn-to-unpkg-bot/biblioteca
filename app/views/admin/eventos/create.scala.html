@@ -24,15 +24,13 @@
                         label = "Nome:",
                         placeholder = "Insira o Nome")
 
-                        <!-- nome -->
                     @datetimePickerDataInicio(eventoForm("dataInicio"),
                         label = "Data de Início:",
-                        placeholder = "Insira a Data inicial")
+                        placeholder = "Insira a data")
 
-                        <!-- nome -->
                     @datetimePickerDataFim(eventoForm("dataFim"),
                         label = "Data de Término:",
-                        placeholder = "Insira a Data de término")
+                        placeholder = "Insira a data de término")
 
                         <!-- Site -->
                     @texto(eventoForm("site"),
@@ -63,6 +61,7 @@
 }
 
 <script type="text/javascript">
+    $(function () {
         $('#dataInicio').datetimepicker();
         $('#dataFim').datetimepicker({
             useCurrent: false //Important! See issue #1075
@@ -73,12 +72,5 @@
         $("#dataFim").on("dp.change", function (e) {
             $('#dataInicio').data("DateTimePicker").maxDate(e.date);
         });
-        window.onbeforeunload = function () {
-            var inputs = document.getElementsByTagName("INPUT");
-            for (var i = 0; i < inputs.length; i++) {
-                if (inputs[i].type == "button" || inputs[i].type == "submit") {
-                    inputs[i].disabled = true;
-                }
-            }
-        };
+    });
 </script>
