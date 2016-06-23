@@ -25,7 +25,6 @@ create table contato (
 create table evento (
   id                        bigserial not null,
   nome                      varchar(100) not null,
-  nome2                     varchar(255),
   data_inicio               timestamp not null,
   data_fim                  timestamp not null,
   site                      varchar(80) not null,

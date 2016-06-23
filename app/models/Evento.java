@@ -22,8 +22,6 @@ public class Evento extends Model {
     @Column(nullable = false, length = 100)
     private String nome;
 
-    private String nome2;
-    
     @Column(nullable = false)
     @Formats.DateTime(pattern="yyyy-MM-dd HH:mm:ss")
     private Date dataInicio;
@@ -149,8 +147,6 @@ public class Evento extends Model {
         }
         return options;
     }
-
-
 
     @Override
     public String toString() {

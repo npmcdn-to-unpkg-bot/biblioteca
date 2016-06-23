@@ -14,7 +14,6 @@ import play.mvc.Security;
 import views.validators.EventoFormData;
 
 import javax.annotation.Nullable;
-import java.util.Calendar;
 import java.util.List;
 
 import static play.data.Form.form;
@@ -186,7 +185,6 @@ public class EventoController extends Controller {
 
         }
     }
-
 
     public Result editar(Long id) {
         String mensagem;
