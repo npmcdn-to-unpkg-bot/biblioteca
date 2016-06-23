@@ -1,5 +1,5 @@
 angular.module('architectplay')
-    .controller('livro.list.controller', function ($scope, $rootScope, Livro, toastr, $routeParams, $location) {
+    .controller('livro.list.controller', function ($scope, $rootScope, Livro, toastr, $location) {
 
     // $rootScope.title = Messages('menu.top.title.5');
 

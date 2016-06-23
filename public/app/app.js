@@ -3,6 +3,7 @@ angular
         ('architectplay',
             ['ngRoute',
              'ngResource',
+             'ngSanitize',
              'ngAria',
              'ngAnimate',
              'angular-loading-bar',

@@ -1,12 +1,16 @@
+.agenda{
+
+}
+
 .agenda .data{
-    height:46px;
+    height:83px;
     float:left;
     padding-right:10px;
 }
 
 .agenda .data .dia{
-    width:35px;
-    height:46px;
+    width:42px;
+    height:55px;
     float: left;
     background: rgb(245, 166, 64) !important;
 }
@@ -15,7 +19,7 @@
     font-size:22px;
     font-weight:bold;
     color: #ffffff;
-    padding:3px;
+    padding:5px;
 }
 
 .agenda .data .dia .mes{
@@ -26,11 +30,11 @@
 }
 
 .agenda .data .semana{
-    width:115px;
-    height:46px;
+    width:190px;
+    height:55px;
     background: #dedede;
-    font-size:14px;
+    font-size:17px;
     font-weight:bold;
-    line-height:46px;
+    line-height:55px;
     text-align:center;
 }

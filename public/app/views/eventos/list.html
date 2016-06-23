@@ -1,10 +1,10 @@
-<div class="mdl-grid">
+<div ng-init="init()"class="mdl-grid">
     <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Lista de Eventos</h2>
         </div>
         <div class="mdl-card__supporting-text mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
-            <div class="agenda">
+            <div ng-repeat="evento in eventos" class="agenda">
                 <div class="data">
                     <div class="dia">
                         <div class="numero">
@@ -15,83 +15,16 @@
                         </div>
                     </div>
                     <div class="semana">
-                        Domingo
+                        Segunda-Feira
                     </div>
                 </div>
-                <span style="line-height:15px;">
-                    Local: Viale Cataratas<br>
-                    Foz do Iguaçu - PR<br>
-                     <a href="https://www.facebook.com/events/1767273110173254/" target="_blank">Site do Evento</a>
+                <span style="line-height:25px;">
+                    <b>Nome:</b> {{evento.nome}}<br>
+                    <b>Local:</b> {{evento.local}}<br>
+                    <b>Instituição:</b> {{evento.instituicao}}<br>
+                     <a href="{{evento.site}}" target="_blank">Site do Evento</a>
                 </span>
-            </div>
-        </div>
-        <hr>
-        <div class="mdl-card__supporting-text mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
-            <div class="agenda">
-                <div class="data">
-                    <div class="dia">
-                        <div class="numero">
-                            31
-                        </div>
-                        <div class="mes">
-                            DEZ
-                        </div>
-                    </div>
-                    <div class="semana">
-                        Domingo
-                    </div>
-                </div>
-                <span style="line-height:15px;">
-                    Local: Viale Cataratas<br>
-                    Foz do Iguaçu - PR<br>
-                     <a href="https://www.facebook.com/events/1767273110173254/" target="_blank">Site do Evento</a>
-                </span>
-            </div>
-        </div>
-        <hr>
-        <div class="mdl-card__supporting-text mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
-            <div class="agenda">
-                <div class="data">
-                    <div class="dia">
-                        <div class="numero">
-                            31
-                        </div>
-                        <div class="mes">
-                            DEZ
-                        </div>
-                    </div>
-                    <div class="semana">
-                        Domingo
-                    </div>
-                </div>
-                <span style="line-height:15px;">
-                    Local: Viale Cataratas<br>
-                    Foz do Iguaçu - PR<br>
-                     <a href="https://www.facebook.com/events/1767273110173254/" target="_blank">Site do Evento</a>
-                </span>
-            </div>
-        </div>
-        <hr>
-        <div class="mdl-card__supporting-text mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
-            <div class="agenda">
-                <div class="data">
-                    <div class="dia">
-                        <div class="numero">
-                            31
-                        </div>
-                        <div class="mes">
-                            DEZ
-                        </div>
-                    </div>
-                    <div class="semana">
-                        Domingo
-                    </div>
-                </div>
-                <span style="line-height:15px;">
-                    Local: Viale Cataratas<br>
-                    Foz do Iguaçu - PR<br>
-                     <a href="https://www.facebook.com/events/1767273110173254/" target="_blank">Site do Evento</a>
-                </span>
+                <hr>
             </div>
         </div>
     </div>

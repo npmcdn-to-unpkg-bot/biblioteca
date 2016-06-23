@@ -14,11 +14,13 @@ import play.mvc.Security;
 import views.validators.EventoFormData;
 
 import javax.annotation.Nullable;
+import java.time.DayOfWeek;
+import java.time.Year;
+import java.util.Date;
 import java.util.List;
 
 import static play.data.Form.form;
 
-@Security.Authenticated(Secured.class)
 public class EventoController extends Controller {
 
     /**
@@ -39,6 +41,7 @@ public class EventoController extends Controller {
         }
     }
 
+    @Security.Authenticated(Secured.class)
     public Result telaNovo() {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -57,6 +60,7 @@ public class EventoController extends Controller {
         return ok(views.html.admin.eventos.create.render(eventoForm));
     }
 
+    @Security.Authenticated(Secured.class)
     public Result telaLista() {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -79,6 +83,7 @@ public class EventoController extends Controller {
         }
     }
 
+    @Security.Authenticated(Secured.class)
     public Result telaDetalhe(Long id) {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -106,6 +111,7 @@ public class EventoController extends Controller {
         }
     }
 
+    @Security.Authenticated(Secured.class)
     public Result telaEditar(Long id) {
         String mensagem;
         String tipoMensagem;
@@ -140,6 +146,7 @@ public class EventoController extends Controller {
         }
     }
 
+    @Security.Authenticated(Secured.class)
     public Result inserir() {
         //Resgata os dados do formulario atraves de uma requisicao e realiza a validacao dos campos
         Form<EventoFormData> formData = Form.form(EventoFormData.class).bindFromRequest();
@@ -186,6 +193,7 @@ public class EventoController extends Controller {
         }
     }
 
+    @Security.Authenticated(Secured.class)
     public Result editar(Long id) {
         String mensagem;
         String tipoMensagem;
@@ -236,6 +244,7 @@ public class EventoController extends Controller {
         }
     }
 
+    @Security.Authenticated(Secured.class)
     public Result remover(Long id) {
         String mensagem;
         String tipoMensagem;
@@ -277,6 +286,7 @@ public class EventoController extends Controller {
     }
 
     public Result buscaTodos() {
+
         try {
             return ok(Json.toJson(Ebean.find(Evento.class).findList()));
         } catch (Exception e) {

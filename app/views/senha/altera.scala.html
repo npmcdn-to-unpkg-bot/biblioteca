@@ -1,4 +1,4 @@
-@(formPreenchido:DynamicForm, token: String)
+@(formPreenchido:play.data.DynamicForm, token: String)
 
 @import helper._
 @import templates.mdl._
@@ -27,9 +27,9 @@
                 <div class="mdl-card__supporting-text">
 
                     @if(formPreenchido.hasGlobalErrors) {
-                    <p align="center" class="login-message">
-                        <b>@formPreenchido.globalError.message</b>
-                    </p>
+                        <p align="center" class="login-message">
+                            <b>@formPreenchido.globalError.message</b>
+                        </p>
                     }
 
                     <!-- Senha -->
@@ -52,6 +52,8 @@
         </main>
     </div>
 
+    <script src="@routes.Assets.versioned("bower_components/material-design-lite/material.js")" type="text/javascript"></script>
+
     <script type="text/javascript">
     window.onbeforeunload = function () {
         var inputs = document.getElementsByTagName("INPUT");
@@ -62,8 +64,6 @@
         }
     };
     </script>
-
-    <script src="@routes.Assets.versioned("bower_components/material-design-lite/material.js")" type="text/javascript"></script>
 
 </body>
 </html>

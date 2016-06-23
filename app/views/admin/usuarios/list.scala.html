@@ -12,10 +12,10 @@
                             <th>Email</th>
                         </tr>
                         @for(usuario <- usuarios) {
-                        <tr>
-                            <td><a href="@routes.UsuarioController.telaDetalhe(usuario.getId())">@usuario.getNome</a></td>
-                            <td>@usuario.getEmail</td>
-                        </tr>
+                            <tr>
+                                <td><a href="@routes.UsuarioController.telaDetalhe(usuario.getId())">@usuario.getNome</a></td>
+                                <td>@usuario.getEmail</td>
+                            </tr>
                         }
                     </table>
                 </div>
