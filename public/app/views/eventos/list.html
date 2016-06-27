@@ -1,7 +1,7 @@
 <div ng-init="init()"class="mdl-grid">
     <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
         <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Lista de Eventos</h2>
+            <h2 class="mdl-card__title-text">{{Messages('card.event.list.title')}}</h2>
         </div>
         <div class="mdl-card__supporting-text mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
             <div ng-repeat="evento in eventos" class="agenda">
@@ -19,10 +19,10 @@
                     </div>
                 </div>
                 <span style="line-height:25px;">
-                    <b>Nome:</b> {{evento.nome}}<br>
-                    <b>Local:</b> {{evento.local}}<br>
-                    <b>Instituição:</b> {{evento.instituicao}}<br>
-                     <a href="{{evento.site}}" target="_blank">Site do Evento</a>
+                    <b>{{Messages('card.event.name.title')}}:</b> {{evento.nome}}<br>
+                    <b>{{Messages('card.event.local.title')}}:</b> {{evento.local}}<br>
+                    <b>{{Messages('card.event.institution.title')}}:</b> {{evento.instituicao}}<br>
+                     <a href="{{evento.site}}" target="_blank">{{Messages('card.event.site.title')}}</a>
                 </span>
                 <hr>
             </div>

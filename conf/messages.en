@@ -60,6 +60,7 @@ menu.biogas.5=P & D
 menu.biogas.6=Regulatory Marks
 menu.biogas.7=Financial and Economic Aspects
 menu.biogas.8=National Register and Biogasmap
+menu.biogas.9=Events
 
 # Menu superior lado direito
 menu.top.title.1=Home
@@ -141,3 +142,9 @@ password.change.success=Password changed successfully! You can now perform authe
 # Cartoes
 card.button.title=More Information
 card.button.pdf.title=To View
+
+card.event.list.title=Event List
+card.event.name.title=Name
+card.event.local.title=Local
+card.event.institution.title=Institution
+card.event.site.title=Website

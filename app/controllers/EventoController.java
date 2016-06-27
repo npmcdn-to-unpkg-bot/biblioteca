@@ -14,8 +14,6 @@ import play.mvc.Security;
 import views.validators.EventoFormData;
 
 import javax.annotation.Nullable;
-import java.time.DayOfWeek;
-import java.time.Year;
 import java.util.Date;
 import java.util.List;
 
@@ -41,6 +39,9 @@ public class EventoController extends Controller {
         }
     }
 
+    /**
+     * @return evento form if auth OK or not autorizado form is auth KO
+     */
     @Security.Authenticated(Secured.class)
     public Result telaNovo() {
         //busca o usuário atual que esteja logado no sistema
@@ -60,6 +61,11 @@ public class EventoController extends Controller {
         return ok(views.html.admin.eventos.create.render(eventoForm));
     }
 
+    /**
+     * Retrieve a list of all eventos
+     *
+     * @return a list of all eventos in a render template
+     */
     @Security.Authenticated(Secured.class)
     public Result telaLista() {
         //busca o usuário atual que esteja logado no sistema
@@ -83,6 +89,9 @@ public class EventoController extends Controller {
         }
     }
 
+    /**
+     * @return render a page form with a evento data by id
+     */
     @Security.Authenticated(Secured.class)
     public Result telaDetalhe(Long id) {
         //busca o usuário atual que esteja logado no sistema
@@ -111,6 +120,9 @@ public class EventoController extends Controller {
         }
     }
 
+    /**
+     * @return render edit form with a evento data by id
+     */
     @Security.Authenticated(Secured.class)
     public Result telaEditar(Long id) {
         String mensagem;
@@ -146,6 +158,11 @@ public class EventoController extends Controller {
         }
     }
 
+    /**
+     * Save Evento
+     *
+     * @return a render view to inform with event CREATED
+     */
     @Security.Authenticated(Secured.class)
     public Result inserir() {
         //Resgata os dados do formulario atraves de uma requisicao e realiza a validacao dos campos
@@ -177,11 +194,17 @@ public class EventoController extends Controller {
                 Evento eventoBusca = Ebean.find(Evento.class).where().eq("nome", formData.data().get("nome")).findUnique();
 
                 if (eventoBusca != null) {
-                    formData.reject("O Evento '" + eventoBusca.getNome() + "' já esta Cadastrado!");
+                    formData.reject("O Evento com o nome'" + eventoBusca.getNome() + "' já esta Cadastrado!");
+                    return badRequest(views.html.admin.eventos.create.render(formData));
+                }
+
+                if (evento.getDataFim().before(evento.getDataInicio())) {
+                    formData.reject("A data de término deve ser depois da data de início do evento!");
                     return badRequest(views.html.admin.eventos.create.render(formData));
                 }
 
                 evento.save();
+
                 return created(views.html.mensagens.evento.cadastrado.render(evento.getNome()));
             } catch (Exception e) {
                 Logger.error(e.getMessage());
@@ -193,6 +216,12 @@ public class EventoController extends Controller {
         }
     }
 
+    /**
+     * Update a evento from id
+     *
+     * @param id
+     * @return a evento update with a form
+     */
     @Security.Authenticated(Secured.class)
     public Result editar(Long id) {
         String mensagem;
@@ -244,6 +273,12 @@ public class EventoController extends Controller {
         }
     }
 
+    /**
+     * Remove a event from a id
+     *
+     * @param id
+     * @return ok event removed
+     */
     @Security.Authenticated(Secured.class)
     public Result remover(Long id) {
         String mensagem;
@@ -285,10 +320,18 @@ public class EventoController extends Controller {
         }
     }
 
+    /**
+     * Retrieve a list of all events
+     *
+     * @return a list of all events in json
+     */
     public Result buscaTodos() {
 
         try {
-            return ok(Json.toJson(Ebean.find(Evento.class).findList()));
+            return ok(Json.toJson(Ebean.find(Evento.class)
+                    .order()
+                    .asc("dataInicio")
+                    .findList()));
         } catch (Exception e) {
             Logger.error(e.getMessage());
             return badRequest(Json.toJson(Messages.get("error.app")));

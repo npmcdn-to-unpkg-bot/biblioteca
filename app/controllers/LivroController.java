@@ -67,9 +67,9 @@ public class LivroController extends Controller {
     }
 
     /**
-     * Retrieve a list of all artigos
+     * Retrieve a list of all livros
      *
-     * @return a list of all artigos in a render template
+     * @return a list of all livros in a render template
      */
     public Result telaLista() {
 
