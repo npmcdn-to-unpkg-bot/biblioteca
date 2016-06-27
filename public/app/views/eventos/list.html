@@ -1,28 +1,29 @@
 <div ng-init="init()"class="mdl-grid">
     <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
         <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">{{Messages('card.event.list.title')}}</h2>
+            <h2 ng-show="eventos.length == 0" class="mdl-card__title-text">Nenhum evento encontrado</h2>
+            <h2 ng-show="eventos.length > 0" class="mdl-card__title-text">{{Messages('card.event.list.title')}}</h2>
         </div>
         <div class="mdl-card__supporting-text mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
             <div ng-repeat="evento in eventos" class="agenda">
                 <div class="data">
                     <div class="dia">
                         <div class="numero">
-                            31
+                            {{dia(evento.dataInicio)}}
                         </div>
                         <div class="mes">
-                            DEZ
+                            {{mes(evento.dataInicio)}}
                         </div>
                     </div>
                     <div class="semana">
-                        Segunda-Feira
+                        {{diaSemana(evento.dataInicio)}}
                     </div>
                 </div>
                 <span style="line-height:25px;">
                     <b>{{Messages('card.event.name.title')}}:</b> {{evento.nome}}<br>
                     <b>{{Messages('card.event.local.title')}}:</b> {{evento.local}}<br>
                     <b>{{Messages('card.event.institution.title')}}:</b> {{evento.instituicao}}<br>
-                     <a href="{{evento.site}}" target="_blank">{{Messages('card.event.site.title')}}</a>
+                    <a href="{{evento.site}}" target="_blank">{{Messages('card.event.site.title')}}</a>
                 </span>
                 <hr>
             </div>

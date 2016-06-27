@@ -25,11 +25,11 @@
                 </div>
                 <div class="item-form width-600 margin-bottom-15">
                     <label class="display-block strong">Data de Início</label>
-                    <p class="display-block margin-left-027em">@evento.getDataInicio.format("dd MMMM yyyy - HH:mm")</p>
+                    <p class="display-block margin-left-027em">@evento.getDataInicio.format("dd MMMM yyyy hh:mm")</p>
                 </div>
                 <div class="item-form width-600 margin-bottom-15">
                     <label class="display-block strong">Data de Término</label>
-                    <p class="display-block margin-left-027em">@evento.getDataFim.format("dd MMMM yyyy - HH:mm")</p>
+                    <p class="display-block margin-left-027em">@evento.getDataFim.format("dd MMMM yyyy hh:mm")</p>
                 </div>
                 <div class="item-form width-600 margin-bottom-15">
                     <label class="display-block strong">Site</label>
@@ -57,9 +57,9 @@
                     <p class="text-center">Deseja remover o evento <b>"@evento.getNome"</b>?</p>
                 </div>
                 <div class="modal-footer">
-                @form(routes.LivroController.remover(evento.getId)) {
+                @form(routes.EventoController.remover(evento.getId)) {
                     <input type="submit" value="Remover" class="btn btn-warning">
-                    }
+                }
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

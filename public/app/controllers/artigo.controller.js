@@ -4,12 +4,8 @@ angular.module('architectplay')
     // $rootScope.title = Messages('menu.top.title.4');
 
     $scope.init = function() {
-        $scope.nomeFiltro = '';
-        $scope.filtrados = 0;
-
         Artigo.getAll(function(data) {
             $scope.artigos = data;
-            $scope.quantidade = $scope.artigos.length;
         }, function(data) {
             $location.path('/');
             toastr.error('Não autorizado.');

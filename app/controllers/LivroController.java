@@ -327,9 +327,8 @@ public class LivroController extends Controller {
                 tipoMensagem = "Erro";
                 mensagem = "Erro Interno de sistema.";
                 Logger.error(e.getMessage());
+                return badRequest(views.html.mensagens.livro.mensagens.render(mensagem,tipoMensagem));
             }
-
-            return badRequest(views.html.mensagens.livro.mensagens.render(mensagem,tipoMensagem));
         }
     }
 

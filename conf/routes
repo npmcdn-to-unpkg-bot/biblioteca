@@ -73,6 +73,18 @@ POST    /evento                             controllers.EventoController.inserir
 POST	/evento/:id/remover		            controllers.EventoController.remover(id:Long)
 POST    /evento/editar/:id                  controllers.EventoController.editar(id:Long)
 
+# Curso Telas
+GET     /curso/novo/                       controllers.CursoController.telaNovo()
+GET		/curso/detalhe/:id				   controllers.CursoController.telaDetalhe(id:Long)
+GET     /curso/editar/:id                  controllers.CursoController.telaEditar(id:Long)
+GET     /curso/lista/todos                 controllers.CursoController.telaLista()
+
+# Evento Servicos
+GET     /cursos                            controllers.CursoController.buscaTodos()
+POST    /curso                             controllers.CursoController.inserir()
+POST	/curso/:id/remover		            controllers.CursoController.remover(id:Long)
+POST    /curso/editar/:id                  controllers.CursoController.editar(id:Long)
+
 # Acessado quando o usuario confirma o registro
 GET     /confirma/:confirmaToken            controllers.UsuarioController.confirma(confirmaToken:String)
 

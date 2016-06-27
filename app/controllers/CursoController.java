@@ -1,8 +1,7 @@
 package controllers;
 
-import actions.Secured;
 import com.avaje.ebean.Ebean;
-import models.Evento;
+import models.Curso;
 import models.Usuario;
 import play.Logger;
 import play.data.Form;
@@ -10,16 +9,14 @@ import play.i18n.Messages;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.mvc.Security;
-import views.validators.EventoFormData;
+import views.validators.CursoFormData;
 
 import javax.annotation.Nullable;
-import java.util.Date;
 import java.util.List;
 
 import static play.data.Form.form;
 
-public class EventoController extends Controller {
+public class CursoController extends Controller {
 
     /**
      * @return a object user authenticated
@@ -39,10 +36,6 @@ public class EventoController extends Controller {
         }
     }
 
-    /**
-     * @return evento form if auth OK or not autorizado form is auth KO
-     */
-    @Security.Authenticated(Secured.class)
     public Result telaNovo() {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -56,17 +49,11 @@ public class EventoController extends Controller {
             return badRequest(views.html.mensagens.erro.naoAutorizado.render());
         }
 
-        Form<EventoFormData> eventoForm = form(EventoFormData.class);
+        Form<CursoFormData> cursoForm = form(CursoFormData.class);
 
-        return ok(views.html.admin.eventos.create.render(eventoForm));
+        return ok(views.html.admin.cursos.create.render(cursoForm));
     }
 
-    /**
-     * Retrieve a list of all eventos
-     *
-     * @return a list of all eventos in a render template
-     */
-    @Security.Authenticated(Secured.class)
     public Result telaLista() {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -81,18 +68,14 @@ public class EventoController extends Controller {
         }
 
         try {
-            List<Evento> eventos = Ebean.find(Evento.class).findList();
-            return ok(views.html.admin.eventos.list.render(eventos,""));
+            List<Curso> cursos = Ebean.find(Curso.class).findList();
+            return ok(views.html.admin.cursos.list.render(cursos,""));
         } catch (Exception e) {
             Logger.error(e.getMessage());
             return badRequest(views.html.error.render(e.getMessage()));
         }
     }
 
-    /**
-     * @return render a page form with a evento data by id
-     */
-    @Security.Authenticated(Secured.class)
     public Result telaDetalhe(Long id) {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -107,23 +90,19 @@ public class EventoController extends Controller {
         }
 
         try {
-            Evento evento = Ebean.find(Evento.class, id);
+            Curso curso = Ebean.find(Curso.class, id);
 
-            if (evento == null) {
-                return notFound(views.html.mensagens.erro.naoEncontrado.render("Evento não encontrado"));
+            if (curso == null) {
+                return notFound(views.html.mensagens.erro.naoEncontrado.render("Curso não encontrado"));
             }
 
-            return ok(views.html.admin.eventos.detail.render(evento));
+            return ok(views.html.admin.cursos.detail.render(curso));
         } catch (Exception e) {
             Logger.error(e.getMessage());
             return badRequest(views.html.error.render(e.getMessage()));
         }
     }
 
-    /**
-     * @return render edit form with a evento data by id
-     */
-    @Security.Authenticated(Secured.class)
     public Result telaEditar(Long id) {
         String mensagem;
         String tipoMensagem;
@@ -134,7 +113,7 @@ public class EventoController extends Controller {
         if (usuarioAtual == null) {
             mensagem = "Usuário não autenticado";
             tipoMensagem = "Erro";
-            return badRequest(views.html.mensagens.evento.mensagens.render(mensagem,tipoMensagem));
+            return badRequest(views.html.mensagens.curso.mensagens.render(mensagem,tipoMensagem));
         }
 
         //verificar se o usuario atual encontrado é administrador
@@ -144,12 +123,12 @@ public class EventoController extends Controller {
 
         try {
             //logica onde instanciamos um objeto evento que esteja cadastrado na base de dados
-            EventoFormData eventoFormData = (id == 0) ? new EventoFormData() : models.Evento.makeEventoFormData(id);
+            CursoFormData cursoFormData = (id == 0) ? new CursoFormData() : models.Curso.makeCursoFormData(id);
 
             //apos o objeto ser instanciado passamos os dados para o eventoformdata e os dados serao carregados no form edit
-            Form<EventoFormData> formData = Form.form(EventoFormData.class).fill(eventoFormData);
+            Form<CursoFormData> formData = Form.form(CursoFormData.class).fill(cursoFormData);
 
-            return ok(views.html.admin.eventos.edit.render(id,formData));
+            return ok(views.html.admin.cursos.edit.render(id,formData));
         } catch (Exception e) {
             mensagem = "Erro interno de sistema";
             tipoMensagem = "Erro";
@@ -158,128 +137,103 @@ public class EventoController extends Controller {
         }
     }
 
-    /**
-     * Save Evento
-     *
-     * @return a render view to inform with event CREATED
-     */
-    @Security.Authenticated(Secured.class)
     public Result inserir() {
         //Resgata os dados do formulario atraves de uma requisicao e realiza a validacao dos campos
-        Form<EventoFormData> formData = Form.form(EventoFormData.class).bindFromRequest();
+        Form<CursoFormData> formData = Form.form(CursoFormData.class).bindFromRequest();
 
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
 
         if (usuarioAtual == null) {
             formData.reject("Usuário não autenticado");
-            return badRequest(views.html.admin.eventos.create.render(formData));
+            return badRequest(views.html.admin.cursos.create.render(formData));
         }
 
         //verificar se o usuario atual encontrado é administrador
         if (usuarioAtual.getPrivilegio() != 1) {
             formData.reject("Você não tem privilégios de Administrador");
-            return badRequest(views.html.admin.eventos.create.render(formData));
+            return badRequest(views.html.admin.cursos.create.render(formData));
         }
 
-        //se existir erros nos campos do formulario retorne o EventoFormData com os erros
+        //se existir erros nos campos do formulario retorne o CursoFormData com os erros
         if (formData.hasErrors()) {
-            return badRequest(views.html.admin.eventos.create.render(formData));
+            return badRequest(views.html.admin.cursos.create.render(formData));
         } else {
             try {
                 //Converte os dados do formularios para uma instancia do Evento
-                Evento evento = Evento.makeInstance(formData.get());
+                Curso curso = Curso.makeInstance(formData.get());
 
-                //faz uma busca na base de dados do evento
-                Evento eventoBusca = Ebean.find(Evento.class).where().eq("nome", formData.data().get("nome")).findUnique();
+                //faz uma busca na base de dados do curso
+                Curso cursoBusca = Ebean.find(Curso.class).where().eq("nome", formData.data().get("nome")).findUnique();
 
-                if (eventoBusca != null) {
-                    formData.reject("O Evento com o nome'" + eventoBusca.getNome() + "' já esta Cadastrado!");
-                    return badRequest(views.html.admin.eventos.create.render(formData));
+                if (cursoBusca != null) {
+                    formData.reject("O Curso com o nome'" + cursoBusca.getNome() + "' já esta Cadastrado!");
+                    return badRequest(views.html.admin.cursos.create.render(formData));
                 }
 
-                if (evento.getDataFim().before(evento.getDataInicio())) {
-                    formData.reject("A data de término deve ser depois da data de início do evento!");
-                    return badRequest(views.html.admin.eventos.create.render(formData));
-                }
+                curso.save();
 
-                evento.save();
-
-                return created(views.html.mensagens.evento.cadastrado.render(evento.getNome()));
+                return created(views.html.mensagens.curso.cadastrado.render(curso.getNome()));
             } catch (Exception e) {
                 Logger.error(e.getMessage());
                 formData.reject("Não foi possível cadastrar, erro interno de sistema.");
-                return badRequest(views.html.admin.eventos.create.render(formData));
+                return badRequest(views.html.admin.cursos.create.render(formData));
 
             }
 
         }
     }
 
-    /**
-     * Update a evento from id
-     *
-     * @param id
-     * @return a evento update with a form
-     */
-    @Security.Authenticated(Secured.class)
     public Result editar(Long id) {
         String mensagem;
         String tipoMensagem;
 
         //Resgata os dados do formulario atraves de uma requisicao e realiza a validacao dos campos
-        Form<EventoFormData> formData = Form.form(EventoFormData.class).bindFromRequest();
+        Form<CursoFormData> formData = Form.form(CursoFormData.class).bindFromRequest();
 
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
 
         if (usuarioAtual == null) {
             formData.reject("Usuário não autenticado");
-            return badRequest(views.html.admin.eventos.edit.render(id,formData));
+            return badRequest(views.html.admin.cursos.edit.render(id,formData));
         }
 
         //verificar se o usuario atual encontrado é administrador
         if (usuarioAtual.getPrivilegio() != 1) {
             formData.reject("Você não tem privilégios de Administrador");
-            return badRequest(views.html.admin.eventos.edit.render(id,formData));
+            return badRequest(views.html.admin.cursos.edit.render(id,formData));
         }
 
-        //verificar se tem erros no formData, caso tiver erros retorna o formulario com os erros caso não tiver continua o processo de alteracao do evento
+        //verificar se tem erros no formData, caso tiver erros retorna o formulario com os erros caso não tiver continua o processo de alteracao do curso
         if (formData.hasErrors()) {
-            return badRequest(views.html.admin.eventos.edit.render(id,formData));
+            return badRequest(views.html.admin.cursos.edit.render(id,formData));
         } else {
             try {
-                Evento eventoBusca = Ebean.find(Evento.class, id);
+                Curso cursoBusca = Ebean.find(Curso.class, id);
 
-                if (eventoBusca == null) {
-                    return notFound(views.html.mensagens.erro.naoEncontrado.render("Evento não encontrado"));
+                if (cursoBusca == null) {
+                    return notFound(views.html.mensagens.erro.naoEncontrado.render("Curso não encontrado"));
                 }
 
-                //Converte os dados do formularios para uma instancia do Evento
-                Evento evento = Evento.makeInstance(formData.get());
+                //Converte os dados do formulario para uma instancia do Curso
+                Curso curso = Curso.makeInstance(formData.get());
 
-                evento.setId(id);
-                evento.update();
+                curso.setId(id);
+                curso.update();
                 tipoMensagem = "Sucesso";
-                mensagem = "Evento atualizado com sucesso.";
-                return ok(views.html.mensagens.evento.mensagens.render(mensagem,tipoMensagem));
+                mensagem = "Curso atualizado com sucesso.";
+                return ok(views.html.mensagens.curso.mensagens.render(mensagem,tipoMensagem));
             } catch (Exception e) {
                 tipoMensagem = "Erro";
                 mensagem = "Erro Interno de sistema.";
                 Logger.error(e.getMessage());
-                return badRequest(views.html.mensagens.evento.mensagens.render(mensagem,tipoMensagem));
+                return badRequest(views.html.mensagens.curso.mensagens.render(mensagem,tipoMensagem));
             }
 
         }
     }
 
-    /**
-     * Remove a event from a id
-     *
-     * @param id
-     * @return ok event removed
-     */
-    @Security.Authenticated(Secured.class)
     public Result remover(Long id) {
         String mensagem;
         String tipoMensagem;
@@ -290,45 +244,39 @@ public class EventoController extends Controller {
         if (usuarioAtual == null) {
             mensagem = "Usuario não autenticado";
             tipoMensagem = "Erro";
-            return notFound(views.html.mensagens.evento.mensagens.render(mensagem,tipoMensagem));
+            return notFound(views.html.mensagens.curso.mensagens.render(mensagem,tipoMensagem));
         }
 
         //verificar se o usuario atual encontrado é administrador
         if (usuarioAtual.getPrivilegio() != 1) {
             mensagem = "Você não tem privilégios de Administrador";
             tipoMensagem = "Erro";
-            return badRequest(views.html.mensagens.evento.mensagens.render(mensagem,tipoMensagem));
+            return badRequest(views.html.mensagens.curso.mensagens.render(mensagem,tipoMensagem));
         }
 
         try {
-            //busca o evento para ser excluido
-            Evento evento = Ebean.find(Evento.class, id);
+            //busca o curso para ser excluido
+            Curso curso = Ebean.find(Curso.class, id);
 
-            if (evento == null) {
-                return notFound(views.html.mensagens.erro.naoEncontrado.render("Evento não encontrado"));
+            if (curso == null) {
+                return notFound(views.html.mensagens.erro.naoEncontrado.render("Curso não encontrado"));
             }
 
-            Ebean.delete(evento);
-            mensagem = "Evento excluído com sucesso";
+            Ebean.delete(curso);
+            mensagem = "Curso excluído com sucesso";
             tipoMensagem = "Sucesso";
-            return ok(views.html.mensagens.evento.mensagens.render(mensagem,tipoMensagem));
+            return ok(views.html.mensagens.curso.mensagens.render(mensagem,tipoMensagem));
         } catch (Exception e) {
             mensagem = "Erro interno de sistema";
             tipoMensagem = "Erro";
             Logger.error(e.getMessage());
-            return badRequest(views.html.mensagens.evento.mensagens.render(mensagem,tipoMensagem));
+            return badRequest(views.html.mensagens.curso.mensagens.render(mensagem,tipoMensagem));
         }
     }
 
-    /**
-     * Retrieve a list of all events
-     *
-     * @return a list of all events in json
-     */
     public Result buscaTodos() {
-
         try {
-            return ok(Json.toJson(Ebean.find(Evento.class)
+            return ok(Json.toJson(Ebean.find(Curso.class)
                     .order()
                     .asc("dataInicio")
                     .findList()));
@@ -336,7 +284,5 @@ public class EventoController extends Controller {
             Logger.error(e.getMessage());
             return badRequest(Json.toJson(Messages.get("error.app")));
         }
-
     }
-
 }

@@ -19,8 +19,8 @@
                         @for(evento <- eventos) {
                             <tr>
                                 <td><a href="@routes.EventoController.telaDetalhe(evento.getId)">@evento.getNome</a></td>
-                                <td>@evento.getDataInicio.format("dd-MMMM-yyyy HH:mm:ss")</td>
-                                <td>@evento.getDataFim.format("dd-MMMM-yyyy HH:mm:ss")</td>
+                                <td>@evento.getDataInicio.format("dd MMMM yyyy hh:mm")</td>
+                                <td>@evento.getDataFim.format("dd MMMM yyyy hh:mm")</td>
                                 <td>@evento.getSite</td>
                                 <td>@evento.getLocal</td>
                             </tr>

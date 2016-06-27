@@ -31,19 +31,20 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="/artigo/lista/todos"><span class="glyphicon glyphicon-education"></span> Artigos</a></li>
-                    <li><a href="/livro/lista/todos"><span class="glyphicon glyphicon-book"></span> Livros</a></li>
-                    <li><a href="/evento/lista/todos"><span class="fa fa-calendar"></span> Eventos</a></li>
-                    <li><a href="/usuario/lista/todos"><span class="glyphicon glyphicon-user"></span> Usuários</a></li>
+                    <li><a href="@routes.ArtigoController.telaLista"><span class="glyphicon glyphicon-education"></span> Artigos</a></li>
+                    <li><a href="@routes.LivroController.telaLista"><span class="glyphicon glyphicon-book"></span> Livros</a></li>
+                    <li><a href="@routes.EventoController.telaLista"><span class="fa fa-calendar"></span> Eventos</a></li>
+                    <li><a href="@routes.CursoController.telaLista"><span class="fa fa-leaf"></span> Cursos</a></li>
+                    <li><a href="@routes.UsuarioController.telaLista"><span class="glyphicon glyphicon-user"></span> Usuários</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Opções <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/#/">Home</a></li>
-                            <li><a href="/sobre">Sobre</a></li>
+                            <li><a href="@routes.Application.sobre">Sobre</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="/logout">Sair</a></li>
+                            <li><a href="@routes.LoginController.logout()">Sair</a></li>
                         </ul>
                     </li>
                 </ul>

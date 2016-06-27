@@ -6,26 +6,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class EventoFormData {
+public class CursoFormData {
 
     public String nome = "";
     public Date dataInicio = null;
-    public Date dataFim = null;
     public String site = "";
-    public String local = "";
-    public String instituicao = "";
 
     /** Necessario para instanciar o form */
-    public EventoFormData() {
+    public CursoFormData() {
     }
 
-    public EventoFormData(String nome, Date dataInicio, Date dataFim, String site, String local, String instituicao) {
+    public CursoFormData(String nome, Date dataInicio, String site) {
         this.nome = nome;
         this.dataInicio = dataInicio;
-        this.dataFim = dataFim;
         this.site = site;
-        this.local = local;
-        this.instituicao = instituicao;
     }
 
     public List<ValidationError> validate() {
@@ -40,23 +34,11 @@ public class EventoFormData {
             errors.add(new ValidationError("site", "Preencha o site"));
         }
 
-        if (local == null || local.length() == 0) {
-            errors.add(new ValidationError("local", "Preencha o local"));
-        }
-
-        if (instituicao == null || instituicao.length() == 0) {
-            errors.add(new ValidationError("instituicao", "Preencha a instituição"));
-        }
 
         if (dataInicio == null) {
             errors.add(new ValidationError("dataInicio", "Preencha a data de inicio"));
         }
 
-        if (dataFim == null) {
-            errors.add(new ValidationError("dataFim", "Preencha a data de término"));
-        }
-
         return errors.isEmpty() ? null : errors;
     }
-
 }
