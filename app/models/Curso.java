@@ -22,8 +22,11 @@ public class Curso extends Model {
     @Column(nullable = false, length = 100)
     private String nome;
 
+    @Column(nullable = false, length = 400)
+    private String descricao;
+
     @Column(nullable = false)
-    @Formats.DateTime(pattern="dd MMMM yyyy hh:mm:ss")
+    @Formats.DateTime(pattern="dd MMMM yyyy HH:mm:ss")
     private Date dataInicio;
 
     @Column(nullable = false, length = 80)
@@ -32,9 +35,10 @@ public class Curso extends Model {
     public Curso(){
     }
 
-    public Curso(Long id, String nome, Date dataInicio, String site) {
+    public Curso(Long id, String nome, String descricao, Date dataInicio, String site) {
         this.setId(id);
         this.nome = nome;
+        this.descricao = descricao;
         this.dataInicio = dataInicio;
         this.site = site;
     }
@@ -45,6 +49,7 @@ public class Curso extends Model {
     public static Curso makeInstance(CursoFormData formData) {
         Curso curso = new Curso();
         curso.setNome(formData.nome);
+        curso.setDescricao(formData.descricao);
         curso.setDataInicio(formData.dataInicio);
         curso.setSite(formData.site);
         return curso;
@@ -63,7 +68,7 @@ public class Curso extends Model {
             throw new RuntimeException("Curso não encontrado");
         }
 
-        return new CursoFormData(curso.nome, curso.dataInicio, curso.site);
+        return new CursoFormData(curso.nome, curso.descricao, curso.dataInicio, curso.site);
     }
 
     public Long getId() {
@@ -106,6 +111,14 @@ public class Curso extends Model {
             options.put(c.id.toString(),c.nome);
         }
         return options;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     @Override

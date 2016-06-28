@@ -1,1 +1,59 @@
 @(id: Long, cursoForm: play.data.Form[views.validators.CursoFormData])
+
+@import helper._
+@import templates.bootstrap._
+
+@views.html.admin.main("Editar Curso") {
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Editar Curso</div>
+            <div class="panel-body">
+            @form(routes.CursoController.editar(id), 'class -> "form-horizontal", 'id -> "cursoForm") {
+
+                @if(cursoForm.hasGlobalErrors) {
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"></label>
+                        <div class="col-sm-6">
+                            <p class="alert alert-danger text-center">@cursoForm.globalError.message</p>
+                        </div>
+                    </div>
+                }
+
+                    <!-- nome -->
+                @texto(cursoForm("nome"),
+                    label = "Nome:",
+                    placeholder = "Insira o Nome")
+
+                    <!-- descricao -->
+                @texto(cursoForm("descricao"),
+                    label = "Descrição:",
+                    placeholder = "Insira a Descrição")
+
+                    <!-- Data Inicio -->
+                @datetimePickerDataInicio(cursoForm("dataInicio"),
+                    label = "Data de Início:",
+                    placeholder = "Insira a data")
+
+                    <!-- Site -->
+                @texto(cursoForm("site"),
+                    label = "Site:",
+                    placeholder = "Insira o Site")
+
+                    <!-- Button -->
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-12">
+                        <input class="btn btn-primary" type="submit" id="btnSubmit" value="Editar"/>
+                        <a class="btn btn-default" type="button" href="@routes.CursoController.telaLista">Cancelar</a>
+                    </div>
+                </div>
+            }
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+        $(function () {
+            $('#dataInicio').datetimepicker();
+        });
+</script>

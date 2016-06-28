@@ -1,1 +1,31 @@
 @(cursos: List[Curso])(mensagem : String)
+
+@views.html.admin.main("Administração - Cursos") {
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Lista de Cursos
+                <a href="@routes.CursoController.telaNovo" class="pull-right">Adicionar</a>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>Nome</th>
+                            <th>Descrição</th>
+                            <th>Data de Início</th>
+                            <th>Site</th>
+                        </tr>
+                        @for(curso <- cursos) {
+                            <tr>
+                                <td><a href="@routes.CursoController.telaDetalhe(curso.getId)">@curso.getNome</a></td>
+                                <td>@curso.getDescricao</td>
+                                <td>@curso.getDataInicio.format("dd MMMM yyyy HH:mm")</td>
+                                <td>@curso.getSite</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}

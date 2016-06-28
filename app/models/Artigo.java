@@ -20,7 +20,7 @@ public class Artigo extends Model {
     @Column(nullable = false, length = 150)
     private String titulo;
 
-    @Column(nullable = false, length = 254)
+    @Column(nullable = false, length = 400)
     private String resumo;
 
     @Formats.DateTime(pattern="dd-MM-yyyy")

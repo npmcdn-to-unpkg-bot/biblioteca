@@ -6,7 +6,7 @@
 create table artigo (
   id                        bigserial not null,
   titulo                    varchar(150) not null,
-  resumo                    varchar(254) not null,
+  resumo                    varchar(400) not null,
   data_cadastro             timestamp,
   data_alteracao            timestamp,
   constraint pk_artigo primary key (id))
@@ -25,6 +25,7 @@ create table contato (
 create table curso (
   id                        bigserial not null,
   nome                      varchar(100) not null,
+  descricao                 varchar(400) not null,
   data_inicio               timestamp not null,
   site                      varchar(80) not null,
   constraint pk_curso primary key (id))
