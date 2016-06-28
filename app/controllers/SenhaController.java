@@ -1,4 +1,4 @@
-package controllers.senha;
+package controllers;
 
 import com.avaje.ebean.Ebean;
 import com.google.inject.Inject;
@@ -14,6 +14,7 @@ import play.libs.mailer.MailerClient;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import javax.annotation.Nullable;
 import java.net.MalformedURLException;
 
 public class SenhaController extends Controller {
@@ -26,13 +27,19 @@ public class SenhaController extends Controller {
     /**
      * @return a object user authenticated
      */
+    @Nullable
     private Usuario atual() {
         String username = session().get("email");
 
-        //retorna o usuário atual que esteja logado no sistema
-        return Ebean.createQuery(Usuario.class, "find usuario where email = :email")
-                .setParameter("email", username)
-                .findUnique();
+        try {
+            //retorna o usuário atual que esteja logado no sistema
+            return Ebean.createQuery(Usuario.class, "find usuario where email = :email")
+                    .setParameter("email", username)
+                    .findUnique();
+        } catch (Exception e) {
+            Logger.error(e.getMessage());
+            return null;
+        }
     }
 
     /**
@@ -42,8 +49,8 @@ public class SenhaController extends Controller {
      */
     public Result runPassword() throws EmailException, MalformedURLException {
 
-        String mensagem = "";
-        String tipoMensagem = "";
+        String mensagem;
+        String tipoMensagem;
 
         Usuario usuario = atual();
 
@@ -59,8 +66,8 @@ public class SenhaController extends Controller {
             Logger.error("Impossível validar a URL", e);
             mensagem = "Impossible validated the URL";
             tipoMensagem = "Erro";
+            return badRequest(views.html.mensagens.info.reset.render(mensagem,tipoMensagem));
         }
-        return badRequest(views.html.mensagens.info.reset.render(mensagem,tipoMensagem));
     }
 
     /**
@@ -74,7 +81,7 @@ public class SenhaController extends Controller {
         String mensagem;
         String tipoMensagem;
 
-        if (token == null) {
+        if (token == null || token.isEmpty()) {
             mensagem = Messages.get("token.null");
             tipoMensagem = "Erro";
             return badRequest(views.html.mensagens.info.reset.render(mensagem,tipoMensagem));
@@ -94,8 +101,9 @@ public class SenhaController extends Controller {
             return badRequest(views.html.mensagens.info.reset.render(mensagem,tipoMensagem));
         }
 
-        DynamicForm formDeErro = new DynamicForm();
-        return ok(views.html.senha.altera.render(formDeErro,token));
+        DynamicForm formAltera = new DynamicForm();
+
+        return ok(views.html.senha.altera.render(formAltera,token));
     }
 
     /**
@@ -145,8 +153,8 @@ public class SenhaController extends Controller {
 
             usuario.mudarSenha(senha);
 
-            String mensagem = "";
-            String tipoMensagem = "";
+            String mensagem;
+            String tipoMensagem;
 
             // Send email saying that the password has just been changed.
             enviarEmailConfirmacao(usuario);

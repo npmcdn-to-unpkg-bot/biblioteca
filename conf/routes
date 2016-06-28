@@ -3,24 +3,24 @@
 # ~~~~
 
 # Application
-GET     /                                   controllers.Application.index()
-GET     /sobre                              controllers.Application.sobre()
-GET     /messages.js                        controllers.Application.jsMessages()
+GET     /                   controllers.Application.index()
+GET     /sobre              controllers.Application.sobre()
+GET     /messages.js        controllers.Application.jsMessages()
 
 # Admin
-GET     /admin                              controllers.admin.AdminController.inicio()
+GET     /admin              controllers.AdminController.inicio()
 
 # Login Telas
-GET     /login                              controllers.LoginController.telaLogin()
-GET     /autenticado                        controllers.LoginController.telaAutenticado()
-GET     /saiu                               controllers.LoginController.telaLogout()
+GET     /login              controllers.LoginController.telaLogin()
+GET     /autenticado        controllers.LoginController.telaAutenticado()
+GET     /saiu               controllers.LoginController.telaLogout()
 
 # Login Servicos
-GET     /logout                             controllers.LoginController.logout()
-POST    /autenticar                         controllers.LoginController.autenticar()
+GET     /logout             controllers.LoginController.logout()
+POST    /autenticar         controllers.LoginController.autenticar()
 
 # Usuario telas
-GET     /cadastro                           controllers.UsuarioController.telaCadastro()
+GET     /cadastro           controllers.UsuarioController.telaCadastro()
 GET     /usuario/editar/:id                 controllers.UsuarioController.telaEditar(id:Long)
 GET     /usuario/cadastrado                 controllers.UsuarioController.telaCadastrado()
 GET		/usuario/detalhe/:id				controllers.UsuarioController.telaDetalhe(id:Long)
@@ -80,27 +80,27 @@ GET     /curso/editar/:id                  controllers.CursoController.telaEdita
 GET     /curso/lista/todos                 controllers.CursoController.telaLista()
 
 # Evento Servicos
-GET     /cursos                            controllers.CursoController.buscaTodos()
-POST    /curso                             controllers.CursoController.inserir()
-POST	/curso/:id/remover		            controllers.CursoController.remover(id:Long)
-POST    /curso/editar/:id                  controllers.CursoController.editar(id:Long)
+GET     /cursos                         controllers.CursoController.buscaTodos()
+POST    /curso                          controllers.CursoController.inserir()
+POST	/curso/:id/remover              controllers.CursoController.remover(id:Long)
+POST    /curso/editar/:id               controllers.CursoController.editar(id:Long)
 
 # Acessado quando o usuario confirma o registro
-GET     /confirma/:confirmaToken            controllers.UsuarioController.confirma(confirmaToken:String)
+GET     /confirma/:confirmaToken        controllers.UsuarioController.confirma(confirmaToken:String)
 
 # Senha
-POST    /reset/senha                        controllers.senha.SenhaController.runPassword()
+POST    /reset/senha                    controllers.SenhaController.runPassword()
 
 # Reseta a senha
-GET     /reset/:token                       controllers.senha.SenhaController.reset(token:String)
-POST    /reset/:token                       controllers.senha.SenhaController.runReset(token:String)
+GET     /reset/:token                   controllers.SenhaController.reset(token:String)
+POST    /reset/:token                   controllers.SenhaController.runReset(token:String)
 
 # Contato
-GET     /contatos                           controllers.ContatoController.buscaTodos()
-GET     /contatos/filtro/:filtro            controllers.ContatoController.filtra(filtro:String)
-GET     /contato/:id                        controllers.ContatoController.buscaPorId(id:Long)
-DELETE  /contato/:id                        controllers.ContatoController.remover(id:Long)
-POST    /contato                            controllers.ContatoController.inserir()
+GET     /contatos                       controllers.ContatoController.buscaTodos()
+GET     /contatos/filtro/:filtro        controllers.ContatoController.filtra(filtro:String)
+GET     /contato/:id                    controllers.ContatoController.buscaPorId(id:Long)
+DELETE  /contato/:id                    controllers.ContatoController.remover(id:Long)
+POST    /contato                        controllers.ContatoController.inserir()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

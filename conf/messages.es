@@ -2,8 +2,8 @@
 app.title=Biblioteca Digital
 
 # Login form
-login.username=Email:
-login.password=Contraseña:
+login.username=Email
+login.password=Contraseña
 login.register=Registrar
 login=Login
 login.error=Usuário o contraseña inválidos!

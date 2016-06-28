@@ -89,8 +89,8 @@ menu.16=Login
 
 # Login form
 login.page.title=Login
-login.username=Email:
-login.password=Password:
+login.username=Email
+login.password=Password
 login.register=Register
 login=Login
 login.success=User Successfully Authenticated.

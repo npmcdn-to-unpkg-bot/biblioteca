@@ -125,31 +125,15 @@ public class Token extends Model {
         Token token = getNewToken(usuario, type, email);
         String externalServer = Configuration.root().getString("server.hostname");
 
-        String subject = null;
-        String message = null;
-        String toMail = null;
-
         // Should use reverse routing here.
         String urlString = urlString = "http://" + externalServer + "/" + type.urlPath + "/" + token.token;
         URL url = new URL(urlString); // validate the URL
 
-        switch (type) {
-            case password:
-                subject = Messages.get("mail.reset.ask.subject");
-                message = Messages.get("mail.reset.ask.message", url.toString());
-                toMail = usuario.getEmail();
-                break;
-            case email:
-                subject = Messages.get("mail.change.ask.subject");
-                message = Messages.get("mail.change.ask.message", url.toString());
-                toMail = token.email; // == email parameter
-                break;
-        }
-
         String emailBody = views.html.email.emailSenhaBody.render(usuario,url.toString()).body();
+
         try {
             Email emailUser = new Email()
-                    .setSubject("Cadastro na Biblioteca - Alterar senha")
+                    .setSubject(Messages.get("app.title"))
                     .setFrom("Biblioteca CIBiogás <biblioteca@email.com>")
                     .addTo(usuario.getEmail())
                     .setBodyHtml(emailBody);

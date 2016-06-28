@@ -106,6 +106,7 @@ public class UsuarioController extends Controller {
      * @throws EmailException Exception when sending mail
      */
     private void enviarEmailConfirmacao(Usuario usuario) throws EmailException {
+
         String emailBody = views.html.email.emailBody.render(usuario).body();
 
         try {

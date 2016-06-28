@@ -1,4 +1,4 @@
-package controllers.admin;
+package controllers;
 
 import actions.Secured;
 import com.avaje.ebean.Ebean;
