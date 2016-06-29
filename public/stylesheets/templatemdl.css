@@ -29,10 +29,6 @@ html, body {
   bottom: 19px;
 }
 
-/* muda a cor do botão do menu esquerdo quando ele esta minimizado */
-.demo-layout .mdl-layout__header .mdl-layout__drawer-button {
-  color: rgb(255, 255, 255);
-}
 
 /* iOS Safari specific workaround */
 .demo-drawer .mdl-menu__container {
@@ -51,6 +47,11 @@ html, body {
           align-items: center;
 }
 
+/* muda a cor do botão do menu esquerdo quando ele esta minimizado */
+.demo-layout .mdl-layout__header .mdl-layout__drawer-button {
+    color: rgb(255, 255, 255);
+}
+
 /*Modificado o height, propriedade do header do menu esquerdo*/
 .demo-drawer-header {
     box-sizing: border-box;
@@ -63,6 +64,38 @@ html, body {
     padding: 10px;
     text-align: center;
     background-color: white;
+}
+
+/* cor da fonte do menu esquerdo e cor de fundo do menu esquerdo distancia de todos os links do menu*/
+.demo-layout .demo-navigation .mdl-navigation__link {
+    display: -webkit-flex !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.56);
+    font-weight: 500;
+    font-size: 13px;
+    padding: 10px 40px;
+}
+
+/*Muda as cores dos seletores do menu esquerdo*/
+.demo-layout .demo-navigation .mdl-navigation__link:hover {
+    background-color: #E0E0E0;
+    color: #000000;
+    -webkit-transition: background 0.2s, color 0.2s;
+    -moz-transition: background 0.2s, color 0.2s;
+    transition: background 0.2s, color 0.2s;
+}
+
+/* tamanho dos ícones do menu esquerdo e distância*/
+.demo-navigation .mdl-navigation__link .material-icons {
+    font-size: 20px;
+    margin-right: 10px;
 }
 
 .demo-avatar-dropdown {
@@ -85,39 +118,8 @@ html, body {
     border-radius: 24px;
 }
 
-/* cor da fonte do menu esquerdo e cor de fundo do menu esquerdo distancia de todos os links do menu*/
-.demo-layout .demo-navigation .mdl-navigation__link {
-  display: -webkit-flex !important;
-  display: -ms-flexbox !important;
-  display: flex !important;
-  -webkit-flex-direction: row;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-    color: rgba(0, 0, 0, 0.56);
-    font-weight: 500;
-    padding: 15px 30px;
-}
-
-.active{
-  background-color: #EEEEEE;
-}
-
-/*Muda as cores dos seletores do menu esquerdo*/
-.demo-layout .demo-navigation .mdl-navigation__link:hover {
-    background-color: #E0E0E0;
-    color: #000000;
-    -webkit-transition: background 0.2s, color 0.2s;
-    -moz-transition: background 0.2s, color 0.2s;
-    transition: background 0.2s, color 0.2s;
-}
-
-/* tamanho dos ícones do menu esquerdo e distância*/
-.demo-navigation .mdl-navigation__link .material-icons {
-  font-size: 28px;
-  margin-right: 15px;
+.active {
+   background-color: #EEEEEE;
 }
 
 .demo-content {
@@ -135,13 +137,13 @@ html, body {
     margin-bottom: 0;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
     .esconde-celular {
         display: none;
     }
 }
 
-@media screen and (min-width: 501px) {
+@media screen and (min-width: 601px) {
     .mostra-celular {
         display: none;
     }
@@ -154,4 +156,39 @@ html, body {
         overflow: hidden;
         text-overflow: ellipsis;
     }
+}
+
+/* cor da fonte do menu esquerdo e cor de fundo do menu esquerdo distancia de todos os links do menu*/
+.demo-layout .top-navigation .mdl-navigation__link {
+    display: -webkit-flex !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-weight: 500;
+    font-size: 13px;
+    padding: 0px 13px;
+}
+
+/*Muda as cores dos seletores do menu esquerdo*/
+.demo-layout .top-navigation .mdl-navigation__link:hover {
+    background-color: #f5b449;
+    color: #ffffff;
+    -webkit-transition: background 0.2s, color 0.2s;
+    -moz-transition: background 0.2s, color 0.2s;
+    transition: background 0.2s, color 0.2s;
+}
+
+/* tamanho dos ícones do menu esquerdo e distância*/
+.top-navigation .mdl-navigation__link .material-icons {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.activetop {
+    background-color: #f5973c;
 }

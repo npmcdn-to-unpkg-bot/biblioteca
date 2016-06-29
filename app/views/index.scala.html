@@ -49,6 +49,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
+    @*Font awesome*@
+    @*<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/font-awesome/css/font-awesome.css")">*@
+
     @*Material Design Lite*@
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/material-design-lite/material.css")">
 
@@ -76,17 +79,21 @@
 </head>
 <body>
 <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-    <header class="demo-header mdl-layout__header mdl-color--deep-orange-cibiogas mdl-color-text--white">
+    <header ng-controller="topmenu" class="demo-header mdl-layout__header mdl-color--deep-orange-cibiogas mdl-color-text--white">
         <div class="mdl-layout__header-row">
-            <span class="mdl-layout-title">@Messages("app.title")</span>
+            <span class="esconde-celular">
+                <a class="mdl-navigation__link mdl-layout-title" href="/#/">@Messages("app.title")</a>
+            </span>
             <div class="mdl-layout-spacer"></div>
+            @*Menu superior*@
+                <nav class="top-navigation mdl-navigation">
+                    <a ng-class="{activetop: $route.current.activetab == 'home'}" class="mdl-navigation__link" href="/#/"><i class="mdl-color--text-white material-icons" role="presentation">home</i> @Messages("menu.1")</a>
+                    <a ng-class="{activetop: $route.current.activetab == 'cursos'}" class="mdl-navigation__link" href="/#/cursos"><i class="mdl-color--text-white material-icons" role="presentation">school</i> @Messages("menu.2")</a>
+                    <a ng-class="{activetop: $route.current.activetab == 'eventos'}" class="mdl-navigation__link" href="/#/eventos"><i class="mdl-color--text-white material-icons" role="presentation">event</i> @Messages("menu.biogas.9")</a>
+                </nav>
                 <nav class="mdl-navigation-link">
-                    @if(username){
-                        <span class="esconde-celular">@username</span>
-                    }
-
                     @if(!username) {
-                        <a href="/login" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">@Messages("menu.16")</a>
+                        <a href="@routes.LoginController.telaLogin()" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">@Messages("menu.16")</a>
                     }
 
                     @if(username) {
@@ -97,7 +104,7 @@
                         <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
 
                             @if(username) {
-                                <a class="mdl-menu__item mdl-menu__item--full-bleed-divider mdl-color--deep-orange-cibiogas-text mostra-celular">@username</a>
+                                <a class="mdl-menu__item mdl-menu__item--full-bleed-divider mdl-color--deep-orange-cibiogas-text">@username</a>
                                 <a href="/#/usuario/perfil" class="mdl-menu__item mdl-menu__item--full-bleed-divider">@Messages("menu.14")</a>
                             }
 
@@ -112,37 +119,24 @@
     </header>
     <div ng-controller="drawer" class="demo-drawer mdl-layout__drawer examples">
             <header class="demo-drawer-header">
-                <img src="@routes.Assets.versioned("images/CIBiogas_logo.png")">
-                <div class="mdl-layout-spacer"></div>
+                <a href="/#/"><img src="@routes.Assets.versioned("images/CIBiogas_logo.png")"></a>
             </header>
         <nav class="demo-navigation mdl-navigation mdl-color--white">
-
-            <a ng-class="{active: $route.current.activetab == 'home'}" class="mdl-navigation__link" href="/#/"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">home</i>@Messages("menu.1")</a>
-            <a ng-class="{active: $route.current.activetab == 'cursos'}" class="mdl-navigation__link" href="/#/cursos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">school</i>@Messages("menu.2")</a>
-            <a ng-class="{active: $route.current.activetab == 'eventos'}" class="mdl-navigation__link" href="/#/eventos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">event</i>@Messages("menu.biogas.9")</a>
-            <div class="separador"></div>
-
             @if(username){
-                <span class="mdl-navigation__link">@Messages("menu.3")</span>
                 <a ng-class="{active: $route.current.activetab == 'artigos'}" class="mdl-navigation__link" href="/#/artigos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">book</i>@Messages("menu.4")</a>
                 <a ng-class="{active: $route.current.activetab == 'livros'}" class="mdl-navigation__link" href="/#/livros"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">library_books</i>@Messages("menu.5")</a>
                 <a ng-class="{active: $route.current.activetab == 'videos'}" class="mdl-navigation__link" href="/#/videos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">video_library</i>@Messages("menu.6")</a>
                 <a ng-class="{active: $route.current.activetab == 'fotos'}" class="mdl-navigation__link" href="/#/fotos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">photo</i>@Messages("menu.7")</a>
                 <div class="separador"></div>
             }
-
-            <span class="mdl-navigation__link">@Messages("menu.biogas.1")</span>
             <a ng-class="{active: $route.current.activetab == 'sobre'}" class="mdl-navigation__link" href="/#/biogas/sobre"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">ev_station</i>@Messages("menu.biogas.2")</a>
             <a ng-class="{active: $route.current.activetab == 'casos'}" class="mdl-navigation__link" href="/#/casos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">extension</i>@Messages("menu.biogas.3")</a>
             <a ng-class="{active: $route.current.activetab == 'ferramentas'}" class="mdl-navigation__link" href="/#/ferramentas"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">build</i>@Messages("menu.biogas.4")</a>
             <a ng-class="{active: $route.current.activetab == 'ped'}" class="mdl-navigation__link" href="/#/ped"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">explore</i>@Messages("menu.biogas.5")</a>
+            <div class="separador"></div>
             <a ng-class="{active: $route.current.activetab == 'marcos'}" class="mdl-navigation__link" href="/#/marcos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">account_balance</i>@Messages("menu.biogas.6")</a>
             <a ng-class="{active: $route.current.activetab == 'aspectos'}" class="mdl-navigation__link" href="/#/aspectos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">monetization_on</i>@Messages("menu.biogas.7")</a>
             <a ng-class="{active: $route.current.activetab == 'registros'}" class="mdl-navigation__link" href="/#/registros"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">map</i>@Messages("menu.biogas.8")</a>
-            <div class="separador"></div>
-            <span class="mdl-navigation__link">@Messages("menu.8")</span>
-            <a ng-class="{active: $route.current.activetab == 'contato'}" class="mdl-navigation__link" href="/#/contato"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">contact_mail</i>@Messages("menu.9")</a>
-            <a ng-class="{active: $route.current.activetab == 'direitos'}" class="mdl-navigation__link" href="/#/direitos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">copyright</i>@Messages("menu.10")</a>
 
             @if(username){
                 @if(privilegio == 1){
@@ -161,6 +155,23 @@
         <div ng-view="">
 
         </div>
+        <footer class="mdl-mini-footer mdl-color--grey-200">
+            <div class="mdl-mini-footer__left-section">
+                <ul class="mdl-mini-footer__link-list">
+                    <li><a class="mdl-color-text--grey-500" href="/#/">&copy; 2016 - @Messages("app.title")</a></li>
+                    <li><a class="mdl-color-text--grey-500" href="https://cibiogas.org" target="_blank">CIBiogás</a></li>
+                    <li><a class="mdl-color-text--grey-500" href="/#/contato">@Messages("menu.9")</a></li>
+                    <li><a class="mdl-color-text--grey-500" href="/#/direitos">@Messages("menu.10")</a></li>
+                </ul>
+            </div>
+            <div class="mdl-mini-footer__right-section">
+                <ul class="mdl-mini-footer__link-list">
+                    <li><a class="mdl-color-text--grey-500" href="https://www.facebook.com/cibiogas" target="_blank">Facebook</a></li>
+                    <li><a class="mdl-color-text--grey-500" href="https://www.youtube.com/channel/UCEuoR_lr7wqdQYcPSoPZnng/feed" target="_blank">Youtube</a></li>
+                    <li><a class="mdl-color-text--grey-500" href="https://www.linkedin.com/company/cibiog%C3%A1s-er" target="_blank">Linkedin</a></li>
+                </ul>
+            </div>
+        </footer>
     </main>
 
 </div>
@@ -201,6 +212,7 @@
 
     @*Controllers*@
 <script src="@routes.Assets.versioned("app/controllers/drawer.controller.js")" type="text/javascript"></script>
+<script src="@routes.Assets.versioned("app/controllers/topmenu.controller.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("app/controllers/home.controller.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("app/controllers/menu.controller.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("app/controllers/usuario.controller.js")" type="text/javascript"></script>
