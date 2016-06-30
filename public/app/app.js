@@ -53,6 +53,21 @@ angular
                 controller: 'foto.controller',
                 activetab: 'fotos'
             })
+            .when('/fotos/biometano', {
+                templateUrl: '/assets/app/views/fotos/biometano/list.html',
+                controller: 'foto.controller',
+                activetab: 'fotos'
+            })
+            .when('/fotos/granjahaacke', {
+                templateUrl: '/assets/app/views/fotos/granjahaacke/list.html',
+                controller: 'foto.controller',
+                activetab: 'fotos'
+            })
+            .when('/fotos/laboratoriobiogas', {
+                templateUrl: '/assets/app/views/fotos/laboratoriobiogas/list.html',
+                controller: 'foto.controller',
+                activetab: 'fotos'
+            })
             .when('/direitos', {
                 templateUrl: '/assets/app/views/direito.html',
                 controller: 'direito.controller',
