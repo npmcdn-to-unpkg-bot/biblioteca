@@ -68,6 +68,11 @@ angular
                 controller: 'foto.controller',
                 activetab: 'fotos'
             })
+            .when('/fotos/unidadesdeproducao', {
+                templateUrl: '/assets/app/views/fotos/unidadesdeproducao/list.html',
+                controller: 'foto.controller',
+                activetab: 'fotos'
+            })
             .when('/direitos', {
                 templateUrl: '/assets/app/views/direito.html',
                 controller: 'direito.controller',
