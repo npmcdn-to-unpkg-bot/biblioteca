@@ -85,6 +85,18 @@ POST    /curso                          controllers.CursoController.inserir()
 POST	/curso/:id/remover              controllers.CursoController.remover(id:Long)
 POST    /curso/editar/:id               controllers.CursoController.editar(id:Long)
 
+# Video Telas
+GET     /video/novo/                       controllers.VideoController.telaNovo()
+GET		/video/detalhe/:id				   controllers.VideoController.telaDetalhe(id:Long)
+GET     /video/editar/:id                  controllers.VideoController.telaEditar(id:Long)
+GET     /video/lista/todos                 controllers.VideoController.telaLista()
+
+# Video Servicos
+GET     /videos                         controllers.VideoController.buscaTodos()
+POST    /video                          controllers.VideoController.inserir()
+POST	/video/:id/remover              controllers.VideoController.remover(id:Long)
+POST    /video/editar/:id               controllers.VideoController.editar(id:Long)
+
 # Acessado quando o usuario confirma o registro
 GET     /confirma/:confirmaToken        controllers.UsuarioController.confirma(confirmaToken:String)
 

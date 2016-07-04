@@ -33,4 +33,9 @@ angular.module('architectplay')
             getAll: {method: 'GET', url: BaseUrl + '/eventos', isArray: true},
             getFiltroEventos: {method: 'GET', url: BaseUrl + '/eventos/filtro/:filtro', isArray: true}
         });
+    }]).service('Video',['$resource', 'BaseUrl',
+    function($resource, BaseUrl){
+        return $resource(BaseUrl + '/video/:id', {}, {
+            getAll: {method: 'GET', url: BaseUrl + '/videos', isArray: true}
+        });
     }]);

@@ -1,15 +1,13 @@
 angular.module('architectplay')
-    .controller('video.controller', function ($scope, $rootScope, Usuario, toastr, $location) {
+    .controller('video.list.controller', function ($scope, $rootScope, Video, toastr, $routeParams, $location) {
         // $rootScope.title = Messages('menu.top.title.6');
         
-        $scope.mostrar = false;
-
-        Usuario.getAutenticado(function(data) {
-            $rootScope.usuario = data;
-            $scope.mostrar = true;
-        },function(data) {
-            $scope.mostrar = false;
-            $location.path('/');
-            toastr.error('Não autorizado');
-        });
+        $scope.init = function() {
+            Video.getAll(function(data) {
+                $scope.videos = data;
+            }, function(data) {
+                $location.path('/');
+                toastr.error('Não autorizado.');
+            });
+        };
 });

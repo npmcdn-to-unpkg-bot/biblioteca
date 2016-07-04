@@ -8,7 +8,8 @@ angular
              'ngAnimate',
              'angular-loading-bar',
              'toastr',
-             'ngDialog'
+             'ngDialog', 
+             'youtube-embed'
             ]
         )
     .config(function ($routeProvider) {
@@ -40,12 +41,7 @@ angular
             })
             .when('/videos', {
                 templateUrl: '/assets/app/views/videos/list.html',
-                controller: 'video.controller',
-                activetab: 'videos'
-            })
-            .when('/videos/biogas', {
-                templateUrl: '/assets/app/views/videos/biogas.html',
-                controller: 'video.controller',
+                controller: 'video.list.controller',
                 activetab: 'videos'
             })
             .when('/fotos', {

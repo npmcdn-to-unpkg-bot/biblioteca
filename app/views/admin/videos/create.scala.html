@@ -1,0 +1,59 @@
+@(videoForm: play.data.Form[views.validators.VideoFormData])
+
+@import helper._
+@import templates.bootstrap._
+
+@views.html.admin.main("Cadastro de Vídeo") {
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Cadastro de Vídeo</div>
+            <div class="panel-body">
+            @form(routes.VideoController.inserir, 'class -> "form-horizontal") {
+
+                @if(videoForm.hasGlobalErrors) {
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"></label>
+                        <div class="col-sm-6">
+                            <p class="alert alert-danger text-center">@videoForm.globalError.message</p>
+                        </div>
+                    </div>
+                }
+
+                    <!-- Título -->
+                @texto(videoForm("titulo"),
+                    label = "Título:",
+                    placeholder = "Insira o Título")
+
+                    <!-- Descrição -->
+                @texto(videoForm("descricao"),
+                    label = "Descrição:",
+                    placeholder = "Insira a descrição")
+
+                    <!-- Url -->
+                @texto(videoForm("url"),
+                    label = "URL:",
+                    placeholder = "Exemplo: https://www.youtube.com/watch?v=NauHixfoyuo")
+
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-12">
+                        <input class="btn btn-success" type="submit" id="btnSubmit" value="Cadastrar"/>
+                        <a class="btn btn-default" type="button" href="@routes.VideoController.telaLista">Cancelar</a>
+                    </div>
+                </div>
+            }
+            </div>
+        </div>
+    </div>
+
+}
+
+<script type="text/javascript">
+        window.onbeforeunload = function () {
+            var inputs = document.getElementsByTagName("INPUT");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].type == "button" || inputs[i].type == "submit") {
+                    inputs[i].disabled = true;
+                }
+            }
+        };
+</script>

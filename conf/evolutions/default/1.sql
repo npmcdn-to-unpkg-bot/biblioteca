@@ -83,6 +83,16 @@ create table usuario (
   constraint pk_usuario primary key (id))
 ;
 
+create table video (
+  id                        bigserial not null,
+  titulo                    varchar(150) not null,
+  descricao                 varchar(400) not null,
+  url                       varchar(400) not null,
+  data_cadastro             timestamp,
+  data_alteracao            timestamp,
+  constraint pk_video primary key (id))
+;
+
 
 
 
@@ -101,4 +111,6 @@ drop table if exists livro cascade;
 drop table if exists token cascade;
 
 drop table if exists usuario cascade;
+
+drop table if exists video cascade;
 

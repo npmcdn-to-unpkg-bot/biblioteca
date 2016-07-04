@@ -1,0 +1,29 @@
+@(videos: List[Video])(mensagem : String)
+
+@views.html.admin.main("Administração - Vídeos") {
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Lista de Vídeos
+                <a href="@routes.VideoController.telaNovo" class="pull-right">Adicionar</a>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>Título</th>
+                            <th>Descrição</th>
+                            <th>Url</th>
+                        </tr>
+                        @for(video <- videos) {
+                            <tr>
+                                <td><a href="@routes.VideoController.telaDetalhe(video.getId)">@video.getTitulo</a></td>
+                                <td>@video.getDescricao</td>
+                                <td>@video.getUrl</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
