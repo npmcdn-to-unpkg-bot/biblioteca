@@ -1,15 +1,20 @@
 # Biblioteca Digital
 
-#### Version information
-Playframework Java 2.4
-
 ### Idiomas
-* Português.
+* Português, Espanhol e Inglês
 
-## Versões
-* **0.0.1** [2016-03-28]
+### Versão
+* **0.0.1** [2016-07-05]
   * Initial release.
   
-## License
+## Frameworks 
+* **2.4.6** [Play Framework](https://playframework.com/) (Java) - Back End
+* **1.5.7** [AngularJS](https://angularjs.org/) - Front End
 
-Copyright (c) 2016
+### Características
+* Dependências são gerenciadas pelo [Bower](https://bower.io/)
+* Banco de dados [Postgresql](https://www.postgresql.org/)
+* Internacionalização [i18n](https://www.w3.org/International/questions/qa-i18n)
+  
+### Licença
+Copyright (c) 2016 CIBiogás
