@@ -28,6 +28,7 @@ create table curso (
   descricao                 varchar(400) not null,
   data_inicio               timestamp not null,
   site                      varchar(80) not null,
+  nome_capa                 varchar(80) not null,
   constraint pk_curso primary key (id))
 ;
 

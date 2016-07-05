@@ -38,4 +38,9 @@ angular.module('architectplay')
         return $resource(BaseUrl + '/video/:id', {}, {
             getAll: {method: 'GET', url: BaseUrl + '/videos', isArray: true}
         });
+    }]).service('Curso',['$resource', 'BaseUrl',
+    function($resource, BaseUrl){
+        return $resource(BaseUrl + '/curso/:id', {}, {
+            getAll: {method: 'GET', url: BaseUrl + '/cursos', isArray: true}
+        });
     }]);

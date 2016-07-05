@@ -32,19 +32,23 @@ public class Curso extends Model {
     @Column(nullable = false, length = 80)
     private String site;
 
+    @Column(nullable = false, length = 80)
+    private String nomeCapa;
+
     public Curso(){
     }
 
-    public Curso(Long id, String nome, String descricao, Date dataInicio, String site) {
+    public Curso(Long id, String nome, String descricao, Date dataInicio, String site, String nomeCapa) {
         this.setId(id);
         this.nome = nome;
         this.descricao = descricao;
         this.dataInicio = dataInicio;
         this.site = site;
+        this.nomeCapa = nomeCapa;
     }
 
     /**
-     * @return a objeto evento atraves da um formData onde o parametro FormData que validou os campos inputs
+     * @return a objeto curso atraves da um formData onde o parametro FormData que validou os campos inputs
      */
     public static Curso makeInstance(CursoFormData formData) {
         Curso curso = new Curso();
@@ -52,6 +56,7 @@ public class Curso extends Model {
         curso.setDescricao(formData.descricao);
         curso.setDataInicio(formData.dataInicio);
         curso.setSite(formData.site);
+        curso.setNomeCapa(formData.nomeCapa);
         return curso;
     }
 
@@ -68,7 +73,7 @@ public class Curso extends Model {
             throw new RuntimeException("Curso não encontrado");
         }
 
-        return new CursoFormData(curso.nome, curso.descricao, curso.dataInicio, curso.site);
+        return new CursoFormData(curso.nome, curso.descricao, curso.dataInicio, curso.site, curso.nomeCapa);
     }
 
     public Long getId() {
@@ -101,6 +106,14 @@ public class Curso extends Model {
 
     public void setSite(String site) {
         this.site = site;
+    }
+
+    public String getNomeCapa() {
+        return nomeCapa;
+    }
+
+    public void setNomeCapa(String nomeCapa) {
+        this.nomeCapa = nomeCapa;
     }
 
     public static Finder<Long, Curso> find = new Finder<>(Curso.class);

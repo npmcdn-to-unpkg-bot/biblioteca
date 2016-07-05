@@ -8,7 +8,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">Cadastro de Curso</div>
             <div class="panel-body">
-            @form(routes.CursoController.inserir, 'class -> "form-horizontal") {
+            @form(routes.CursoController.inserir, 'enctype -> "multipart/form-data", 'class -> "form-horizontal") {
 
                 @if(cursoForm.hasGlobalErrors) {
                     <div class="form-group">
@@ -38,6 +38,10 @@
                 @texto(cursoForm("site"),
                     label = "Site:",
                     placeholder = "Insira o Site")
+
+                    <!-- Arquivo -->
+                @arquivo(cursoForm("arquivo"),
+                    label = "Capa:")
 
 
                 <div class="form-group">

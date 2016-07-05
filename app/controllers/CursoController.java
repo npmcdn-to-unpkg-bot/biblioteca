@@ -4,14 +4,18 @@ import com.avaje.ebean.Ebean;
 import models.Curso;
 import models.Usuario;
 import play.Logger;
+import play.Play;
 import play.data.Form;
 import play.i18n.Messages;
 import play.libs.Json;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import views.validators.CursoFormData;
 
 import javax.annotation.Nullable;
+import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 import static play.data.Form.form;
@@ -160,25 +164,52 @@ public class CursoController extends Controller {
             return badRequest(views.html.admin.cursos.create.render(formData));
         } else {
             try {
-                //Converte os dados do formularios para uma instancia do Evento
+                //Converte os dados do formularios para uma instancia do Curso
                 Curso curso = Curso.makeInstance(formData.get());
 
                 //faz uma busca na base de dados do curso
                 Curso cursoBusca = Ebean.find(Curso.class).where().eq("nome", formData.data().get("nome")).findUnique();
 
                 if (cursoBusca != null) {
-                    formData.reject("O Curso com o nome'" + cursoBusca.getNome() + "' já esta Cadastrado!");
+                    formData.reject("O Curso '" + cursoBusca.getNome() + "' já esta Cadastrado!");
+                    return badRequest(views.html.admin.cursos.create.render(formData));
+                }
+
+                Http.MultipartFormData body = request().body().asMultipartFormData();
+                Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
+
+                String extensaoPadraoDeJpg = Play.application().configuration().getString("extensaoPadraoDeJpg");
+
+                if (arquivo != null) {
+                    String arquivoTitulo = form().bindFromRequest().get("nome");
+                    String jpg = arquivoTitulo + extensaoPadraoDeJpg;
+
+                    //solucao para tirar os espacos em branco do nome do arquivo e deixa-lo tudo em minusculo
+                    jpg = jpg.replaceAll(" ","").toLowerCase();
+
+                    curso.setNomeCapa(jpg);
+                    String tipoDeConteudo = arquivo.getContentType();
+                    File file = arquivo.getFile();
+                    String diretorioDeFotosCursos = Play.application().configuration().getString("diretorioDeFotosCursos");
+                    String contentTypePadraoDeImagens = Play.application().configuration().getString("contentTypePadraoDeImagens");
+
+                    if (tipoDeConteudo.equals(contentTypePadraoDeImagens)) {
+                        file.renameTo(new File(diretorioDeFotosCursos,jpg));
+                    } else {
+                        formData.reject("Apenas arquivos em formato JPEG é aceito");
+                        return badRequest(views.html.admin.cursos.create.render(formData));
+                    }
+                } else {
+                    formData.reject("Selecione um arquivo no formato JPEG");
                     return badRequest(views.html.admin.cursos.create.render(formData));
                 }
 
                 curso.save();
-
                 return created(views.html.mensagens.curso.cadastrado.render(curso.getNome()));
             } catch (Exception e) {
                 Logger.error(e.getMessage());
                 formData.reject("Não foi possível cadastrar, erro interno de sistema.");
                 return badRequest(views.html.admin.cursos.create.render(formData));
-
             }
 
         }
@@ -205,7 +236,7 @@ public class CursoController extends Controller {
             return badRequest(views.html.admin.cursos.edit.render(id,formData));
         }
 
-        //verificar se tem erros no formData, caso tiver erros retorna o formulario com os erros caso não tiver continua o processo de alteracao do curso
+        //verificar se tem erros no formData, caso tiver retorna o formulario com os erros e caso não tiver continua o processo de alteracao do curso
         if (formData.hasErrors()) {
             return badRequest(views.html.admin.cursos.edit.render(id,formData));
         } else {
@@ -216,8 +247,45 @@ public class CursoController extends Controller {
                     return notFound(views.html.mensagens.erro.naoEncontrado.render("Curso não encontrado"));
                 }
 
-                //Converte os dados do formulario para uma instancia do Curso
+                //Converte os dados do formularios para uma instancia do Curso
                 Curso curso = Curso.makeInstance(formData.get());
+
+                Http.MultipartFormData body = request().body().asMultipartFormData();
+                Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
+
+                String extensaoPadraoDeJpg = Play.application().configuration().getString("extensaoPadraoDeJpg");
+
+                if (arquivo != null) {
+                    String arquivoTitulo = form().bindFromRequest().get("nome");
+                    String jpg = arquivoTitulo + extensaoPadraoDeJpg;
+
+                    //solucao para tirar os espacos em branco do nome do arquivo e deixa-lo tudo em minusculo
+                    jpg = jpg.replaceAll(" ","").toLowerCase();
+
+                    curso.setNomeCapa(jpg);
+
+                    String tipoDeConteudo = arquivo.getContentType();
+                    File file = arquivo.getFile();
+
+                    String diretorioDeFotosCursos = Play.application().configuration().getString("diretorioDeFotosCursos");
+                    String contentTypePadraoDeImagens = Play.application().configuration().getString("contentTypePadraoDeImagens");
+
+                    //necessario para excluir o livro antigo
+                    File jpgAntigo = new File(diretorioDeFotosCursos,cursoBusca.getNome().replaceAll(" ","").toLowerCase()+extensaoPadraoDeJpg);
+
+                    //exclui o arquivo jpg antigo
+                    jpgAntigo.delete();
+
+                    if (tipoDeConteudo.equals(contentTypePadraoDeImagens)) {
+                        file.renameTo(new File(diretorioDeFotosCursos,jpg));
+                    } else {
+                        formData.reject("Apenas arquivos em formato JPEG é aceito");
+                        return badRequest(views.html.admin.cursos.create.render(formData));
+                    }
+                } else {
+                    formData.reject("Selecione um arquivo no formato JPEG");
+                    return badRequest(views.html.admin.cursos.create.render(formData));
+                }
 
                 curso.setId(id);
                 curso.update();
@@ -230,11 +298,11 @@ public class CursoController extends Controller {
                 Logger.error(e.getMessage());
                 return badRequest(views.html.mensagens.curso.mensagens.render(mensagem,tipoMensagem));
             }
-
         }
     }
 
     public Result remover(Long id) {
+
         String mensagem;
         String tipoMensagem;
 
@@ -262,7 +330,15 @@ public class CursoController extends Controller {
                 return notFound(views.html.mensagens.erro.naoEncontrado.render("Curso não encontrado"));
             }
 
+
+            String diretorioDeFotosCursos = Play.application().configuration().getString("diretorioDeFotosCursos");
+            String extensaoPadraoDeJpg = Play.application().configuration().getString("extensaoPadraoDeJpg");
+
+            //necessario para excluir o curso
+            File jpg = new File(diretorioDeFotosCursos,curso.getNome().replaceAll(" ","").toLowerCase()+extensaoPadraoDeJpg);
+
             Ebean.delete(curso);
+            jpg.delete();
             mensagem = "Curso excluído com sucesso";
             tipoMensagem = "Sucesso";
             return ok(views.html.mensagens.curso.mensagens.render(mensagem,tipoMensagem));

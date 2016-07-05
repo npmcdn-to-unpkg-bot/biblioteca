@@ -31,7 +31,7 @@ angular
             })
             .when('/cursos', {
                 templateUrl: '/assets/app/views/cursos/list.html',
-                controller: 'curso.controller',
+                controller: 'curso.list.controller',
                 activetab: 'cursos'
             })
             .when('/artigos', {

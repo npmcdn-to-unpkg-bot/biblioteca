@@ -12,16 +12,18 @@ public class CursoFormData {
     public String descricao = "";
     public Date dataInicio = null;
     public String site = "";
+    public String nomeCapa = "";
 
     /** Necessario para instanciar o form */
     public CursoFormData() {
     }
 
-    public CursoFormData(String nome, String descricao, Date dataInicio, String site) {
+    public CursoFormData(String nome, String descricao, Date dataInicio, String site, String nomeCapa) {
         this.nome = nome;
         this.descricao = descricao;
         this.dataInicio = dataInicio;
         this.site = site;
+        this.nomeCapa = nomeCapa;
     }
 
     public List<ValidationError> validate() {
