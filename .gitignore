@@ -10,7 +10,8 @@ RUNNING_PID
 project/project
 project/target
 tmp
-bower_components
 .cache
 pdf/artigos/
 pdf/livros/
+fotos/
+public/bower_components/
