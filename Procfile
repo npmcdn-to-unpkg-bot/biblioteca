@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/architectplay -Dhttps.port=${PORT} -Dplay.evolutions.db.default.autoApply=true
+web: target/universal/stage/bin/architectplay -Dhttp.port=${PORT} -Dplay.evolutions.db.default.autoApply=true -Dhttps.port=${PORT}
