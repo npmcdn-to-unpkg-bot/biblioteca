@@ -3,14 +3,13 @@
   "description": "biblioteca digital",
   "version": "0.0.1",
   "scripts": {
-    "postinstall": "bower cache clean && bower install"
+    "postinstall": "npm install -g bower && bower cache clean && bower install",
+    "preinstall": "",
+    "preuninstall": ""
   },
   "engines": {
     "node": "4.1.1",
     "npm": "2.1.x",
     "bower": "1.7.9"
-  },
-  "dependencies": {
-    "foobar": "^1.1.0"
   }
 }
