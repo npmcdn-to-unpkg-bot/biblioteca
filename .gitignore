@@ -1,17 +1,6 @@
 /logs
-logs
 target
 .idea
-.idea_modules
-.classpath
-.project
-.settings
-RUNNING_PID
 project/project
-project/target
-tmp
-.cache
 pdf/artigos/
 pdf/livros/
-fotos/
-public/bower_components/
