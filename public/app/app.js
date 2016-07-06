@@ -121,11 +121,12 @@ angular
                 activetab: 'eventos'
             })
             .otherwise({redirectTo:'/'});
-   }).config(function(cfpLoadingBarProvider) {
+    }).config(function($httpProvider, cfpLoadingBarProvider) {
         // carrega o loading bar
         // true e o padrao, mas pode deixar false caso nao queira o loading bar
         cfpLoadingBarProvider.includeSpinner = false;
-   }).config(function(toastrConfig) {
+        $httpProvider.interceptors.push( 'handlerInterceptorFactory' );
+    }).config(function(toastrConfig) {
        //configurações do toastr
         angular.extend(toastrConfig, {
             positionClass: 'toast-bottom-right',
