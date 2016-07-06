@@ -26,6 +26,7 @@
     "install": "bower cache clean && bower install"
   },
   "dependencies": {
-    "bower": "1.7.9"
+    "bower": "1.7.9",
+    "foobar": "^1.1.0"
   }
 }
