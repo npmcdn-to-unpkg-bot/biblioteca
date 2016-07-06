@@ -125,7 +125,6 @@ angular
         // carrega o loading bar
         // true e o padrao, mas pode deixar false caso nao queira o loading bar
         cfpLoadingBarProvider.includeSpinner = false;
-        $httpProvider.interceptors.push( 'handlerInterceptorFactory' );
     }).config(function(toastrConfig) {
        //configurações do toastr
         angular.extend(toastrConfig, {
