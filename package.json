@@ -7,9 +7,6 @@
     "name": "Haroldo Ramirez",
     "email": "haroldoramirez@gmail.com"
   },
-  "bin": {
-    "module-name": "public/bower_components"
-  },
   "homepage": "https://github.com/haroldoramirez/architectplay",
   "bugs": "https://github.com/haroldoramirez/architectplay/issues",
   "licenses": [
