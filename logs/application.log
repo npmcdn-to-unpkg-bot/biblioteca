@@ -1,2 +1,81 @@
-2016-07-06 17:16:31,090 [INFO] from play.core.server.NettyServer in pool-242-thread-5 - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
-2016-07-06 17:16:31,091 [INFO] from play.core.server.NettyServer in pool-242-thread-5 - Listening for HTTPS on port /0:0:0:0:0:0:0:0:9001
+2016-07-07 09:55:48,236 [INFO] from play.core.server.NettyServer in pool-6-thread-4 - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+2016-07-07 09:56:09,815 [INFO] from application in ForkJoinPool-1-worker-1 - Creating Pool for datasource 'default'
+2016-07-07 09:56:10,145 [INFO] from play.api.db.DefaultDBApi in ForkJoinPool-1-worker-1 - Database [default] connected at jdbc:postgresql://localhost:5432/architectplaydb
+2016-07-07 09:56:10,752 [INFO] from play.api.Play in ForkJoinPool-1-worker-1 - Application started (Dev)
+2016-07-07 09:56:53,504 [INFO] from application in application-akka.actor.default-dispatcher-4 - mock implementation, send email
+2016-07-07 09:56:53,504 [INFO] from application in application-akka.actor.default-dispatcher-4 - subject: Cadastro na Biblioteca - Confirme seu email
+2016-07-07 09:56:53,504 [INFO] from application in application-akka.actor.default-dispatcher-4 - from: Biblioteca CIBiogás <biblioteca@email.com>
+2016-07-07 09:56:53,505 [INFO] from application in application-akka.actor.default-dispatcher-4 - bodyHtml: 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <p>Olá, Haroldo Ramirez</p>
+    <p>Parece que você acabou de registrar na Biblioteca Digital de CIBiogás. Se você fez, para completar o processo de registro, basta clicar no link abaixo, ou copie e cole no seu browser.</p>
+    <br>
+    <p><label>Link:</label> http://localhost:9000/confirma/3a59bf89-4669-4170-ab3b-24113013996a</p>
+    <br>
+    <p>Atenciosamente,<br> Biblioteca Digital</p>
+</body>
+</html>
+2016-07-07 09:56:53,505 [INFO] from application in application-akka.actor.default-dispatcher-4 - to: haroldoramirez@gmail.com
+2016-07-07 09:57:05,561 [INFO] from application in application-akka.actor.default-dispatcher-16 - mock implementation, send email
+2016-07-07 09:57:05,561 [INFO] from application in application-akka.actor.default-dispatcher-16 - subject: Biblioteca Digital CIBiogás - Bem vindo
+2016-07-07 09:57:05,561 [INFO] from application in application-akka.actor.default-dispatcher-16 - from: Biblioteca CIBiogás <biblioteca@email.com>
+2016-07-07 09:57:05,561 [INFO] from application in application-akka.actor.default-dispatcher-16 - bodyHtml: 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <table bgcolor="#f58634" width="100%" border="0" cellspacing="0" cellpadding="0" style="min-width:332px;max-width:600px;border:1px solid #e0e0e0;border-bottom:0;border-top-left-radius:3px;border-top-right-radius:3px">
+        <tbody>
+            <tr>
+                <td height="72px" colspan="3"></td>
+            </tr>
+            <tr>
+                <td width="32px"></td>
+                <td style="font-family:Roboto-Regular,Helvetica,Arial,sans-serif;font-size:24px;color:#ffffff;line-height:1.25">Bem vindo</td>
+                <td width="32px"></td>
+            </tr>
+            <tr>
+                <td height="18px" colspan="3"></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <table bgcolor="#FAFAFA" width="100%" border="0" cellspacing="0" cellpadding="0" style="min-width:332px;max-width:600px;border:1px solid #f0f0f0;border-bottom:1px solid #c0c0c0;border-top:0;border-bottom-left-radius:3px;border-bottom-right-radius:3px">
+        <tbody>
+            <tr height="16px"><td width="32px" rowspan="3"></td><td></td><td width="32px" rowspan="3"></td>
+            </tr><tr><td>
+                <table style="min-width:300px" border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td style="font-family:Roboto-Regular,Helvetica,Arial,sans-serif;font-size:13px;color:#202020;line-height:1.5">Olá, Haroldo Ramirez</td>
+                        </tr>
+                        <tr>
+                            <td style="font-family:Roboto-Regular,Helvetica,Arial,sans-serif;font-size:13px;color:#202020;line-height:1.5">
+                                A sua conta foi registrada com sucesso!
+                                <p>Login: <b>haroldoramirez@gmail.com</b></p>
+                                <table border="0" cellspacing="0" cellpadding="0" style="margin-top:48px;margin-bottom:48px">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-family:Roboto-Regular,Helvetica,Arial,sans-serif;font-size:13px;color:#202020;line-height:1.5">
+                                                <p>Atenciosamente,<br> Biblioteca Digital</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                </table>
+            </td>
+            </tr>
+        </tbody>
+        <br>
+    </table>
+</body>
+</html>
+2016-07-07 09:57:05,561 [INFO] from application in application-akka.actor.default-dispatcher-16 - to: haroldoramirez@gmail.com
+2016-07-07 10:38:41,972 [INFO] from application in pool-6-thread-4 - Shutting down connection pool.
