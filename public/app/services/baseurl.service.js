@@ -3,5 +3,5 @@ angular.module('architectplay')
      //return 'http://' + $location.host() + ':9000';
       //return 'http://' + $location.host() + ':9000';
       //return $location.protocol() + '://' + $location.host() + ':9000';
-      return $location.protocol() + '://' + $location.host() + $location.port();
+      return $location.protocol() + '://' + $location.host() + ':' + $location.port();
   });
