@@ -3,5 +3,3 @@ target
 project/project
 pdf/artigos/
 pdf/livros/
-public/bower_components
-node_modules
