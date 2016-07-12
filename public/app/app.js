@@ -74,11 +74,6 @@ angular
                 controller: 'direito.controller',
                 activetab: 'direitos'
             })
-            .when('/contato', {
-                templateUrl: '/assets/app/views/contato.html',
-                controller: 'contato.create.controller',
-                activetab: 'contato'
-            })
             //Inicio das funcoes do menu biogas
             .when('/biogas/sobre', {
                 templateUrl: '/assets/app/views/biogas/sobre.html',

@@ -1,8 +1,11 @@
 <div ng-init="init()"class="mdl-grid">
-    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+    <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
         <div class="mdl-card__title">
             <h2 ng-show="eventos.length == 0" class="mdl-card__title-text">Nenhum evento encontrado</h2>
             <h2 ng-show="eventos.length > 0" class="mdl-card__title-text">{{Messages('card.event.list.title')}}</h2>
+        </div>
+        <div class="mdl-card__media">
+            <img class="article-image" src=" assets/images/templates/contact-image.jpg" border="0" alt="">
         </div>
         <div class="mdl-card__supporting-text mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
             <div ng-repeat="evento in eventos" class="agenda">

@@ -1,5 +1,5 @@
 angular.module('architectplay')
-  .controller('home.controller', function ($scope, $rootScope, $routeParams, cfpLoadingBar, Usuario, $location, toastr) {
+  .controller('home.controller', function ($scope, $rootScope, $routeParams, cfpLoadingBar, Contato, $location, toastr, $route) {
 
       // $rootScope.title = Messages('menu.top.title.1');
 
@@ -19,5 +19,14 @@ angular.module('architectplay')
         $scope.complete();
         $scope.fakeIntro = false;
       }, 9000);*/
+
+      $scope.save = function() {
+          Contato.save($scope.contato, function(data) {
+              toastr.success(Messages('client.send.email.message'));
+              $route.reload();
+          }, function(data) {
+              toastr.error(Messages('app.error'));
+          });
+      };
 
 });

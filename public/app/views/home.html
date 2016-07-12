@@ -1,46 +1,82 @@
 <div class="mdl-grid">
-    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+    <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--4dp">
         <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Objetivo</h2>
+            <h2 class="mdl-card__title-text">About</h2>
         </div>
-        <div class="mdl-card__supporting-text">
-            Constituir um acervo técnico para contribuir com a difusão do conhecimento entre colaboradores do CIBiogás e CIH
-            otimizando o uso das tecnologias de informação e transmissão de conhecimentos.
+        <div class="mdl-card__media">
+            <img class="article-image" src=" assets/images/capa/cursos/atualizaçãoemenergiasdobiogás.jpg" border="0" alt="">
         </div>
-        <div class="mdl-card__actions mdl-card--border">
-            <a ng-href="" target="_blank" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                {{Messages('card.button.title')}}
-            </a>
+
+        <div class="mdl-grid">
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">Introduction</h3>
+            <div class="mdl-cell mdl-cell--8-col mdl-card__supporting-text no-padding ">
+                <p>
+                    Excepteur reprehenderit sint exercitation ipsum consequat qui sit id velit elit. Velit anim eiusmod labore sit amet. Voluptate voluptate irure occaecat deserunt incididunt esse in.
+                    Sunt velit aliquip sunt elit ex nulla reprehenderit qui ut eiusmod ipsum do. Duis veniam reprehenderit laborum occaecat id proident nulla veniam.
+                    Duis enim deserunt voluptate aute veniam sint pariatur exercitation. Irure mollit est sit labore est deserunt pariatur duis aute laboris cupidatat.
+                    Consectetur consequat esse est sit veniam adipisicing ipsum enim irure.
+                </p>
+            </div>
+
+
+            <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">Irure mollit est sit labore</h3>
+
+            <div class="mdl-cell mdl-cell--8-col mdl-card__supporting-text no-padding ">
+                <p>
+                    Excepteur reprehenderit sint exercitation ipsum consequat qui sit id velit elit. Velit anim eiusmod labore sit amet.
+                    Voluptate voluptate irure occaecat deserunt incididunt esse in. Sunt velit aliquip sunt elit ex nulla reprehenderit qui ut eiusmod ipsum do.
+                    Duis veniam reprehenderit laborum occaecat id proident nulla veniam. Duis enim deserunt voluptate aute veniam sint pariatur exercitation.
+                    Irure mollit est sit labore est deserunt pariatur duis aute laboris cupidatat. Consectetur consequat esse est sit veniam adipisicing ipsum enim irure.
+                </p>
+            </div>
         </div>
     </div>
-    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+    <div class="mdl-cell mdl-cell--4-col mdl-card mdl-shadow--4dp">
         <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">O CIBiogás</h2>
+            <h2 class="mdl-card__title-text">{{Messages('contact.title')}}</h2>
+        </div>
+        <div class="mdl-card__media">
+            <img class="article-image" src=" assets/images/templates/contact-image.jpg" border="0" alt="">
         </div>
         <div class="mdl-card__supporting-text">
-            O CIBiogás (Centro Internacional de Energias Renováveis–Biogás)
-            é uma instituição científica, tecnológica e de inovação, em forma de pessoa jurídica de direito
-            privado, constituído como associação sem fins lucrativos, autonomia administrativa e financeira,
-            regida por um estatuto.
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-            <a ng-href="" target="_blank" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                {{Messages('card.button.title')}}
-            </a>
+            <form ng-submit="save()">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input maxlength="60" class="mdl-textfield__input" type="text" id="nome" ng-model="contato.nome">
+                    <label class="mdl-textfield__label" for="nome">{{Messages('contact.field.name')}} *</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input maxlength="60" class="mdl-textfield__input" type="email" id="email" ng-model="contato.email">
+                    <label class="mdl-textfield__label" for="email">{{Messages('contact.field.email')}} *</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input maxlength="30" class="mdl-textfield__input" type="text" id="assunto" ng-model="contato.assunto">
+                    <label class="mdl-textfield__label" for="assunto">{{Messages('contact.field.subject')}} *</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <textarea maxlength="200" class="mdl-textfield__input" type="text" rows= "3" id="mensagem" ng-model="contato.mensagem"></textarea>
+                    <label class="mdl-textfield__label" for="mensagem">{{Messages('contact.field.message')}} *</label>
+                </div>
+                <p ng-show="!contato.nome || !contato.email || !contato.assunto || !contato.mensagem">{{Messages('contact.field.required')}} (*)</p>
+                <br>
+                <!-- Raised button with ripple -->
+                <button click-once id="save" type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-disabled="!contato.nome || !contato.email || !contato.assunto || !contato.mensagem">{{Messages('contact.button')}}</button>
+            </form>
         </div>
     </div>
-    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+    <div class="mdl-cell mdl-cell--8-col mdl-card mdl-shadow--4dp">
         <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Missão</h2>
+            <h2 class="mdl-card__title-text">{{Messages('contact.location.title')}}</h2>
+        </div>
+        <div class="mdl-card__media">
+            <img class="article-image" src=" assets/images/templates/contact-image.jpg" border="0" alt="">
         </div>
         <div class="mdl-card__supporting-text">
-            A Biblioteca disponibiliza na Internet, gratuitamente
-            e em formato multilíngue, importantes fontes provenientes de energias renováveis e seus derivados.
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-            <a ng-href="" target="_blank" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                {{Messages('card.button.title')}}
-            </a>
+            <p><b>{{Messages('contact.location.company.title')}}: </b>Parque Tecnológico Itaipu  Edifício das Águas
+                Foz do Iguaçu - Paraná - Brasil</p>
+            <p><b>{{Messages('contact.location.address')}}: </b>Av. Tancredo Neves, 6731     CEP: 85.866-900
+                Caixa Postal 2126</p>
+            <p><b>{{Messages('contact.location.email')}}: </b><a class="site-a" href="mailto:cibiogas@cibiogas.org">cibiogas@cibiogas.org</a>
+            <p><b>{{Messages('contact.location.phone')}}: </b>+55 45 3576-7166 ou +55 45 3576-7437</p>
         </div>
     </div>
 </div>

@@ -99,6 +99,12 @@
     padding: 0;
 }
 
+.cartao-contato {
+    width: 100%;
+    padding: 0;
+}
+
+
 .demo-card-event.mdl-card {
     width: 256px;
     height: 256px;
