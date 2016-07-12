@@ -416,7 +416,7 @@ public class LivroController extends Controller {
 
             File pdf = new File(diretorioDePdfsLivros,titulo+extensaoPadraoDePdfs);
 
-            return ok(new FileInputStream(pdf));
+            return ok(new FileInputStream(pdf)).as("application/pdf");
         } catch (FileNotFoundException e) {
             Logger.error(e.getMessage());
             return notFound(views.html.mensagens.erro.naoEncontrado.render(titulo+extensaoPadraoDePdfs+" não foi encontrado"));
