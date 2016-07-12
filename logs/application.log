@@ -1,5 +1,1 @@
-2016-07-11 13:34:10,676 [INFO] from play.core.server.NettyServer in pool-6-thread-8 - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
-2016-07-11 13:35:07,445 [INFO] from application in ForkJoinPool-1-worker-1 - Creating Pool for datasource 'default'
-2016-07-11 13:35:08,094 [INFO] from play.api.db.DefaultDBApi in ForkJoinPool-1-worker-1 - Database [default] connected at jdbc:postgresql://localhost:5432/architectplaydb
-2016-07-11 13:35:10,204 [INFO] from play.api.Play in ForkJoinPool-1-worker-1 - Application started (Dev)
-2016-07-11 13:38:54,748 [INFO] from application in pool-6-thread-8 - Shutting down connection pool.
+2016-07-11 21:08:41,029 [INFO] from play.core.server.NettyServer in pool-269-thread-4 - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
