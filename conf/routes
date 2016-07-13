@@ -9,7 +9,6 @@ GET     /messages.js        controllers.Application.jsMessages()
 
 # Admin
 GET     /admin              controllers.AdminController.inicio()
-GET     /viewer                controllers.AdminController.telaPdf()
 
 # Login Telas
 GET     /login              controllers.LoginController.telaLogin()

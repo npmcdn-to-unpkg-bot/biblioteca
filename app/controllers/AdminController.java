@@ -55,8 +55,4 @@ public class AdminController extends Controller {
         return ok(views.html.admin.inicio.render(username));
     }
 
-    public Result telaPdf() {
-        return ok(views.html.admin.viewer.render());
-    }
-
 }

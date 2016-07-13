@@ -28,6 +28,12 @@ import static play.data.Form.form;
 @Security.Authenticated(Secured.class)
 public class LivroController extends Controller {
 
+    /**
+     * metodo responsavel por modificar o titulo do arquivo
+     *
+     * @param str
+     * @return a string formatada
+     */
     private static String formatarTitulo(String str) {
         return Normalizer.normalize(str, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").replaceAll(" ","-").toLowerCase();
     }
@@ -420,9 +426,9 @@ public class LivroController extends Controller {
     }
 
     /**
-     * return the pdf from a titulo
+     * return the pdf file from nomeArquivo
      *
-     * @param titulo
+     * @param nomeArquivo
      * @return ok pdf by name
      */
     public Result pdf(String nomeArquivo) {

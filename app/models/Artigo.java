@@ -23,6 +23,9 @@ public class Artigo extends Model {
     @Column(nullable = false, length = 400)
     private String resumo;
 
+    @Column(nullable = false, length = 200)
+    private String nomeArquivo;
+
     @Formats.DateTime(pattern="dd-MM-yyyy")
     private Date dataCadastro;
 
@@ -67,6 +70,14 @@ public class Artigo extends Model {
 
     public void setDataAlteracao(Date dataAlteracao) {
         this.dataAlteracao = dataAlteracao;
+    }
+
+    public String getNomeArquivo() {
+        return nomeArquivo;
+    }
+
+    public void setNomeArquivo(String nomeArquivo) {
+        this.nomeArquivo = nomeArquivo;
     }
 
     public static Finder<Long, Artigo> find = new Finder<>(Artigo.class);

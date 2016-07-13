@@ -21,6 +21,7 @@ import javax.persistence.PersistenceException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.text.Normalizer;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +33,16 @@ public class ArtigoController extends Controller {
     private static DynamicForm form = Form.form();
 
     private Form<Artigo> artigoForm = Form.form(Artigo.class);
+
+    /**
+     * metodo responsavel por modificar o titulo do arquivo
+     *
+     * @param str
+     * @return a string formatada
+     */
+    private static String formatarTitulo(String str) {
+        return Normalizer.normalize(str, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").replaceAll(" ","-").toLowerCase();
+    }
 
     /**
      * @return a object user authenticated
@@ -208,7 +219,6 @@ public class ArtigoController extends Controller {
         }
 
         try {
-
             //faz uma busca do artigo na base de dados
             Artigo artigoBusca = Ebean.find(Artigo.class).where().eq("titulo", formPreenchido.data().get("titulo")).findUnique();
 
@@ -224,8 +234,6 @@ public class ArtigoController extends Controller {
             novo.setResumo(resumo);
             novo.setDataCadastro(new Date());
 
-            Ebean.save(novo);
-
             Http.MultipartFormData body = request().body().asMultipartFormData();
             Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
 
@@ -233,9 +241,17 @@ public class ArtigoController extends Controller {
 
             if (arquivo != null) {
                 String arquivoTitulo = form().bindFromRequest().get("titulo");
+
+                arquivoTitulo = formatarTitulo(arquivoTitulo);
+
                 String pdf = arquivoTitulo + extensaoPadraoDePdfs;
+
+                novo.setNomeArquivo(pdf);
+
                 String tipoDeConteudo = arquivo.getContentType();
+
                 File file = arquivo.getFile();
+
                 String diretorioDePdfsArtigos = Play.application().configuration().getString("diretorioDePdfsArtigos");
                 String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
 
@@ -251,6 +267,9 @@ public class ArtigoController extends Controller {
                 formDeErro.reject("Selecione um arquivo no formato PDF");
                 return badRequest(views.html.admin.artigos.create.render(formDeErro));
             }
+
+            Ebean.save(novo);
+            return created(views.html.mensagens.artigo.cadastrado.render(titulo));
         } catch (Exception e) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject("Erro interno de sistema!");
@@ -258,7 +277,6 @@ public class ArtigoController extends Controller {
             return badRequest(views.html.admin.artigos.create.render(formDeErro));
         }
 
-        return ok(views.html.mensagens.artigo.cadastrado.render(titulo));
     }
 
     /**
@@ -299,16 +317,26 @@ public class ArtigoController extends Controller {
 
             String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
 
+            Artigo artigo = form.get();
+
             if (arquivo != null) {
                 String arquivoTitulo = form().bindFromRequest().get("titulo");
+
+                arquivoTitulo = formatarTitulo(arquivoTitulo);
+
                 String pdf = arquivoTitulo + extensaoPadraoDePdfs;
+
+                artigo.setNomeArquivo(pdf);
+
                 String tipoDeConteudo = arquivo.getContentType();
+
                 File file = arquivo.getFile();
+
                 String diretorioDePdfsArtigos = Play.application().configuration().getString("diretorioDePdfsArtigos");
                 String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
 
                 //necessario para excluir o artigo antigo
-                File pdfAntigo = new File(diretorioDePdfsArtigos,artigoBusca.getTitulo()+extensaoPadraoDePdfs);
+                File pdfAntigo = new File(diretorioDePdfsArtigos,artigoBusca.getNomeArquivo());
 
                 //exclui o artigo antigo
                 pdfAntigo.delete();
@@ -326,8 +354,6 @@ public class ArtigoController extends Controller {
                 return badRequest(views.html.admin.artigos.edit.render(id,formDeErro));
             }
 
-            Artigo artigo = form.get();
-
             if (artigo.getTitulo().isEmpty() || artigo.getResumo().isEmpty()) {
                 Form<Artigo> formDeErro = artigoForm.fill(Artigo.find.byId(id));
                 formDeErro.reject("O campo 'Título' ou 'Resumo' não podem estar vazios");
@@ -339,6 +365,8 @@ public class ArtigoController extends Controller {
             artigo.update();
             tipoMensagem = "Sucesso";
             mensagem = "Artigo atualizado com sucesso.";
+
+            return ok(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
         } catch (PersistenceException e) {
             Form<Artigo> formDeErro = artigoForm.fill(Artigo.find.byId(id));
             formDeErro.reject("O campo 'Resumo' suporta no máximo 254 caractéres");
@@ -350,8 +378,6 @@ public class ArtigoController extends Controller {
             Logger.error(e.getMessage());
             return badRequest(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
         }
-
-        return ok(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
     }
 
     /**
@@ -366,7 +392,6 @@ public class ArtigoController extends Controller {
         String tipoMensagem;
 
         String diretorioDePdfsArtigos = Play.application().configuration().getString("diretorioDePdfsArtigos");
-        String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
 
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -392,10 +417,12 @@ public class ArtigoController extends Controller {
                 return notFound(views.html.mensagens.erro.naoEncontrado.render("Artigo não encontrado"));
             }
 
-            File pdf = new File(diretorioDePdfsArtigos,artigo.getTitulo()+extensaoPadraoDePdfs);
+            File pdf = new File(diretorioDePdfsArtigos,artigo.getNomeArquivo());
 
             Ebean.delete(artigo);
+
             pdf.delete();
+
             mensagem = "Artigo excluído com sucesso";
             tipoMensagem = "Sucesso";
         } catch (Exception e) {
@@ -423,22 +450,21 @@ public class ArtigoController extends Controller {
     }
 
     /**
-     * return the pdf from a titulo
+     * return the pdf from a nameFile
      *
-     * @param titulo
+     * @param nomeArquivo
      * @return ok pdf by name
      */
-    public Result pdf(String titulo) {
+    public Result pdf(String nomeArquivo) {
 
         String diretorioDePdfsArtigos = Play.application().configuration().getString("diretorioDePdfsArtigos");
-        String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
 
         try {
-            File pdf = new File(diretorioDePdfsArtigos,titulo+extensaoPadraoDePdfs);
-            return ok(new FileInputStream(pdf));
+            File pdf = new File(diretorioDePdfsArtigos,nomeArquivo);
+            return ok(new FileInputStream(pdf)).as("application/pdf");
         } catch (FileNotFoundException e) {
             Logger.error(e.getMessage());
-            return notFound(views.html.mensagens.erro.naoEncontrado.render(titulo+extensaoPadraoDePdfs+" não foi encontrado"));
+            return notFound(views.html.mensagens.erro.naoEncontrado.render(nomeArquivo+" não foi encontrado"));
         } catch (Exception e) {
             Logger.error(e.getMessage());
             return badRequest(Messages.get("app.error"));
