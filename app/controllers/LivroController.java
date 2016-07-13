@@ -19,6 +19,7 @@ import javax.annotation.Nullable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.text.Normalizer;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,10 @@ import static play.data.Form.form;
 
 @Security.Authenticated(Secured.class)
 public class LivroController extends Controller {
+
+    private static String formatarTitulo(String str) {
+        return Normalizer.normalize(str, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").replaceAll(" ","-").toLowerCase();
+    }
 
     /**
      * @return a object user authenticated
@@ -214,7 +219,13 @@ public class LivroController extends Controller {
 
                 if (arquivo != null) {
                     String arquivoTitulo = form().bindFromRequest().get("titulo");
+
+                    arquivoTitulo = formatarTitulo(arquivoTitulo);
+
                     String pdf = arquivoTitulo + extensaoPadraoDePdfs;
+
+                    livro.setNomeArquivo(pdf);
+
                     String tipoDeConteudo = arquivo.getContentType();
                     File file = arquivo.getFile();
                     String diretorioDePdfsLivros = Play.application().configuration().getString("diretorioDePdfsLivros");
@@ -294,14 +305,20 @@ public class LivroController extends Controller {
 
                 if (arquivo != null) {
                     String arquivoTitulo = form().bindFromRequest().get("titulo");
+
+                    arquivoTitulo = formatarTitulo(arquivoTitulo);
+
                     String pdf = arquivoTitulo + extensaoPadraoDePdfs;
+
+                    livro.setNomeArquivo(pdf);
+
                     String tipoDeConteudo = arquivo.getContentType();
                     File file = arquivo.getFile();
                     String diretorioDePdfsLivros = Play.application().configuration().getString("diretorioDePdfsLivros");
                     String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
 
                     //necessario para excluir o livro antigo
-                    File pdfAntigo = new File(diretorioDePdfsLivros,livroBusca.getTitulo()+extensaoPadraoDePdfs);
+                    File pdfAntigo = new File(diretorioDePdfsLivros,livroBusca.getNomeArquivo());
 
                     //exclui o artigo antigo
                     pdfAntigo.delete();
@@ -368,12 +385,13 @@ public class LivroController extends Controller {
             }
 
             String diretorioDePdfsLivros = Play.application().configuration().getString("diretorioDePdfsLivros");
-            String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
 
-            File pdf = new File(diretorioDePdfsLivros,livro.getTitulo()+extensaoPadraoDePdfs);
+            File pdf = new File(diretorioDePdfsLivros,livro.getNomeArquivo());
 
             Ebean.delete(livro);
+
             pdf.delete();
+
             mensagem = "Livro excluído com sucesso";
             tipoMensagem = "Sucesso";
             return ok(views.html.mensagens.livro.mensagens.render(mensagem,tipoMensagem));
@@ -407,19 +425,18 @@ public class LivroController extends Controller {
      * @param titulo
      * @return ok pdf by name
      */
-    public Result pdf(String titulo) {
+    public Result pdf(String nomeArquivo) {
 
         String diretorioDePdfsLivros = Play.application().configuration().getString("diretorioDePdfsLivros");
-        String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
 
         try {
 
-            File pdf = new File(diretorioDePdfsLivros,titulo+extensaoPadraoDePdfs);
+            File pdf = new File(diretorioDePdfsLivros,nomeArquivo);
 
             return ok(new FileInputStream(pdf)).as("application/pdf");
         } catch (FileNotFoundException e) {
             Logger.error(e.getMessage());
-            return notFound(views.html.mensagens.erro.naoEncontrado.render(titulo+extensaoPadraoDePdfs+" não foi encontrado"));
+            return notFound(views.html.mensagens.erro.naoEncontrado.render(nomeArquivo+" não foi encontrado"));
         } catch (Exception e) {
             Logger.error(e.getMessage());
             return badRequest(Json.toJson(Messages.get("app.error")));

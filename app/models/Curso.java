@@ -32,7 +32,7 @@ public class Curso extends Model {
     @Column(nullable = false, length = 80)
     private String site;
 
-    @Column(nullable = false, length = 80)
+    @Column(nullable = false, length = 150)
     private String nomeCapa;
 
     public Curso(){

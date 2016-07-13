@@ -49,6 +49,9 @@ public class Livro extends Model {
     @Constraints.Required
     private Integer ano;
 
+    @Column(nullable = false, length = 200)
+    private String nomeArquivo;
+
     @Formats.DateTime(pattern="dd-MM-yyyy")
     private Date dataCadastro;
 
@@ -58,7 +61,7 @@ public class Livro extends Model {
     public Livro() {
     }
 
-    public Livro(Long id, String titulo, String subTitulo, String isbn, String editora, String autores, Integer edicao, Integer paginas, Integer ano) {
+    public Livro(Long id, String titulo, String subTitulo, String isbn, String editora, String autores, Integer edicao, Integer paginas, Integer ano, String nomeArquivo) {
         this.setId(id);
         this.titulo = titulo;
         this.subTitulo = subTitulo;
@@ -68,6 +71,7 @@ public class Livro extends Model {
         this.edicao = edicao;
         this.paginas = paginas;
         this.ano = ano;
+        this.nomeArquivo = nomeArquivo;
     }
 
     /**
@@ -83,6 +87,7 @@ public class Livro extends Model {
         livro.setEdicao(formData.edicao);
         livro.setPaginas(formData.paginas);
         livro.setAno(formData.ano);
+        livro.setNomeArquivo(formData.nomeArquivo);
         return livro;
     }
 
@@ -99,7 +104,7 @@ public class Livro extends Model {
             throw new RuntimeException("Livro não encontrado");
         }
 
-        return new LivroFormData(livro.titulo, livro.subTitulo, livro.isbn, livro.editora, livro.autores, livro.edicao, livro.paginas, livro.ano);
+        return new LivroFormData(livro.titulo, livro.subTitulo, livro.isbn, livro.editora, livro.autores, livro.edicao, livro.paginas, livro.ano, livro.nomeArquivo);
     }
 
     public Long getId() {
@@ -188,6 +193,14 @@ public class Livro extends Model {
 
     public void setEdicao(Integer edicao) {
         this.edicao = edicao;
+    }
+
+    public String getNomeArquivo() {
+        return nomeArquivo;
+    }
+
+    public void setNomeArquivo(String nomeArquivo) {
+        this.nomeArquivo = nomeArquivo;
     }
 
     public static Finder<Long, Livro> find = new Finder<>(Livro.class);

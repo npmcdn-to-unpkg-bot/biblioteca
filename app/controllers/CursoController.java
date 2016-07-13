@@ -15,12 +15,17 @@ import views.validators.CursoFormData;
 
 import javax.annotation.Nullable;
 import java.io.File;
+import java.text.Normalizer;
 import java.util.Date;
 import java.util.List;
 
 import static play.data.Form.form;
 
 public class CursoController extends Controller {
+
+    private static String formatarTitulo(String str) {
+        return Normalizer.normalize(str, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").replaceAll(" ","-").toLowerCase();
+    }
 
     /**
      * @return a object user authenticated
@@ -129,7 +134,7 @@ public class CursoController extends Controller {
             //logica onde instanciamos um objeto evento que esteja cadastrado na base de dados
             CursoFormData cursoFormData = (id == 0) ? new CursoFormData() : models.Curso.makeCursoFormData(id);
 
-            //apos o objeto ser instanciado passamos os dados para o eventoformdata e os dados serao carregados no form edit
+            //apos o objeto ser instanciado novomos os dados para o eventoformdata e os dados serao carregados no form edit
             Form<CursoFormData> formData = Form.form(CursoFormData.class).fill(cursoFormData);
 
             return ok(views.html.admin.cursos.edit.render(id,formData));
@@ -182,12 +187,14 @@ public class CursoController extends Controller {
 
                 if (arquivo != null) {
                     String arquivoTitulo = form().bindFromRequest().get("nome");
+
+                    //solucao para tirar os espacos em branco, acentos do nome do arquivo e deixa-lo tudo em minusculo
+                    arquivoTitulo = formatarTitulo(arquivoTitulo);
+
                     String jpg = arquivoTitulo + extensaoPadraoDeJpg;
 
-                    //solucao para tirar os espacos em branco do nome do arquivo e deixa-lo tudo em minusculo
-                    jpg = jpg.replaceAll(" ","").toLowerCase();
-
                     curso.setNomeCapa(jpg);
+
                     String tipoDeConteudo = arquivo.getContentType();
                     File file = arquivo.getFile();
                     String diretorioDeFotosCursos = Play.application().configuration().getString("diretorioDeFotosCursos");
@@ -257,10 +264,11 @@ public class CursoController extends Controller {
 
                 if (arquivo != null) {
                     String arquivoTitulo = form().bindFromRequest().get("nome");
-                    String jpg = arquivoTitulo + extensaoPadraoDeJpg;
 
-                    //solucao para tirar os espacos em branco do nome do arquivo e deixa-lo tudo em minusculo
-                    jpg = jpg.replaceAll(" ","").toLowerCase();
+                    //solucao para tirar os espacos em branco do nome do arquivo, acentos e deixa-lo tudo em minusculo
+                    arquivoTitulo = formatarTitulo(arquivoTitulo);
+
+                    String jpg = arquivoTitulo + extensaoPadraoDeJpg;
 
                     curso.setNomeCapa(jpg);
 
@@ -270,8 +278,8 @@ public class CursoController extends Controller {
                     String diretorioDeFotosCursos = Play.application().configuration().getString("diretorioDeFotosCursos");
                     String contentTypePadraoDeImagens = Play.application().configuration().getString("contentTypePadraoDeImagens");
 
-                    //necessario para excluir o livro antigo
-                    File jpgAntigo = new File(diretorioDeFotosCursos,cursoBusca.getNome().replaceAll(" ","").toLowerCase()+extensaoPadraoDeJpg);
+                    //necessario para excluir o arquivo jpeg antigo
+                    File jpgAntigo = new File(diretorioDeFotosCursos,cursoBusca.getNomeCapa());
 
                     //exclui o arquivo jpg antigo
                     jpgAntigo.delete();
@@ -330,12 +338,10 @@ public class CursoController extends Controller {
                 return notFound(views.html.mensagens.erro.naoEncontrado.render("Curso não encontrado"));
             }
 
-
             String diretorioDeFotosCursos = Play.application().configuration().getString("diretorioDeFotosCursos");
-            String extensaoPadraoDeJpg = Play.application().configuration().getString("extensaoPadraoDeJpg");
 
             //necessario para excluir o curso
-            File jpg = new File(diretorioDeFotosCursos,curso.getNome().replaceAll(" ","").toLowerCase()+extensaoPadraoDeJpg);
+            File jpg = new File(diretorioDeFotosCursos,curso.getNomeCapa());
 
             Ebean.delete(curso);
             jpg.delete();

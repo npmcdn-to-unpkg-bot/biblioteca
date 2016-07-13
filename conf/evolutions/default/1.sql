@@ -28,7 +28,7 @@ create table curso (
   descricao                 varchar(400) not null,
   data_inicio               timestamp not null,
   site                      varchar(80) not null,
-  nome_capa                 varchar(80) not null,
+  nome_capa                 varchar(150) not null,
   constraint pk_curso primary key (id))
 ;
 
@@ -53,6 +53,7 @@ create table livro (
   edicao                    integer,
   paginas                   integer,
   ano                       integer,
+  nome_arquivo              varchar(200) not null,
   data_cadastro             timestamp,
   data_alteracao            timestamp,
   constraint uq_livro_isbn unique (isbn),

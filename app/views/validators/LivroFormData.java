@@ -15,12 +15,13 @@ public class LivroFormData {
     public Integer edicao = 0;
     public Integer paginas = 0;
     public Integer ano = 0;
+    public String nomeArquivo = "";
 
     /** Necessario para instanciar o form */
     public LivroFormData() {
     }
 
-    public LivroFormData(String titulo, String subTitulo, String isbn, String editora, String autores, Integer edicao, Integer paginas, Integer ano) {
+    public LivroFormData(String titulo, String subTitulo, String isbn, String editora, String autores, Integer edicao, Integer paginas, Integer ano, String nomeArquivo) {
         this.titulo = titulo;
         this.subTitulo = subTitulo;
         this.isbn = isbn;
@@ -29,6 +30,7 @@ public class LivroFormData {
         this.edicao = edicao;
         this.paginas = paginas;
         this.ano = ano;
+        this.nomeArquivo = nomeArquivo;
     }
 
     public List<ValidationError> validate() {
