@@ -1,0 +1,18 @@
+@(field: Field, label: String = "", placeholder: String = "", help: String = "")
+
+<div class="form-group @if(field.hasErrors) {has-error}">
+    <label class="col-sm-3 control-label">@label</label>
+    <div class="col-sm-2">
+        <select id="@field.id" name="@field.name" class="form-control" value="@field.value.getOrElse("")">
+            <option value="">Selecione...</option>
+            <option value="MEDIO">Ensino Médio Completo</option>
+            <option value="TECNICO">Ensino Técnico</option>
+            <option value="BACHAREL">Graduação (Bacharelado)</option>
+            <option value="LICENCIATURA">Graduação (Licenciatura)</option>
+            <option value="ESPECIALIZACAO">Especialização (Lato Sensu)</option>
+            <option value="MESTRADO">Mestrado (Stricto Sensu)</option>
+            <option value="DOUTORADO">Doutorado (Stricto Sensu)</option>
+        </select>
+        <span class="help-block">@{field.error.map { error => error.message }}</span>
+    </div>
+</div>

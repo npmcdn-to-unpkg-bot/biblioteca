@@ -1,0 +1,18 @@
+@(field: Field, label: String = "", placeholder: String = "", help: String = "")
+
+<div class="form-group @if(field.hasErrors) {has-error}">
+    <label class="col-sm-3 control-label">@label</label>
+    <div class="col-sm-2">
+        <div class="radio">
+            <label>
+                <input type="radio" name="@field.name" value="t" /> Sim
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" name="@field.name" value="f" /> Não
+            </label>
+        </div>
+        <span class="help-block">@{field.error.map { error => error.message }}</span>
+    </div>
+</div>

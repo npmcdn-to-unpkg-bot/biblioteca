@@ -33,16 +33,16 @@
                     }
 
                     <!-- Nome -->
-                    @texto(formPreenchido("nome"), Messages("register.username"))
+                    @templates.mdl.texto(formPreenchido("nome"), Messages("register.username"))
 
                     <!-- Email -->
-                    @email(formPreenchido("email"), Messages("register.email"))
+                    @templates.mdl.email(formPreenchido("email"), Messages("register.email"))
 
                     <!-- Senha -->
-                    @senha(formPreenchido("senha"), Messages("register.password"))
+                    @templates.mdl.senha(formPreenchido("senha"), Messages("register.password"))
 
                     <!-- Confirm senha -->
-                    @senha(formPreenchido("confirm_senha"), Messages("register.confirm.password"))
+                    @templates.mdl.senha(formPreenchido("confirm_senha"), Messages("register.confirm.password"))
 
 
                 </div>

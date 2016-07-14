@@ -1,1 +1,155 @@
-2016-07-13 15:50:31,012 [INFO] from play.core.server.NettyServer in pool-6257-thread-4 - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+2016-07-14 11:01:37,018 [INFO] from play.core.server.NettyServer in pool-6-thread-5 - Listening for HTTP on /0:0:0:0:0:0:0:0:9000
+2016-07-14 11:01:44,379 [INFO] from application in ForkJoinPool-1-worker-1 - Creating Pool for datasource 'default'
+2016-07-14 11:01:44,705 [INFO] from play.api.db.DefaultDBApi in ForkJoinPool-1-worker-1 - Database [default] connected at jdbc:postgresql://localhost:5432/architectplaydb
+2016-07-14 11:01:45,396 [INFO] from play.api.Play in ForkJoinPool-1-worker-1 - Application started (Dev)
+2016-07-14 11:02:09,754 [INFO] from application in application-akka.actor.default-dispatcher-4 - Shutting down connection pool.
+2016-07-14 11:02:09,827 [INFO] from application in application-akka.actor.default-dispatcher-4 - Creating Pool for datasource 'default'
+2016-07-14 11:02:09,830 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-4 - Database [default] connected at jdbc:postgresql://localhost:5432/architectplaydb
+2016-07-14 11:02:09,982 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-4 - Application started (Dev)
+2016-07-14 11:02:51,942 [INFO] from application in application-akka.actor.default-dispatcher-3 - Shutting down connection pool.
+2016-07-14 11:02:51,996 [INFO] from application in application-akka.actor.default-dispatcher-3 - Creating Pool for datasource 'default'
+2016-07-14 11:02:51,999 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-3 - Database [default] connected at jdbc:postgresql://localhost:5432/architectplaydb
+2016-07-14 11:02:52,118 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-3 - Application started (Dev)
+2016-07-14 11:03:12,177 [INFO] from application in application-akka.actor.default-dispatcher-5 - Shutting down connection pool.
+2016-07-14 11:03:12,230 [INFO] from application in application-akka.actor.default-dispatcher-5 - Creating Pool for datasource 'default'
+2016-07-14 11:03:12,234 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-5 - Database [default] connected at jdbc:postgresql://localhost:5432/architectplaydb
+2016-07-14 11:03:12,399 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-5 - Application started (Dev)
+2016-07-14 11:03:17,371 [ERROR] from application in New I/O worker #2 - 
+
+! @70lj5g2go - Internal server error, for (GET) [/inscricao] ->
+ 
+play.sbt.PlayExceptions$UnexpectedException: Unexpected exception[FileNotFoundException: /home/haroldo/projetos/architectplay/target/scala-2.11/classes/views/html/inscricao/inscricao$.class (Arquivo ou diretório não encontrado)]
+	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:51) ~[na:na]
+	at play.sbt.run.PlayReload$$anonfun$taskFailureHandler$1.apply(PlayReload.scala:44) ~[na:na]
+	at scala.Option.map(Option.scala:145) ~[scala-library.jar:na]
+	at play.sbt.run.PlayReload$.taskFailureHandler(PlayReload.scala:44) ~[na:na]
+	at play.sbt.run.PlayReload$.compileFailure(PlayReload.scala:40) ~[na:na]
+	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17) ~[na:na]
+	at play.sbt.run.PlayReload$$anonfun$compile$1.apply(PlayReload.scala:17) ~[na:na]
+	at scala.util.Either$LeftProjection.map(Either.scala:377) ~[scala-library.jar:na]
+	at play.sbt.run.PlayReload$.compile(PlayReload.scala:17) ~[na:na]
+	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61) ~[na:na]
+	at play.sbt.run.PlayRun$$anonfun$playRunTask$1$$anonfun$apply$2$$anonfun$apply$3$$anonfun$2.apply(PlayRun.scala:61) ~[na:na]
+	at play.runsupport.Reloader$$anonfun$reload$1.apply(Reloader.scala:323) ~[na:na]
+	at play.runsupport.Reloader$$anon$3.run(Reloader.scala:43) ~[na:na]
+	at java.security.AccessController.doPrivileged(Native Method) ~[na:1.8.0_91]
+	at play.runsupport.Reloader$.play$runsupport$Reloader$$withReloaderContextClassLoader(Reloader.scala:39) ~[na:na]
+	at play.runsupport.Reloader.reload(Reloader.scala:321) ~[na:na]
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:113) ~[play-server_2.11-2.4.6.jar:2.4.6]
+	at play.core.server.DevServerStart$$anonfun$mainDev$1$$anon$1$$anonfun$get$1.apply(DevServerStart.scala:111) ~[play-server_2.11-2.4.6.jar:2.4.6]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24) ~[scala-library.jar:na]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24) ~[scala-library.jar:na]
+	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:40) ~[akka-actor_2.11.jar:na]
+	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(AbstractDispatcher.scala:397) ~[akka-actor_2.11.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260) ~[scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339) ~[scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979) ~[scala-library.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107) ~[scala-library.jar:na]
+Caused by: java.io.FileNotFoundException: /home/haroldo/projetos/architectplay/target/scala-2.11/classes/views/html/inscricao/inscricao$.class (Arquivo ou diretório não encontrado)
+	at java.io.FileInputStream.open0(Native Method) ~[na:1.8.0_91]
+	at java.io.FileInputStream.open(FileInputStream.java:195) ~[na:1.8.0_91]
+	at java.io.FileInputStream.<init>(FileInputStream.java:138) ~[na:1.8.0_91]
+	at play.core.enhancers.PropertiesEnhancer.rewriteAccess(PropertiesEnhancer.java:145) ~[play-enhancer.jar:1.1.0]
+	at com.typesafe.play.sbt.enhancer.PlayEnhancer$$anonfun$scopedSettings$4.apply(PlayEnhancer.scala:44) ~[na:na]
+	at com.typesafe.play.sbt.enhancer.PlayEnhancer$$anonfun$scopedSettings$4.apply(PlayEnhancer.scala:44) ~[na:na]
+	at scala.Function2$$anonfun$curried$1$$anonfun$apply$1.apply(Function2.scala:45) ~[scala-library.jar:na]
+	at scala.collection.TraversableLike$$anonfun$filter$1.apply(TraversableLike.scala:264) ~[na:na]
+	at scala.collection.mutable.ResizableArray$class.foreach(ResizableArray.scala:59) ~[scala-library.jar:na]
+	at scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:47) ~[scala-library.jar:na]
+	at scala.collection.TraversableLike$class.filter(TraversableLike.scala:263) ~[scala-library.jar:na]
+	at scala.collection.AbstractTraversable.filter(Traversable.scala:105) ~[scala-library.jar:na]
+	at com.typesafe.play.sbt.enhancer.PlayEnhancer$$anonfun$bytecodeEnhance$1$$anonfun$apply$2.apply(PlayEnhancer.scala:71) ~[na:na]
+	at com.typesafe.play.sbt.enhancer.PlayEnhancer$$anonfun$bytecodeEnhance$1$$anonfun$apply$2.apply(PlayEnhancer.scala:48) ~[na:na]
+	at com.typesafe.play.sbt.enhancer.PlayEnhancer$$anonfun$scopedSettings$2.apply(PlayEnhancer.scala:38) ~[na:na]
+	at com.typesafe.play.sbt.enhancer.PlayEnhancer$$anonfun$scopedSettings$2.apply(PlayEnhancer.scala:34) ~[na:na]
+	at scala.Function1$$anonfun$compose$1.apply(Function1.scala:47) ~[scala-library.jar:na]
+	at sbt.$tilde$greater$$anonfun$$u2219$1.apply(TypeFunctions.scala:40) ~[na:na]
+	at sbt.std.Transform$$anon$4.work(System.scala:63) ~[na:na]
+	at sbt.Execute$$anonfun$submit$1$$anonfun$apply$1.apply(Execute.scala:226) ~[na:na]
+	at sbt.Execute$$anonfun$submit$1$$anonfun$apply$1.apply(Execute.scala:226) ~[na:na]
+	at sbt.ErrorHandling$.wideConvert(ErrorHandling.scala:17) ~[na:na]
+	at sbt.Execute.work(Execute.scala:235) ~[na:na]
+	at sbt.Execute$$anonfun$submit$1.apply(Execute.scala:226) ~[na:na]
+	at sbt.Execute$$anonfun$submit$1.apply(Execute.scala:226) ~[na:na]
+	at sbt.ConcurrentRestrictions$$anon$4$$anonfun$1.apply(ConcurrentRestrictions.scala:159) ~[na:na]
+	at sbt.CompletionService$$anon$2.call(CompletionService.scala:28) ~[na:na]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[na:1.8.0_91]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) ~[na:1.8.0_91]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[na:1.8.0_91]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_91]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_91]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_91]
+2016-07-14 11:03:19,259 [INFO] from application in application-akka.actor.default-dispatcher-6 - Shutting down connection pool.
+2016-07-14 11:03:19,302 [INFO] from application in application-akka.actor.default-dispatcher-6 - Creating Pool for datasource 'default'
+2016-07-14 11:03:19,305 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-6 - Database [default] connected at jdbc:postgresql://localhost:5432/architectplaydb
+2016-07-14 11:03:19,429 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-6 - Application started (Dev)
+2016-07-14 11:03:25,582 [INFO] from application in application-akka.actor.default-dispatcher-9 - Shutting down connection pool.
+2016-07-14 11:03:25,625 [INFO] from application in application-akka.actor.default-dispatcher-9 - Creating Pool for datasource 'default'
+2016-07-14 11:03:25,629 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-9 - Database [default] connected at jdbc:postgresql://localhost:5432/architectplaydb
+2016-07-14 11:03:25,774 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-9 - Application started (Dev)
+2016-07-14 11:03:35,998 [INFO] from application in application-akka.actor.default-dispatcher-6 - Shutting down connection pool.
+2016-07-14 11:03:36,036 [INFO] from application in application-akka.actor.default-dispatcher-6 - Creating Pool for datasource 'default'
+2016-07-14 11:03:36,039 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-6 - Database [default] connected at jdbc:postgresql://localhost:5432/architectplaydb
+2016-07-14 11:03:36,144 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-6 - Application started (Dev)
+2016-07-14 11:04:00,452 [INFO] from application in application-akka.actor.default-dispatcher-9 - Shutting down connection pool.
+2016-07-14 11:04:00,480 [INFO] from application in application-akka.actor.default-dispatcher-9 - Creating Pool for datasource 'default'
+2016-07-14 11:04:00,483 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-9 - Database [default] connected at jdbc:postgresql://localhost:5432/architectplaydb
+2016-07-14 11:04:00,581 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-9 - Application started (Dev)
+2016-07-14 11:04:15,492 [INFO] from application in application-akka.actor.default-dispatcher-6 - Shutting down connection pool.
+2016-07-14 11:04:15,525 [INFO] from application in application-akka.actor.default-dispatcher-6 - Creating Pool for datasource 'default'
+2016-07-14 11:04:15,528 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-6 - Database [default] connected at jdbc:postgresql://localhost:5432/architectplaydb
+2016-07-14 11:04:15,625 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-6 - Application started (Dev)
+2016-07-14 11:06:01,704 [INFO] from application in application-akka.actor.default-dispatcher-8 - Shutting down connection pool.
+2016-07-14 11:06:01,733 [INFO] from application in application-akka.actor.default-dispatcher-8 - Creating Pool for datasource 'default'
+2016-07-14 11:06:01,736 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-8 - Database [default] connected at jdbc:postgresql://localhost:5432/architectplaydb
+2016-07-14 11:06:01,836 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-8 - Application started (Dev)
+2016-07-14 11:07:18,318 [INFO] from application in application-akka.actor.default-dispatcher-4 - Shutting down connection pool.
+2016-07-14 11:07:18,345 [INFO] from application in application-akka.actor.default-dispatcher-4 - Creating Pool for datasource 'default'
+2016-07-14 11:07:18,348 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-4 - Database [default] connected at jdbc:postgresql://localhost:5432/architectplaydb
+2016-07-14 11:07:18,445 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-4 - Application started (Dev)
+2016-07-14 11:08:01,153 [INFO] from application in application-akka.actor.default-dispatcher-8 - Shutting down connection pool.
+2016-07-14 11:08:01,185 [INFO] from application in application-akka.actor.default-dispatcher-8 - Creating Pool for datasource 'default'
+2016-07-14 11:08:01,188 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-8 - Database [default] connected at jdbc:postgresql://localhost:5432/architectplaydb
+2016-07-14 11:08:01,307 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-8 - Application started (Dev)
+2016-07-14 11:08:45,361 [INFO] from application in application-akka.actor.default-dispatcher-2 - Shutting down connection pool.
+2016-07-14 11:08:45,388 [INFO] from application in application-akka.actor.default-dispatcher-2 - Creating Pool for datasource 'default'
+2016-07-14 11:08:45,390 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-2 - Database [default] connected at jdbc:postgresql://localhost:5432/architectplaydb
+2016-07-14 11:08:45,499 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-2 - Application started (Dev)
+2016-07-14 11:10:14,064 [INFO] from application in application-akka.actor.default-dispatcher-8 - Shutting down connection pool.
+2016-07-14 11:10:14,088 [INFO] from application in application-akka.actor.default-dispatcher-8 - Creating Pool for datasource 'default'
+2016-07-14 11:10:14,091 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-8 - Database [default] connected at jdbc:postgresql://localhost:5432/architectplaydb
+2016-07-14 11:10:14,187 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-8 - Application started (Dev)
+2016-07-14 11:10:23,593 [INFO] from application in application-akka.actor.default-dispatcher-3 - Shutting down connection pool.
+2016-07-14 11:10:23,615 [INFO] from application in application-akka.actor.default-dispatcher-3 - Creating Pool for datasource 'default'
+2016-07-14 11:10:23,619 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-3 - Database [default] connected at jdbc:postgresql://localhost:5432/architectplaydb
+2016-07-14 11:10:23,737 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-3 - Application started (Dev)
+2016-07-14 11:10:40,456 [INFO] from application in application-akka.actor.default-dispatcher-8 - Shutting down connection pool.
+2016-07-14 11:10:40,487 [INFO] from application in application-akka.actor.default-dispatcher-8 - Creating Pool for datasource 'default'
+2016-07-14 11:10:40,490 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-8 - Database [default] connected at jdbc:postgresql://localhost:5432/architectplaydb
+2016-07-14 11:10:40,604 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-8 - Application started (Dev)
+2016-07-14 11:12:13,271 [INFO] from application in application-akka.actor.default-dispatcher-6 - Shutting down connection pool.
+2016-07-14 11:12:13,293 [INFO] from application in application-akka.actor.default-dispatcher-6 - Creating Pool for datasource 'default'
+2016-07-14 11:12:13,297 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-6 - Database [default] connected at jdbc:postgresql://localhost:5432/architectplaydb
+2016-07-14 11:12:13,402 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-6 - Application started (Dev)
+2016-07-14 11:21:35,200 [INFO] from application in application-akka.actor.default-dispatcher-6 - Shutting down connection pool.
+2016-07-14 11:21:35,221 [INFO] from application in application-akka.actor.default-dispatcher-6 - Creating Pool for datasource 'default'
+2016-07-14 11:21:35,224 [INFO] from play.api.db.DefaultDBApi in application-akka.actor.default-dispatcher-6 - Database [default] connected at jdbc:postgresql://localhost:5432/architectplaydb
+2016-07-14 11:21:35,320 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-6 - Application started (Dev)
+2016-07-14 11:28:10,143 [INFO] from application in application-akka.actor.default-dispatcher-35 - mock implementation, send email
+2016-07-14 11:28:10,144 [INFO] from application in application-akka.actor.default-dispatcher-35 - subject: rgerg
+2016-07-14 11:28:10,146 [INFO] from application in application-akka.actor.default-dispatcher-35 - from: haroldoramirez@gmail.com
+2016-07-14 11:28:10,148 [INFO] from application in application-akka.actor.default-dispatcher-35 - bodyHtml: 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h2>Contato</h2>
+    <p>Nome: Haroldo Ramirez</p>
+    <p>Email: haroldoramirez@gmail.com</p>
+    <p>Assunto: rgerg</p>
+    <p>Mensagem: 6r56e45ye6ue56y4</p>
+</body>
+</html>
+2016-07-14 11:28:10,150 [INFO] from application in application-akka.actor.default-dispatcher-35 - to: Biblioteca CIBiogás <haroldoramirez@gmail.com>
+2016-07-14 11:51:11,841 [INFO] from application in pool-6-thread-5 - Shutting down connection pool.
