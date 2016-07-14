@@ -3,8 +3,8 @@
 <div class="form-group @if(field.hasErrors) {has-error}">
     <label class="col-sm-3 control-label">@label</label>
     <div class="col-sm-3">
-        <select id="@field.id" name="@field.name" class="form-control" value="@field.value.getOrElse("")">
-            <option value="">Selecione um país...</option>
+        <select id="@field.id" name="@field.name" class="form-control">
+            <option value="@field.value.getOrElse("")">Selecione um país...</option>
             <option value="AF">Afghanistan</option>
             <option value="AX">&Aring;land Islands</option>
             <option value="AL">Albania</option>
