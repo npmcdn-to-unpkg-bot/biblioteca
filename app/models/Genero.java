@@ -2,7 +2,6 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
-import play.Logger;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,13 +10,15 @@ import java.util.Arrays;
 import java.util.List;
 
 @Entity
-public class Escolaridade extends Model {
+public class Genero extends Model {
 
     @Id
     private Long id;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 14)
     private String nome;
+
+    private String nome2;
 
     public Long getId() {
         return id;
@@ -40,10 +41,10 @@ public class Escolaridade extends Model {
      * @param nome The Level name.
      * @return The GradeLevel instance, or null if not found.
      */
-    public static Escolaridade findEscolaridade(String nome) {
-        for (Escolaridade escolaridade : Ebean.find(Escolaridade.class).findList()) {
-            if (nome.equals(escolaridade.getNome())) {
-                return escolaridade;
+    public static Genero findGenero(String nome) {
+        for (Genero genero : Ebean.find(Genero.class).findList()) {
+            if (nome.equals(genero.getNome())) {
+                return genero;
             }
         }
         return null;
@@ -54,13 +55,7 @@ public class Escolaridade extends Model {
      * @return A list of level names in sorted order.
      */
     public static List<String> getNameList() {
-        String[] nameArray = {"Ensino Médio Completo",
-                "Ensino Técnico",
-                "Graduação (Bacharelado)",
-                "Graduação (Licenciatura)",
-                "Especialização (Lato Sensu)",
-                "Mestrado (Stricto Sensu)",
-                "Doutorado (Stricto Sensu)"};
+        String[] nameArray = {"Masculino", "Feminino"};
         return Arrays.asList(nameArray);
     }
 }

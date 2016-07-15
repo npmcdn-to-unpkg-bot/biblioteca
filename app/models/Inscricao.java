@@ -24,8 +24,8 @@ public class Inscricao extends Model {
     @Column(nullable = false, length = 60)
     private String nome;
 
-    @Column(nullable = false)
-    private char genero;
+    @ManyToOne
+    private Genero genero;
 
     @Column(nullable = false)
     @Formats.DateTime(pattern = "dd-MM-yyyy")
@@ -78,7 +78,7 @@ public class Inscricao extends Model {
 
     public Inscricao(Long id,
                      String nome,
-                     char genero,
+                     Genero genero,
                      Date dataNascimento,
                      Escolaridade escolaridade,
                      String profissao,
@@ -116,7 +116,7 @@ public class Inscricao extends Model {
     public static Inscricao makeInstance(InscricaoFormData formData) {
         Inscricao inscricao = new Inscricao();
         inscricao.setNome(formData.nome);
-        inscricao.setGenero(formData.genero);
+        inscricao.setGenero(Genero.findGenero(formData.genero));
         inscricao.setDataNascimento(formData.dataNascimento);
         inscricao.setEscolaridade(Escolaridade.findEscolaridade(formData.escolaridade));
         inscricao.setProfissao(formData.profissao);
@@ -180,11 +180,11 @@ public class Inscricao extends Model {
         this.nome = nome;
     }
 
-    public char getGenero() {
+    public Genero getGenero() {
         return genero;
     }
 
-    public void setGenero(char genero) {
+    public void setGenero(Genero genero) {
         this.genero = genero;
     }
 

@@ -1,6 +1,7 @@
 package views.validators;
 
 import models.Escolaridade;
+import models.Genero;
 import play.data.validation.ValidationError;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
 public class InscricaoFormData {
 
     public String nome = "";
-    public char genero = '\0';
+    public String genero = "";
     public Date dataNascimento = null;
     public String escolaridade = "";
     public String profissao = "";
@@ -29,9 +30,9 @@ public class InscricaoFormData {
     public InscricaoFormData() {
     }
 
-    public InscricaoFormData(String nome, char genero, Date dataNascimento, Escolaridade escolaridade, String profissao, String instituicao, String pais, String estado, String cidade, String telefone, String cpf, String email, String modalidade, String fonte, String descricaoFonte) {
+    public InscricaoFormData(String nome, Genero genero, Date dataNascimento, Escolaridade escolaridade, String profissao, String instituicao, String pais, String estado, String cidade, String telefone, String cpf, String email, String modalidade, String fonte, String descricaoFonte) {
         this.nome = nome;
-        this.genero = genero;
+        this.genero = genero.getNome();
         this.dataNascimento = dataNascimento;
         this.escolaridade = escolaridade.getNome();
         this.profissao = profissao;
@@ -55,16 +56,22 @@ public class InscricaoFormData {
             errors.add(new ValidationError("nome", "Preencha o nome"));
         }
 
-        if (genero == '\0') {
-            errors.add(new ValidationError("genero", "Preencha o Gênero"));
+        // Genero is required and must exist in database.
+        if (genero == null || genero.length() == 0) {
+            errors.add(new ValidationError("genero", "Selecione o genero"));
+        } else if (Genero.findGenero(genero) == null) {
+            errors.add(new ValidationError("genero", "Gênero enválido: " + genero + "."));
         }
 
         if (dataNascimento == null) {
             errors.add(new ValidationError("dataNascimento", "Preencha a data de nascimento"));
         }
 
+        // Escolaridade is required and must exist in database.
         if (escolaridade == null || escolaridade.length() == 0) {
-            errors.add(new ValidationError("escolaridade", "Preencha a escolaridade"));
+            errors.add(new ValidationError("escolaridade", "Selecione a escolaridade"));
+        } else if (Escolaridade.findEscolaridade(escolaridade) == null) {
+            errors.add(new ValidationError("escolaridade", "Escolaridade enválida: " + escolaridade + "."));
         }
 
         if (profissao == null || profissao.length() == 0) {

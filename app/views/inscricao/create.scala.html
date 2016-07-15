@@ -1,4 +1,4 @@
-@(inscricaoForm: play.data.Form[views.validators.InscricaoFormData])
+@(inscricaoForm: play.data.Form[views.validators.InscricaoFormData],escolaridades:List[String],generos:List[String])
 
 @import helper._
 @import templates.bootstrap._
@@ -41,17 +41,21 @@
                                     placeholder = "Insira o Nome")
 
                                 @*Radio Genero*@
-                                @templates.bootstrap.inscricao.radioGenero(inscricaoForm("genero"),
-                                    label = "Gênero:")
+                                @templates.bootstrap.inscricao.radio(inscricaoForm("genero"),
+                                    label = "Gênero:",
+                                    buttonNameList = generos,
+                                    help = "Selecione sua escolaridade. (required)")
 
                                 @*Data de nascimento*@
                                 @templates.bootstrap.inscricao.data(inscricaoForm("dataNascimento"),
                                     label = "Data de Nascimento:",
                                     placeholder = "Insira a data de nascimento")
 
-                                @*Select Escolaridade*@
-                                @templates.bootstrap.inscricao.selectEscolaridade(inscricaoForm("escolaridade"),
-                                    label = "Escolaridade:")
+                                @*Radio Escolaridade*@
+                                @templates.bootstrap.inscricao.radio(inscricaoForm("escolaridade"),
+                                    label = "Escolaridade:",
+                                    buttonNameList = escolaridades,
+                                    help = "Selecione sua escolaridade. (required)")
 
                                 @*Profissao*@
                                 @templates.bootstrap.inscricao.profissao(inscricaoForm("profissao"),

@@ -1,6 +1,8 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
+import models.Escolaridade;
+import models.Genero;
 import models.Inscricao;
 import models.Usuario;
 import play.Logger;
@@ -41,7 +43,7 @@ public class InscricaoController extends Controller {
 
         Form<InscricaoFormData> inscricaoForm = form(InscricaoFormData.class);
 
-        return ok(views.html.inscricao.create.render(inscricaoForm));
+        return ok(views.html.inscricao.create.render(inscricaoForm, Escolaridade.getNameList(), Genero.getNameList()));
     }
 
     public Result inserir() {
@@ -51,7 +53,7 @@ public class InscricaoController extends Controller {
 
         //se existir erros nos campos do formulario retorne o LivroFormData com os erros
         if (formData.hasErrors()) {
-            return badRequest(views.html.inscricao.create.render(formData));
+            return badRequest(views.html.inscricao.create.render(formData, Escolaridade.getNameList(), Genero.getNameList()));
         }
         else {
             try {
@@ -64,7 +66,7 @@ public class InscricaoController extends Controller {
             } catch (Exception e) {
                 Logger.error(e.getMessage());
                 formData.reject("Não foi possível cadastrar, erro interno de sistema.");
-                return badRequest(views.html.inscricao.create.render(formData));
+                return badRequest(views.html.inscricao.create.render(formData, Escolaridade.getNameList(), Genero.getNameList()));
 
             }
 

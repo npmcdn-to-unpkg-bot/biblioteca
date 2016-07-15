@@ -33,6 +33,12 @@ create table curso (
   constraint pk_curso primary key (id))
 ;
 
+create table escolaridade (
+  id                        bigserial not null,
+  nome                      varchar(30) not null,
+  constraint pk_escolaridade primary key (id))
+;
+
 create table evento (
   id                        bigserial not null,
   nome                      varchar(100) not null,
@@ -44,12 +50,19 @@ create table evento (
   constraint pk_evento primary key (id))
 ;
 
+create table genero (
+  id                        bigserial not null,
+  nome                      varchar(14) not null,
+  nome2                     varchar(255),
+  constraint pk_genero primary key (id))
+;
+
 create table inscricao (
   id                        bigserial not null,
   nome                      varchar(60) not null,
-  genero                    varchar(255) not null,
+  genero_id                 bigint,
   data_nascimento           timestamp not null,
-  escolaridade              varchar(30) not null,
+  escolaridade_id           bigint,
   profissao                 varchar(30) not null,
   instituicao               varchar(45) not null,
   pais                      varchar(45) not null,
@@ -118,6 +131,10 @@ create table video (
   constraint pk_video primary key (id))
 ;
 
+alter table inscricao add constraint fk_inscricao_genero_1 foreign key (genero_id) references genero (id);
+create index ix_inscricao_genero_1 on inscricao (genero_id);
+alter table inscricao add constraint fk_inscricao_escolaridade_2 foreign key (escolaridade_id) references escolaridade (id);
+create index ix_inscricao_escolaridade_2 on inscricao (escolaridade_id);
 
 
 
@@ -129,7 +146,11 @@ drop table if exists contato cascade;
 
 drop table if exists curso cascade;
 
+drop table if exists escolaridade cascade;
+
 drop table if exists evento cascade;
+
+drop table if exists genero cascade;
 
 drop table if exists inscricao cascade;
 
