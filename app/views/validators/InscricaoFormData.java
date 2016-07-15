@@ -1,5 +1,6 @@
 package views.validators;
 
+import models.Escolaridade;
 import play.data.validation.ValidationError;
 
 import java.util.ArrayList;
@@ -28,11 +29,11 @@ public class InscricaoFormData {
     public InscricaoFormData() {
     }
 
-    public InscricaoFormData(String nome, char genero, Date dataNascimento, String escolaridade, String profissao, String instituicao, String pais, String estado, String cidade, String telefone, String cpf, String email, String modalidade, String fonte, String descricaoFonte) {
+    public InscricaoFormData(String nome, char genero, Date dataNascimento, Escolaridade escolaridade, String profissao, String instituicao, String pais, String estado, String cidade, String telefone, String cpf, String email, String modalidade, String fonte, String descricaoFonte) {
         this.nome = nome;
         this.genero = genero;
         this.dataNascimento = dataNascimento;
-        this.escolaridade = escolaridade;
+        this.escolaridade = escolaridade.getNome();
         this.profissao = profissao;
         this.instituicao = instituicao;
         this.pais = pais;

@@ -10,6 +10,7 @@ import views.validators.InscricaoFormData;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -30,8 +31,8 @@ public class Inscricao extends Model {
     @Formats.DateTime(pattern = "dd-MM-yyyy")
     private Date dataNascimento;
 
-    @Column(nullable = false, length = 30)
-    private String escolaridade;
+    @ManyToOne
+    private Escolaridade escolaridade;
 
     @Column(nullable = false, length = 30)
     private String profissao;
@@ -79,7 +80,7 @@ public class Inscricao extends Model {
                      String nome,
                      char genero,
                      Date dataNascimento,
-                     String escolaridade,
+                     Escolaridade escolaridade,
                      String profissao,
                      String instituicao,
                      String pais,
@@ -117,7 +118,7 @@ public class Inscricao extends Model {
         inscricao.setNome(formData.nome);
         inscricao.setGenero(formData.genero);
         inscricao.setDataNascimento(formData.dataNascimento);
-        inscricao.setEscolaridade(formData.escolaridade);
+        inscricao.setEscolaridade(Escolaridade.findEscolaridade(formData.escolaridade));
         inscricao.setProfissao(formData.profissao);
         inscricao.setInstituicao(formData.instituicao);
         inscricao.setPais(formData.pais);
@@ -195,11 +196,11 @@ public class Inscricao extends Model {
         this.dataNascimento = dataNascimento;
     }
 
-    public String getEscolaridade() {
+    public Escolaridade getEscolaridade() {
         return escolaridade;
     }
 
-    public void setEscolaridade(String escolaridade) {
+    public void setEscolaridade(Escolaridade escolaridade) {
         this.escolaridade = escolaridade;
     }
 
