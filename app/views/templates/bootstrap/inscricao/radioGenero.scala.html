@@ -5,12 +5,12 @@
     <div class="col-sm-2">
         <div class="radio">
             <label>
-                <input type="radio" name="@field.name" value="m" /> Masculino
+                <input type="radio" id="@field.id" name="@field.name" value="m"/> Masculino
             </label>
         </div>
         <div class="radio">
             <label>
-                <input type="radio" name="@field.name" value="f" /> Feminino
+                <input type="radio" id="@field.id" name="@field.name" value="f"/> Feminino
             </label>
         </div>
         <span class="help-block">@{field.error.map { error => error.message }}</span>

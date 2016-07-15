@@ -4,8 +4,7 @@
     <label class="col-sm-3 control-label">@label</label>
     <div class="col-sm-2">
         <div class="input-group date" id="@field.id">
-            <input
-            type="date" class="form-control" name="@field.name" placeholder="@placeholder" value="@field.value.getOrElse("")"/>
+            <input type="date" class="form-control" name="@field.name" placeholder="@placeholder" value="@field.value.getOrElse("")"/>
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
         </div>
         <span class="help-block">@{field.error.map { error => error.message }}</span>

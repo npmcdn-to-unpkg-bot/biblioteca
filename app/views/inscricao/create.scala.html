@@ -1,4 +1,4 @@
-@(inscricaoForm: play.data.Form[views.validators.LivroFormData])
+@(inscricaoForm: play.data.Form[views.validators.InscricaoFormData])
 
 @import helper._
 @import templates.bootstrap._
@@ -24,81 +24,90 @@
                                 <label class="col-sm-3 control-label"></label> Curso de Atualização em Energias do Biogás
                             </h2>
 
-                            <form class="form-horizontal" id="inscricao_form" name="inscricao_form">
+                            @form(routes.InscricaoController.inserir, 'class -> "form-horizontal") {
 
-                                    @*Nome*@
+                                @if(inscricaoForm.hasGlobalErrors) {
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label"></label>
+                                        <div class="col-sm-6">
+                                            <p class="alert alert-danger text-center">@inscricaoForm.globalError.message</p>
+                                        </div>
+                                    </div>
+                                }
+
+                                @*Nome*@
                                 @templates.bootstrap.inscricao.nome(inscricaoForm("nome"),
                                     label = "Nome:",
                                     placeholder = "Insira o Nome")
 
-                                    @*Radio Genero*@
+                                @*Radio Genero*@
                                 @templates.bootstrap.inscricao.radioGenero(inscricaoForm("genero"),
                                     label = "Gênero:")
 
-                                    @*Data de nascimento*@
+                                @*Data de nascimento*@
                                 @templates.bootstrap.inscricao.data(inscricaoForm("dataNascimento"),
                                     label = "Data de Nascimento:",
                                     placeholder = "Insira a data de nascimento")
 
-                                    @*Select Escolaridade*@
+                                @*Select Escolaridade*@
                                 @templates.bootstrap.inscricao.selectEscolaridade(inscricaoForm("escolaridade"),
                                     label = "Escolaridade:")
 
-                                    @*Profissao*@
+                                @*Profissao*@
                                 @templates.bootstrap.inscricao.profissao(inscricaoForm("profissao"),
                                     label = "Profissão:",
                                     placeholder = "Insira a profissao")
 
-                                    @*Instituicao*@
+                                @*Instituicao*@
                                 @templates.bootstrap.inscricao.instituicao(inscricaoForm("instituicao"),
                                     label = "Instituição:",
                                     placeholder = "Insira a instituição")
 
-                                    @*Select Pais*@
+                                @*Select Pais*@
                                 @templates.bootstrap.inscricao.selectPais(inscricaoForm("pais"),
                                     label = "País:")
 
-                                    @*Estado*@
+                                @*Estado*@
                                 @templates.bootstrap.inscricao.estado(inscricaoForm("estado"),
                                     label = "Estado:",
                                     placeholder = "Insira o estado")
 
-                                    @*Cidade*@
+                                @*Cidade*@
                                 @templates.bootstrap.inscricao.cidade(inscricaoForm("cidade"),
                                     label = "Cidade:",
                                     placeholder = "Insira a cidade")
 
-                                    @*Telefone*@
+                                @*Telefone*@
                                 @templates.bootstrap.inscricao.telefone(inscricaoForm("telefone"),
                                     label = "Telefone:",
                                     placeholder = "Insira o telefone")
 
-                                    @*CPF*@
+                                @*CPF*@
                                 @templates.bootstrap.inscricao.cpf(inscricaoForm("cpf"),
                                     label = "CPF:",
                                     placeholder = "Insira o cpf")
 
-                                    @*Email*@
+                                @*Email*@
                                 @templates.bootstrap.inscricao.email(inscricaoForm("email"),
                                     label = "Email:",
                                     placeholder = "Insira o email")
 
-                                    @*Radio Modalidade*@
+                                @*Radio Modalidade*@
                                 @templates.bootstrap.inscricao.radioModalidade(inscricaoForm("modalidade"),
                                     label = "Já estudou na modalidade EaD (Educação a Distância)?")
 
-                                    @*Radio Fonte*@
+                                @*Radio Fonte*@
                                 @templates.bootstrap.inscricao.radioFonte(inscricaoForm("fonte"),
                                     label = "Por qual meio você soube de nosso Curso?")
 
-                                    @*Botao*@
+                                @*Botao*@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label"></label>
                                     <div class="col-md-6">
                                         <input class="btn btn-primary" type="submit" id="btnSubmit" value="Enviar"/>
                                     </div>
                                 </div>
-                            </form>
+                            }
                         </div>
                     </div>
                     <footer class="footer">

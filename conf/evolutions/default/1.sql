@@ -44,6 +44,28 @@ create table evento (
   constraint pk_evento primary key (id))
 ;
 
+create table inscricao (
+  id                        bigserial not null,
+  nome                      varchar(60) not null,
+  genero                    varchar(255) not null,
+  data_nascimento           timestamp not null,
+  escolaridade              varchar(30) not null,
+  profissao                 varchar(30) not null,
+  instituicao               varchar(45) not null,
+  pais                      varchar(45) not null,
+  estado                    varchar(45) not null,
+  cidade                    varchar(45) not null,
+  telefone                  varchar(12) not null,
+  cpf                       varchar(15) not null,
+  email                     varchar(35) not null,
+  modalidade                varchar(3) not null,
+  fonte                     varchar(25) not null,
+  descricao_fonte           varchar(60),
+  data_inscricao            timestamp,
+  data_alteracao            timestamp,
+  constraint pk_inscricao primary key (id))
+;
+
 create table livro (
   id                        bigserial not null,
   titulo                    varchar(150) not null,
@@ -108,6 +130,8 @@ drop table if exists contato cascade;
 drop table if exists curso cascade;
 
 drop table if exists evento cascade;
+
+drop table if exists inscricao cascade;
 
 drop table if exists livro cascade;
 
