@@ -1,7 +1,6 @@
 package views.validators;
 
-import models.Escolaridade;
-import models.Genero;
+import models.*;
 import play.data.validation.ValidationError;
 
 import java.util.ArrayList;
@@ -30,14 +29,14 @@ public class InscricaoFormData {
     public InscricaoFormData() {
     }
 
-    public InscricaoFormData(String nome, Genero genero, Date dataNascimento, Escolaridade escolaridade, String profissao, String instituicao, String pais, String estado, String cidade, String telefone, String cpf, String email, String modalidade, String fonte, String descricaoFonte) {
+    public InscricaoFormData(String nome, Genero genero, Date dataNascimento, Escolaridade escolaridade, String profissao, String instituicao, Pais pais, String estado, String cidade, String telefone, String cpf, String email, String modalidade, String fonte, String descricaoFonte) {
         this.nome = nome;
         this.genero = genero.getNome();
         this.dataNascimento = dataNascimento;
         this.escolaridade = escolaridade.getNome();
         this.profissao = profissao;
         this.instituicao = instituicao;
-        this.pais = pais;
+        this.pais = pais.getNome();
         this.estado = estado;
         this.cidade = cidade;
         this.telefone = telefone;
@@ -106,11 +105,18 @@ public class InscricaoFormData {
             errors.add(new ValidationError("email", "Preencha o email"));
         }
 
+        // Escolaridade is required and must exist in database.
         if (modalidade == null || modalidade.length() == 0) {
-            errors.add(new ValidationError("modalidade", "Preenca este campo"));
+            errors.add(new ValidationError("modalidade", "Selecione a modalidade"));
+        } else if (Modalidade.findModalidade(modalidade) == null) {
+            errors.add(new ValidationError("modalidade", "Modalidade enválida: " + modalidade + "."));
         }
+
+        // Escolaridade is required and must exist in database.
         if (fonte == null || fonte.length() == 0) {
-            errors.add(new ValidationError("fonte", "Preencha a fonte"));
+            errors.add(new ValidationError("fonte", "Selecione a fonte"));
+        } else if (Fonte.findFonte(fonte) == null) {
+            errors.add(new ValidationError("fonte", "Fonte enválida: " + fonte + "."));
         }
 
         return errors.isEmpty() ? null : errors;

@@ -1,10 +1,7 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
-import models.Escolaridade;
-import models.Genero;
-import models.Inscricao;
-import models.Usuario;
+import models.*;
 import play.Logger;
 import play.data.Form;
 import play.mvc.Controller;
@@ -13,6 +10,7 @@ import views.validators.InscricaoFormData;
 
 import javax.annotation.Nullable;
 import java.util.Date;
+import java.util.TreeMap;
 
 import static play.data.Form.form;
 
@@ -39,21 +37,25 @@ public class InscricaoController extends Controller {
     /**
      * @return render a inscricao form
      */
-    public Result telaInscricao() {
+    public Result telaInscricao(long id) {
+
+        InscricaoFormData inscricaoData = (id == 0) ? new InscricaoFormData() : models.Inscricao.makeInscricaoFormData(id);
 
         Form<InscricaoFormData> inscricaoForm = form(InscricaoFormData.class);
 
-        return ok(views.html.inscricao.create.render(inscricaoForm, Escolaridade.getNameList(), Genero.getNameList()));
+        return ok(views.html.inscricao.create.render(inscricaoForm, Escolaridade.getNameList(), Genero.getNameList(), Pais.makePaisMap(inscricaoData), Modalidade.getNameList(), Fonte.getNameList()));
     }
 
-    public Result inserir() {
+    public Result inserir(long id) {
+
+        InscricaoFormData inscricaoData = (id == 0) ? new InscricaoFormData() : models.Inscricao.makeInscricaoFormData(id);
 
         //Resgata os dados do formulario atraves de uma requisicao e realiza a validacao dos campos
         Form<InscricaoFormData> formData = Form.form(InscricaoFormData.class).bindFromRequest();
 
         //se existir erros nos campos do formulario retorne o LivroFormData com os erros
         if (formData.hasErrors()) {
-            return badRequest(views.html.inscricao.create.render(formData, Escolaridade.getNameList(), Genero.getNameList()));
+            return badRequest(views.html.inscricao.create.render(formData, Escolaridade.getNameList(), Genero.getNameList(), Pais.makePaisMap(inscricaoData), Modalidade.getNameList(), Fonte.getNameList()));
         }
         else {
             try {
@@ -66,7 +68,7 @@ public class InscricaoController extends Controller {
             } catch (Exception e) {
                 Logger.error(e.getMessage());
                 formData.reject("Não foi possível cadastrar, erro interno de sistema.");
-                return badRequest(views.html.inscricao.create.render(formData, Escolaridade.getNameList(), Genero.getNameList()));
+                return badRequest(views.html.inscricao.create.render(formData, Escolaridade.getNameList(), Genero.getNameList(), Pais.makePaisMap(inscricaoData), Modalidade.getNameList(), Fonte.getNameList()));
 
             }
 

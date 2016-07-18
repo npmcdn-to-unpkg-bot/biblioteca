@@ -10,12 +10,12 @@ import java.util.Arrays;
 import java.util.List;
 
 @Entity
-public class Genero extends Model {
+public class Modalidade extends Model {
 
     @Id
     private Long id;
 
-    @Column(nullable = false, length = 14)
+    @Column(nullable = false, length = 3)
     private String nome;
 
     public Long getId() {
@@ -39,10 +39,10 @@ public class Genero extends Model {
      * @param nome The Level name.
      * @return The GradeLevel instance, or null if not found.
      */
-    public static Genero findGenero(String nome) {
-        for (Genero genero : Ebean.find(Genero.class).findList()) {
-            if (nome.equals(genero.getNome())) {
-                return genero;
+    public static Modalidade findModalidade(String nome) {
+        for (Modalidade modalidade : Ebean.find(Modalidade.class).findList()) {
+            if (nome.equals(modalidade.getNome())) {
+                return modalidade;
             }
         }
         return null;
@@ -53,7 +53,7 @@ public class Genero extends Model {
      * @return A list of level names in sorted order.
      */
     public static List<String> getNameList() {
-        String[] nameArray = {"Masculino", "Feminino"};
+        String[] nameArray = {"Sim", "Não"};
         return Arrays.asList(nameArray);
     }
 }

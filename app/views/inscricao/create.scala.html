@@ -1,4 +1,9 @@
-@(inscricaoForm: play.data.Form[views.validators.InscricaoFormData],escolaridades:List[String],generos:List[String])
+@(inscricaoForm: play.data.Form[views.validators.InscricaoFormData],
+        escolaridades:List[String],
+        generos:List[String],
+        paises:Map[String,Boolean],
+        modalidades:List[String],
+        fontes:List[String])
 
 @import helper._
 @import templates.bootstrap._
@@ -11,7 +16,7 @@
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/bootstrap/dist/css/bootstrap.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/mensagens.css")">
-        <title>Inscrição - cadastrado</title>
+        <title>Formulário de Inscrição</title>
     </head>
     <body>
         <div class="row">
@@ -24,7 +29,7 @@
                                 <label class="col-sm-3 control-label"></label> Curso de Atualização em Energias do Biogás
                             </h2>
 
-                            @form(routes.InscricaoController.inserir, 'class -> "form-horizontal") {
+                            @form(routes.InscricaoController.inserir(), 'class -> "form-horizontal") {
 
                                 @if(inscricaoForm.hasGlobalErrors) {
                                     <div class="form-group">
@@ -68,8 +73,10 @@
                                     placeholder = "Insira a instituição")
 
                                 @*Select Pais*@
-                                @templates.bootstrap.inscricao.selectPais(inscricaoForm("pais"),
-                                    label = "País:")
+                                @templates.bootstrap.inscricao.select(inscricaoForm("pais"),
+                                    label = "País:",
+                                    optionMap = paises,
+                                    isMultiple = false)
 
                                 @*Estado*@
                                 @templates.bootstrap.inscricao.estado(inscricaoForm("estado"),
@@ -97,16 +104,18 @@
                                     placeholder = "Insira o email")
 
                                 @*Radio Modalidade*@
-                                @templates.bootstrap.inscricao.radioModalidade(inscricaoForm("modalidade"),
-                                    label = "Já estudou na modalidade EaD (Educação a Distância)?")
+                                @templates.bootstrap.inscricao.radio(inscricaoForm("modalidade"),
+                                    label = "Já estudou na modalidade EaD (Educação a Distância)?",
+                                    buttonNameList = modalidades)
 
                                 @*Radio Fonte*@
                                 @templates.bootstrap.inscricao.radioFonte(inscricaoForm("fonte"),
-                                    label = "Por qual meio você soube de nosso Curso?")
+                                    label = "Por qual meio você soube de nosso Curso?",
+                                    buttonNameList = fontes)
 
                                 @*Botao*@
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label"></label>
+                                    <label class="col-md-4 control-label"></label>
                                     <div class="col-md-6">
                                         <input class="btn btn-primary" type="submit" id="btnSubmit" value="Enviar"/>
                                     </div>

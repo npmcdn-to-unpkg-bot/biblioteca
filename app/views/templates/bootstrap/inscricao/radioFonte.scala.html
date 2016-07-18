@@ -1,36 +1,26 @@
-@(field: Field, label: String = "", placeholder: String = "", help: String = "")
+@(field: Field, label: String = "", buttonNameList: List[String], help: String = "")
 
 <div class="form-group @if(field.hasErrors) {has-error}">
-    <label class="col-sm-3 control-label">@label</label>
-    <div class="col-sm-2">
-        <div class="radio">
-            <label>
-                <input type="radio" name="fonte" value="biogas" /> Site do CIBIogás-ER
-            </label>
+    <label class="col-sm-4 control-label" for="@field.id">@label</label>
+    <div id="@(field.id + "s")" class="col-sm-8" >
+        @for(buttonName <- buttonNameList) {
+            <div class="radio">
+                <label>
+                    <input
+                    type="radio"
+                    name="@field.name"
+                    id="@buttonName"
+                    value="@buttonName"
+                    @if(buttonName == field.value.getOrElse("")) {checked} />
+                    @buttonName
+                </label>
+            </div>
+        }
+        <div class="col-sm-6">
+            <input name="observacoes" class="form-control"/>
         </div>
-        <div class="radio">
-            <label>
-                <input type="radio" name="fonte" value="amigos" /> Indicação de amigos
-            </label>
+        <div class="col-sm-7">
+            <span class="help-block">@{field.error.map { error => error.message }}</span>
         </div>
-        <div class="radio">
-            <label>
-                <input type="radio" name="fonte" value="facebook" /> Facebook
-            </label>
-        </div>
-        <div class="radio">
-            <label>
-                <input type="radio" name="fonte" value="email" /> Email
-            </label>
-        </div>
-        <div class="radio">
-            <label>
-                <input type="radio" name="fonte" value="outros" /> Outro:
-                <div class="form-group">
-                    <input type="text" name="observacoes" class="form-control"/>
-                </div>
-            </label>
-        </div>
-        <span class="help-block">@{field.error.map { error => error.message }}</span>
     </div>
 </div>

@@ -28,7 +28,6 @@ public class Inscricao extends Model {
     private Genero genero;
 
     @Column(nullable = false)
-    @Formats.DateTime(pattern = "dd-MM-yyyy")
     private Date dataNascimento;
 
     @ManyToOne
@@ -40,8 +39,8 @@ public class Inscricao extends Model {
     @Column(nullable = false, length = 45)
     private String instituicao;
 
-    @Column(nullable = false, length = 45)
-    private String pais;
+    @ManyToOne
+    private Pais pais;
 
     @Column(nullable = false, length = 45)
     private String estado;
@@ -83,7 +82,7 @@ public class Inscricao extends Model {
                      Escolaridade escolaridade,
                      String profissao,
                      String instituicao,
-                     String pais,
+                     Pais pais,
                      String estado,
                      String cidade,
                      String telefone,
@@ -121,7 +120,7 @@ public class Inscricao extends Model {
         inscricao.setEscolaridade(Escolaridade.findEscolaridade(formData.escolaridade));
         inscricao.setProfissao(formData.profissao);
         inscricao.setInstituicao(formData.instituicao);
-        inscricao.setPais(formData.pais);
+        inscricao.setPais(Pais.findPais(formData.pais));
         inscricao.setEstado(formData.estado);
         inscricao.setCidade(formData.cidade);
         inscricao.setTelefone(formData.telefone);
@@ -220,11 +219,11 @@ public class Inscricao extends Model {
         this.instituicao = instituicao;
     }
 
-    public String getPais() {
+    public Pais getPais() {
         return pais;
     }
 
-    public void setPais(String pais) {
+    public void setPais(Pais pais) {
         this.pais = pais;
     }
 

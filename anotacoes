@@ -5,4 +5,3 @@
 404 - https://sheltered-wave-98757.herokuapp.com/sheltered-wave-98757.herokuapp.com:9000/eventos -> quando eu modifico o arquivo para      return '/' $location.host() + ':9000';
 
 3 - Erro
-

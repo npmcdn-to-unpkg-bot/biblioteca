@@ -2862,7 +2862,7 @@ md-input-container {
   input[type="search"],
   input[type="tel"],
   input[type="color"] {
-    /* remove default appearance from all input/textarea */
+    /* remove default appearance from all input/textoarea */
     -moz-appearance: none;
     -webkit-appearance: none;
   }
@@ -2945,7 +2945,7 @@ md-input-container {
   }
 
   /*
-   * The .md-input class is added to the input/textarea
+   * The .md-input class is added to the input/textoarea
    */
   .md-input {
     order: 2;
@@ -2968,8 +2968,8 @@ md-input-container {
     width: 100%;
     box-sizing: border-box;
 
-    // Hacky fix to force vertical alignment between `input` and `textarea`
-    // Input and textarea do not align by default:
+    // Hacky fix to force vertical alignment between `input` and `textoarea`
+    // Input and textoarea do not align by default:
     // http://jsbin.com/buqomevage/1/edit?html,css,js,output
     @include rtl(float, left, right);
 

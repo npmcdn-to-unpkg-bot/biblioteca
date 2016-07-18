@@ -50,10 +50,15 @@ create table evento (
   constraint pk_evento primary key (id))
 ;
 
+create table fonte (
+  id                        bigserial not null,
+  nome                      varchar(30) not null,
+  constraint pk_fonte primary key (id))
+;
+
 create table genero (
   id                        bigserial not null,
   nome                      varchar(14) not null,
-  nome2                     varchar(255),
   constraint pk_genero primary key (id))
 ;
 
@@ -65,7 +70,7 @@ create table inscricao (
   escolaridade_id           bigint,
   profissao                 varchar(30) not null,
   instituicao               varchar(45) not null,
-  pais                      varchar(45) not null,
+  pais_id                   bigint,
   estado                    varchar(45) not null,
   cidade                    varchar(45) not null,
   telefone                  varchar(12) not null,
@@ -94,6 +99,18 @@ create table livro (
   data_alteracao            timestamp,
   constraint uq_livro_isbn unique (isbn),
   constraint pk_livro primary key (id))
+;
+
+create table modalidade (
+  id                        bigserial not null,
+  nome                      varchar(3) not null,
+  constraint pk_modalidade primary key (id))
+;
+
+create table pais (
+  id                        bigserial not null,
+  nome                      varchar(50) not null,
+  constraint pk_pais primary key (id))
 ;
 
 create table token (
@@ -135,6 +152,8 @@ alter table inscricao add constraint fk_inscricao_genero_1 foreign key (genero_i
 create index ix_inscricao_genero_1 on inscricao (genero_id);
 alter table inscricao add constraint fk_inscricao_escolaridade_2 foreign key (escolaridade_id) references escolaridade (id);
 create index ix_inscricao_escolaridade_2 on inscricao (escolaridade_id);
+alter table inscricao add constraint fk_inscricao_pais_3 foreign key (pais_id) references pais (id);
+create index ix_inscricao_pais_3 on inscricao (pais_id);
 
 
 
@@ -150,11 +169,17 @@ drop table if exists escolaridade cascade;
 
 drop table if exists evento cascade;
 
+drop table if exists fonte cascade;
+
 drop table if exists genero cascade;
 
 drop table if exists inscricao cascade;
 
 drop table if exists livro cascade;
+
+drop table if exists modalidade cascade;
+
+drop table if exists pais cascade;
 
 drop table if exists token cascade;
 

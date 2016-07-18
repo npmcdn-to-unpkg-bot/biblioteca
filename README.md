@@ -15,6 +15,10 @@
 * Dependências são gerenciadas pelo [Bower](https://bower.io/)
 * Banco de dados [Postgresql](https://www.postgresql.org/)
 * Internacionalização [i18n](https://www.w3.org/International/questions/qa-i18n)
+
+## To do
+ - [X] Principais funcionalidades implementadas
+ - [ ] Realizar procedimento de registros de interessados no curso
   
 ### Licença
 Copyright (c) 2016 CIBiogás
