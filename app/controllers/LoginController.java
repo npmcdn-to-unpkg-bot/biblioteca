@@ -81,7 +81,7 @@ public class LoginController extends Controller {
                 return badRequest(views.html.login.render(formDeErro));
             }
             session().put("email", talvesUmUsuario.get().getEmail());
-            return redirect(routes.LoginController.telaAutenticado());
+            return redirect(routes.Application.index());
         }
 
         DynamicForm formDeErro = form.fill(requestForm.data());

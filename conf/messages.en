@@ -110,10 +110,12 @@ register.password=Password
 register.confirm.password=Confirmation
 register=Register
 register.success=User successfully registered.
+register.success.verify=Please check your email account to validate your register.
 
 # Pagina de ativacao da conta
 confirmation.page.title=Confirmation
 confirmation.success=Your account has been successfully activated!
+confirmation.success.login=You can login
 confirmation.error=Confirmation Error
 confirmation.already.success=This user account has been confirmed. Just log in.
 confirmation.invalid=Your activation code is invalid!

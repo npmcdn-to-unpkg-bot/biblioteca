@@ -33,10 +33,10 @@
                     }
 
                     <!-- Senha -->
-                    @senha(formPreenchido("senha"), Messages("password.change"))
+                    @templates.mdl.senha(formPreenchido("senha"), Messages("password.change"))
 
                     <!-- Confirm senha -->
-                    @senha(formPreenchido("confirm_senha"), Messages("password.confirm"))
+                    @templates.mdl.senha(formPreenchido("confirm_senha"), Messages("password.confirm"))
 
                 </div>
                 <div class="mdl-card__actions mdl-card--border">
@@ -54,16 +54,16 @@
 
     <script src="@routes.Assets.versioned("bower_components/material-design-lite/material.js")" type="text/javascript"></script>
 
-<script type="text/javascript">
-    window.onbeforeunload = function () {
-        var inputs = document.getElementsByTagName("INPUT");
-        for (var i = 0; i < inputs.length; i++) {
-            if (inputs[i].type == "button" || inputs[i].type == "submit") {
-                inputs[i].disabled = true;
+    <script type="text/javascript">
+        window.onbeforeunload = function () {
+            var inputs = document.getElementsByTagName("INPUT");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].type == "button" || inputs[i].type == "submit") {
+                    inputs[i].disabled = true;
+                }
             }
-        }
-    };
-</script>
+        };
+    </script>
 
 </body>
 </html>

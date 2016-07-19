@@ -20,7 +20,7 @@ import java.net.MalformedURLException;
 public class SenhaController extends Controller {
 
     @Inject
-    MailerClient mailerClient;
+    private MailerClient mailerClient;
 
     private static DynamicForm form = Form.form();
 

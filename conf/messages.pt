@@ -122,3 +122,5 @@ card.event.name.title=Nome
 card.event.local.title=Local
 card.event.institution.title=Instituição
 card.event.site.title=Site do Evento
+register.success.verify=Por favor, acesse sua conta de email para validar o seu registro.
+confirmation.success.login=Você pode fazer o login

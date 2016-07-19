@@ -104,7 +104,9 @@
     padding: 0;
 }
 
-
+.cartao-media-biogas {
+    background-color: #546e7a;
+}
 .demo-card-event.mdl-card {
     width: 256px;
     height: 256px;

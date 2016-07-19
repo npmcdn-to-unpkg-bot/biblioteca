@@ -23,12 +23,20 @@
 
                     @if(tipoMensagem.equals("Sucesso")){
                     <p align="center" class="sucesso">
-                        @mensagem <b>"@usuarioNome"</b>
+                        @mensagem <b>"@usuarioNome"</b>. <br>@Messages("confirmation.success.login")!
+                    </p>
+                        <hr>
+                    <p>
+                        <a type="button" href="/login" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-color--primary">@Messages("login")</a>
                     </p>
                     }
                     @if(tipoMensagem.equals("Validado")){
                     <p align="center" class="sucesso">
                         @mensagem
+                    </p>
+                        <hr>
+                    <p>
+                        <a type="button" href="/login" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent mdl-color--primary">@Messages("login")</a>
                     </p>
                     }
                     @if(tipoMensagem.equals("Invalido")){
@@ -43,6 +51,9 @@
                     }
 
                 </div>
+                @*<div align="center" class="mdl-card__actions mdl-card--border">*@
+
+                @*</div>*@
                 <div class="mdl-card__menu">
                     <a href="/#/" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
                         <i class="material-icons mdl-color-text--white">home</i>
