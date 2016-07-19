@@ -174,7 +174,7 @@ html, body {
     padding: 0px 13px;
 }
 
-/*Muda as cores dos seletores do menu esquerdo*/
+/*Muda as cores dos seletores do menu superior*/
 .demo-layout .top-navigation .mdl-navigation__link:hover {
     background-color: #f5b449;
     color: #ffffff;
