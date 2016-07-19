@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static views.validators.ValidaCPF.isCPF;
+
 public class InscricaoFormData {
 
     public String nome = "";
@@ -99,7 +101,9 @@ public class InscricaoFormData {
 
         if (cpf == null || cpf.length() == 0) {
             errors.add(new ValidationError("cpf", "Preencha o cpf"));
-        }
+        } else if (!isCPF(cpf)) {
+        errors.add(new ValidationError("cpf", "CPF enválido: " + cpf + "."));
+    }
 
         if (email == null || email.length() == 0) {
             errors.add(new ValidationError("email", "Preencha o email"));

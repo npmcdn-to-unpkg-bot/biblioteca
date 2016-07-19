@@ -10,7 +10,6 @@ import views.validators.InscricaoFormData;
 
 import javax.annotation.Nullable;
 import java.util.Date;
-import java.util.TreeMap;
 
 import static play.data.Form.form;
 
