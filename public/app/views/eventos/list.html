@@ -1,7 +1,7 @@
 <div ng-init="init()"class="mdl-grid">
     <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
         <div class="mdl-card__title">
-            <h2 ng-show="eventos.length == 0" class="mdl-card__title-text">Nenhum evento encontrado</h2>
+            <h2 ng-show="eventos.length == 0" class="mdl-card__title-text">{{Messages("app.error.found")}}</h2>
             <h2 ng-show="eventos.length > 0" class="mdl-card__title-text">{{Messages('card.event.list.title')}}</h2>
         </div>
         <div ng-show="eventos.length > 0" class="mdl-card__media">

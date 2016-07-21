@@ -442,7 +442,7 @@ public class LivroController extends Controller {
             return ok(new FileInputStream(pdf)).as("application/pdf");
         } catch (FileNotFoundException e) {
             Logger.error(e.getMessage());
-            return notFound(views.html.mensagens.erro.naoEncontrado.render(nomeArquivo+" não foi encontrado"));
+            return notFound(views.html.mensagens.erro.naoEncontrado.render(nomeArquivo));
         } catch (Exception e) {
             Logger.error(e.getMessage());
             return badRequest(Json.toJson(Messages.get("app.error")));

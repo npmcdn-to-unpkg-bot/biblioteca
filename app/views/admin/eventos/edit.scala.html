@@ -63,16 +63,19 @@
 }
 
 <script type="text/javascript">
-    $(function () {
-        $('#dataInicio').datetimepicker();
-        $('#dataFim').datetimepicker({
-            useCurrent: false //Important! See issue #1075
+        $(function () {
+            $('#dataInicio').datetimepicker({
+                format: 'YYYY-MM-DD'
+            });
+            $('#dataFim').datetimepicker({
+                format: 'YYYY-MM-DD',
+                useCurrent: false //Important! See issue #1075
+            });
+            $("#dataInicio").on("dp.change", function (e) {
+                $('#dataFim').data("DateTimePicker").minDate(e.date);
+            });
+            $("#dataFim").on("dp.change", function (e) {
+                $('#dataInicio').data("DateTimePicker").maxDate(e.date);
+            });
         });
-        $("#dataInicio").on("dp.change", function (e) {
-            $('#dataFim').data("DateTimePicker").minDate(e.date);
-        });
-        $("#dataFim").on("dp.change", function (e) {
-            $('#dataInicio').data("DateTimePicker").maxDate(e.date);
-        });
-    });
 </script>

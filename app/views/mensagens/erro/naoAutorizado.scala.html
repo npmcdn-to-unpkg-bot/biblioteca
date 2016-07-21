@@ -7,18 +7,18 @@
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/bootstrap/dist/css/bootstrap.css")">
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/mensagens.css")">
-    <title>Biblioteca - Não autorizado</title>
+    <title>@Messages("app.title") - @Messages("app.error.found")</title>
 </head>
 <body>
     <div class="row">
         <div class="container-fluid">
             <div class="mensagens">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Biblioteca Digital
-                        <a href="/#/" class="pull-right">Início</a>
+                    <div class="panel-heading">@Messages("app.title")
+                        <a href="/#/" class="pull-right">@Messages("menu.1")</a>
                     </div>
                     <div class="panel-body">
-                        <p class="mensagem alert alert-danger text-center">Usuário não autorizado!</p>
+                        <p class="mensagem alert alert-danger text-center">@Messages("app.error.found")</p>
                     </div>
                     <div class="panel-footer">
                         <p class="text-center">&copy; 2016 CIBiogás</p>

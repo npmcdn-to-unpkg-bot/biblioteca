@@ -66,10 +66,10 @@ public class Inscricao extends Model {
     @Column(length = 60)
     private String descricaoFonte;
 
-    @Formats.DateTime(pattern="dd-MM-yyyy")
+    @Formats.DateTime(pattern="YYYY-MM-DD")
     private Date dataInscricao;
 
-    @Formats.DateTime(pattern="dd-MM-yyyy")
+    @Formats.DateTime(pattern="YYYY-MM-DD")
     private Date dataAlteracao;
 
     public Inscricao(){

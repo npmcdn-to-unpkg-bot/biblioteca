@@ -47,11 +47,11 @@ public class Usuario extends Model {
     @JsonIgnore
     private Boolean status;
 
-    @Formats.DateTime(pattern="dd-MM-yyyy")
+    @Formats.DateTime(pattern="YYYY-MM-DD")
     @JsonIgnore
     private Date dataCadastro;
 
-    @Formats.DateTime(pattern="dd-MM-yyyy")
+    @Formats.DateTime(pattern="YYYY-MM-DD")
     @JsonIgnore
     private Date dataAlteracao;
 

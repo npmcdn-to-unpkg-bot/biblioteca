@@ -124,3 +124,6 @@ card.event.institution.title=Institución
 card.event.site.title=Sitio Web
 register.success.verify=Por favor, compruebe su cuenta de correo electrónico para validar su registro.
 confirmation.success.login=Puede iniciar sesión
+app.error.found=No encontrado
+app.404=Error 404
+app.error.access=No autorizado

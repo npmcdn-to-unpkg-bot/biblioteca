@@ -30,10 +30,10 @@ public class Video extends Model {
     @Column(nullable = false, length = 400)
     private String url;
 
-    @Formats.DateTime(pattern="dd-MM-yyyy")
+    @Formats.DateTime(pattern="YYYY-MM-DD")
     private Date dataCadastro;
 
-    @Formats.DateTime(pattern="dd-MM-yyyy")
+    @Formats.DateTime(pattern="YYYY-MM-DD")
     private Date dataAlteracao;
 
     public Video(){}

@@ -37,7 +37,7 @@ public class Token extends Model {
     @Enumerated(EnumType.STRING)
     public TypeToken type;
 
-    @Formats.DateTime(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Formats.DateTime(pattern="YYYY-MM-DD")
     public Date dateCreation;
 
     @Constraints.Required

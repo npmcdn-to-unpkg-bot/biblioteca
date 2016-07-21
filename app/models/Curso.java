@@ -26,7 +26,7 @@ public class Curso extends Model {
     private String descricao;
 
     @Column(nullable = false)
-    @Formats.DateTime(pattern="dd MMMM yyyy HH:mm:ss")
+    @Formats.DateTime(pattern="YYYY-MM-DD")
     private Date dataInicio;
 
     @Column(nullable = false, length = 80)

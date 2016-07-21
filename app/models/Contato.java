@@ -29,7 +29,7 @@ public class Contato extends Model {
     @Column(nullable = false, length = 200)
     private String mensagem;
 
-    @Formats.DateTime(pattern="dd-MM-yyyy")
+    @Formats.DateTime(pattern="YYYY-MM-DD")
     private Date dataCadastro;
 
     public Long getId() {

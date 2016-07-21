@@ -8,7 +8,7 @@
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("bower_components/bootstrap/dist/css/bootstrap.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/mensagens.css")">
-        <title>@Messages("app.title") - Error</title>
+        <title>@Messages("app.title") - @Messages("app.error")</title>
     </head>
     <body>
         <div class="row">
@@ -16,7 +16,7 @@
                 <div class="mensagens">
                     <div class="panel panel-default">
                         <div class="panel-heading">@Messages("app.title")
-                            <a href="/#/" class="pull-right">Home</a>
+                            <a href="/#/" class="pull-right">@Messages("menu.1")</a>
                         </div>
                         <div class="panel-body">
                             <p class="mensagem alert alert-danger text-center">@mensagem</p>

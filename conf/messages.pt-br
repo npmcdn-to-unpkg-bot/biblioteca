@@ -126,4 +126,3 @@ register.success.verify=Por favor, acesse sua conta de email para validar o seu 
 confirmation.success.login=Você pode fazer o login
 app.error.found=Não encontado
 app.404=Erro 404
-app.error.access=Não autorizado

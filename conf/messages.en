@@ -1,6 +1,9 @@
 # Titulo do sistema
 app.title=Digital Library
 app.error=Internal server error
+app.error.found=Not found
+app.error.access=Unauthorized
+app.404=Error 404
 app.hello=Hello
 app.welcome.message=Welcome
 app.best=Best regards

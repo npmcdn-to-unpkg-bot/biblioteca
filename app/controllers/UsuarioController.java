@@ -163,9 +163,8 @@ public class UsuarioController extends Controller {
             mensagem = Messages.get("app.error");
             tipoMensagem = "Erro";
             Logger.error(e.getMessage());
+            return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioNome));
         }
-
-        return badRequest(views.html.mensagens.info.confirma.render(mensagem,tipoMensagem,usuarioNome));
 
     }
 
@@ -218,16 +217,14 @@ public class UsuarioController extends Controller {
         try {
             Ebean.save(novo);
             enviarEmailToken(novo);
+            String username = novo.getEmail();
+            return ok(views.html.mensagens.info.cadastrado.render(username));
         } catch (Exception e) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject(Messages.get("app.error"));
             Logger.error(e.getMessage());
             return badRequest(views.html.cadastro.render(formDeErro));
         }
-
-        String username = novo.getEmail();
-
-        return ok(views.html.mensagens.info.cadastrado.render(username));
     }
 
     /**
@@ -422,6 +419,7 @@ public class UsuarioController extends Controller {
             Ebean.delete(usuario);
             mensagem = "Usuário excluído com sucesso";
             tipoMensagem = "Sucesso";
+            return ok(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
         }  catch (Exception e) {
             mensagem = "Erro interno de sistema";
             tipoMensagem = "Erro";
@@ -429,7 +427,6 @@ public class UsuarioController extends Controller {
             return badRequest(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
         }
 
-        return ok(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
     }
 
     /**
@@ -505,6 +502,7 @@ public class UsuarioController extends Controller {
             usuario.update();
             tipoMensagem = "Sucesso";
             mensagem = "Usuário atualizado com sucesso.";
+            return ok(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
         } catch (IllegalStateException e) {
             usuarioForm.reject("Os campos nome ou email não podem estar vazios!");
             Logger.error(e.getMessage());
@@ -516,7 +514,6 @@ public class UsuarioController extends Controller {
             return badRequest(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
         }
 
-        return ok(views.html.mensagens.usuario.mensagens.render(mensagem,tipoMensagem));
     }
 
 }

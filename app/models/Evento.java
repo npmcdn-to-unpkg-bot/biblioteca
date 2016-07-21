@@ -23,11 +23,11 @@ public class Evento extends Model {
     private String nome;
 
     @Column(nullable = false)
-    @Formats.DateTime(pattern="YYYY-MM-DD HH:mm")
+    @Formats.DateTime(pattern="YYYY-MM-DD")
     private Date dataInicio;
 
     @Column(nullable = false)
-    @Formats.DateTime(pattern="YYYY-MM-DD HH:mm")
+    @Formats.DateTime(pattern="YYYY-MM-DD")
     private Date dataFim;
 
     @Column(nullable = false, length = 80)

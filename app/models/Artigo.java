@@ -26,10 +26,10 @@ public class Artigo extends Model {
     @Column(nullable = false, length = 200)
     private String nomeArquivo;
 
-    @Formats.DateTime(pattern="dd-MM-yyyy")
+    @Formats.DateTime(pattern="YYYY-MM-DD")
     private Date dataCadastro;
 
-    @Formats.DateTime(pattern="dd-MM-yyyy")
+    @Formats.DateTime(pattern="YYYY-MM-DD")
     private Date dataAlteracao;
 
     public Long getId() {

@@ -64,8 +64,11 @@
 
 <script type="text/javascript">
     $(function () {
-        $('#dataInicio').datetimepicker();
+        $('#dataInicio').datetimepicker({
+            format: 'YYYY-MM-DD'
+        });
         $('#dataFim').datetimepicker({
+            format: 'YYYY-MM-DD',
             useCurrent: false //Important! See issue #1075
         });
         $("#dataInicio").on("dp.change", function (e) {
