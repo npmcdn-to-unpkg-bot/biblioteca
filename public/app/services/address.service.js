@@ -43,4 +43,9 @@ angular.module('architectplay')
         return $resource(BaseUrl + '/curso/:id', {}, {
             getAll: {method: 'GET', url: BaseUrl + '/cursos', isArray: true}
         });
+    }]).service('Noticia',['$resource', 'BaseUrl',
+    function($resource, BaseUrl){
+        return $resource(BaseUrl + '/noticia/:id', {}, {
+            getAll: {method: 'GET', url: BaseUrl + '/noticias', isArray: true}
+        });
     }]);

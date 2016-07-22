@@ -115,6 +115,11 @@ angular
                 controller: 'evento.list.controller',
                 activetab: 'eventos'
             })
+            .when('/noticias', {
+                templateUrl: '/assets/app/views/noticias/list.html',
+                controller: 'noticia.list.controller',
+                activetab: 'noticias'
+            })
             .otherwise({redirectTo:'/'});
     }).config(function($httpProvider, cfpLoadingBarProvider) {
         // carrega o loading bar

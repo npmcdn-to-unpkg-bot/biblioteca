@@ -1,0 +1,31 @@
+@(publicacoes: List[Publicacao])(mensagem : String)
+
+@views.html.admin.main("Administração - Publicações") {
+    <div class="col-sm-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">Lista de Publicações
+                <a href="@routes.PublicacaoController.telaNovo" class="pull-right">Adicionar</a>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>Título</th>
+                            <th>Resumo</th>
+                            <th>URL</th>
+                            <th>Data de Cadastro</th>
+                        </tr>
+                        @for(publicacao <- publicacoes) {
+                            <tr>
+                                <td><a href="@routes.PublicacaoController.telaDetalhe(publicacao.getId)">@publicacao.getTitulo</a></td>
+                                <td>@publicacao.getResumo</td>
+                                <td>@publicacao.getUrl</td>
+                                <td>@publicacao.getDataCadastro</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}

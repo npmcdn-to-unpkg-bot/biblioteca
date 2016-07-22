@@ -1,5 +1,6 @@
 package controllers;
 
+import actions.Secured;
 import com.avaje.ebean.Ebean;
 import models.Curso;
 import models.Usuario;
@@ -11,6 +12,7 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
+import play.mvc.Security;
 import views.validators.CursoFormData;
 
 import javax.annotation.Nullable;
@@ -28,6 +30,7 @@ public class CursoController extends Controller {
      * @param str
      * @return a string formatada
      */
+    @Security.Authenticated(Secured.class)
     private static String formatarTitulo(String str) {
         return Normalizer.normalize(str, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").replaceAll(" ","-").toLowerCase();
     }
@@ -53,6 +56,7 @@ public class CursoController extends Controller {
     /**
      * @return curso form if auth OK or not authorized
      */
+    @Security.Authenticated(Secured.class)
     public Result telaNovo() {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -76,6 +80,7 @@ public class CursoController extends Controller {
      *
      * @return a list of all cursos in a render template
      */
+    @Security.Authenticated(Secured.class)
     public Result telaLista() {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -101,6 +106,7 @@ public class CursoController extends Controller {
     /**
      * @return render a detail form with a curso data
      */
+    @Security.Authenticated(Secured.class)
     public Result telaDetalhe(Long id) {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -131,6 +137,7 @@ public class CursoController extends Controller {
     /**
      * @return render edit form with a curso data
      */
+    @Security.Authenticated(Secured.class)
     public Result telaEditar(Long id) {
         String mensagem;
         String tipoMensagem;
@@ -170,6 +177,7 @@ public class CursoController extends Controller {
      *
      * @return a render view to inform OK
      */
+    @Security.Authenticated(Secured.class)
     public Result inserir() {
         //Resgata os dados do formulario atraves de uma requisicao e realiza a validacao dos campos
         Form<CursoFormData> formData = Form.form(CursoFormData.class).bindFromRequest();
@@ -252,6 +260,7 @@ public class CursoController extends Controller {
      * @param id
      * @return a curso updated with a form
      */
+    @Security.Authenticated(Secured.class)
     public Result editar(Long id) {
         String mensagem;
         String tipoMensagem;
@@ -345,6 +354,7 @@ public class CursoController extends Controller {
      * @param id
      * @return ok curso removed
      */
+    @Security.Authenticated(Secured.class)
     public Result remover(Long id) {
 
         String mensagem;

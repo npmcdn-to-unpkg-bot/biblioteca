@@ -113,6 +113,16 @@ create table pais (
   constraint pk_pais primary key (id))
 ;
 
+create table publicacao (
+  id                        bigserial not null,
+  titulo                    varchar(250) not null,
+  resumo                    varchar(500) not null,
+  nome_capa                 varchar(350) not null,
+  url                       varchar(400) not null,
+  data_cadastro             timestamp not null,
+  constraint pk_publicacao primary key (id))
+;
+
 create table token (
   token                     varchar(255) not null,
   usuario_id                bigint,
@@ -180,6 +190,8 @@ drop table if exists livro cascade;
 drop table if exists modalidade cascade;
 
 drop table if exists pais cascade;
+
+drop table if exists publicacao cascade;
 
 drop table if exists token cascade;
 

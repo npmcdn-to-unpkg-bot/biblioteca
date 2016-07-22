@@ -116,6 +116,14 @@ public class Curso extends Model {
         this.nomeCapa = nomeCapa;
     }
 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
     public static Finder<Long, Curso> find = new Finder<>(Curso.class);
 
     public static Map<String,String> options() {
@@ -124,14 +132,6 @@ public class Curso extends Model {
             options.put(c.id.toString(),c.nome);
         }
         return options;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
     }
 
     @Override

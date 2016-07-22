@@ -127,3 +127,4 @@ confirmation.success.login=Puede iniciar sesión
 app.error.found=No encontrado
 app.404=Error 404
 app.error.access=No autorizado
+menu.biogas.10=Noticias

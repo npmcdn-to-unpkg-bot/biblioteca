@@ -97,6 +97,18 @@ POST    /video                          controllers.VideoController.inserir()
 POST	/video/:id/remover              controllers.VideoController.remover(id:Long)
 POST    /video/editar/:id               controllers.VideoController.editar(id:Long)
 
+# Publicacoes Telas
+GET     /publicacao/novo/                       controllers.PublicacaoController.telaNovo()
+GET		/publicacao/detalhe/:id				   controllers.PublicacaoController.telaDetalhe(id:Long)
+GET     /publicacao/editar/:id                  controllers.PublicacaoController.telaEditar(id:Long)
+GET     /publicacao/lista/todos                 controllers.PublicacaoController.telaLista()
+
+# Video Servicos
+GET     /publicacoes                         controllers.PublicacaoController.buscaTodos()
+POST    /publicacao                          controllers.PublicacaoController.inserir()
+POST	/publicacao/:id/remover              controllers.PublicacaoController.remover(id:Long)
+POST    /publicacao/editar/:id               controllers.PublicacaoController.editar(id:Long)
+
 # Acessado quando o usuario confirma o registro
 GET     /confirma/:confirmaToken        controllers.UsuarioController.confirma(confirmaToken:String)
 
@@ -117,7 +129,7 @@ POST    /contato                        controllers.ContatoController.inserir()
 # Inscricao Tela
 GET     /inscricao                      controllers.InscricaoController.telaInscricao(id: Long ?= 0)
 
-# Usuario Servicos
+# Inscricao Servicos
 POST    /inscricao                      controllers.InscricaoController.inserir(id: Long ?= 0)
 
 # Map static resources from the /public folder to the /assets URL path
