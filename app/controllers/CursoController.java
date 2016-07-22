@@ -16,13 +16,18 @@ import views.validators.CursoFormData;
 import javax.annotation.Nullable;
 import java.io.File;
 import java.text.Normalizer;
-import java.util.Date;
 import java.util.List;
 
 import static play.data.Form.form;
 
 public class CursoController extends Controller {
 
+    /**
+     * metodo responsavel por modificar o titulo do arquivo
+     *
+     * @param str
+     * @return a string formatada
+     */
     private static String formatarTitulo(String str) {
         return Normalizer.normalize(str, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").replaceAll(" ","-").toLowerCase();
     }
@@ -45,6 +50,9 @@ public class CursoController extends Controller {
         }
     }
 
+    /**
+     * @return curso form if auth OK or not authorized
+     */
     public Result telaNovo() {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -63,6 +71,11 @@ public class CursoController extends Controller {
         return ok(views.html.admin.cursos.create.render(cursoForm));
     }
 
+    /**
+     * Retrieve a list of all cursos
+     *
+     * @return a list of all cursos in a render template
+     */
     public Result telaLista() {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -85,6 +98,9 @@ public class CursoController extends Controller {
         }
     }
 
+    /**
+     * @return render a detail form with a curso data
+     */
     public Result telaDetalhe(Long id) {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -112,6 +128,9 @@ public class CursoController extends Controller {
         }
     }
 
+    /**
+     * @return render edit form with a curso data
+     */
     public Result telaEditar(Long id) {
         String mensagem;
         String tipoMensagem;
@@ -146,6 +165,11 @@ public class CursoController extends Controller {
         }
     }
 
+    /**
+     * Save a curso
+     *
+     * @return a render view to inform OK
+     */
     public Result inserir() {
         //Resgata os dados do formulario atraves de uma requisicao e realiza a validacao dos campos
         Form<CursoFormData> formData = Form.form(CursoFormData.class).bindFromRequest();
@@ -222,6 +246,12 @@ public class CursoController extends Controller {
         }
     }
 
+    /**
+     * Update a curso from id
+     *
+     * @param id
+     * @return a curso updated with a form
+     */
     public Result editar(Long id) {
         String mensagem;
         String tipoMensagem;
@@ -309,6 +339,12 @@ public class CursoController extends Controller {
         }
     }
 
+    /**
+     * Remove a curso from a id
+     *
+     * @param id
+     * @return ok curso removed
+     */
     public Result remover(Long id) {
 
         String mensagem;
@@ -356,6 +392,11 @@ public class CursoController extends Controller {
         }
     }
 
+    /**
+     * Retrieve a list of all cursos
+     *
+     * @return a list of all cursos in json
+     */
     public Result buscaTodos() {
         try {
             return ok(Json.toJson(Ebean.find(Curso.class)

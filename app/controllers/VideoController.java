@@ -1,5 +1,6 @@
 package controllers;
 
+import actions.Secured;
 import com.avaje.ebean.Ebean;
 import models.Usuario;
 import models.Video;
@@ -9,15 +10,16 @@ import play.i18n.Messages;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
 import views.validators.VideoFormData;
 
 import javax.annotation.Nullable;
-
 import java.util.Date;
 import java.util.List;
 
 import static play.data.Form.form;
 
+@Security.Authenticated(Secured.class)
 public class VideoController extends Controller {
 
     /**
@@ -38,6 +40,9 @@ public class VideoController extends Controller {
         }
     }
 
+    /**
+     * @return autenticado form if auth OK or not authorized
+     */
     public Result telaNovo() {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -56,6 +61,11 @@ public class VideoController extends Controller {
         return ok(views.html.admin.videos.create.render(videoForm));
     }
 
+    /**
+     * Retrieve a list of all videos
+     *
+     * @return a list of all videos in a render template
+     */
     public Result telaLista() {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -78,6 +88,9 @@ public class VideoController extends Controller {
         }
     }
 
+    /**
+     * @return render a detail form with a livro data
+     */
     public Result telaDetalhe(Long id) {
         //busca o usuário atual que esteja logado no sistema
         Usuario usuarioAtual = atual();
@@ -105,6 +118,9 @@ public class VideoController extends Controller {
         }
     }
 
+    /**
+     * @return render edit form with a video data
+     */
     public Result telaEditar(Long id) {
         String mensagem;
         String tipoMensagem;
@@ -139,6 +155,11 @@ public class VideoController extends Controller {
         }
     }
 
+    /**
+     * Save a video
+     *
+     * @return a render view to inform OK
+     */
     public Result inserir() {
         //Resgata os dados do formulario atraves de uma requisicao e realiza a validacao dos campos
         Form<VideoFormData> formData = Form.form(VideoFormData.class).bindFromRequest();
@@ -187,6 +208,12 @@ public class VideoController extends Controller {
         }
     }
 
+    /**
+     * Update a video from id
+     *
+     * @param id
+     * @return a video updated with a form
+     */
     public Result editar(Long id) {
         String mensagem;
         String tipoMensagem;
@@ -238,6 +265,12 @@ public class VideoController extends Controller {
         }
     }
 
+    /**
+     * Remove a video from a id
+     *
+     * @param id
+     * @return ok video removed
+     */
     public Result remover(Long id) {
         String mensagem;
         String tipoMensagem;
@@ -278,6 +311,11 @@ public class VideoController extends Controller {
         }
     }
 
+    /**
+     * Retrieve a list of all videos
+     *
+     * @return a list of all videos in json
+     */
     public Result buscaTodos() {
         try {
             return ok(Json.toJson(Ebean.find(Video.class).findList()));

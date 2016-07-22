@@ -63,7 +63,7 @@ public class ArtigoController extends Controller {
     }
 
     /**
-     * @return autenticado form if auth OK or login form is auth KO
+     * @return artigo form if auth OK or not authorized
      */
     public Result telaNovo() {
         //busca o usuário atual que esteja logado no sistema

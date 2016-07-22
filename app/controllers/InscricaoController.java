@@ -45,6 +45,11 @@ public class InscricaoController extends Controller {
         return ok(views.html.inscricao.create.render(inscricaoForm, Escolaridade.getNameList(), Genero.getNameList(), Pais.makePaisMap(inscricaoData), Modalidade.getNameList(), Fonte.getNameList()));
     }
 
+    /**
+     * Save a inscricao
+     *
+     * @return a render view to inform OK
+     */
     public Result inserir(long id) {
 
         InscricaoFormData inscricaoData = (id == 0) ? new InscricaoFormData() : models.Inscricao.makeInscricaoFormData(id);
