@@ -116,10 +116,11 @@ create table pais (
 create table publicacao (
   id                        bigserial not null,
   titulo                    varchar(250) not null,
-  resumo                    varchar(500) not null,
-  nome_capa                 varchar(350) not null,
+  resumo                    varchar(400) not null,
   url                       varchar(400) not null,
-  data_cadastro             timestamp not null,
+  data_cadastro             timestamp,
+  data_alteracao            timestamp,
+  nome_capa                 varchar(150) not null,
   constraint pk_publicacao primary key (id))
 ;
 

@@ -13,14 +13,12 @@
                             <th>Título</th>
                             <th>Resumo</th>
                             <th>URL</th>
-                            <th>Data de Cadastro</th>
                         </tr>
                         @for(publicacao <- publicacoes) {
                             <tr>
                                 <td><a href="@routes.PublicacaoController.telaDetalhe(publicacao.getId)">@publicacao.getTitulo</a></td>
                                 <td>@publicacao.getResumo</td>
                                 <td>@publicacao.getUrl</td>
-                                <td>@publicacao.getDataCadastro</td>
                             </tr>
                         }
                     </table>

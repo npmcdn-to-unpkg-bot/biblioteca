@@ -2,7 +2,9 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
+import com.avaje.ebeaninternal.server.lib.util.Str;
 import play.data.format.Formats;
+import play.data.validation.Constraints;
 import play.libs.Json;
 import views.validators.PublicacaoFormData;
 
@@ -22,57 +24,60 @@ public class Publicacao extends Model {
     @Column(nullable = false, length = 250)
     private String titulo;
 
-    @Column(nullable = false, length = 500)
+    @Column(nullable = false, length = 400)
     private String resumo;
-
-    @Column(nullable = false, length = 350)
-    private String nomeCapa;
 
     @Column(nullable = false, length = 400)
     private String url;
 
-    @Column(nullable = false)
     @Formats.DateTime(pattern="YYYY-MM-DD")
     private Date dataCadastro;
 
+    @Formats.DateTime(pattern="YYYY-MM-DD")
+    private Date dataAlteracao;
 
-    public Publicacao(){
+    @Column(nullable = false, length = 150)
+    private String nomeCapa;
+
+    public Publicacao() {
     }
 
-    public Publicacao(Long id, String titulo, String resumo, String nomeCapa, String url) {
+    public Publicacao(Long id, String titulo, String resumo, String url, String nomeCapa) {
         this.setId(id);
-        this.titulo = titulo;
-        this.resumo = resumo;
-        this.nomeCapa = nomeCapa;
-        this.url = url;
+        this.setTitulo(titulo);
+        this.setResumo(resumo);
+        this.setUrl(url);
+        this.setNomeCapa(nomeCapa);
+
     }
 
     /**
-     * @return a objeto publicacao atraves da um formData onde o parametro FormData que tem os campos inputs validados
+     * @return a objeto video atraves da um formData onde o parametro FormData que validou os campos inputs
+     * Cria uma instancia estatica do video passando por parametro o objeto formData com os dados preenchidos
      */
     public static Publicacao makeInstance(PublicacaoFormData formData) {
         Publicacao publicacao = new Publicacao();
         publicacao.setTitulo(formData.titulo);
         publicacao.setResumo(formData.resumo);
-        publicacao.setNomeCapa(formData.nomeCapa);
         publicacao.setUrl(formData.url);
+        publicacao.setNomeCapa(formData.nomeCapa);
         return publicacao;
     }
 
     /**
-     * Return a PublicacaoFormData instance constructed from a publicacao instance.
-     * @param id The ID of a livro instance.
-     * @return The PublicacaoFormData instance, or throws a RuntimeException.
+     * Return a VideoFormData instance constructed from a video instance.
+     * @param id The ID of a video instance.
+     * @return The VideoFormData instance, or throws a RuntimeException.
      */
     public static PublicacaoFormData makePublicacaoFormData(Long id) {
 
         Publicacao publicacao = Ebean.find(Publicacao.class, id);
 
         if (publicacao == null) {
-            throw new RuntimeException("Publicação não encontrada");
+            throw new RuntimeException("Publicação não encontrado");
         }
 
-        return new PublicacaoFormData(publicacao.titulo, publicacao.resumo, publicacao.nomeCapa, publicacao.url);
+        return new PublicacaoFormData(publicacao.titulo, publicacao.resumo, publicacao.url, publicacao.nomeCapa);
     }
 
     public Long getId() {
@@ -99,12 +104,12 @@ public class Publicacao extends Model {
         this.resumo = resumo;
     }
 
-    public String getNomeCapa() {
-        return nomeCapa;
+    public String getUrl() {
+        return url;
     }
 
-    public void setNomeCapa(String nomeCapa) {
-        this.nomeCapa = nomeCapa;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public Date getDataCadastro() {
@@ -115,12 +120,20 @@ public class Publicacao extends Model {
         this.dataCadastro = dataCadastro;
     }
 
-    public String getUrl() {
-        return url;
+    public Date getDataAlteracao() {
+        return dataAlteracao;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setDataAlteracao(Date dataAlteracao) {
+        this.dataAlteracao = dataAlteracao;
+    }
+
+    public String getNomeCapa() {
+        return nomeCapa;
+    }
+
+    public void setNomeCapa(String nomeCapa) {
+        this.nomeCapa = nomeCapa;
     }
 
     public static Finder<Long, Publicacao> find = new Finder<>(Publicacao.class);

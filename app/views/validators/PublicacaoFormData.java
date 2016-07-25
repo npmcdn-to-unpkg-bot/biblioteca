@@ -9,18 +9,18 @@ public class PublicacaoFormData {
 
     public String titulo = "";
     public String resumo = "";
-    public String nomeCapa = "";
     public String url = "";
+    public String nomeCapa = "";
 
     /** Necessario para instanciar o form */
     public PublicacaoFormData() {
     }
 
-    public PublicacaoFormData(String titulo, String resumo, String nomeCapa, String url) {
+    public PublicacaoFormData(String titulo, String resumo, String url, String nomeCapa) {
         this.titulo = titulo;
         this.resumo = resumo;
-        this.nomeCapa = nomeCapa;
         this.url = url;
+        this.nomeCapa = nomeCapa;
     }
 
     public List<ValidationError> validate() {

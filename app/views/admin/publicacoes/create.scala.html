@@ -1,1 +1,53 @@
 @(publicacaoForm: play.data.Form[views.validators.PublicacaoFormData])
+
+@import helper._
+@import templates.bootstrap._
+
+@views.html.admin.main("Cadastro de Publicações") {
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Cadastro de Publicações</div>
+            <div class="panel-body">
+            @form(routes.PublicacaoController.inserir, 'enctype -> "multipart/form-data", 'class -> "form-horizontal") {
+
+                @if(publicacaoForm.hasGlobalErrors) {
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"></label>
+                        <div class="col-sm-6">
+                            <p class="alert alert-danger text-center">@publicacaoForm.globalError.message</p>
+                        </div>
+                    </div>
+                }
+
+                    <!-- titulo -->
+                @texto(publicacaoForm("titulo"),
+                    label = "Título:",
+                    placeholder = "Insira o título")
+
+                    <!-- resumo -->
+                @textoarea(publicacaoForm("resumo"),
+                    label = "Resumo:",
+                    placeholder = "Insira o resumo")
+
+                    <!-- Site -->
+                @texto(publicacaoForm("url"),
+                    label = "Url:",
+                    placeholder = "Insira o endereço eletrônico")
+
+                    <!-- Arquivo -->
+                @arquivo(publicacaoForm("arquivo"),
+                    label = "Capa:")
+
+
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-12">
+                        <input class="btn btn-success" type="submit" id="btnSubmit" value="Cadastrar"/>
+                        <a class="btn btn-default" type="button" href="@routes.PublicacaoController.telaLista">Cancelar</a>
+                    </div>
+                </div>
+            }
+            </div>
+        </div>
+    </div>
+
+}

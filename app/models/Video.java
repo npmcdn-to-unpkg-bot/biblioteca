@@ -20,7 +20,6 @@ public class Video extends Model {
     @Id
     private Long id;
 
-    @Constraints.Required
     @Column(nullable = false, length = 150)
     private String titulo;
 
