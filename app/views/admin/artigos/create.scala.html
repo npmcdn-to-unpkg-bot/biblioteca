@@ -7,7 +7,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">Cadastro de Artigo</div>
             <div class="panel-body">
-                @form(routes.ArtigoController.inserir, 'enctype -> "multipart/form-data", 'class -> "form-horizontal") {
+                @form(routes.ArtigoController.inserir, 'enctype -> "multipart/form-data", 'class -> "form-horizontal", 'id -> "formPreenchido") {
 
                 @if(formPreenchido.hasGlobalErrors) {
                 <div class="form-group">

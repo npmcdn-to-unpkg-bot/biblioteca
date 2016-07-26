@@ -8,7 +8,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">Cadastro de Evento</div>
             <div class="panel-body">
-                @form(routes.EventoController.inserir, 'class -> "form-horizontal") {
+                @form(routes.EventoController.inserir, 'class -> "form-horizontal", 'id -> "eventoForm") {
 
                     @if(eventoForm.hasGlobalErrors) {
                         <div class="form-group">

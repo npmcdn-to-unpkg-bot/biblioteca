@@ -327,11 +327,11 @@ public class CursoController extends Controller {
                         file.renameTo(new File(diretorioDeFotosCursos,jpg));
                     } else {
                         formData.reject("Apenas arquivos em formato JPEG é aceito");
-                        return badRequest(views.html.admin.cursos.create.render(formData));
+                        return badRequest(views.html.admin.cursos.edit.render(id,formData));
                     }
                 } else {
                     formData.reject("Selecione um arquivo no formato JPEG");
-                    return badRequest(views.html.admin.cursos.create.render(formData));
+                    return badRequest(views.html.admin.cursos.edit.render(id,formData));
                 }
 
                 curso.setId(id);

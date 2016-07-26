@@ -268,7 +268,7 @@ public class VideoController extends Controller {
     /**
      * Remove a video from a id
      *
-     * @param id
+     * @param id identificador
      * @return ok video removed
      */
     public Result remover(Long id) {

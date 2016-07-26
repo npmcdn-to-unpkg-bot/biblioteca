@@ -8,7 +8,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">Cadastro de Vídeo</div>
             <div class="panel-body">
-            @form(routes.VideoController.inserir, 'class -> "form-horizontal") {
+            @form(routes.VideoController.inserir, 'class -> "form-horizontal", 'id -> "videoForm") {
 
                 @if(videoForm.hasGlobalErrors) {
                     <div class="form-group">

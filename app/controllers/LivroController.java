@@ -333,11 +333,11 @@ public class LivroController extends Controller {
                         file.renameTo(new File(diretorioDePdfsLivros,pdf));
                     } else {
                         formData.reject("Apenas arquivos em formato PDF é aceito");
-                        return badRequest(views.html.admin.livros.create.render(formData));
+                        return badRequest(views.html.admin.livros.edit.render(id,formData));
                     }
                 } else {
                     formData.reject("Selecione um arquivo no formato PDF");
-                    return badRequest(views.html.admin.livros.create.render(formData));
+                    return badRequest(views.html.admin.livros.edit.render(id,formData));
                 }
 
                 livro.setId(id);

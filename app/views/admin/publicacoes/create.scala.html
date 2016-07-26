@@ -8,7 +8,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">Cadastro de Publicações</div>
             <div class="panel-body">
-            @form(routes.PublicacaoController.inserir, 'enctype -> "multipart/form-data", 'class -> "form-horizontal") {
+            @form(routes.PublicacaoController.inserir, 'enctype -> "multipart/form-data", 'class -> "form-horizontal", 'id -> "publicacaoForm") {
 
                 @if(publicacaoForm.hasGlobalErrors) {
                     <div class="form-group">
@@ -37,6 +37,10 @@
                     <!-- Arquivo -->
                 @arquivo(publicacaoForm("arquivo"),
                     label = "Capa:")
+
+                    <!-- Arquivo -->
+                @arquivo(publicacaoForm("documento"),
+                    label = "Documento:")
 
 
                 <div class="form-group">

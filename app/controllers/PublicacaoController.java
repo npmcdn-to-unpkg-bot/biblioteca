@@ -329,11 +329,11 @@ public class PublicacaoController extends Controller {
                         file.renameTo(new File(diretorioDeFotosPublicacoes,jpg));
                     } else {
                         formData.reject("Apenas arquivos em formato JPEG é aceito");
-                        return badRequest(views.html.admin.publicacoes.create.render(formData));
+                        return badRequest(views.html.admin.publicacoes.edit.render(id,formData));
                     }
                 } else {
                     formData.reject("Selecione um arquivo no formato JPEG");
-                    return badRequest(views.html.admin.publicacoes.create.render(formData));
+                    return badRequest(views.html.admin.publicacoes.edit.render(id,formData));
                 }
 
                 publicacao.setId(id);

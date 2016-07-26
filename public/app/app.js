@@ -120,6 +120,11 @@ angular
                 controller: 'noticia.list.controller',
                 activetab: 'noticias'
             })
+            .when('/publicacoes', {
+                templateUrl: '/assets/app/views/publicacoes/list.html',
+                controller: 'publicacao.list.controller',
+                activetab: 'publicacoes'
+            })
             .otherwise({redirectTo:'/'});
     }).config(function($httpProvider, cfpLoadingBarProvider) {
         // carrega o loading bar

@@ -29,7 +29,7 @@
                                 <label class="col-sm-3 control-label"></label> Curso de Atualização em Energias do Biogás
                             </h2>
 
-                            @form(routes.InscricaoController.inserir(), 'class -> "form-horizontal") {
+                            @form(routes.InscricaoController.inserir(), 'class -> "form-horizontal", 'id -> "inscricaoForm") {
 
                                 @if(inscricaoForm.hasGlobalErrors) {
                                     <div class="form-group">
@@ -117,7 +117,7 @@
                                 <div class="form-group">
                                     <label class="col-md-4 control-label"></label>
                                     <div class="col-md-6">
-                                        <input autocomplete="off" id="myButton" data-loading-text="Enviando..." class="btn btn-primary" type="submit" id="btnSubmit" value="Enviar"/>
+                                        <input autocomplete="off" data-loading-text="Enviando..." class="btn btn-primary" type="submit" id="btnEnviar" value="Enviar"/>
                                     </div>
                                 </div>
 
@@ -132,10 +132,15 @@
 
         <script src="@routes.Assets.versioned("bower_components/jquery/dist/jquery.js")" type="text/javascript"></script>
         <script src="@routes.Assets.versioned("bower_components/bootstrap/dist/js/bootstrap.js")" type="text/javascript"></script>
-        <script>
-            $('#myButton').on('click', function () {
+        <script type="text/javascript">
+            window.onload = function() {
+                var inscricaoForm = document.getElementById("inscricaoForm");
+                inscricaoForm.elements[0].focus();
+                //inscricaoForm.nome.focus(); codigo alternativo ao anterior
+            };
+            $('#btnEnviar').on('click', function () {
                 var $btn = $(this).button('loading');
-            })
+            });
         </script>
     </body>
 </html>
