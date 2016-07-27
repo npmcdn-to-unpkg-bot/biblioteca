@@ -128,21 +128,20 @@
         <nav class="demo-navigation mdl-navigation mdl-color--white">
             @if(username){
                 <a ng-class="{active: $route.current.activetab == 'artigos'}" class="mdl-navigation__link" href="/#/artigos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">book</i>@Messages("menu.4")</a>
-                <a ng-class="{active: $route.current.activetab == 'livros'}" class="mdl-navigation__link" href="/#/livros"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">library_books</i>@Messages("menu.5")</a>
                 <a ng-class="{active: $route.current.activetab == 'videos'}" class="mdl-navigation__link" href="/#/videos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">video_library</i>@Messages("menu.6")</a>
                 <a ng-class="{active: $route.current.activetab == 'fotos'}" class="mdl-navigation__link" href="/#/fotos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">photo_camera</i>@Messages("menu.7")</a>
                 <div class="separador"></div>
             }
+            <a ng-class="{active: $route.current.activetab == 'noticias'}" class="mdl-navigation__link" href="/#/noticias"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">public</i>@Messages("menu.biogas.10")</a>
             <a ng-class="{active: $route.current.activetab == 'publicacoes'}" class="mdl-navigation__link" href="/#/publicacoes"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">language</i>@Messages("menu.biogas.11")</a>
             <a ng-class="{active: $route.current.activetab == 'sobre'}" class="mdl-navigation__link" href="/#/biogas/sobre"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">ev_station</i>@Messages("menu.biogas.2")</a>
             <a ng-class="{active: $route.current.activetab == 'casos'}" class="mdl-navigation__link" href="/#/casos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">extension</i>@Messages("menu.biogas.3")</a>
-            <a ng-class="{active: $route.current.activetab == 'ferramentas'}" class="mdl-navigation__link" href="/#/ferramentas"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">build</i>@Messages("menu.biogas.4")</a>
             <a ng-class="{active: $route.current.activetab == 'ped'}" class="mdl-navigation__link" href="/#/ped"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">explore</i>@Messages("menu.biogas.5")</a>
             <div class="separador"></div>
             <a ng-class="{active: $route.current.activetab == 'marcos'}" class="mdl-navigation__link" href="/#/marcos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">account_balance</i>@Messages("menu.biogas.6")</a>
             <a ng-class="{active: $route.current.activetab == 'aspectos'}" class="mdl-navigation__link" href="/#/aspectos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">monetization_on</i>@Messages("menu.biogas.7")</a>
             <a ng-class="{active: $route.current.activetab == 'registros'}" class="mdl-navigation__link" href="/#/registros"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">map</i>@Messages("menu.biogas.8")</a>
-            <a ng-class="{active: $route.current.activetab == 'noticias'}" class="mdl-navigation__link" href="/#/noticias"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">public</i>@Messages("menu.biogas.10")</a>
+            <a ng-class="{active: $route.current.activetab == 'ferramentas'}" class="mdl-navigation__link" href="/#/ferramentas"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">build</i>@Messages("menu.biogas.4")</a>
 
             @if(username){
                 @if(privilegio == 1){
