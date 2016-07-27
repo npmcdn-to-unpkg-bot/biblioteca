@@ -2,9 +2,7 @@ package models;
 
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.Model;
-import com.avaje.ebeaninternal.server.lib.util.Str;
 import play.data.format.Formats;
-import play.data.validation.Constraints;
 import play.libs.Json;
 import views.validators.PublicacaoFormData;
 
@@ -36,8 +34,9 @@ public class Publicacao extends Model {
     @Formats.DateTime(pattern="YYYY-MM-DD")
     private Date dataAlteracao;
 
-    @Column(nullable = false, length = 150)
+    @Column(nullable = false, length = 250)
     private String nomeCapa;
+
 
     public Publicacao() {
     }
@@ -48,7 +47,6 @@ public class Publicacao extends Model {
         this.setResumo(resumo);
         this.setUrl(url);
         this.setNomeCapa(nomeCapa);
-
     }
 
     /**

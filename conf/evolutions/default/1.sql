@@ -107,6 +107,16 @@ create table modalidade (
   constraint pk_modalidade primary key (id))
 ;
 
+create table noticia (
+  id                        bigserial not null,
+  titulo                    varchar(250) not null,
+  resumo                    varchar(400) not null,
+  url                       varchar(400) not null,
+  data_cadastro             timestamp,
+  data_alteracao            timestamp,
+  constraint pk_noticia primary key (id))
+;
+
 create table pais (
   id                        bigserial not null,
   nome                      varchar(50) not null,
@@ -120,7 +130,7 @@ create table publicacao (
   url                       varchar(400) not null,
   data_cadastro             timestamp,
   data_alteracao            timestamp,
-  nome_capa                 varchar(150) not null,
+  nome_capa                 varchar(250) not null,
   constraint pk_publicacao primary key (id))
 ;
 
@@ -189,6 +199,8 @@ drop table if exists inscricao cascade;
 drop table if exists livro cascade;
 
 drop table if exists modalidade cascade;
+
+drop table if exists noticia cascade;
 
 drop table if exists pais cascade;
 
