@@ -1,47 +1,47 @@
-@(publicacaoForm: play.data.Form[views.validators.PublicacaoFormData])
+@(noticiaForm: play.data.Form[views.validators.NoticiaFormData])
 
 @import helper._
 @import templates.bootstrap._
 
-@views.html.admin.main("Cadastro de Publicações") {
+@views.html.admin.main("Cadastro de Notícias") {
     <div class="col-sm-6">
         <div class="panel panel-default">
-            <div class="panel-heading">Cadastro de Publicações</div>
+            <div class="panel-heading">Cadastro de Notícias</div>
             <div class="panel-body">
-            @form(routes.PublicacaoController.inserir, 'enctype -> "multipart/form-data", 'class -> "form-horizontal", 'id -> "publicacaoForm") {
+            @form(routes.NoticiaController.inserir, 'enctype -> "multipart/form-data", 'class -> "form-horizontal", 'id -> "noticiaForm") {
 
-                @if(publicacaoForm.hasGlobalErrors) {
+                @if(noticiaForm.hasGlobalErrors) {
                     <div class="form-group">
                         <label class="col-sm-3 control-label"></label>
                         <div class="col-sm-6">
-                            <p class="alert alert-danger text-center">@publicacaoForm.globalError.message</p>
+                            <p class="alert alert-danger text-center">@noticiaForm.globalError.message</p>
                         </div>
                     </div>
                 }
 
                     <!-- titulo -->
-                @texto(publicacaoForm("titulo"),
+                @texto(noticiaForm("titulo"),
                     label = "Título:",
                     placeholder = "Insira o título")
 
                     <!-- resumo -->
-                @textoarea(publicacaoForm("resumo"),
+                @textoarea(noticiaForm("resumo"),
                     label = "Resumo:",
                     placeholder = "Insira o resumo")
 
                     <!-- Site -->
-                @texto(publicacaoForm("url"),
+                @texto(noticiaForm("url"),
                     label = "Url:",
                     placeholder = "Insira o endereço eletrônico")
 
                     <!-- Arquivo -->
-                @arquivo(publicacaoForm("arquivo"),
+                @arquivo(noticiaForm("arquivo"),
                     label = "Capa:")
 
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-12">
                         <input class="btn btn-success" type="submit" id="btnSubmit" value="Cadastrar"/>
-                        <a class="btn btn-default" type="button" href="@routes.PublicacaoController.telaLista">Cancelar</a>
+                        <a class="btn btn-default" type="button" href="@routes.NoticiaController.telaLista">Cancelar</a>
                     </div>
                 </div>
             }

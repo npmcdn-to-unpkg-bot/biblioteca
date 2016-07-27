@@ -37,7 +37,6 @@ public class Publicacao extends Model {
     @Column(nullable = false, length = 250)
     private String nomeCapa;
 
-
     public Publicacao() {
     }
 

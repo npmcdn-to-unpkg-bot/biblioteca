@@ -1,18 +1,18 @@
-@(publicacao: Publicacao)
+@(noticia: Noticia)
 
 @import helper._
 
-@views.html.admin.main("Administração - Detalhe da Publicação") {
+@views.html.admin.main("Administração - Detalhe da Notícia") {
     <div class="col-sm-6">
         <div class="panel panel-default">
-            <div class="panel-heading">Detalhe da Publicação
+            <div class="panel-heading">Detalhe da Notícia
                 <div class="btn-group pull-right">
                     <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Opções <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="@routes.PublicacaoController.telaLista">Voltar</a></li>
-                        <li><a href="@routes.PublicacaoController.telaEditar(publicacao.getId)">Editar</a></li>
+                        <li><a href="@routes.NoticiaController.telaLista">Voltar</a></li>
+                        <li><a href="@routes.NoticiaController.telaEditar(noticia.getId)">Editar</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a data-toggle="modal" data-target=".bs-example-modal-sm" href="">Excluir</a></li>
                     </ul>
@@ -21,24 +21,24 @@
             <div class="panel-body">
                 <div class="item-form width-600 margin-bottom-15">
                     <label class="display-block strong">Título</label>
-                    <p class="display-block margin-left-027em">@publicacao.getTitulo</p>
+                    <p class="display-block margin-left-027em">@noticia.getTitulo</p>
                 </div>
                 <div class="item-form width-600 margin-bottom-15">
                     <label class="display-block strong">Descrição</label>
-                    <p class="display-block margin-left-027em">@publicacao.getResumo</p>
+                    <p class="display-block margin-left-027em">@noticia.getResumo</p>
                 </div>
                 <div class="item-form width-600 margin-bottom-15">
                     <label class="display-block strong">URL</label>
-                    <p><a target="_blank" href="@publicacao.getUrl" class="display-block margin-left-027em">@publicacao.getUrl</a></p>
+                    <p><a target="_blank" href="@noticia.getUrl" class="display-block margin-left-027em">@noticia.getUrl</a></p>
                 </div>
                 <div class="item-form width-600 margin-bottom-15">
                     <label class="display-block strong">Data/Hora de Cadastro</label>
-                    <p type="date" class="display-block margin-left-027em">@publicacao.getDataCadastro.format("dd MMMM yyyy - HH:mm:ss")</p>
+                    <p type="date" class="display-block margin-left-027em">@noticia.getDataCadastro.format("dd MMMM yyyy - HH:mm:ss")</p>
                 </div>
-                @if(publicacao.getDataAlteracao != null){
+                @if(noticia.getDataAlteracao != null){
                     <div class="item-form width-600 margin-bottom-15">
                         <label class="display-block strong">Data/Hora de Alteração</label>
-                        <p class="display-block margin-left-027em">@publicacao.getDataAlteracao.format("dd MMMM yyyy - HH:mm:ss")</p>
+                        <p class="display-block margin-left-027em">@noticia.getDataAlteracao.format("dd MMMM yyyy - HH:mm:ss")</p>
                     </div>
                 }
             </div>
@@ -52,17 +52,17 @@
                     <h4 class="modal-title">Biblioteca</h4>
                 </div>
                 <div class="modal-body">
-                    <p class="text-center">Deseja remover a publicação <b>"@publicacao.getTitulo"</b>?</p>
+                    <p class="text-center">Deseja remover a notícia <b>"@noticia.getTitulo"</b>?</p>
                 </div>
                 <div class="modal-footer">
-                @form(routes.PublicacaoController.remover(publicacao.getId)) {
+                @form(routes.NoticiaController.remover(noticia.getId)) {
                     <input type="submit" value="Remover" class="btn btn-warning">
                     }
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div>
-    }
+}
 
 <script type="text/javascript">
     window.onbeforeunload = function () {

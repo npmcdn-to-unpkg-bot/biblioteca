@@ -6,7 +6,7 @@
 @views.html.admin.main("Editar Publicação") {
     <div class="col-sm-6">
         <div class="panel panel-default">
-            <div class="panel-heading">Editar Curso</div>
+            <div class="panel-heading">Editar Publicação</div>
             <div class="panel-body">
             @form(routes.PublicacaoController.editar(id), 'enctype -> "multipart/form-data", 'class -> "form-horizontal", 'id -> "publicacaoForm") {
 
@@ -50,3 +50,14 @@
         </div>
     </div>
 }
+
+<script type="text/javascript">
+    window.onbeforeunload = function () {
+        var inputs = document.getElementsByTagName("INPUT");
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].type == "button" || inputs[i].type == "submit") {
+                inputs[i].disabled = true;
+            }
+        }
+    };
+</script>

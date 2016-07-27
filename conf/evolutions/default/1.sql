@@ -114,6 +114,7 @@ create table noticia (
   url                       varchar(400) not null,
   data_cadastro             timestamp,
   data_alteracao            timestamp,
+  nome_capa                 varchar(250) not null,
   constraint pk_noticia primary key (id))
 ;
 

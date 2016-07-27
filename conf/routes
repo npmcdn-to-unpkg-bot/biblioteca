@@ -103,11 +103,23 @@ GET		/publicacao/detalhe/:id				   controllers.PublicacaoController.telaDetalhe(
 GET     /publicacao/editar/:id                  controllers.PublicacaoController.telaEditar(id:Long)
 GET     /publicacao/lista/todos                 controllers.PublicacaoController.telaLista()
 
-# Video Servicos
+# Publicacoes Servicos
 GET     /publicacoes                         controllers.PublicacaoController.buscaTodos()
 POST    /publicacao                          controllers.PublicacaoController.inserir()
 POST	/publicacao/:id/remover              controllers.PublicacaoController.remover(id:Long)
 POST    /publicacao/editar/:id               controllers.PublicacaoController.editar(id:Long)
+
+# Noticias Telas
+GET     /noticia/novo/                       controllers.NoticiaController.telaNovo()
+GET		/noticia/detalhe/:id				   controllers.NoticiaController.telaDetalhe(id:Long)
+GET     /noticia/editar/:id                  controllers.NoticiaController.telaEditar(id:Long)
+GET     /noticia/lista/todos                 controllers.NoticiaController.telaLista()
+
+# Noticia Servicos
+GET     /noticias                         controllers.NoticiaController.buscaTodos()
+POST    /noticia                          controllers.NoticiaController.inserir()
+POST	/noticia/:id/remover              controllers.NoticiaController.remover(id:Long)
+POST    /noticia/editar/:id               controllers.NoticiaController.editar(id:Long)
 
 # Acessado quando o usuario confirma o registro
 GET     /confirma/:confirmaToken        controllers.UsuarioController.confirma(confirmaToken:String)
