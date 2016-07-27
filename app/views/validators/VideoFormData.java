@@ -32,6 +32,10 @@ public class VideoFormData {
             errors.add(new ValidationError("descricao", "Preencha a Descrição"));
         }
 
+        if (descricao.length() > 400) {
+            errors.add(new ValidationError("descricao", "A descrição deve ter no máximo 400 caractéres"));
+        }
+
         if (url == null || url.length() == 0) {
             errors.add(new ValidationError("url", "Preencha a URL"));
         }

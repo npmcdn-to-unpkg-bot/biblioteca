@@ -35,6 +35,10 @@ public class PublicacaoFormData {
             errors.add(new ValidationError("resumo", "Preencha o resumo"));
         }
 
+        if (resumo.length() > 400) {
+            errors.add(new ValidationError("descricao", "A descrição deve ter no máximo 400 caractéres"));
+        }
+
         if (url == null || url.length() == 0) {
             errors.add(new ValidationError("url", "Preencha a url"));
         }
