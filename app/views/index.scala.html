@@ -16,7 +16,7 @@
   See the License for the specific language governing permissions and
   limitations under the License
 -->
-<html ng-app="architectplay">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -79,7 +79,7 @@
     <link rel="stylesheet" media="screen" href="assets/stylesheets/foto.css">
     <link rel="stylesheet" media="screen" href="assets/stylesheets/home.css">
 </head>
-<body>
+<body ng-app="architectplay">
 <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     <header ng-controller="topmenu" class="demo-header mdl-layout__header mdl-color--deep-orange-cibiogas mdl-color-text--white">
         <div class="mdl-layout__header-row">
@@ -184,7 +184,7 @@
 <script src="@routes.Application.jsMessages()" type="text/javascript"></script>
 
     @*Jquery para o lightbox*@
-<script src="/assets/bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
+<script src="assets/bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
 
     @*lodash*@
 <script src="assets/bower_components/lodash/lodash.js" type="text/javascript"></script>
