@@ -452,7 +452,7 @@ public class ArtigoController extends Controller {
     /**
      * return the pdf from a nameFile
      *
-     * @param nomeArquivo
+     * @param nomeArquivo variavel string
      * @return ok pdf by name
      */
     public Result pdf(String nomeArquivo) {
@@ -475,7 +475,7 @@ public class ArtigoController extends Controller {
     /**
      * Retrieve a list of artigos from a filter
      *
-     * @param filtro
+     * @param filtro variavel string
      * @return a list of filter artigos in json
      */
     public Result filtra(String filtro) {

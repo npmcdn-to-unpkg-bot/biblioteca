@@ -29,21 +29,31 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="@routes.ArtigoController.telaLista"><span class="glyphicon glyphicon-education"></span> Artigos</a></li>
-                    <li><a href="@routes.LivroController.telaLista"><span class="glyphicon glyphicon-book"></span> Livros</a></li>
-                    <li><a href="@routes.PublicacaoController.telaLista"><span class="fa fa-file-text"></span> Publicações</a></li>
-                    <li><a href="@routes.EventoController.telaLista"><span class="fa fa-calendar"></span> Eventos</a></li>
-                    <li><a href="@routes.CursoController.telaLista"><span class="fa fa-leaf"></span> Cursos</a></li>
-                    <li><a href="@routes.VideoController.telaLista"><span class="fa fa-video-camera"></span> Vídeos</a></li>
-                    <li><a href="@routes.NoticiaController.telaLista"><span class="fa fa-newspaper-o"></span> Notícias</a></li>
-                    <li><a href="@routes.UsuarioController.telaLista"><span class="glyphicon glyphicon-user"></span> Usuários</a></li>
+                    <li @if((request.uri == "/artigo/lista/todos") ||
+                            (request.uri == "/artigo/novo/") ||
+                            (request.uri == "/artigo") || (request.uri == "/artigo/editar")){ class="active" }>
+                        <a href="@routes.ArtigoController.telaLista"><span class="glyphicon glyphicon-education"></span> Artigos</a></li>
+                    <li @if((request.uri == "/livro/lista/todos") || (request.uri == "/livro/novo/")){ class="active" }>
+                        <a href="@routes.LivroController.telaLista"><span class="glyphicon glyphicon-book"></span> Livros</a></li>
+                    <li @if((request.uri == "/publicacao/lista/todos") || (request.uri == "/publicacao/novo/")){ class="active" }>
+                        <a href="@routes.PublicacaoController.telaLista"><span class="fa fa-file-text"></span> Publicações</a></li>
+                    <li @if((request.uri == "/evento/lista/todos") || (request.uri == "/evento/novo/")){ class="active" }>
+                        <a href="@routes.EventoController.telaLista"><span class="fa fa-calendar"></span> Eventos</a></li>
+                    <li @if((request.uri == "/curso/lista/todos") || (request.uri == "/curso/novo/")){ class="active" }>
+                        <a href="@routes.CursoController.telaLista"><span class="fa fa-leaf"></span> Cursos</a></li>
+                    <li @if((request.uri == "/video/lista/todos") || (request.uri == "/video/novo/")){ class="active" }>
+                        <a href="@routes.VideoController.telaLista"><span class="fa fa-video-camera"></span> Vídeos</a></li>
+                    <li @if((request.uri == "/noticia/lista/todos") || (request.uri == "/noticia/novo/")){ class="active" }>
+                        <a href="@routes.NoticiaController.telaLista"><span class="fa fa-newspaper-o"></span> Notícias</a></li>
+                    <li @if((request.uri == "/usuario/lista/todos") || (request.uri == "/usuario/novo/")){ class="active" }>
+                        <a href="@routes.UsuarioController.telaLista"><span class="glyphicon glyphicon-user"></span> Usuários</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
+                    <li @if(request.uri == "/sobre"){ class="active" } class="dropdown">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Opções <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/#/">Home</a></li>
-                            <li><a href="@routes.Application.sobre">Sobre</a></li>
+                            <li @if(request.uri == "/sobre"){ class="active" }><a href="@routes.Application.sobre">Sobre</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="@routes.LoginController.logout">Sair</a></li>
                         </ul>
