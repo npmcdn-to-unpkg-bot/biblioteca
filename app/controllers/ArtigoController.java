@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 import static play.data.Form.form;
+import static views.validators.ValidaPDF.isPDF2;
 
 @Security.Authenticated(Secured.class)
 public class ArtigoController extends Controller {
@@ -252,6 +253,12 @@ public class ArtigoController extends Controller {
 
                 File file = arquivo.getFile();
 
+                if (!isPDF2(file)) {
+                    DynamicForm formDeErro = form.fill(formPreenchido.data());
+                    formDeErro.reject("Arquivo PDF inválido");
+                    return badRequest(views.html.admin.artigos.create.render(formDeErro));
+                }
+
                 String diretorioDePdfsArtigos = Play.application().configuration().getString("diretorioDePdfsArtigos");
                 String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
 
@@ -273,7 +280,7 @@ public class ArtigoController extends Controller {
         } catch (Exception e) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
             formDeErro.reject("Erro interno de sistema!");
-            Logger.error(e.getMessage());
+            Logger.error(e.toString());
             return badRequest(views.html.admin.artigos.create.render(formDeErro));
         }
 
@@ -332,6 +339,12 @@ public class ArtigoController extends Controller {
 
                 File file = arquivo.getFile();
 
+                if (!isPDF2(file)) {
+                    Form<Artigo> formDeErro = artigoForm.fill(Artigo.find.byId(id));
+                    formDeErro.reject("Arquivo PDF inválido");
+                    return badRequest(views.html.admin.artigos.edit.render(id,formDeErro));
+                }
+
                 String diretorioDePdfsArtigos = Play.application().configuration().getString("diretorioDePdfsArtigos");
                 String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
 
@@ -370,12 +383,12 @@ public class ArtigoController extends Controller {
         } catch (PersistenceException e) {
             Form<Artigo> formDeErro = artigoForm.fill(Artigo.find.byId(id));
             formDeErro.reject("O campo 'Resumo' suporta no máximo 254 caractéres");
-            Logger.error(e.getMessage());
+            Logger.error(e.toString());
             return badRequest(views.html.admin.artigos.edit.render(id,formDeErro));
         }  catch (Exception e) {
             tipoMensagem = "Erro";
             mensagem = "Erro Interno de sistema.";
-            Logger.error(e.getMessage());
+            Logger.error(e.toString());
             return badRequest(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
         }
     }
