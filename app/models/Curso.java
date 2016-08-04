@@ -6,9 +6,7 @@ import play.data.format.Formats;
 import play.libs.Json;
 import views.validators.CursoFormData;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -27,6 +25,7 @@ public class Curso extends Model {
 
     @Column(nullable = false)
     @Formats.DateTime(pattern="YYYY-MM-DD")
+    @Temporal(TemporalType.DATE)
     private Date dataInicio;
 
     @Column(nullable = false, length = 80)

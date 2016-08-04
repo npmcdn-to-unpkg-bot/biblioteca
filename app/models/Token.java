@@ -10,10 +10,7 @@ import play.i18n.Messages;
 import play.libs.mailer.Email;
 import play.libs.mailer.MailerClient;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Calendar;
@@ -38,6 +35,7 @@ public class Token extends Model {
     public TypeToken type;
 
     @Formats.DateTime(pattern="YYYY-MM-DD")
+    @Temporal(TemporalType.DATE)
     public Date dateCreation;
 
     @Constraints.Required

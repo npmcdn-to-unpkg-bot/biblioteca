@@ -4,9 +4,7 @@ import com.avaje.ebean.Model;
 import play.data.format.Formats;
 import play.libs.Json;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -29,7 +27,9 @@ public class Contato extends Model {
     @Column(nullable = false, length = 200)
     private String mensagem;
 
+    @Column(nullable = false)
     @Formats.DateTime(pattern="YYYY-MM-DD")
+    @Temporal(TemporalType.DATE)
     private Date dataCadastro;
 
     public Long getId() {

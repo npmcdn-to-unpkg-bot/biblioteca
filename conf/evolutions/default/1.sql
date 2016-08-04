@@ -8,7 +8,7 @@ create table artigo (
   titulo                    varchar(150) not null,
   resumo                    varchar(400) not null,
   nome_arquivo              varchar(200) not null,
-  data_cadastro             timestamp,
+  data_cadastro             timestamp not null,
   data_alteracao            timestamp,
   constraint pk_artigo primary key (id))
 ;
@@ -19,7 +19,7 @@ create table contato (
   email                     varchar(60) not null,
   assunto                   varchar(30) not null,
   mensagem                  varchar(200) not null,
-  data_cadastro             timestamp,
+  data_cadastro             timestamp not null,
   constraint pk_contato primary key (id))
 ;
 
@@ -79,7 +79,7 @@ create table inscricao (
   modalidade                varchar(3) not null,
   fonte                     varchar(25) not null,
   descricao_fonte           varchar(60),
-  data_inscricao            timestamp,
+  data_inscricao            timestamp not null,
   data_alteracao            timestamp,
   constraint pk_inscricao primary key (id))
 ;
@@ -95,7 +95,7 @@ create table livro (
   paginas                   integer,
   ano                       integer,
   nome_arquivo              varchar(200) not null,
-  data_cadastro             timestamp,
+  data_cadastro             timestamp not null,
   data_alteracao            timestamp,
   constraint uq_livro_isbn unique (isbn),
   constraint pk_livro primary key (id))
@@ -112,7 +112,7 @@ create table noticia (
   titulo                    varchar(250) not null,
   resumo                    varchar(400) not null,
   url                       varchar(400) not null,
-  data_cadastro             timestamp,
+  data_cadastro             timestamp not null,
   data_alteracao            timestamp,
   nome_capa                 varchar(250) not null,
   constraint pk_noticia primary key (id))
@@ -129,7 +129,7 @@ create table publicacao (
   titulo                    varchar(250) not null,
   resumo                    varchar(400) not null,
   url                       varchar(400) not null,
-  data_cadastro             timestamp,
+  data_cadastro             timestamp not null,
   data_alteracao            timestamp,
   nome_capa                 varchar(250) not null,
   constraint pk_publicacao primary key (id))
@@ -165,7 +165,7 @@ create table video (
   titulo                    varchar(150) not null,
   descricao                 varchar(400) not null,
   url                       varchar(400) not null,
-  data_cadastro             timestamp,
+  data_cadastro             timestamp not null,
   data_alteracao            timestamp,
   constraint pk_video primary key (id))
 ;

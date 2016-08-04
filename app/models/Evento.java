@@ -6,9 +6,7 @@ import play.data.format.Formats;
 import play.libs.Json;
 import views.validators.EventoFormData;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -24,10 +22,12 @@ public class Evento extends Model {
 
     @Column(nullable = false)
     @Formats.DateTime(pattern="YYYY-MM-DD")
+    @Temporal(TemporalType.DATE)
     private Date dataInicio;
 
     @Column(nullable = false)
     @Formats.DateTime(pattern="YYYY-MM-DD")
+    @Temporal(TemporalType.DATE)
     private Date dataFim;
 
     @Column(nullable = false, length = 80)

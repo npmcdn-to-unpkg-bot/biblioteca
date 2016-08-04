@@ -7,9 +7,7 @@ import play.data.validation.Constraints;
 import play.libs.Json;
 import views.validators.VideoFormData;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -29,10 +27,13 @@ public class Video extends Model {
     @Column(nullable = false, length = 400)
     private String url;
 
+    @Column(nullable = false)
     @Formats.DateTime(pattern="YYYY-MM-DD")
+    @Temporal(TemporalType.DATE)
     private Date dataCadastro;
 
     @Formats.DateTime(pattern="YYYY-MM-DD")
+    @Temporal(TemporalType.DATE)
     private Date dataAlteracao;
 
     public Video(){}

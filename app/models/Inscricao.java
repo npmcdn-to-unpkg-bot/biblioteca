@@ -7,10 +7,7 @@ import play.data.format.Formats;
 import play.libs.Json;
 import views.validators.InscricaoFormData;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -28,6 +25,8 @@ public class Inscricao extends Model {
     private Genero genero;
 
     @Column(nullable = false)
+    @Formats.DateTime(pattern="YYYY-MM-DD")
+    @Temporal(TemporalType.DATE)
     private Date dataNascimento;
 
     @ManyToOne
@@ -66,10 +65,13 @@ public class Inscricao extends Model {
     @Column(length = 60)
     private String descricaoFonte;
 
+    @Column(nullable = false)
     @Formats.DateTime(pattern="YYYY-MM-DD")
+    @Temporal(TemporalType.DATE)
     private Date dataInscricao;
 
     @Formats.DateTime(pattern="YYYY-MM-DD")
+    @Temporal(TemporalType.DATE)
     private Date dataAlteracao;
 
     public Inscricao(){
