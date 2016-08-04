@@ -5,4 +5,6 @@ angular.module('architectplay')
       //return $location.protocol() + '://' + $location.host() + ':9000';
       //return $location.protocol() + '://' + $location.host() + ':' + $location.port() + '/architectplay-1.0-SNAPSHOT';
       return $location.protocol() + '://' + $location.host() + ':' + $location.port();
+      //return $location.protocol() + '://' + $location.host() + ':' + $location.port() + $location.url();
+      //return $location.protocol() + '://' + $location.host() + ':' + $location.port() + $location.path('/someNewPath');
   });
