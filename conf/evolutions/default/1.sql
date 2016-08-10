@@ -7,6 +7,7 @@ create table artigo (
   id                        bigserial not null,
   titulo                    varchar(150) not null,
   resumo                    varchar(400) not null,
+  resumo2                   varchar(255),
   nome_arquivo              varchar(200) not null,
   data_cadastro             timestamp not null,
   data_alteracao            timestamp,
