@@ -12,7 +12,7 @@ angular
              'youtube-embed'
             ]
         )
-    .config(function ($routeProvider) {
+    .config(function ($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
                 templateUrl: '/assets/app/views/home.html',
@@ -126,6 +126,8 @@ angular
                 activetab: 'publicacoes'
             })
             .otherwise({redirectTo:'/'});
+        // use the HTML5 History API para carregar a url sem o #
+        //$locationProvider.html5Mode(true);
     }).config(function($httpProvider, cfpLoadingBarProvider) {
         // carrega o loading bar
         // true e o padrao, mas pode deixar false caso nao queira o loading bar
