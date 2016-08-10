@@ -1,5 +1,7 @@
 # Biblioteca Digital
 
+### [![Build Status](https://travis-ci.org/haroldoramirez/architectplay.svg?branch=master)](https://travis-ci.org/haroldoramirez/architectplay)
+
 ### Idiomas
 * Português, Espanhol e Inglês
 
