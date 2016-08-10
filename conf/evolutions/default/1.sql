@@ -4,10 +4,9 @@
 # --- !Ups
 
 create table artigo (
-  id                        bigserial not null,
+  id                        bigint not null,
   titulo                    varchar(150) not null,
   resumo                    varchar(400) not null,
-  resumo2                   varchar(255),
   nome_arquivo              varchar(200) not null,
   data_cadastro             timestamp not null,
   data_alteracao            timestamp,
@@ -15,7 +14,7 @@ create table artigo (
 ;
 
 create table contato (
-  id                        bigserial not null,
+  id                        bigint not null,
   nome                      varchar(60) not null,
   email                     varchar(60) not null,
   assunto                   varchar(30) not null,
@@ -25,7 +24,7 @@ create table contato (
 ;
 
 create table curso (
-  id                        bigserial not null,
+  id                        bigint not null,
   nome                      varchar(100) not null,
   descricao                 varchar(400) not null,
   data_inicio               timestamp not null,
@@ -35,13 +34,13 @@ create table curso (
 ;
 
 create table escolaridade (
-  id                        bigserial not null,
+  id                        bigint not null,
   nome                      varchar(30) not null,
   constraint pk_escolaridade primary key (id))
 ;
 
 create table evento (
-  id                        bigserial not null,
+  id                        bigint not null,
   nome                      varchar(100) not null,
   data_inicio               timestamp not null,
   data_fim                  timestamp not null,
@@ -52,19 +51,19 @@ create table evento (
 ;
 
 create table fonte (
-  id                        bigserial not null,
+  id                        bigint not null,
   nome                      varchar(30) not null,
   constraint pk_fonte primary key (id))
 ;
 
 create table genero (
-  id                        bigserial not null,
+  id                        bigint not null,
   nome                      varchar(14) not null,
   constraint pk_genero primary key (id))
 ;
 
 create table inscricao (
-  id                        bigserial not null,
+  id                        bigint not null,
   nome                      varchar(60) not null,
   genero_id                 bigint,
   data_nascimento           timestamp not null,
@@ -86,7 +85,7 @@ create table inscricao (
 ;
 
 create table livro (
-  id                        bigserial not null,
+  id                        bigint not null,
   titulo                    varchar(150) not null,
   sub_titulo                varchar(254) not null,
   isbn                      varchar(17),
@@ -103,13 +102,13 @@ create table livro (
 ;
 
 create table modalidade (
-  id                        bigserial not null,
+  id                        bigint not null,
   nome                      varchar(3) not null,
   constraint pk_modalidade primary key (id))
 ;
 
 create table noticia (
-  id                        bigserial not null,
+  id                        bigint not null,
   titulo                    varchar(250) not null,
   resumo                    varchar(400) not null,
   url                       varchar(400) not null,
@@ -120,13 +119,13 @@ create table noticia (
 ;
 
 create table pais (
-  id                        bigserial not null,
+  id                        bigint not null,
   nome                      varchar(50) not null,
   constraint pk_pais primary key (id))
 ;
 
 create table publicacao (
-  id                        bigserial not null,
+  id                        bigint not null,
   titulo                    varchar(250) not null,
   resumo                    varchar(400) not null,
   url                       varchar(400) not null,
@@ -147,7 +146,7 @@ create table token (
 ;
 
 create table usuario (
-  id                        bigserial not null,
+  id                        bigint not null,
   confirmacao_token         varchar(255),
   validado                  boolean,
   nome                      varchar(60) not null,
@@ -162,7 +161,7 @@ create table usuario (
 ;
 
 create table video (
-  id                        bigserial not null,
+  id                        bigint not null,
   titulo                    varchar(150) not null,
   descricao                 varchar(400) not null,
   url                       varchar(400) not null,
@@ -171,46 +170,114 @@ create table video (
   constraint pk_video primary key (id))
 ;
 
-alter table inscricao add constraint fk_inscricao_genero_1 foreign key (genero_id) references genero (id);
+create sequence artigo_seq;
+
+create sequence contato_seq;
+
+create sequence curso_seq;
+
+create sequence escolaridade_seq;
+
+create sequence evento_seq;
+
+create sequence fonte_seq;
+
+create sequence genero_seq;
+
+create sequence inscricao_seq;
+
+create sequence livro_seq;
+
+create sequence modalidade_seq;
+
+create sequence noticia_seq;
+
+create sequence pais_seq;
+
+create sequence publicacao_seq;
+
+create sequence token_seq;
+
+create sequence usuario_seq;
+
+create sequence video_seq;
+
+alter table inscricao add constraint fk_inscricao_genero_1 foreign key (genero_id) references genero (id) on delete restrict on update restrict;
 create index ix_inscricao_genero_1 on inscricao (genero_id);
-alter table inscricao add constraint fk_inscricao_escolaridade_2 foreign key (escolaridade_id) references escolaridade (id);
+alter table inscricao add constraint fk_inscricao_escolaridade_2 foreign key (escolaridade_id) references escolaridade (id) on delete restrict on update restrict;
 create index ix_inscricao_escolaridade_2 on inscricao (escolaridade_id);
-alter table inscricao add constraint fk_inscricao_pais_3 foreign key (pais_id) references pais (id);
+alter table inscricao add constraint fk_inscricao_pais_3 foreign key (pais_id) references pais (id) on delete restrict on update restrict;
 create index ix_inscricao_pais_3 on inscricao (pais_id);
 
 
 
 # --- !Downs
 
-drop table if exists artigo cascade;
+SET REFERENTIAL_INTEGRITY FALSE;
 
-drop table if exists contato cascade;
+drop table if exists artigo;
 
-drop table if exists curso cascade;
+drop table if exists contato;
 
-drop table if exists escolaridade cascade;
+drop table if exists curso;
 
-drop table if exists evento cascade;
+drop table if exists escolaridade;
 
-drop table if exists fonte cascade;
+drop table if exists evento;
 
-drop table if exists genero cascade;
+drop table if exists fonte;
 
-drop table if exists inscricao cascade;
+drop table if exists genero;
 
-drop table if exists livro cascade;
+drop table if exists inscricao;
 
-drop table if exists modalidade cascade;
+drop table if exists livro;
 
-drop table if exists noticia cascade;
+drop table if exists modalidade;
 
-drop table if exists pais cascade;
+drop table if exists noticia;
 
-drop table if exists publicacao cascade;
+drop table if exists pais;
 
-drop table if exists token cascade;
+drop table if exists publicacao;
 
-drop table if exists usuario cascade;
+drop table if exists token;
 
-drop table if exists video cascade;
+drop table if exists usuario;
+
+drop table if exists video;
+
+SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists artigo_seq;
+
+drop sequence if exists contato_seq;
+
+drop sequence if exists curso_seq;
+
+drop sequence if exists escolaridade_seq;
+
+drop sequence if exists evento_seq;
+
+drop sequence if exists fonte_seq;
+
+drop sequence if exists genero_seq;
+
+drop sequence if exists inscricao_seq;
+
+drop sequence if exists livro_seq;
+
+drop sequence if exists modalidade_seq;
+
+drop sequence if exists noticia_seq;
+
+drop sequence if exists pais_seq;
+
+drop sequence if exists publicacao_seq;
+
+drop sequence if exists token_seq;
+
+drop sequence if exists usuario_seq;
+
+drop sequence if exists video_seq;
 
