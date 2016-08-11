@@ -8,6 +8,7 @@ import jsmessages.JsMessagesFactory;
 import jsmessages.japi.Helper;
 import models.Usuario;
 import play.Logger;
+import play.Play;
 import play.libs.Scala;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -59,6 +60,12 @@ public class Application extends Controller {
      */
     public Result jsMessages() {
         return ok(jsMessages.apply(Scala.Option("window.Messages"), Helper.messagesFromCurrentHttpContext()));
+    }
+
+    public Result mudaIdioma(){
+        String lang = request().getQueryString("lang");
+        response().setCookie(Play.langCookieName(),lang);
+        return redirect(routes.Application.index());
     }
 
     /**

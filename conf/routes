@@ -4,6 +4,7 @@
 
 # Application
 GET     /                   controllers.Application.index()
+GET     /idioma             controllers.Application.mudaIdioma()
 GET     /sobre              controllers.Application.sobre()
 GET     /messages.js        controllers.Application.jsMessages()
 
