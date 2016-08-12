@@ -261,3 +261,19 @@
     max-width: 100%;
     margin: auto;
 }
+
+.publicacao-card-container {
+}
+
+.publicacao-card-container .mdl-card__media {
+    overflow: hidden;
+    background: transparent;
+}
+
+.publicacao-card-container .mdl-card__media img {
+    width: 100%;
+}
+
+.publicacao-card-container .mdl-card__actions {
+    position: inherit;
+}
