@@ -8,13 +8,13 @@ import com.github.play2war.plugin._
 Play2WarPlugin.play2WarSettings
 
 //Servlet 3.1: Tomcat 8, Wildfly 8, Glassfish 4, Jetty 9, ...
-//Play2WarKeys.servletVersion := "3.1"
+Play2WarKeys.servletVersion := "3.1"
 
 //Servlet 3.0: Tomcat 7, JBoss 7, JBoss EAP 6, Glassfish 3, Jetty 8, ...
 //Play2WarKeys.servletVersion := "3.0"
 
 //Servlet 2.5: Tomcat 6, JBoss AS 5/6, JBoss EAP 5, Glassfish 2, Jetty 7, ...
-Play2WarKeys.servletVersion := "2.5"
+//Play2WarKeys.servletVersion := "2.5"
 
 lazy val root = (project in file(".")).enablePlugins(PlayJava, PlayEbean)
 
