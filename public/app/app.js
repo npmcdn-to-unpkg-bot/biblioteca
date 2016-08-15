@@ -15,113 +15,113 @@ angular
     .config(function ($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: '/assets/app/views/home.html',
+                templateUrl: 'assets/app/views/home.html',
                 controller: 'home.controller',
                 activetab: 'home'
             })
             .when('/usuario/perfil', {
-                templateUrl: '/assets/app/views/usuarios/perfil.html',
+                templateUrl: 'assets/app/views/usuarios/perfil.html',
                 controller: 'usuario.perfil.controller',
                 activetab: 'usuarios'
             })
             .when('/livros', {
-                templateUrl: '/assets/app/views/livros/list.html',
+                templateUrl: 'assets/app/views/livros/list.html',
                 controller: 'livro.list.controller',
                 activetab: 'livros'
             })
             .when('/cursos', {
-                templateUrl: '/assets/app/views/cursos/list.html',
+                templateUrl: 'assets/app/views/cursos/list.html',
                 controller: 'curso.list.controller',
                 activetab: 'cursos'
             })
             .when('/artigos', {
-                templateUrl: '/assets/app/views/artigos/list.html',
+                templateUrl: 'assets/app/views/artigos/list.html',
                 controller: 'artigo.list.controller',
                 activetab: 'artigos'
             })
             .when('/videos', {
-                templateUrl: '/assets/app/views/videos/list.html',
+                templateUrl: 'assets/app/views/videos/list.html',
                 controller: 'video.list.controller',
                 activetab: 'videos'
             })
             .when('/fotos', {
-                templateUrl: '/assets/app/views/fotos/list.html',
+                templateUrl: 'assets/app/views/fotos/list.html',
                 controller: 'foto.controller',
                 activetab: 'fotos'
             })
             .when('/fotos/biometano', {
-                templateUrl: '/assets/app/views/fotos/biometano/list.html',
+                templateUrl: 'assets/app/views/fotos/biometano/list.html',
                 controller: 'foto.controller',
                 activetab: 'fotos'
             })
             .when('/fotos/granjahaacke', {
-                templateUrl: '/assets/app/views/fotos/granjahaacke/list.html',
+                templateUrl: 'assets/app/views/fotos/granjahaacke/list.html',
                 controller: 'foto.controller',
                 activetab: 'fotos'
             })
             .when('/fotos/laboratoriobiogas', {
-                templateUrl: '/assets/app/views/fotos/laboratoriobiogas/list.html',
+                templateUrl: 'assets/app/views/fotos/laboratoriobiogas/list.html',
                 controller: 'foto.controller',
                 activetab: 'fotos'
             })
             .when('/fotos/unidadesdeproducao', {
-                templateUrl: '/assets/app/views/fotos/unidadesdeproducao/list.html',
+                templateUrl: 'assets/app/views/fotos/unidadesdeproducao/list.html',
                 controller: 'foto.controller',
                 activetab: 'fotos'
             })
             .when('/direitos', {
-                templateUrl: '/assets/app/views/direito.html',
+                templateUrl: 'assets/app/views/direito.html',
                 controller: 'direito.controller',
                 activetab: 'direitos'
             })
             //Inicio das funcoes do menu biogas
             .when('/biogas/sobre', {
-                templateUrl: '/assets/app/views/biogas/sobre.html',
+                templateUrl: 'assets/app/views/biogas/sobre.html',
                 controller: 'sobre.controller',
                 activetab: 'sobre'
             })
             .when('/casos', {
-                templateUrl: '/assets/app/views/casos/list.html',
+                templateUrl: 'assets/app/views/casos/list.html',
                 controller: 'casos.controller',
                 activetab: 'casos'
             })
             .when('/ferramentas', {
-                templateUrl: '/assets/app/views/ferramentas/list.html',
+                templateUrl: 'assets/app/views/ferramentas/list.html',
                 controller: 'ferramentas.controller',
                 activetab: 'ferramentas'
             })
             .when('/ped', {
-                templateUrl: '/assets/app/views/ped/list.html',
+                templateUrl: 'assets/app/views/ped/list.html',
                 controller: 'ped.controller',
                 activetab: 'ped'
             })
             .when('/marcos', {
-                templateUrl: '/assets/app/views/marcos/list.html',
+                templateUrl: 'assets/app/views/marcos/list.html',
                 controller: 'marcos.controller',
                 activetab: 'marcos'
             })
             .when('/aspectos', {
-                templateUrl: '/assets/app/views/aspectos/list.html',
+                templateUrl: 'assets/app/views/aspectos/list.html',
                 controller: 'aspectos.controller',
                 activetab: 'aspectos'
             })
             .when('/registros', {
-                templateUrl: '/assets/app/views/registros/list.html',
+                templateUrl: 'assets/app/views/registros/list.html',
                 controller: 'registros.controller',
                 activetab: 'registros'
             })
             .when('/eventos', {
-                templateUrl: '/assets/app/views/eventos/list.html',
+                templateUrl: 'assets/app/views/eventos/list.html',
                 controller: 'evento.list.controller',
                 activetab: 'eventos'
             })
             .when('/noticias', {
-                templateUrl: '/assets/app/views/noticias/list.html',
+                templateUrl: 'assets/app/views/noticias/list.html',
                 controller: 'noticia.list.controller',
                 activetab: 'noticias'
             })
             .when('/publicacoes', {
-                templateUrl: '/assets/app/views/publicacoes/list.html',
+                templateUrl: 'assets/app/views/publicacoes/list.html',
                 controller: 'publicacao.list.controller',
                 activetab: 'publicacoes'
             })

@@ -31,7 +31,7 @@ libraryDependencies ++= Seq(
   "org.julienrf" %% "play-jsmessages" % "2.0.0",
   "org.webjars.bower" % "angularjs" % "1.5.8",
   "org.webjars" % "requirejs" % "2.1.11-1",
-  "io.swagger" %% "swagger-play2" % "1.5.1",
+  //"io.swagger" %% "swagger-play2" % "1.5.1",
   "org.webjars" %% "webjars-play" % "2.3.0-2"
 )
 

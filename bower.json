@@ -23,7 +23,8 @@
     "lightbox2": "^2.8.2",
     "angular-youtube-mb": "^1.2.0",
     "angular-google-maps": "^2.3.3",
-    "Ionicons": "ionicons#^2.0.1"
+    "Ionicons": "ionicons#^2.0.1",
+    "angular-ui-router": "^0.3.1"
   },
   "devDependencies": {
     "angular-mocks": "~1.3",

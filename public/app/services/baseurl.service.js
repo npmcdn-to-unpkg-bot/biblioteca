@@ -3,8 +3,9 @@ angular.module('architectplay')
      //return 'http://' + $location.host() + ':9000';
       //return 'https://' + $location.host() + ':9000';
       //return $location.protocol() + '://' + $location.host() + ':9000';
-      //return $location.protocol() + '://' + $location.host() + ':' + $location.port() + '/architectplay-1.0-SNAPSHOT/';
+      //return $location.protocol() + '://' + $location.host() + ':' + $location.port() + '/architectplay-1.0-SNAPSHOT';
       return $location.protocol() + '://' + $location.host() + ':' + $location.port();
       //return $location.protocol() + '://' + $location.host() + ':' + $location.port() + $location.url('/architectplay-1.0-SNAPSHOT');
       //return $location.protocol() + '://' + $location.host() + ':' + $location.port() + $location.path('/architectplay-1.0-SNAPSHOT');
+      //return $location.protocol() + '://' + 'architectplay-1.0-SNAPSHOT' + ':' + $location.port();
   });
