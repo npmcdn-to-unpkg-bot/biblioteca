@@ -16,7 +16,7 @@
   See the License for the specific language governing permissions and
   limitations under the License
 -->
-<html>
+<html ng-app="architectplay">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -80,12 +80,12 @@
     <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/home.css")">
     @*<base href="/"> para remover a hashtag da url*@
 </head>
-<body ng-app="architectplay">
+<body>
 <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     <header ng-controller="topmenu" class="demo-header mdl-layout__header mdl-color--deep-orange-cibiogas mdl-color-text--white">
         <div class="mdl-layout__header-row">
             <span class="esconde-celular">
-                <a class="mdl-navigation__link mdl-layout-title" href="/#/">@Messages("app.title")</a>
+                <a ui-sref="home" class="mdl-navigation__link mdl-layout-title">@Messages("app.title")</a>
             </span>
             <div class="mdl-layout-spacer"></div>
                 @*Menu superior*@
@@ -133,12 +133,12 @@
     @*menu gaveta*@
     <div ng-controller="drawer" class="demo-drawer mdl-layout__drawer examples">
             <header class="demo-drawer-header">
-                <a href="/#/"><img src="@routes.Assets.versioned("images/CIBiogas_logo.png")"></a>
+                <a ui-sref="home"><img src="@routes.Assets.versioned("images/CIBiogas_logo.png")"></a>
             </header>
         <nav class="demo-navigation mdl-navigation mdl-color--white">
-            <a ng-class="{active: $route.current.activetab == 'home'}" class="mdl-navigation__link" href="/#/"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">home</i> @Messages("menu.1")</a>
+            <a ui-sref="home" ng-class="{active:$state.includes('home')}" class="mdl-navigation__link"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">home</i> @Messages("menu.1")</a>
             <a ng-class="{active: $route.current.activetab == 'cursos'}" class="mdl-navigation__link" href="/#/cursos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">school</i> @Messages("menu.2")</a>
-            <a ng-class="{active: $route.current.activetab == 'eventos'}" class="mdl-navigation__link" href="/#/eventos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">event</i> @Messages("menu.biogas.9")</a>
+            <a ui-sref="eventos" ng-class="{active:$state.includes('eventos')}" class="mdl-navigation__link" ><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">event</i> @Messages("menu.biogas.9")</a>
             <div class="separador"></div>
             @if(username){
                 <a ng-class="{active: $route.current.activetab == 'artigos'}" class="mdl-navigation__link" href="/#/artigos"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">book</i>@Messages("menu.4")</a>
@@ -171,9 +171,10 @@
 
     @*precisa pra carregar a content corretamente*@
     <main class="mdl-layout__content mdl-color--grey-100">
-        <div ng-view="">
+        @*<div ng-view="">*@
 
-        </div>
+        @*</div>*@
+        <div ui-view></div>
         <footer class="mdl-mini-footer mdl-color--grey-200">
             <div class="mdl-mini-footer__left-section">
                 <ul class="mdl-mini-footer__link-list">
@@ -205,7 +206,9 @@
 
     @*Angular*@
 <script src="@routes.Assets.versioned("bower_components/angular/angular.js")" type="text/javascript"></script>
-<script src="@routes.Assets.versioned("bower_components/angular-route/angular-route.js")" type="text/javascript"></script>
+@*<script src="@routes.Assets.versioned("bower_components/angular-route/angular-route.js")" type="text/javascript"></script>*@
+
+    <script src="@routes.Assets.versioned("bower_components/angular-ui-router/release/angular-ui-router.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("bower_components/angular-resource/angular-resource.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("bower_components/angular-aria/angular-aria.js")" type="text/javascript"></script>
 <script src="@routes.Assets.versioned("bower_components/angular-animate/angular-animate.js")" type="text/javascript"></script>
@@ -243,7 +246,7 @@
 
     @*Configuracao do endereco da aplicacao e as rotas implementadas*@
 <script src="@routes.Assets.versioned("app/services/address.service.js")" type="text/javascript"></script>
-<script src="@routes.Assets.versioned("app/services/baseurl.service.js")" type="text/javascript"></script>
+@*<script src="@routes.Assets.versioned("app/services/baseurl.service.js")" type="text/javascript"></script>*@
 
     @*Controllers*@
 <script src="@routes.Assets.versioned("app/controllers/drawer.controller.js")" type="text/javascript"></script>

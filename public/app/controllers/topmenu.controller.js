@@ -1,7 +1,7 @@
 angular.module('architectplay')
-    .controller('topmenu', function ($scope, $route) {
+    .controller('topmenu', function () {
 
-        //para funcionar o selected do menu através do ngRoute
-        $scope.$route = $route;
+    //para funcionar o selected do menu através do ngRoute
+    //$scope.$route = $route;
 
-    });
+});

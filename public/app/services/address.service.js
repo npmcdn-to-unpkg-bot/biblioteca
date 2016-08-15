@@ -27,11 +27,11 @@ angular.module('architectplay')
             getAll: {method: 'GET', url: BaseUrl + '/livros', isArray: true},
             getFiltroLivros: {method: 'GET', url: BaseUrl + '/livros/filtro/:filtro', isArray: true}
         });
-    }]).service('Evento',['$resource', 'BaseUrl',
-    function($resource, BaseUrl){
-        return $resource(BaseUrl + '/evento/:id', {}, {
-            getAll: {method: 'GET', url: BaseUrl + '/eventos', isArray: true},
-            getFiltroEventos: {method: 'GET', url: BaseUrl + '/eventos/filtro/:filtro', isArray: true}
+    }]).service('Evento',['$resource',
+    function($resource){
+        return $resource('evento/:id', {}, {
+            getAll: {method: 'GET', url: 'eventos', isArray: true},
+            getFiltroEventos: {method: 'GET', url: 'eventos/filtro/:filtro', isArray: true}
         });
     }]).service('Video',['$resource', 'BaseUrl',
     function($resource, BaseUrl){
