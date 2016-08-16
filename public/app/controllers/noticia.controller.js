@@ -5,7 +5,7 @@ angular.module('architectplay')
             Noticia.getAll(function(data) {
                 $scope.noticias = data;
             }, function() {
-                toastr.error('Não autorizado.');
+                toastr.error(Messages('app.error'));
             });
         };
         

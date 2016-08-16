@@ -15,7 +15,7 @@ angular.module('architectplay')
                     return moment(data).format('L').split('/')[0];
                 };
             }, function() {
-                toastr.error('Não autorizado.');
+                toastr.error(Messages('app.error'));
             });
         };
     });

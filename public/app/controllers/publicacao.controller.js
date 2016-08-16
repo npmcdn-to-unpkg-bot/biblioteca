@@ -4,7 +4,7 @@ angular.module('architectplay')
             Publicacao.getAll(function(data) {
                 $scope.publicacoes = data;
             }, function() {
-                toastr.error('Não autorizado.');
+                toastr.error(Messages('app.error'));
             });
         };
     });

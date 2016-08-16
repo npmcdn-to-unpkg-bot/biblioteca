@@ -20,7 +20,82 @@ $scope.fakeIntro = false;
 retirado do home.controller para lembrar
 
 ---------------------------------------------
+retirado dos menus controllers
 
     //para funcionar o selected do menu através do ngRoute
     //$scope.$route = $route;
 
+---------------------------------------------------------------
+
+retirado do app.js
+
+ // diretiva para quando a pessoa pressionar o enter no campo busca
+   }).directive('myEnter', function () {
+        return function (scope, element, attrs) {
+            element.bind("keydown keypress", function (event) {
+                if(event.which === 13) {
+                    scope.$apply(function (){
+                        scope.$eval(attrs.myEnter);
+                    });
+                    event.preventDefault();
+                }
+            });
+        };
+   //diretiva que ao realizar um click no botao ele e desativado disabled class
+   }).directive('clickOnce', function($timeout) {
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+                var replacementText = attrs.clickOnce;
+                element.bind('click', function() {
+                    $timeout(function() {
+                        if (replacementText) {
+                            element.html(replacementText);
+                        }
+                        element.attr('disabled', true);
+                    }, 0);
+                });
+            }
+        };
+   //configuracao do dialogo quando o admin deseja excluir um usuario por exemplo
+   }).config(['ngDialogProvider', function (ngDialogProvider) {
+        ngDialogProvider.setDefaults({
+            showClose: false,
+            closeByDocument: false,
+            closeByEscape: false,
+            className: 'ngdialog-theme-default'
+        });
+   //outra diretiva que ao realizar um click no botao ele e desativado disabled class
+   }]).directive('clickAndDisable', function() {
+        return {
+            scope: {
+                clickAndDisable: '&'
+            },
+            link: function(scope, iElement, iAttrs) {
+                iElement.bind('click', function() {
+                    iElement.prop('disabled',true);
+                    scope.clickAndDisable().finally(function() {
+                        iElement.prop('disabled',false);
+                    })
+                });
+            }
+        };
+
+        ------------------------
+
+
+        antiga base url
+
+        angular.module('architectplay')
+          .factory('BaseUrl', function($location) {
+             //return 'http://' + $location.host() + ':9000';
+              //return 'https://' + $location.host() + ':9000';
+              //return $location.protocol() + '://' + $location.host() + ':9000';
+              //return $location.protocol() + '://' + $location.host() + ':' + $location.port() + '/architectplay-1.0-SNAPSHOT';
+              //return $location.protocol() + '://' + $location.host() + ':' + $location.port();
+              //return $location.protocol() + '://' + $location.host() + ':' + $location.port() + $location.url('/architectplay-1.0-SNAPSHOT');
+              //return $location.protocol() + '://' + $location.host() + ':' + $location.port() + $location.path('/architectplay-1.0-SNAPSHOT');
+              //return $location.protocol() + '://' + 'architectplay-1.0-SNAPSHOT' + ':' + $location.port();
+          });
+
+        ---------------------------

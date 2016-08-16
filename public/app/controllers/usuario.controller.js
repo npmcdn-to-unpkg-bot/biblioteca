@@ -7,7 +7,7 @@ angular.module('architectplay')
       Usuario.getAutenticado(function(data) {
           $rootScope.usuario = data;
           $scope.mostrar = true;
-       },function(data) {
+       },function() {
             $scope.mostrar = false;
             toastr.error(Messages('client.error'));
          });
@@ -21,7 +21,7 @@ angular.module('architectplay')
        };
 
        $scope.sim = function() {
-          Usuario.reset(function(data) {
+          Usuario.reset(function() {
             toastr.success(Messages('client.send.email.message'));
             $scope.closeThisDialog('Fechar');
             },function(data) {

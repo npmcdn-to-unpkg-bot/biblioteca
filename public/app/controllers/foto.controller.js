@@ -7,6 +7,6 @@ angular.module('architectplay')
             $scope.mostrar = true;
         },function() {
             $scope.mostrar = false;
-            toastr.error('Não autorizado');
+            toastr.error(Messages('app.error'));
         });
 });

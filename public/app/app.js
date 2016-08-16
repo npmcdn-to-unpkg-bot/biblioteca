@@ -13,15 +13,14 @@ angular
             ]
         )
     .config(function ($stateProvider, $urlRouterProvider) {
-        //
-        // For any unmatched url, redirect to /
+
         $urlRouterProvider.otherwise("/");
-        //
-        // Now set up the states
+
         $stateProvider
             .state('home', {
                 url: "/",
-                templateUrl: 'assets/app/views/home.html'
+                templateUrl: 'assets/app/views/home.html',
+                controller: 'home.controller'
             })
             .state('usuarios', {
                 url: "/usuario/perfil",
@@ -128,15 +127,9 @@ angular
                 templateUrl: 'assets/app/views/publicacoes/list.html',
                 controller: 'publicacao.list.controller'
             });
-        
-        // use the HTML5 History API para carregar a url sem o #
-        //$locationProvider.html5Mode(true);
     }).config(function($httpProvider, cfpLoadingBarProvider) {
-        // carrega o loading bar
-        // true e o padrao, mas pode deixar false caso nao queira o loading bar
         cfpLoadingBarProvider.includeSpinner = false;
     }).config(function(toastrConfig) {
-       //configurações do toastr
         angular.extend(toastrConfig, {
             positionClass: 'toast-bottom-right',
             allowHtml: false,
@@ -163,20 +156,15 @@ angular
             titleClass: 'toast-title',
             toastClass: 'toast'
        });
-   // diretiva para quando a pessoa pressionar o enter no campo busca
-   }).directive('myEnter', function () {
-        return function (scope, element, attrs) {
-            element.bind("keydown keypress", function (event) {
-                if(event.which === 13) {
-                    scope.$apply(function (){
-                        scope.$eval(attrs.myEnter);
-                    });
-                    event.preventDefault();
-                }
-            });
-        };
-   //diretiva que ao realizar um click no botao ele e desativado disabled class
-   }).directive('clickOnce', function($timeout) {
+    }).run(function ($rootScope) {
+        $rootScope.$on('$viewContentLoaded', function upgradeAllRegistered() {
+            componentHandler.upgradeAllRegistered();
+        });
+    }).run(function ($rootScope) {
+        $rootScope.Messages = window.Messages;
+    }).run(function($rootScope, $state) {
+        $rootScope.$state = $state;
+    }).directive('clickOnce', function($timeout) {
         return {
             restrict: 'A',
             link: function(scope, element, attrs) {
@@ -191,40 +179,4 @@ angular
                 });
             }
         };
-   //configuracao do dialogo quando o admin deseja excluir um usuario por exemplo
-   }).config(['ngDialogProvider', function (ngDialogProvider) {
-        ngDialogProvider.setDefaults({
-            showClose: false,
-            closeByDocument: false,
-            closeByEscape: false,
-            className: 'ngdialog-theme-default'
-        });
-   //outra diretiva que ao realizar um click no botao ele e desativado disabled class
-   }]).directive('clickAndDisable', function() {
-        return {
-            scope: {
-                clickAndDisable: '&'
-            },
-            link: function(scope, iElement, iAttrs) {
-                iElement.bind('click', function() {
-                    iElement.prop('disabled',true);
-                    scope.clickAndDisable().finally(function() {
-                        iElement.prop('disabled',false);
-                    })
-                });
-            }
-        };
-    // se tirar esse .run as funções do material design lite
-    //não carrega corretamente na página, precisa apertar f5 várias vezes
-   }).run(function ($rootScope) {
-    $rootScope.$on('$viewContentLoaded', function upgradeAllRegistered() {
-        componentHandler.upgradeAllRegistered();
     });
-    // necessario para utilizar as mensagens do internacionalization do play, isso faz com que seja reaproveitado a parte os arquivos messages
-}).run(function ($rootScope) {
-    //Put the jsMessage function in the root scope in order to be able to call
-    //{{ Messages('my.messages') }} from the templates.
-    $rootScope.Messages = window.Messages;
-}).run(function($rootScope, $state) {
-    $rootScope.$state = $state;
-});

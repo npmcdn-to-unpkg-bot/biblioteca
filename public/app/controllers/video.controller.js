@@ -4,7 +4,7 @@ angular.module('architectplay')
             Video.getAll(function(data) {
                 $scope.videos = data;
             }, function() {
-                toastr.error('Não autorizado.');
+                toastr.error(Messages('app.error'));
             });
         };
 });

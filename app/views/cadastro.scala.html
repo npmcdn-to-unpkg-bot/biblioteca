@@ -2,6 +2,7 @@
 
 @import helper._
 @import templates.mdl._
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,9 +28,9 @@
                 <div class="mdl-card__supporting-text">
 
                     @if(formPreenchido.hasGlobalErrors) {
-                    <p align="center" class="login-message">
-                        @formPreenchido.globalError.message
-                    </p>
+                        <p align="center" class="login-message">
+                            @formPreenchido.globalError.message
+                        </p>
                     }
 
                     <!-- Nome -->

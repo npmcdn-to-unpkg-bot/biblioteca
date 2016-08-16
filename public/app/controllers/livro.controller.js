@@ -8,7 +8,7 @@ angular.module('architectplay')
             $scope.livros = data;
             $scope.quantidade = $scope.livros.length;
         }, function() {
-            toastr.error('Não autorizado.');
+            toastr.error(Messages('app.error'));
         });
     };
 });

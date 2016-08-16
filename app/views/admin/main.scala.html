@@ -51,7 +51,7 @@
                     <li @if(request.uri == "/sobre"){ class="active" } class="dropdown">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Opções <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/#/">Home</a></li>
+                            <li><a href="@routes.Application.index">Home</a></li>
                             <li @if(request.uri == "/sobre"){ class="active" }><a href="@routes.Application.sobre">Sobre</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="@routes.LoginController.logout">Sair</a></li>

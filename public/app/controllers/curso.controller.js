@@ -4,7 +4,7 @@ angular.module('architectplay')
           Curso.getAll(function(data) {
               $scope.cursos = data;
           }, function() {
-              toastr.error('Não autorizado.');
+              toastr.error(Messages('app.error'));
           });
       };
 });
