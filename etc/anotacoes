@@ -1,7 +1,0 @@
-1 - Quando é carregado a página de videos do youtube aparece erros no console mas é quando o navegador não tem instalado o chrome-cast e outros erros ocorre pois o adblock esta ativado.
-
-2 - Erros baseUrl
-
-404 - https://sheltered-wave-98757.herokuapp.com/sheltered-wave-98757.herokuapp.com:9000/eventos -> quando eu modifico o arquivo para      return '/' $location.host() + ':9000';
-
-3 - Erro
