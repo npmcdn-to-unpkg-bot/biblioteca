@@ -1,12 +1,9 @@
 angular.module('architectplay')
-  .controller('curso.list.controller', function ($scope, $rootScope, Curso, toastr, $routeParams, $location) {
-       // $rootScope.title = Messages('menu.top.title.2');
-      
+  .controller('curso.list.controller', function ($scope, Curso, toastr) {
       $scope.init = function() {
           Curso.getAll(function(data) {
               $scope.cursos = data;
-          }, function(data) {
-              $location.path('/');
+          }, function() {
               toastr.error('Não autorizado.');
           });
       };

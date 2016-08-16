@@ -1,8 +1,5 @@
 angular.module('architectplay')
-    .controller('evento.list.controller', function ($scope, Evento, toastr, $location) {
-
-        // $rootScope.title = Messages('menu.top.title.4');
-
+    .controller('evento.list.controller', function ($scope, Evento, toastr) {
         $scope.init = function() {
             Evento.getAll(function(data) {
                 $scope.eventos = data;
@@ -18,7 +15,6 @@ angular.module('architectplay')
                     return moment(data).format('L').split('/')[0];
                 };
             }, function() {
-                $location.path('/');
                 toastr.error('Não autorizado.');
             });
         };

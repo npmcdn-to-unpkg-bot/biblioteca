@@ -1,8 +1,6 @@
 angular.module('architectplay')
-    .controller('usuario.perfil.controller', function ($scope, $rootScope, $routeParams, $location, Usuario, toastr, ngDialog) {
-
-    // $rootScope.title = Messages('menu.top.title.17');
-
+    .controller('usuario.perfil.controller', function ($scope, $rootScope, Usuario, toastr, ngDialog) {
+        
     $scope.mostrar = false;
 
     $scope.init = function() {
@@ -11,7 +9,6 @@ angular.module('architectplay')
           $scope.mostrar = true;
        },function(data) {
             $scope.mostrar = false;
-            $location.path('/');
             toastr.error(Messages('client.error'));
          });
        };

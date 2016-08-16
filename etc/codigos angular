@@ -1,0 +1,26 @@
+// $rootScope.title = Messages('menu.top.title.1');
+
+// fake the initial load so first time users can see the bar right away:
+/*$scope.start = function() {
+cfpLoadingBar.start();
+};
+
+$scope.complete = function () {
+cfpLoadingBar.complete();
+};
+
+//fake the initial load so first time users can see the bar right away:
+$scope.start();
+$scope.fakeIntro = true;
+$timeout(function() {
+$scope.complete();
+$scope.fakeIntro = false;
+}, 9000);*/
+
+retirado do home.controller para lembrar
+
+---------------------------------------------
+
+    //para funcionar o selected do menu através do ngRoute
+    //$scope.$route = $route;
+

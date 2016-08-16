@@ -1,15 +1,12 @@
 angular.module('architectplay')
-    .controller('foto.controller', function ($scope, $rootScope, Usuario, toastr, $location) {
-        // $rootScope.title = Messages('menu.top.title.7');
-
+    .controller('foto.controller', function ($scope, $rootScope, Usuario, toastr) {
         $scope.mostrar = false;
 
         Usuario.getAutenticado(function(data) {
             $rootScope.usuario = data;
             $scope.mostrar = true;
-        },function(data) {
+        },function() {
             $scope.mostrar = false;
-            $location.path('/');
             toastr.error('Não autorizado');
         });
 });

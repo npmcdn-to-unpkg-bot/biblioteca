@@ -1,56 +1,56 @@
 angular.module('architectplay')
-    .service('Usuario',['$resource', 'BaseUrl',
-      function($resource, BaseUrl){
-        return $resource(BaseUrl + '/usuario/:id', {}, {
-            cadastrar: {method: 'POST', url: BaseUrl + '/usuario/cadastrar', isArray: false},
-            update: {method: 'PUT', url: BaseUrl + '/usuario/:id', isArray: false},
-            getAll: {method: 'GET', url: BaseUrl + '/usuarios', isArray: true},
-            reset: {method: 'POST', url: BaseUrl + '/reset/senha', isArray: false},
-            getFiltroUsuarios: {method: 'GET', url: BaseUrl + '/usuarios/filtro/:filtro', isArray: true},
-            getAutenticado: {method: 'GET', url: BaseUrl + '/current', isArray: false}
+    .service('Usuario',['$resource',
+      function($resource){
+        return $resource('usuario/:id', {}, {
+            cadastrar: {method: 'POST', url: 'usuario/cadastrar', isArray: false},
+            update: {method: 'PUT', url: 'usuario/:id', isArray: false},
+            getAll: {method: 'GET', url: 'usuarios', isArray: true},
+            reset: {method: 'POST', url: 'reset/senha', isArray: false},
+            getFiltroUsuarios: {method: 'GET', url: 'usuarios/filtro/:filtro', isArray: true},
+            getAutenticado: {method: 'GET', url: 'current', isArray: false}
         });
-    }]).service('Contato',['$resource', 'BaseUrl',
-      function($resource, BaseUrl){
-        return $resource(BaseUrl + '/contato/:id', {}, {
-            getAll: {method: 'GET', url: BaseUrl + '/contatos', isArray: true},
-            getFiltroContatos: {method: 'GET', url: BaseUrl + '/contatos/filtro/:filtro', isArray: true}
+    }]).service('Contato',['$resource',
+      function($resource){
+        return $resource('contato/:id', {}, {
+            getAll: {method: 'GET', url: 'contatos', isArray: true},
+            getFiltroContatos: {method: 'GET', url: 'contatos/filtro/:filtro', isArray: true}
         });
-    }]).service('Artigo',['$resource', 'BaseUrl',
-      function($resource, BaseUrl){
-        return $resource(BaseUrl + '/artigo/:id', {}, {
-            getAll: {method: 'GET', url: BaseUrl + '/artigos', isArray: true},
-            getFiltroArtigos: {method: 'GET', url: BaseUrl + '/artigos/filtro/:filtro', isArray: true}
+    }]).service('Artigo',['$resource',
+      function($resource){
+        return $resource('artigo/:id', {}, {
+            getAll: {method: 'GET', url: 'artigos', isArray: true},
+            getFiltroArtigos: {method: 'GET', url: 'artigos/filtro/:filtro', isArray: true}
         });
-    }]).service('Livro',['$resource', 'BaseUrl',
-      function($resource, BaseUrl){
-        return $resource(BaseUrl + '/livro/:id', {}, {
-            getAll: {method: 'GET', url: BaseUrl + '/livros', isArray: true},
-            getFiltroLivros: {method: 'GET', url: BaseUrl + '/livros/filtro/:filtro', isArray: true}
+    }]).service('Livro',['$resource',
+      function($resource){
+        return $resource('livro/:id', {}, {
+            getAll: {method: 'GET', url: 'livros', isArray: true},
+            getFiltroLivros: {method: 'GET', url: 'livros/filtro/:filtro', isArray: true}
         });
     }]).service('Evento',['$resource',
-    function($resource){
-        return $resource('evento/:id', {}, {
-            getAll: {method: 'GET', url: 'eventos', isArray: true},
-            getFiltroEventos: {method: 'GET', url: 'eventos/filtro/:filtro', isArray: true}
-        });
-    }]).service('Video',['$resource', 'BaseUrl',
-    function($resource, BaseUrl){
-        return $resource(BaseUrl + '/video/:id', {}, {
-            getAll: {method: 'GET', url: BaseUrl + '/videos', isArray: true}
-        });
-    }]).service('Curso',['$resource', 'BaseUrl',
-    function($resource, BaseUrl){
-        return $resource(BaseUrl + '/curso/:id', {}, {
-            getAll: {method: 'GET', url: BaseUrl + '/cursos', isArray: true}
-        });
-    }]).service('Noticia',['$resource', 'BaseUrl',
-    function($resource, BaseUrl){
-        return $resource(BaseUrl + '/noticia/:id', {}, {
-            getAll: {method: 'GET', url: BaseUrl + '/noticias', isArray: true}
-        });
-    }]).service('Publicacao',['$resource', 'BaseUrl',
-    function($resource, BaseUrl){
-        return $resource(BaseUrl + '/publicacao/:id', {}, {
-            getAll: {method: 'GET', url: BaseUrl + '/publicacoes', isArray: true}
-        });
+        function($resource){
+            return $resource('evento/:id', {}, {
+                getAll: {method: 'GET', url: 'eventos', isArray: true},
+                getFiltroEventos: {method: 'GET', url: 'eventos/filtro/:filtro', isArray: true}
+            });
+    }]).service('Video',['$resource',
+        function($resource){
+            return $resource('video/:id', {}, {
+                getAll: {method: 'GET', url: 'videos', isArray: true}
+            });
+    }]).service('Curso',['$resource',
+        function($resource){
+            return $resource('curso/:id', {}, {
+                getAll: {method: 'GET', url: 'cursos', isArray: true}
+            });
+    }]).service('Noticia',['$resource',
+        function($resource){
+            return $resource('noticia/:id', {}, {
+                getAll: {method: 'GET', url: 'noticias', isArray: true}
+            });
+    }]).service('Publicacao',['$resource',
+        function($resource){
+            return $resource('publicacao/:id', {}, {
+                getAll: {method: 'GET', url: 'publicacoes', isArray: true}
+            });
     }]);

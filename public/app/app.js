@@ -14,7 +14,7 @@ angular
         )
     .config(function ($stateProvider, $urlRouterProvider) {
         //
-        // For any unmatched url, redirect to /state1
+        // For any unmatched url, redirect to /
         $urlRouterProvider.otherwise("/");
         //
         // Now set up the states
@@ -23,12 +23,112 @@ angular
                 url: "/",
                 templateUrl: 'assets/app/views/home.html'
             })
+            .state('usuarios', {
+                url: "/usuario/perfil",
+                templateUrl: 'assets/app/views/usuarios/perfil.html',
+                controller: 'usuario.perfil.controller'
+            })
+            .state('livros', {
+                url: "/livros",
+                templateUrl: 'assets/app/views/livros/list.html',
+                controller: 'livro.list.controller'
+            })
+            .state('cursos', {
+                url: "/cursos",
+                templateUrl: 'assets/app/views/cursos/list.html',
+                controller: 'curso.list.controller'
+            })
+            .state('artigos', {
+                url: "/artigos",
+                templateUrl: 'assets/app/views/artigos/list.html',
+                controller: 'artigo.list.controller'
+            })
+            .state('videos', {
+                url: "/videos",
+                templateUrl: 'assets/app/views/videos/list.html',
+                controller: 'video.list.controller'
+            })
+            .state('fotos', {
+                url: "/fotos",
+                templateUrl: 'assets/app/views/fotos/list.html',
+                controller: 'foto.controller'
+            })
+            .state('fotos/biometano', {
+                url: "/fotos/biometano",
+                templateUrl: 'assets/app/views/fotos/biometano/list.html',
+                controller: 'foto.controller'
+            })
+            .state('fotos/granjahaacke', {
+                url: "/fotos/granjahaacke",
+                templateUrl: 'assets/app/views/fotos/granjahaacke/list.html',
+                controller: 'foto.controller'
+            })
+            .state('fotos/laboratoriobiogas', {
+                url: "/fotos/laboratoriobiogas",
+                templateUrl: 'assets/app/views/fotos/laboratoriobiogas/list.html',
+                controller: 'foto.controller'
+            })
+            .state('fotos/unidadesdeproducao', {
+                url: "/fotos/unidadesdeproducao",
+                templateUrl: 'assets/app/views/fotos/unidadesdeproducao/list.html',
+                controller: 'foto.controller'
+            })
+            .state('direitos', {
+                url: "/direitos",
+                templateUrl: 'assets/app/views/direito.html',
+                controller: 'direito.controller'
+            })
+            .state('biogas/sobre', {
+                url: "/biogas/sobre",
+                templateUrl: 'assets/app/views/biogas/sobre.html',
+                controller: 'sobre.controller'
+            })
+            .state('casos', {
+                url: "/casos",
+                templateUrl: 'assets/app/views/casos/list.html',
+                controller: 'casos.controller'
+            })
+            .state('ferramentas', {
+                url: "/ferramentas",
+                templateUrl: 'assets/app/views/ferramentas/list.html',
+                controller: 'ferramentas.controller'
+            })
+            .state('ped', {
+                url: "/ped",
+                templateUrl: 'assets/app/views/ped/list.html',
+                controller: 'ped.controller'
+            })
+            .state('marcos', {
+                url: "/marcos",
+                templateUrl: 'assets/app/views/marcos/list.html',
+                controller: 'marcos.controller'
+            })
+            .state('aspectos', {
+                url: "/aspectos",
+                templateUrl: 'assets/app/views/aspectos/list.html',
+                controller: 'aspectos.controller'
+            })
+            .state('registros', {
+                url: "/registros",
+                templateUrl: 'assets/app/views/registros/list.html',
+                controller: 'registros.controller'
+            })
             .state('eventos', {
                 url: "/eventos",
                 templateUrl: 'assets/app/views/eventos/list.html',
                 controller: 'evento.list.controller'
+            })
+            .state('noticias', {
+                url: "/noticias",
+                templateUrl: 'assets/app/views/noticias/list.html',
+                controller: 'noticia.list.controller'
+            })
+            .state('publicacoes', {
+                url: "/publicacoes",
+                templateUrl: 'assets/app/views/publicacoes/list.html',
+                controller: 'publicacao.list.controller'
             });
-
+        
         // use the HTML5 History API para carregar a url sem o #
         //$locationProvider.html5Mode(true);
     }).config(function($httpProvider, cfpLoadingBarProvider) {
@@ -127,4 +227,4 @@ angular
     $rootScope.Messages = window.Messages;
 }).run(function($rootScope, $state) {
     $rootScope.$state = $state;
-})
+});

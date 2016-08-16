@@ -1,8 +1,5 @@
 angular.module('architectplay')
-    .controller('livro.list.controller', function ($scope, $rootScope, Livro, toastr, $location) {
-
-    // $rootScope.title = Messages('menu.top.title.5');
-
+    .controller('livro.list.controller', function ($scope, Livro, toastr) {
     $scope.init = function() {
         $scope.nomeFiltro = '';
         $scope.filtrados = 0;
@@ -10,8 +7,7 @@ angular.module('architectplay')
         Livro.getAll(function(data) {
             $scope.livros = data;
             $scope.quantidade = $scope.livros.length;
-        }, function(data) {
-            $location.path('/');
+        }, function() {
             toastr.error('Não autorizado.');
         });
     };

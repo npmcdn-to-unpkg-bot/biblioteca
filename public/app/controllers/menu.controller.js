@@ -1,4 +1,4 @@
 angular.module('architectplay')
-  .controller('menu', function ($scope) {
+  .controller('menu', function () {
 
 });
