@@ -142,7 +142,7 @@
             @if(username){
                 <a ui-sref="artigos" ng-class="{active:$state.includes('artigos')}" class="mdl-navigation__link"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">book</i>@Messages("menu.4")</a>
                 <a ui-sref="videos" ng-class="{active:$state.includes('videos')}" class="mdl-navigation__link"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">video_library</i>@Messages("menu.6")</a>
-                <a ui-sref="fotos" ng-class="{active:$state.includes('fotos')}" class="mdl-navigation__link"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">photo_camera</i>@Messages("menu.7")</a>
+                <a ui-sref="fotos" ng-class="{active:$state.current.activetab == 'fotos'}" class="mdl-navigation__link"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">photo_camera</i>@Messages("menu.7")</a>
                 <div class="separador"></div>
             }
             <a ui-sref="noticias" ng-class="{active:$state.includes('noticias')}" class="mdl-navigation__link"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">public</i>@Messages("menu.biogas.10")</a>

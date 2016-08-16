@@ -50,27 +50,32 @@ angular
             .state('fotos', {
                 url: "/fotos",
                 templateUrl: 'assets/app/views/fotos/list.html',
-                controller: 'foto.controller'
+                controller: 'foto.controller',
+                activetab: 'fotos'
             })
             .state('fotos/biometano', {
                 url: "/fotos/biometano",
                 templateUrl: 'assets/app/views/fotos/biometano/list.html',
-                controller: 'foto.controller'
+                controller: 'foto.controller',
+                activetab: 'fotos'
             })
             .state('fotos/granjahaacke', {
                 url: "/fotos/granjahaacke",
                 templateUrl: 'assets/app/views/fotos/granjahaacke/list.html',
-                controller: 'foto.controller'
+                controller: 'foto.controller',
+                activetab: 'fotos'
             })
             .state('fotos/laboratoriobiogas', {
                 url: "/fotos/laboratoriobiogas",
                 templateUrl: 'assets/app/views/fotos/laboratoriobiogas/list.html',
-                controller: 'foto.controller'
+                controller: 'foto.controller',
+                activetab: 'fotos'
             })
             .state('fotos/unidadesdeproducao', {
                 url: "/fotos/unidadesdeproducao",
                 templateUrl: 'assets/app/views/fotos/unidadesdeproducao/list.html',
-                controller: 'foto.controller'
+                controller: 'foto.controller',
+                activetab: 'fotos'
             })
             .state('direitos', {
                 url: "/direitos",
