@@ -1,6 +1,5 @@
 package controllers;
 
-
 import actions.Secured;
 import com.avaje.ebean.Ebean;
 import jsmessages.JsMessages;

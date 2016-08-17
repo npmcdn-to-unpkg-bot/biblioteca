@@ -239,6 +239,8 @@ public class ArtigoController extends Controller {
             Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
 
             String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
+            String diretorioDePdfsArtigos = Play.application().configuration().getString("diretorioDePdfsArtigos");
+            String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
 
             if (arquivo != null) {
                 String arquivoTitulo = form().bindFromRequest().get("titulo");
@@ -258,9 +260,6 @@ public class ArtigoController extends Controller {
                     formDeErro.reject("Arquivo PDF inválido");
                     return badRequest(views.html.admin.artigos.create.render(formDeErro));
                 }
-
-                String diretorioDePdfsArtigos = Play.application().configuration().getString("diretorioDePdfsArtigos");
-                String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
 
                 if (tipoDeConteudo.equals(contentTypePadraoDePdfs)) {
                     file.renameTo(new File(diretorioDePdfsArtigos,pdf));
