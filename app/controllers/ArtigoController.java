@@ -262,7 +262,14 @@ public class ArtigoController extends Controller {
                 }
 
                 if (tipoDeConteudo.equals(contentTypePadraoDePdfs)) {
-                    file.renameTo(new File(diretorioDePdfsArtigos,pdf));
+                    if (file.renameTo(new File(diretorioDePdfsArtigos,pdf))) {
+                        Logger.info("File Artigo is created!");
+                    } else {
+                        Logger.error("Failed to create file Artigo!");
+                        DynamicForm formDeErro = form.fill(formPreenchido.data());
+                        formDeErro.reject("Erro ao salvar o arquivo PDF. Verifique se foi criado as pastas no servidor!");
+                        return badRequest(views.html.admin.artigos.create.render(formDeErro));
+                    }
                 } else {
                     DynamicForm formDeErro = form.fill(formPreenchido.data());
                     formDeErro.reject("Apenas arquivos em formato PDF é aceito");
@@ -322,6 +329,8 @@ public class ArtigoController extends Controller {
             Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
 
             String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
+            String diretorioDePdfsArtigos = Play.application().configuration().getString("diretorioDePdfsArtigos");
+            String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
 
             Artigo artigo = form.get();
 
@@ -344,17 +353,24 @@ public class ArtigoController extends Controller {
                     return badRequest(views.html.admin.artigos.edit.render(id,formDeErro));
                 }
 
-                String diretorioDePdfsArtigos = Play.application().configuration().getString("diretorioDePdfsArtigos");
-                String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
-
                 //necessario para excluir o artigo antigo
                 File pdfAntigo = new File(diretorioDePdfsArtigos,artigoBusca.getNomeArquivo());
 
-                //exclui o artigo antigo
-                pdfAntigo.delete();
+                if (pdfAntigo.delete()) {
+                    Logger.info("File Artigo is deleted!");
+                } else {
+                    Logger.error("Failed to edit file Artigo!");
+                }
 
                 if (tipoDeConteudo.equals(contentTypePadraoDePdfs)) {
-                    file.renameTo(new File(diretorioDePdfsArtigos,pdf));
+                    if (file.renameTo(new File(diretorioDePdfsArtigos,pdf))) {
+                        Logger.info("File Artigo is edited!");
+                    } else {
+                        Logger.error("Failed to edit file Artigo!");
+                        Form<Artigo> formDeErro = artigoForm.fill(Artigo.find.byId(id));
+                        formDeErro.reject("Erro ao salvar o arquivo PDF. Verifique se foi criado as pastas no servidor!");
+                        return badRequest(views.html.admin.artigos.edit.render(id,formDeErro));
+                    }
                 } else {
                     Form<Artigo> formDeErro = artigoForm.fill(Artigo.find.byId(id));
                     formDeErro.reject("Apenas arquivos em formato PDF é aceito");
@@ -433,10 +449,15 @@ public class ArtigoController extends Controller {
 
             Ebean.delete(artigo);
 
-            pdf.delete();
+            if (pdf.delete()) {
+                Logger.info("File Artigo is deleted!");
+            } else {
+                Logger.error("Failed to delete file Artigo!");
+            }
 
             mensagem = "Artigo excluído com sucesso";
             tipoMensagem = "Sucesso";
+            return ok(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
         } catch (Exception e) {
             mensagem = "Erro interno de sistema";
             tipoMensagem = "Erro";
@@ -444,7 +465,6 @@ public class ArtigoController extends Controller {
             return badRequest(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
         }
 
-        return ok(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
     }
 
     /**
@@ -475,10 +495,10 @@ public class ArtigoController extends Controller {
             File pdf = new File(diretorioDePdfsArtigos,nomeArquivo);
             return ok(new FileInputStream(pdf)).as("application/pdf");
         } catch (FileNotFoundException e) {
-            Logger.error(e.getMessage());
+            Logger.error(e.toString());
             return notFound(views.html.mensagens.erro.naoEncontrado.render(nomeArquivo));
         } catch (Exception e) {
-            Logger.error(e.getMessage());
+            Logger.error(e.toString());
             return badRequest(Messages.get("app.error"));
         }
 

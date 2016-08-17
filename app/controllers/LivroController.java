@@ -223,6 +223,8 @@ public class LivroController extends Controller {
                 Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
 
                 String extensaoPadraoDePdfs = Play.application().configuration().getString("extensaoPadraoDePdfs");
+                String diretorioDePdfsLivros = Play.application().configuration().getString("diretorioDePdfsLivros");
+                String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
 
                 if (arquivo != null) {
                     String arquivoTitulo = form().bindFromRequest().get("titulo");
@@ -242,11 +244,14 @@ public class LivroController extends Controller {
                         return badRequest(views.html.admin.livros.create.render(formData));
                     }
 
-                    String diretorioDePdfsLivros = Play.application().configuration().getString("diretorioDePdfsLivros");
-                    String contentTypePadraoDePdfs = Play.application().configuration().getString("contentTypePadraoDePdfs");
-
                     if (tipoDeConteudo.equals(contentTypePadraoDePdfs)) {
-                        file.renameTo(new File(diretorioDePdfsLivros,pdf));
+                        if (file.renameTo(new File(diretorioDePdfsLivros,pdf))) {
+                            Logger.info("File Livro is created!");
+                        } else {
+                            Logger.error("Failed to create file Livro!");
+                            formData.reject("Erro ao salvar o arquivo PDF. Verifique se foi criado as pastas no servidor!");
+                            return badRequest(views.html.admin.livros.create.render(formData));
+                        }
                     } else {
                         formData.reject("Apenas arquivos em formato PDF é aceito");
                         return badRequest(views.html.admin.livros.create.render(formData));
@@ -273,7 +278,7 @@ public class LivroController extends Controller {
     /**
      * Update a livro from id
      *
-     * @param id
+     * @param id identiricador
      * @return a livro updated with a form
      */
     public Result editar(Long id) {
@@ -341,11 +346,20 @@ public class LivroController extends Controller {
                     //necessario para excluir o livro antigo
                     File pdfAntigo = new File(diretorioDePdfsLivros,livroBusca.getNomeArquivo());
 
-                    //exclui o artigo antigo
-                    pdfAntigo.delete();
+                    if (pdfAntigo.delete()) {
+                        Logger.info("File Livro is deleted!");
+                    } else {
+                        Logger.error("Failed to edit file Livro!");
+                    }
 
                     if (tipoDeConteudo.equals(contentTypePadraoDePdfs)) {
-                        file.renameTo(new File(diretorioDePdfsLivros,pdf));
+                        if (file.renameTo(new File(diretorioDePdfsLivros,pdf))) {
+                            Logger.info("File Livro is edited!");
+                        } else {
+                            Logger.error("Failed to edit file Livro!");
+                            formData.reject("Erro ao salvar o arquivo PDF. Verifique se foi criado as pastas no servidor!");
+                            return badRequest(views.html.admin.livros.edit.render(id,formData));
+                        }
                     } else {
                         formData.reject("Apenas arquivos em formato PDF é aceito");
                         return badRequest(views.html.admin.livros.edit.render(id,formData));
@@ -373,7 +387,7 @@ public class LivroController extends Controller {
     /**
      * Remove a livro from a id
      *
-     * @param id
+     * @param id identificador
      * @return ok livro removed
      */
     public Result remover(Long id) {
@@ -411,7 +425,11 @@ public class LivroController extends Controller {
 
             Ebean.delete(livro);
 
-            pdf.delete();
+            if (pdf.delete()) {
+                Logger.info("File Livro is deleted!");
+            } else {
+                Logger.error("Failed to delete file Livro!");
+            }
 
             mensagem = "Livro excluído com sucesso";
             tipoMensagem = "Sucesso";

@@ -216,6 +216,8 @@ public class CursoController extends Controller {
                 Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
 
                 String extensaoPadraoDeJpg = Play.application().configuration().getString("extensaoPadraoDeJpg");
+                String diretorioDeFotosCursos = Play.application().configuration().getString("diretorioDeFotosCursos");
+                String contentTypePadraoDeImagens = Play.application().configuration().getString("contentTypePadraoDeImagens");
 
                 if (arquivo != null) {
                     String arquivoTitulo = form().bindFromRequest().get("nome");
@@ -229,11 +231,15 @@ public class CursoController extends Controller {
 
                     String tipoDeConteudo = arquivo.getContentType();
                     File file = arquivo.getFile();
-                    String diretorioDeFotosCursos = Play.application().configuration().getString("diretorioDeFotosCursos");
-                    String contentTypePadraoDeImagens = Play.application().configuration().getString("contentTypePadraoDeImagens");
 
                     if (tipoDeConteudo.equals(contentTypePadraoDeImagens)) {
-                        file.renameTo(new File(diretorioDeFotosCursos,jpg));
+                        if (file.renameTo(new File(diretorioDeFotosCursos,jpg))) {
+                            Logger.info("File Curso is created!");
+                        } else {
+                            Logger.error("Failed to create file Cursp!");
+                            formData.reject("Erro ao salvar o arquivo JPEG. Verifique se foi criado as pastas no servidor!");
+                            return badRequest(views.html.admin.cursos.create.render(formData));
+                        }
                     } else {
                         formData.reject("Apenas arquivos em formato JPEG é aceito");
                         return badRequest(views.html.admin.cursos.create.render(formData));
@@ -320,11 +326,20 @@ public class CursoController extends Controller {
                     //necessario para excluir o arquivo jpeg antigo
                     File jpgAntigo = new File(diretorioDeFotosCursos,cursoBusca.getNomeCapa());
 
-                    //exclui o arquivo jpg antigo
-                    jpgAntigo.delete();
+                    if (jpgAntigo.delete()) {
+                        Logger.info("File Curso is deleted!");
+                    } else {
+                        Logger.error("Failed to edit file Curso!");
+                    }
 
                     if (tipoDeConteudo.equals(contentTypePadraoDeImagens)) {
-                        file.renameTo(new File(diretorioDeFotosCursos,jpg));
+                        if (file.renameTo(new File(diretorioDeFotosCursos,jpg))) {
+                            Logger.info("File Curso is edited!");
+                        } else {
+                            Logger.error("Failed to edit file Curso!");
+                            formData.reject("Erro ao salvar o arquivo JPEG. Verifique se foi criado as pastas no servidor!");
+                            return badRequest(views.html.admin.cursos.edit.render(id,formData));
+                        }
                     } else {
                         formData.reject("Apenas arquivos em formato JPEG é aceito");
                         return badRequest(views.html.admin.cursos.edit.render(id,formData));
@@ -351,7 +366,7 @@ public class CursoController extends Controller {
     /**
      * Remove a curso from a id
      *
-     * @param id
+     * @param id identificador
      * @return ok curso removed
      */
     @Security.Authenticated(Secured.class)
@@ -390,7 +405,13 @@ public class CursoController extends Controller {
             File jpg = new File(diretorioDeFotosCursos,curso.getNomeCapa());
 
             Ebean.delete(curso);
-            jpg.delete();
+
+            if (jpg.delete()) {
+                Logger.info("File Curso is deleted!");
+            } else {
+                Logger.error("Failed to delete file Curso!");
+            }
+
             mensagem = "Curso excluído com sucesso";
             tipoMensagem = "Sucesso";
             return ok(views.html.mensagens.curso.mensagens.render(mensagem,tipoMensagem));

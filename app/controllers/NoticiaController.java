@@ -217,6 +217,8 @@ public class NoticiaController extends Controller {
                 Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
 
                 String extensaoPadraoDeJpg = Play.application().configuration().getString("extensaoPadraoDeJpg");
+                String diretorioDeFotosNoticias = Play.application().configuration().getString("diretorioDeFotosNoticias");
+                String contentTypePadraoDeImagens = Play.application().configuration().getString("contentTypePadraoDeImagens");
 
                 if (arquivo != null) {
                     String arquivoTitulo = form().bindFromRequest().get("titulo");
@@ -230,11 +232,15 @@ public class NoticiaController extends Controller {
 
                     String tipoDeConteudo = arquivo.getContentType();
                     File file = arquivo.getFile();
-                    String diretorioDeFotosNoticias = Play.application().configuration().getString("diretorioDeFotosNoticias");
-                    String contentTypePadraoDeImagens = Play.application().configuration().getString("contentTypePadraoDeImagens");
 
                     if (tipoDeConteudo.equals(contentTypePadraoDeImagens)) {
-                        file.renameTo(new File(diretorioDeFotosNoticias,jpg));
+                        if (file.renameTo(new File(diretorioDeFotosNoticias,jpg))) {
+                            Logger.info("File Noticia is created!");
+                        } else {
+                            Logger.error("Failed to create file Noticia!");
+                            formData.reject("Erro ao salvar o arquivo JPEG. Verifique se foi criado as pastas no servidor!");
+                            return badRequest(views.html.admin.noticias.create.render(formData));
+                        }
                     } else {
                         formData.reject("Apenas arquivos em formato JPEG é aceito");
                         return badRequest(views.html.admin.noticias.create.render(formData));
@@ -322,11 +328,20 @@ public class NoticiaController extends Controller {
                     //necessario para excluir o arquivo jpeg antigo
                     File jpgAntigo = new File(diretorioDeFotosNoticias,noticiaBusca.getNomeCapa());
 
-                    //exclui o arquivo jpg antigo
-                    jpgAntigo.delete();
+                    if (jpgAntigo.delete()) {
+                        Logger.info("File Noticia is deleted!");
+                    } else {
+                        Logger.error("Failed to edit file Noticia!");
+                    }
 
                     if (tipoDeConteudo.equals(contentTypePadraoDeImagens)) {
-                        file.renameTo(new File(diretorioDeFotosNoticias,jpg));
+                        if (file.renameTo(new File(diretorioDeFotosNoticias,jpg))) {
+                            Logger.info("File Noticia is edited!");
+                        } else {
+                            Logger.error("Failed to edit file Noticia!");
+                            formData.reject("Erro ao salvar o arquivo JPEG. Verifique se foi criado as pastas no servidor!");
+                            return badRequest(views.html.admin.noticias.edit.render(id,formData));
+                        }
                     } else {
                         formData.reject("Apenas arquivos em formato JPEG é aceito");
                         return badRequest(views.html.admin.noticias.edit.render(id,formData));
@@ -393,7 +408,13 @@ public class NoticiaController extends Controller {
             File jpg = new File(diretorioDeFotosNoticias,noticia.getNomeCapa());
 
             Ebean.delete(noticia);
-            jpg.delete();
+
+            if (jpg.delete()) {
+                Logger.info("File Noticia is deleted!");
+            } else {
+                Logger.error("Failed to delete file Noticia!");
+            }
+
             mensagem = "Notícia excluída com sucesso";
             tipoMensagem = "Sucesso";
             return ok(views.html.mensagens.noticia.mensagens.render(mensagem,tipoMensagem));

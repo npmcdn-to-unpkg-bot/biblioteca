@@ -217,6 +217,8 @@ public class PublicacaoController extends Controller {
                 Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
 
                 String extensaoPadraoDeJpg = Play.application().configuration().getString("extensaoPadraoDeJpg");
+                String diretorioDeFotosPublicacoes = Play.application().configuration().getString("diretorioDeFotosPublicacoes");
+                String contentTypePadraoDeImagens = Play.application().configuration().getString("contentTypePadraoDeImagens");
 
                 if (arquivo != null) {
                     String arquivoTitulo = form().bindFromRequest().get("titulo");
@@ -230,11 +232,15 @@ public class PublicacaoController extends Controller {
 
                     String tipoDeConteudo = arquivo.getContentType();
                     File file = arquivo.getFile();
-                    String diretorioDeFotosPublicacoes = Play.application().configuration().getString("diretorioDeFotosPublicacoes");
-                    String contentTypePadraoDeImagens = Play.application().configuration().getString("contentTypePadraoDeImagens");
 
                     if (tipoDeConteudo.equals(contentTypePadraoDeImagens)) {
-                        file.renameTo(new File(diretorioDeFotosPublicacoes,jpg));
+                        if (file.renameTo(new File(diretorioDeFotosPublicacoes,jpg))) {
+                            Logger.info("File Publicacoes is created!");
+                        } else {
+                            Logger.error("Failed to create file Publicacoes!");
+                            formData.reject("Erro ao salvar o arquivo JPEG. Verifique se foi criado as pastas no servidor!");
+                            return badRequest(views.html.admin.publicacoes.create.render(formData));
+                        }
                     } else {
                         formData.reject("Apenas arquivos em formato JPEG é aceito");
                         return badRequest(views.html.admin.publicacoes.create.render(formData));
@@ -302,6 +308,8 @@ public class PublicacaoController extends Controller {
                 Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
 
                 String extensaoPadraoDeJpg = Play.application().configuration().getString("extensaoPadraoDeJpg");
+                String diretorioDeFotosPublicacoes = Play.application().configuration().getString("diretorioDeFotosPublicacoes");
+                String contentTypePadraoDeImagens = Play.application().configuration().getString("contentTypePadraoDeImagens");
 
                 if (arquivo != null) {
                     String arquivoTitulo = form().bindFromRequest().get("titulo");
@@ -316,17 +324,23 @@ public class PublicacaoController extends Controller {
                     String tipoDeConteudo = arquivo.getContentType();
                     File file = arquivo.getFile();
 
-                    String diretorioDeFotosPublicacoes = Play.application().configuration().getString("diretorioDeFotosPublicacoes");
-                    String contentTypePadraoDeImagens = Play.application().configuration().getString("contentTypePadraoDeImagens");
-
                     //necessario para excluir o arquivo jpeg antigo
                     File jpgAntigo = new File(diretorioDeFotosPublicacoes,publicacaoBusca.getNomeCapa());
 
-                    //exclui o arquivo jpg antigo
-                    jpgAntigo.delete();
+                    if (jpgAntigo.delete()) {
+                        Logger.info("File Publicacao is deleted!");
+                    } else {
+                        Logger.error("Failed to edit file Publicacao!");
+                    }
 
                     if (tipoDeConteudo.equals(contentTypePadraoDeImagens)) {
-                        file.renameTo(new File(diretorioDeFotosPublicacoes,jpg));
+                        if (file.renameTo(new File(diretorioDeFotosPublicacoes,jpg))) {
+                            Logger.info("File Publicacao is edited!");
+                        } else {
+                            Logger.error("Failed to edit file Publicacao!");
+                            formData.reject("Erro ao salvar o arquivo JPEG. Verifique se foi criado as pastas no servidor!");
+                            return badRequest(views.html.admin.publicacoes.edit.render(id,formData));
+                        }
                     } else {
                         formData.reject("Apenas arquivos em formato JPEG é aceito");
                         return badRequest(views.html.admin.publicacoes.edit.render(id,formData));
@@ -393,7 +407,13 @@ public class PublicacaoController extends Controller {
             File jpg = new File(diretorioDeFotosPublicacoes,publicacao.getNomeCapa());
 
             Ebean.delete(publicacao);
-            jpg.delete();
+
+            if (jpg.delete()) {
+                Logger.info("File Publicacao is deleted!");
+            } else {
+                Logger.error("Failed to delete file Publicacao!");
+            }
+
             mensagem = "Publicação excluído com sucesso";
             tipoMensagem = "Sucesso";
             return ok(views.html.mensagens.publicacao.mensagens.render(mensagem,tipoMensagem));
