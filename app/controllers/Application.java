@@ -62,6 +62,9 @@ public class Application extends Controller {
         return ok(jsMessages.apply(Scala.Option("window.Messages"), Helper.messagesFromCurrentHttpContext()));
     }
 
+    /**
+     * responsavel por modificar o idioma da aplicacao
+     */
     public Result mudaIdioma(){
         String lang = request().getQueryString("lang");
         response().setCookie(Play.langCookieName(),lang);
