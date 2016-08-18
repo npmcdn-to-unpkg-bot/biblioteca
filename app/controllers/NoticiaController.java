@@ -17,6 +17,8 @@ import views.validators.NoticiaFormData;
 
 import javax.annotation.Nullable;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.Normalizer;
 import java.util.Date;
 import java.util.List;
@@ -308,6 +310,8 @@ public class NoticiaController extends Controller {
                 Http.MultipartFormData.FilePart arquivo = body.getFile("arquivo");
 
                 String extensaoPadraoDeJpg = Play.application().configuration().getString("extensaoPadraoDeJpg");
+                String diretorioDeFotosNoticias = Play.application().configuration().getString("diretorioDeFotosNoticias");
+                String contentTypePadraoDeImagens = Play.application().configuration().getString("contentTypePadraoDeImagens");
 
                 if (arquivo != null) {
                     String arquivoTitulo = form().bindFromRequest().get("titulo");
@@ -321,9 +325,6 @@ public class NoticiaController extends Controller {
 
                     String tipoDeConteudo = arquivo.getContentType();
                     File file = arquivo.getFile();
-
-                    String diretorioDeFotosNoticias = Play.application().configuration().getString("diretorioDeFotosNoticias");
-                    String contentTypePadraoDeImagens = Play.application().configuration().getString("contentTypePadraoDeImagens");
 
                     //necessario para excluir o arquivo jpeg antigo
                     File jpgAntigo = new File(diretorioDeFotosNoticias,noticiaBusca.getNomeCapa());
@@ -441,6 +442,29 @@ public class NoticiaController extends Controller {
             Logger.error(e.getMessage());
             return badRequest(Json.toJson(Messages.get("error.app")));
         }
+    }
+
+    /**
+     * return the jpeg from a nameFile
+     *
+     * @param nomeArquivo variavel string
+     * @return ok jpeg by name
+     */
+    public Result jpg(String nomeArquivo) {
+
+        String diretorioDeFotosNoticias = Play.application().configuration().getString("diretorioDeFotosNoticias");
+
+        try {
+            File jpg = new File(diretorioDeFotosNoticias,nomeArquivo);
+            return ok(new FileInputStream(jpg)).as("image/jpeg");
+        } catch (FileNotFoundException e) {
+            Logger.error(e.toString());
+            return notFound(e.toString());
+        } catch (Exception e) {
+            Logger.error(e.toString());
+            return badRequest(Messages.get("app.error"));
+        }
+
     }
 
 

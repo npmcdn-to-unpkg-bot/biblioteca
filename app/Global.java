@@ -30,49 +30,49 @@ public class Global extends GlobalSettings {
 
         if (!directoryPdfsArtigos.exists()) {
             if (directoryPdfsArtigos.mkdirs()) {
-                Logger.info("Directory artigos is created!");
+                Logger.info("Directory artigos is created " + Play.application().configuration().getString("diretorioDePdfsArtigos"));
             } else {
-                Logger.info("Failed to create directory artigos!");
+                Logger.error("Failed to create directory " + Play.application().configuration().getString("diretorioDePdfsArtigos"));
             }
         }
 
         if (!directoryPdfsLivros.exists()) {
             if (directoryPdfsLivros.mkdirs()) {
-                Logger.info("Directory livros is created!");
+                Logger.info("Directory livros is created! " + Play.application().configuration().getString("diretorioDePdfsLivros"));
             } else {
-                Logger.info("Failed to create directory livros!");
+                Logger.error("Failed to create directory livros! " +Play.application().configuration().getString("diretorioDePdfsLivros"));
             }
         }
 
         if (!directoryPdfsPublicacoes.exists()) {
             if (directoryPdfsPublicacoes.mkdirs()) {
-                Logger.info("Directory publicações is created!");
+                Logger.info("Directory publicações is created! " + Play.application().configuration().getString("diretorioDePdfsPublicacoes"));
             } else {
-                Logger.info("Failed to create directory publicações!");
+                Logger.error("Failed to create directory publicações! " + Play.application().configuration().getString("diretorioDePdfsPublicacoes"));
             }
         }
 
         if (!directoryImgCursos.exists()) {
             if (directoryImgCursos.mkdirs()) {
-                Logger.info("Directory cursos is created!");
+                Logger.info("Directory cursos is created! " + Play.application().configuration().getString("diretorioDeFotosCursos"));
             } else {
-                Logger.info("Failed to create directory cursos!");
+                Logger.error("Failed to create directory cursos! " + Play.application().configuration().getString("diretorioDeFotosCursos"));
             }
         }
 
         if (!directoryImgPublicacoes.exists()) {
             if (directoryImgPublicacoes.mkdirs()) {
-                Logger.info("Directory publicações imagens is created!");
+                Logger.info("Directory publicações imagens is created! " + Play.application().configuration().getString("diretorioDeFotosPublicacoes"));
             } else {
-                Logger.info("Failed to create directory publicações imagens!");
+                Logger.error("Failed to create directory publicações imagens! " + Play.application().configuration().getString("diretorioDeFotosPublicacoes"));
             }
         }
 
         if (!directoryImgNoticias.exists()) {
             if (directoryImgNoticias.mkdirs()) {
-                Logger.info("Directory notícias is created!");
+                Logger.info("Directory notícias is created! " + Play.application().configuration().getString("diretorioDeFotosNoticias"));
             } else {
-                Logger.info("Failed to create directory notícias!");
+                Logger.error("Failed to create directory notícias!" + Play.application().configuration().getString("diretorioDeFotosNoticias"));
             }
         }
     }

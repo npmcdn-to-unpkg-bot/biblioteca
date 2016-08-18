@@ -17,6 +17,8 @@ import views.validators.CursoFormData;
 
 import javax.annotation.Nullable;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.Normalizer;
 import java.util.List;
 
@@ -263,7 +265,7 @@ public class CursoController extends Controller {
     /**
      * Update a curso from id
      *
-     * @param id
+     * @param id identificador
      * @return a curso updated with a form
      */
     @Security.Authenticated(Secured.class)
@@ -438,5 +440,28 @@ public class CursoController extends Controller {
             Logger.error(e.getMessage());
             return badRequest(Json.toJson(Messages.get("error.app")));
         }
+    }
+
+    /**
+     * return the jpeg from a nameFile
+     *
+     * @param nomeArquivo variavel string
+     * @return ok jpeg by name
+     */
+    public Result jpg(String nomeArquivo) {
+
+        String diretorioDeFotosCursos = Play.application().configuration().getString("diretorioDeFotosCursos");
+
+        try {
+            File jpg = new File(diretorioDeFotosCursos,nomeArquivo);
+            return ok(new FileInputStream(jpg)).as("image/jpeg");
+        } catch (FileNotFoundException e) {
+            Logger.error(e.toString());
+            return notFound(e.toString());
+        } catch (Exception e) {
+            Logger.error(e.toString());
+            return badRequest(Messages.get("app.error"));
+        }
+
     }
 }

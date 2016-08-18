@@ -1,7 +1,7 @@
 <div ng-init="init()" class="publicacao-card-container mdl-grid">
     <div ng-repeat="publicacao in publicacoes" class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
         <div class="mdl-card__media">
-            <img ng-src="assets/images/capa/publicacoes/{{publicacao.nomeCapa}}">
+            <img ng-src="publicacao/jpg/{{publicacao.nomeCapa}}">
         </div>
         <div class="mdl-card__title">
             <h4 class="mdl-card__title-text cartao-publicacao">{{publicacao.titulo}}</h4>

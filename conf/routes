@@ -80,9 +80,10 @@ GET		/curso/detalhe/:id				   controllers.CursoController.telaDetalhe(id:Long)
 GET     /curso/editar/:id                  controllers.CursoController.telaEditar(id:Long)
 GET     /curso/lista/todos                 controllers.CursoController.telaLista()
 
-# Evento Servicos
+# Curso Servicos
 GET     /cursos                         controllers.CursoController.buscaTodos()
 POST    /curso                          controllers.CursoController.inserir()
+GET     /curso/jpg/:titulo              controllers.CursoController.jpg(titulo:String)
 POST	/curso/:id/remover              controllers.CursoController.remover(id:Long)
 POST    /curso/editar/:id               controllers.CursoController.editar(id:Long)
 
@@ -107,6 +108,7 @@ GET     /publicacao/lista/todos                 controllers.PublicacaoController
 # Publicacoes Servicos
 GET     /publicacoes                         controllers.PublicacaoController.buscaTodos()
 POST    /publicacao                          controllers.PublicacaoController.inserir()
+GET     /publicacao/jpg/:titulo              controllers.PublicacaoController.jpg(titulo:String)
 POST	/publicacao/:id/remover              controllers.PublicacaoController.remover(id:Long)
 POST    /publicacao/editar/:id               controllers.PublicacaoController.editar(id:Long)
 
@@ -119,6 +121,7 @@ GET     /noticia/lista/todos                 controllers.NoticiaController.telaL
 # Noticia Servicos
 GET     /noticias                         controllers.NoticiaController.buscaTodos()
 POST    /noticia                          controllers.NoticiaController.inserir()
+GET     /noticia/jpg/:titulo              controllers.NoticiaController.jpg(titulo:String)
 POST	/noticia/:id/remover              controllers.NoticiaController.remover(id:Long)
 POST    /noticia/editar/:id               controllers.NoticiaController.editar(id:Long)
 

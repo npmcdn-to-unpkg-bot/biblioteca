@@ -1,0 +1,28 @@
+  <a ui-sref="home" ng-class="{active:$state.includes('home')}" class="mdl-navigation__link"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">home</i> @Messages("menu.1")</a>
+            <a ui-sref="cursos" ng-class="{active:$state.includes('cursos')}" class="mdl-navigation__link"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">school</i> @Messages("menu.2")</a>
+            <a ui-sref="eventos" ng-class="{active:$state.includes('eventos')}" class="mdl-navigation__link" ><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">event</i> @Messages("menu.biogas.9")</a>
+            <div class="separador"></div>
+            @if(username){
+                <a ui-sref="artigos" ng-class="{active:$state.includes('artigos')}" class="mdl-navigation__link"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">book</i>@Messages("menu.4")</a>
+                <a ui-sref="videos" ng-class="{active:$state.includes('videos')}" class="mdl-navigation__link"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">video_library</i>@Messages("menu.6")</a>
+                <a ui-sref="fotos" ng-class="{active:$state.current.activetab == 'fotos'}" class="mdl-navigation__link"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">photo_camera</i>@Messages("menu.7")</a>
+                <div class="separador"></div>
+            }
+            <a ui-sref="noticias" ng-class="{active:$state.includes('noticias')}" class="mdl-navigation__link"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">public</i>@Messages("menu.biogas.10")</a>
+            <a ui-sref="publicacoes" ng-class="{active:$state.includes('publicacoes')}" class="mdl-navigation__link"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">language</i>@Messages("menu.biogas.11")</a>
+            <a ui-sref="biogas/sobre" ng-class="{active:$state.includes('biogas/sobre')}" class="mdl-navigation__link"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">ev_station</i>@Messages("menu.biogas.2")</a>
+            <a ui-sref="casos" ng-class="{active:$state.includes('casos')}" class="mdl-navigation__link"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">extension</i>@Messages("menu.biogas.3")</a>
+            <a ui-sref="ped" ng-class="{active:$state.includes('ped')}" class="mdl-navigation__link"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">explore</i>@Messages("menu.biogas.5")</a>
+            <div class="separador"></div>
+            <a ui-sref="marcos" ng-class="{active:$state.includes('marcos')}" class="mdl-navigation__link"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">account_balance</i>@Messages("menu.biogas.6")</a>
+            <a ui-sref="aspectos" ng-class="{active:$state.includes('aspectos')}" class="mdl-navigation__link"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">monetization_on</i>@Messages("menu.biogas.7")</a>
+            <a ui-sref="registros" ng-class="{active:$state.includes('registros')}" class="mdl-navigation__link"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">map</i>@Messages("menu.biogas.8")</a>
+            <a ui-sref="ferramentas" ng-class="{active:$state.includes('ferramentas')}" class="mdl-navigation__link"><i class="mdl-color--deep-orange-cibiogas-text material-icons" role="presentation">build</i>@Messages("menu.biogas.4")</a>
+
+            @if(username){
+                @if(privilegio == 1){
+                    <div class="separador"></div>
+                    <span class="mdl-navigation__link">@Messages("menu.12")</span>
+                    <a class="mdl-navigation__link" href="@routes.AdminController.inicio"><i class="mdl-color-text--blue-grey-500 material-icons" role="presentation">collections_bookmark</i>@Messages("menu.13")</a>
+                }
+            }
