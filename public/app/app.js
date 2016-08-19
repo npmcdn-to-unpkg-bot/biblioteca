@@ -9,7 +9,8 @@ angular
              'angular-loading-bar',
              'toastr',
              'ngDialog', 
-             'youtube-embed'
+             'youtube-embed', 
+             'angular-carousel'
             ]
         )
     .config(function ($stateProvider, $urlRouterProvider) {

@@ -3,9 +3,26 @@
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Banco do Conhecimento</h2>
         </div>
-        <div class="mdl-card__media cartao-media-biogas">
-            <img class="article-image" src="assets/images/templates/biogasenergy.jpg" border="0" alt="">
-        </div>
+        <!--<div class="mdl-card__media cartao-media-biogas">-->
+            <!--<img class="article-image" src="assets/images/templates/biogasenergy.jpg" border="0" alt="">-->
+        <!--</div>-->
+
+        <section>
+            <div ng-carousel="" ng-carousel-name="example-carousel2" ng-carousel-timer="3000" class="ng-isolate-scope ng-carousel carousel-no-touch">
+                <slidecontainer class="carousel-ignore-first-slide" style="touch-action: pan-y; -webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); transform: translate(-400%, 0px);"><slide class="carousel-slide-copy">Slide 4</slide>
+                    <slide><img class="article-image" src="assets/images/templates/biogasenergy.jpg"></slide>
+                    <slide><img class="article-image" src="assets/images/templates/biodigestores.jpg"></slide>
+                    <slide><img class="article-image" src="assets/images/templates/gestao.jpg"></slide>
+                    <slide><img class="article-image" src="assets/images/templates/cartao.jpg"></slide>
+                    <slide class="carousel-slide-copy">Slide 1</slide></slidecontainer>
+                <div class="carousel-arrow carousel-arrow-left">
+                    <button class="demo-nav" ng-click="Carousel.get('example-carousel2').previous()">back</button>
+                </div>
+                <div class="carousel-arrow carousel-arrow-right">
+                    <button class="demo-nav" ng-click="Carousel.get('example-carousel2').next()">forth</button>
+                </div>
+            </div>
+        </section>
 
         <div class="mdl-grid">
             <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">Introduction</h3>

@@ -1,36 +1,37 @@
 {
   "name": "angular-carousel",
-  "description": "Angular Carousel - Mobile friendly touch carousel for AngularJS",
-  "version": "1.0.1",
-  "homepage": "http://revolunet.github.com/angular-carousel",
-  "author": "Julien Bouquillon <julien@revolunet.com>",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/revolunet/angular-carousel.git"
-  },
-  "main": [
-    "dist/angular-carousel.js",
-    "dist/angular-carousel.css"
+  "description": "Touch-optimized carousel for Angular",
+  "version": "1.2.0",
+  "keywords": [
+    "carousel",
+    "angular",
+    "javascript",
+    "touch",
+    "responsive",
+    "front-end",
+    "web"
   ],
-  "ignore": [
-    "demo"
+  "main": [
+    "angular-carousel.js",
+    "angular-carousel.css"
   ],
   "dependencies": {
-    "angular": ">=1.2.10",
-    "angular-touch": ">=1.2.10"
+    "angular": ">= 1.2.3",
+    "hammerjs": ">= 2.0.4"
   },
-  "devDependencies": {
-    "angular-mocks": ">=1.2.10",
-    "requirejs": ">=2.1.0"
-  },
-  "_release": "1.0.1",
+  "ignore": [
+    "examples/",
+    "package.json"
+  ],
+  "homepage": "https://github.com/lifelynl/angular-carousel",
+  "_release": "1.2.0",
   "_resolution": {
     "type": "version",
-    "tag": "v1.0.1",
-    "commit": "5b07a351ce971d6b49a5d0b855b950c25d4b14fd"
+    "tag": "1.2.0",
+    "commit": "44aa29f634cde6dac5c3e429f02af3f1c4d4d89e"
   },
-  "_source": "https://github.com/revolunet/angular-carousel.git",
-  "_target": "^1.0.1",
-  "_originalSource": "angular-carousel",
+  "_source": "https://github.com/lifelynl/angular-carousel.git",
+  "_target": "^1.2.0",
+  "_originalSource": "lifely-angular-carousel",
   "_direct": true
 }

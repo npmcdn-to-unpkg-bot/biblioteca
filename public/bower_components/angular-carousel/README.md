@@ -1,107 +1,99 @@
-# AngularJS Touch Carousel
+# angular-carousel.js 1.2.0
 
-An AngularJS carousel implementation optimised for mobile devices.
+A simple very generic AngularJS carousel. Features:
 
-Demo : http://revolunet.github.io/angular-carousel
+- Touch optimized (swipe to move between the slides)
+- Looping (enabled by default)
+- Timer (optional)
+- Random start (optional)
+- Select the carousel by name (using the Carousel service) and control the carousel
+- Print out the current slide of a selected carousel
 
-Comments and contributions welcome :)
+See the [demo here](http://htmlpreview.github.io/?https://raw.githubusercontent.com/lifelynl/angular-carousel/master/examples/demo.html "demo")
 
-Proudly brought to you by the [@revolunet](http://twitter.com/revolunet) team.
+## How to use
 
-## Install :
+### Step 1: install this package (Bower)
 
-### Bower
-`bower install angular-carousel`
+`bower install lifely-angular-carousel`
 
-### npm
-`npm install angular-carousel`
+There other dependencies are required:
 
-If you don't use NPM or Bower, just download files [from the github repo](./dist)
+- *AngularJS >= 1.2.3*
+- *HammerJS >= 2.0.4*
 
-## Usage :
- - Add `angular-touch.js` and `angular-carousel.js` to your code:
-```html
-<script src="angular.js"></script>
-<script src="angular-touch.js"></script>
-<script src="angular-carousel.js"></script>
-```
- - Or just require the module the CommonJS way (if you use npm)
-```js
-var angular = require('angular');
-var ngTouch = require('angular-touch');
-var carousel  = require('angular-carousel');
-```
- - Add `angular-carousel.css` to your code:
-```html
-<link href="angular-carousel.css" rel="stylesheet" type="text/css" />
-```
- - Add a dependency to the `angular-carousel` module in your application.
-```js
-angular.module('MyApp', ['angular-carousel']);
-```
+### Step 2: write the html
+Just use `ng-carousel` to initiate a carousel. Give it a unique name with `ng-carousel-name`.
 
- - Add a `rn-carousel` attribute to your `<ul>` block and your `<li>`'s become magically swipable ;)
-```html
-<ul rn-carousel class="image">
-  <li ng-repeat="image in sportImages">
-    <div class="layer">{{ image }}</div>
-  </li>
-</ul>
-```
+    <div ng-carousel ng-carousel-name="example-carousel1">
+        <slidecontainer class="carousel-slides">
+            <slide class="carousel-example">Slide 1</slide>
+            <slide class="carousel-example">Slide 2</slide>
+            <slide class="carousel-example">Slide 3</slide>
+            <slide class="carousel-example">Slide 4</slide>
+            <slide class="carousel-example">Slide 5</slide>
+            <slide class="carousel-example">Slide 6</slide>
+        </slidecontainer>
+    </div>
 
- - You can also use `rn-carousel` without ng-repeat ;)
-```html
-<ul rn-carousel class="image">
-  <li>slide #1</li>
-  <li>slide #2</li>
-  <li>slide #3</li>
-</ul>
-```
+You can put anything you want in de slides. The slides fit perfectly inside the ng-carousel element, which is 300px by default. You can easily overwrite it using CSS.
 
-## Directive options :
- - `rn-carousel-index` two way binding integer to control the carousel position (0-indexed)
- - `rn-carousel-buffered` add this attribute to enable the carousel buffering, good to minimize the DOM (5 slides)
- - `rn-carousel-controls` add this attribute to enable builtin prev/next buttons (you can override by CSS)
- - `rn-carousel-auto-slide` add this attribute to make the carousel slide automatically after given seconds (default=3)
- - `rn-carousel-transition` : transition type, can be one of `slide, zoom, hexagon, fadeAndSlide, none`. (default=slide)
- - `rn-carousel-locked`: two way binding boolean that lock/unlock the carousel
- - `rn-carousel-deep-watch`: Deep watch the collection which enable to dynamically add slides at beginning without corrupting position
- - `rn-carousel-easing`: add this attritube to specify a formula for easing, these can be found in the [shifty
- library](https://github.com/jeremyckahn/shifty/blob/master/src/shifty.formulas.js) (default=easeIn)
- - `rn-carousel-duration`: add this attribute to set the duration of the transition (default=300)
- - `rn-carousel-controls-allow-loop`: add this attribute to allow looping through slides from prev/next controls
+#### If the slides are being generated (for example with `ng-repeat`)
+You should let ng-carousel know when your scope changes. To do so, just pass your changing scope variable through the attribute `ng-carousel-watch="yourChangingScopeVariable"`.
 
-## Indicators
 
-You can add position indicators by adding this directive where you want :
-```html
-<div rn-carousel-indicators ng-if="slides.length > 1" slides="slides" rn-carousel-index="carouselIndex"></div>
-```
- - `slides` is the same collection you use in the carousel ng-repeat
- - `carouselIndex` is the same index you've defined for the carousel
+### Optional: control the carousel with inside buttons
+You can place anything inside the *.carousel-arrow* elements. These are positioned left and right and have a width of 100px by default. You also can overwrite this using CSS.
 
-## Notes :
- - if you use IE<=9, iOS<7 or Android<4 please include the [requestAnimationFrame polyfill](https://github.com/darius/requestAnimationFrame/blob/master/requestAnimationFrame.js) in your application.
- - if you use IE<=8 include the [es5-shim polyfill](https://github.com/es-shims/es5-shim/blob/master/es5-shim.min.js) in your application.
- - don't set any style attribute to your li's. they would be overwritten by the carousel (use classes instead).
- - angular-carousel use the great [shifty.js](https://github.com/jeremyckahn/shifty) for the animations
+    <div ng-carousel ng-carousel-name="example-carousel2">
+        <slidecontainer class="carousel-slides">
+            <slide class="carousel-example">Slide 1</slide>
+            <slide class="carousel-example">Slide 2</slide>
+            <slide class="carousel-example">Slide 3</slide>
+            <slide class="carousel-example">Slide 4</slide>
+            <slide class="carousel-example">Slide 5</slide>
+            <slide class="carousel-example">Slide 6</slide>
+        </slidecontainer>
+        <div class="carousel-arrow carousel-arrow-left">
+            <button ng-click="Carousel.get('example-carousel2').previous()">back</button>
+        </div>
+        <div class="carousel-arrow carousel-arrow-right">
+            <button ng-click="Carousel.get('example-carousel2').next()">forth</button>
+        </div>
+    </div>
 
-## Todo :
- - delay autoslide on indicators click/move
- - customisable transitions
- - more transition types
- - infinite loop support
 
-## Contributing
- - Please follow [AngularJS GIT conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#)
- - Please add tests
- - Please update the README and demo (index.html)
+### Optional: disable looping
+You can disable looping by setting `ng-carousel-loop` attribute to false on element having your `ng-carousel` directive.
 
-## Inspirations
- - https://github.com/ajoslin/angular-mobile-nav
- - http://mobile.smashingmagazine.com/2012/06/21/play-with-hardware-accelerated-css/
- - http://ariya.ofilabs.com/2013/08/javascript-kinetic-scrolling-part-1.html
- - Thanks to all angular folks for all the tips :)
+    <div ng-carousel ng-carousel-name="example-carousel5" ng-carousel-loop="false">
+        <slidecontainer>
+            <slide>Slide 1</slide>
+            <slide>Slide 2</slide>
+            <slide>Slide 3</slide>
+            <slide>Slide 4</slide>
+        </slidecontainer>
+    </div>
 
-## License
-As AngularJS itself, this module is released under the permissive [MIT license](http://revolunet.mit-license.org). Your contributions are always welcome.
+### Optional: control the carousel from another place in the code
+You can control the carousel using the `Carousel` service.
+
+- Select and save a carousel using `var myCarousel = Carousel.get('carousel-example3')`
+- Read-only variables of myCarousel are now:
+    - `myCarousel.currentSlide` - the active slide of your myCarousel
+    - `myCarousel.slidesCount` - the total count of slides inside myCarousel
+- Control the carousel:
+    - `myCarousel.previous()` - go to the previous slide
+    - `myCarousel.next()` - go to the next slide
+    - `myCarousel.toIndex(n)` - go to a specific slide (starting with 0)
+
+
+
+
+
+
+
+
+
+
+
