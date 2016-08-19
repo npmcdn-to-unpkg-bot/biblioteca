@@ -34,18 +34,26 @@ public class EventoFormData {
 
         if (nome == null || nome.length() == 0) {
             errors.add(new ValidationError("nome", "Preencha o nome"));
+        } else if (nome.length() > 150) {
+            errors.add(new ValidationError("nome", "Nome com no máximo 150 caractéres"));
         }
 
         if (site == null || site.length() == 0) {
             errors.add(new ValidationError("site", "Preencha o site"));
+        } else if (site.length() > 300) {
+            errors.add(new ValidationError("site", "Site com no máximo 300 caractéres"));
         }
 
         if (local == null || local.length() == 0) {
             errors.add(new ValidationError("local", "Preencha o local"));
+        } else if (local.length() > 150) {
+            errors.add(new ValidationError("local", "Local com no máximo 150 caractéres"));
         }
 
         if (instituicao == null || instituicao.length() == 0) {
             errors.add(new ValidationError("instituicao", "Preencha a instituição"));
+        } else if (instituicao.length() > 100) {
+            errors.add(new ValidationError("instituicao", "Instituição com no máximo 100 caractéres"));
         }
 
         if (dataInicio == null) {

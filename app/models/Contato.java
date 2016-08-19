@@ -15,16 +15,16 @@ public class Contato extends Model {
     @Id
     private Long id;
 
-    @Column(nullable = false, length = 60)
+    @Column(nullable = false, length = 80)
     private String nome;
 
-    @Column(nullable = false, length = 60)
+    @Column(nullable = false, length = 80)
     private String email;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false, length = 50)
     private String assunto;
 
-    @Column(nullable = false, length = 200)
+    @Column(nullable = false, length = 400)
     private String mensagem;
 
     @Column(nullable = false)

@@ -26,19 +26,22 @@ public class VideoFormData {
 
         if (titulo == null || titulo.length() == 0) {
             errors.add(new ValidationError("titulo", "Preencha o título"));
+        } else if (titulo.length() > 250) {
+            errors.add(new ValidationError("titulo", "Título com no máximo 250 caractéres"));
         }
 
         if (descricao == null || descricao.length() == 0) {
             errors.add(new ValidationError("descricao", "Preencha a Descrição"));
-        }
-
-        if (descricao.length() > 400) {
-            errors.add(new ValidationError("descricao", "A descrição deve ter no máximo 400 caractéres"));
+        } else if (descricao.length() > 400) {
+            errors.add(new ValidationError("descricao", "Descrição com no máximo 400 caractéres"));
         }
 
         if (url == null || url.length() == 0) {
             errors.add(new ValidationError("url", "Preencha a URL"));
+        } else if (url.length() > 400) {
+            errors.add(new ValidationError("url", "URL com no máximo 400 caractéres"));
         }
+
 
         return errors.isEmpty() ? null : errors;
     }

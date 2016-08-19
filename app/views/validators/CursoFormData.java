@@ -32,14 +32,20 @@ public class CursoFormData {
 
         if (nome == null || nome.length() == 0) {
             errors.add(new ValidationError("nome", "Preencha o nome"));
+        } else if (nome.length() > 100) {
+            errors.add(new ValidationError("nome", "Nome com no máximo 100 caractéres"));
         }
 
         if (descricao == null || descricao.length() == 0) {
             errors.add(new ValidationError("descricao", "Preencha a descrição"));
+        } else if (descricao.length() > 400) {
+            errors.add(new ValidationError("descricao", "Descrição com no máximo 400 caractéres"));
         }
 
         if (site == null || site.length() == 0) {
             errors.add(new ValidationError("site", "Preencha o site"));
+        } else if (site.length() > 300) {
+            errors.add(new ValidationError("site", "Site com no máximo 300 caractéres"));
         }
 
         if (dataInicio == null) {

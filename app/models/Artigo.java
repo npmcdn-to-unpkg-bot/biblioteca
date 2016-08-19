@@ -21,7 +21,7 @@ public class Artigo extends Model {
     @Column(nullable = false, length = 400)
     private String resumo;
 
-    @Column(nullable = false, length = 200)
+    @Column(nullable = false, length = 300)
     private String nomeArquivo;
 
     @Column(nullable = false)

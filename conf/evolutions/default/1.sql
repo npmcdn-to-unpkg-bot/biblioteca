@@ -7,7 +7,7 @@ create table artigo (
   id                        bigserial not null,
   titulo                    varchar(150) not null,
   resumo                    varchar(400) not null,
-  nome_arquivo              varchar(200) not null,
+  nome_arquivo              varchar(300) not null,
   data_cadastro             timestamp not null,
   data_alteracao            timestamp,
   constraint pk_artigo primary key (id))
@@ -15,10 +15,10 @@ create table artigo (
 
 create table contato (
   id                        bigserial not null,
-  nome                      varchar(60) not null,
-  email                     varchar(60) not null,
-  assunto                   varchar(30) not null,
-  mensagem                  varchar(200) not null,
+  nome                      varchar(80) not null,
+  email                     varchar(80) not null,
+  assunto                   varchar(50) not null,
+  mensagem                  varchar(400) not null,
   data_cadastro             timestamp not null,
   constraint pk_contato primary key (id))
 ;
@@ -28,7 +28,7 @@ create table curso (
   nome                      varchar(100) not null,
   descricao                 varchar(400) not null,
   data_inicio               timestamp not null,
-  site                      varchar(80) not null,
+  site                      varchar(300) not null,
   nome_capa                 varchar(150) not null,
   constraint pk_curso primary key (id))
 ;
@@ -41,11 +41,11 @@ create table escolaridade (
 
 create table evento (
   id                        bigserial not null,
-  nome                      varchar(100) not null,
+  nome                      varchar(150) not null,
   data_inicio               timestamp not null,
   data_fim                  timestamp not null,
-  site                      varchar(80) not null,
-  local                     varchar(120) not null,
+  site                      varchar(300) not null,
+  local                     varchar(150) not null,
   instituicao               varchar(100) not null,
   constraint pk_evento primary key (id))
 ;
@@ -87,10 +87,10 @@ create table inscricao (
 create table livro (
   id                        bigserial not null,
   titulo                    varchar(150) not null,
-  sub_titulo                varchar(254) not null,
-  isbn                      varchar(17),
+  sub_titulo                varchar(250) not null,
+  isbn                      varchar(20),
   editora                   varchar(100) not null,
-  autores                   varchar(254) not null,
+  autores                   varchar(250) not null,
   edicao                    integer,
   paginas                   integer,
   ano                       integer,
@@ -162,7 +162,7 @@ create table usuario (
 
 create table video (
   id                        bigserial not null,
-  titulo                    varchar(150) not null,
+  titulo                    varchar(250) not null,
   descricao                 varchar(400) not null,
   url                       varchar(400) not null,
   data_cadastro             timestamp not null,

@@ -28,7 +28,7 @@ public class Curso extends Model {
     @Temporal(TemporalType.DATE)
     private Date dataInicio;
 
-    @Column(nullable = false, length = 80)
+    @Column(nullable = false, length = 300)
     private String site;
 
     @Column(nullable = false, length = 150)

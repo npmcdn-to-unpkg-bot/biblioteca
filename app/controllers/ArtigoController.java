@@ -213,9 +213,9 @@ public class ArtigoController extends Controller {
             return badRequest(views.html.admin.artigos.create.render(formDeErro));
         }
 
-        if (resumo.length() > 254) {
+        if (resumo.length() > 400) {
             DynamicForm formDeErro = form.fill(formPreenchido.data());
-            formDeErro.reject("Resumo não pode passar de 254 caractéres");
+            formDeErro.reject("Resumo não pode passar de 400 caractéres");
             return badRequest(views.html.admin.artigos.create.render(formDeErro));
         }
 
@@ -397,7 +397,7 @@ public class ArtigoController extends Controller {
             return ok(views.html.mensagens.artigo.mensagens.render(mensagem,tipoMensagem));
         } catch (PersistenceException e) {
             Form<Artigo> formDeErro = artigoForm.fill(Artigo.find.byId(id));
-            formDeErro.reject("O campo 'Resumo' suporta no máximo 254 caractéres");
+            formDeErro.reject("O campo 'Resumo' suporta no máximo 400 caractéres e o campo 'Título' suporta até 150");
             Logger.error(e.toString());
             return badRequest(views.html.admin.artigos.edit.render(id,formDeErro));
         }  catch (Exception e) {

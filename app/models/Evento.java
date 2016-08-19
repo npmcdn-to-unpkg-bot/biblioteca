@@ -17,7 +17,7 @@ public class Evento extends Model {
     @Id
     private Long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 150)
     private String nome;
 
     @Column(nullable = false)
@@ -30,10 +30,10 @@ public class Evento extends Model {
     @Temporal(TemporalType.DATE)
     private Date dataFim;
 
-    @Column(nullable = false, length = 80)
+    @Column(nullable = false, length = 300)
     private String site;
 
-    @Column(nullable = false, length = 120)
+    @Column(nullable = false, length = 150)
     private String local;
 
     @Column(nullable = false, length = 100)

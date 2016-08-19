@@ -41,19 +41,19 @@
         <div class="mdl-card__supporting-text">
             <form ng-submit="save()">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input maxlength="60" class="mdl-textfield__input" type="text" id="nome" ng-model="contato.nome">
+                    <input maxlength="80" class="mdl-textfield__input" type="text" id="nome" ng-model="contato.nome">
                     <label class="mdl-textfield__label" for="nome">{{Messages('contact.field.name')}} *</label>
                 </div>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input maxlength="60" class="mdl-textfield__input" type="email" id="email" ng-model="contato.email">
+                    <input maxlength="80" class="mdl-textfield__input" type="email" id="email" ng-model="contato.email">
                     <label class="mdl-textfield__label" for="email">{{Messages('contact.field.email')}} *</label>
                 </div>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input maxlength="30" class="mdl-textfield__input" type="text" id="assunto" ng-model="contato.assunto">
+                    <input maxlength="50" class="mdl-textfield__input" type="text" id="assunto" ng-model="contato.assunto">
                     <label class="mdl-textfield__label" for="assunto">{{Messages('contact.field.subject')}} *</label>
                 </div>
                 <div class="mdl-textfield mdl-js-textfield">
-                    <textarea maxlength="200" class="mdl-textfield__input" type="text" rows= "3" id="mensagem" ng-model="contato.mensagem"></textarea>
+                    <textarea maxlength="400" class="mdl-textfield__input" type="text" rows= "3" id="mensagem" ng-model="contato.mensagem"></textarea>
                     <label class="mdl-textfield__label" for="mensagem">{{Messages('contact.field.message')}} *</label>
                 </div>
                 <p ng-show="!contato.nome || !contato.email || !contato.assunto || !contato.mensagem">{{Messages('contact.field.required')}} (*)</p>

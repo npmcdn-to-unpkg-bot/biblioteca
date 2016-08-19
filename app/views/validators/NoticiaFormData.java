@@ -28,14 +28,20 @@ public class NoticiaFormData {
 
         if (titulo == null || titulo.length() == 0) {
             errors.add(new ValidationError("titulo", "Preencha o título"));
+        } else if (titulo.length() > 250) {
+            errors.add(new ValidationError("titulo", "Título com no máximo 250 caractéres"));
         }
 
         if (resumo == null || resumo.length() == 0) {
             errors.add(new ValidationError("resumo", "Preencha o resumo"));
+        } else if (resumo.length() > 400) {
+            errors.add(new ValidationError("resumo", "Resumo com no máximo 150 caractéres"));
         }
 
         if (url == null || url.length() == 0) {
             errors.add(new ValidationError("url", "Preencha a url"));
+        } else if (url.length() > 400) {
+            errors.add(new ValidationError("url", "URL com no máximo 400 caractéres"));
         }
 
         return errors.isEmpty() ? null : errors;

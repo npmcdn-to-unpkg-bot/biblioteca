@@ -28,8 +28,7 @@ public class InscricaoFormData {
     public String descricaoFonte = "";
 
     /** Necessario para instanciar o form */
-    public InscricaoFormData() {
-    }
+    public InscricaoFormData() {}
 
     public InscricaoFormData(String nome, Genero genero, Date dataNascimento, Escolaridade escolaridade, String profissao, String instituicao, Pais pais, String estado, String cidade, String telefone, String cpf, String email, String modalidade, String fonte, String descricaoFonte) {
         this.nome = nome;
@@ -102,8 +101,8 @@ public class InscricaoFormData {
         if (cpf == null || cpf.length() == 0) {
             errors.add(new ValidationError("cpf", "Preencha o cpf"));
         } else if (!isCPF(cpf)) {
-        errors.add(new ValidationError("cpf", "CPF enválido: " + cpf + "."));
-    }
+            errors.add(new ValidationError("cpf", "CPF enválido: " + cpf + "."));
+        }
 
         if (email == null || email.length() == 0) {
             errors.add(new ValidationError("email", "Preencha o email"));

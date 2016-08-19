@@ -18,7 +18,7 @@ public class Video extends Model {
     @Id
     private Long id;
 
-    @Column(nullable = false, length = 150)
+    @Column(nullable = false, length = 250)
     private String titulo;
 
     @Column(nullable = false, length = 400)

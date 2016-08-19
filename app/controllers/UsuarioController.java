@@ -329,7 +329,7 @@ public class UsuarioController extends Controller {
     /**
      * Retrieve a user from id
      *
-     * @param id
+     * @param id identificador
      * @return a user json
      */
     @Security.Authenticated(Secured.class)
@@ -369,7 +369,7 @@ public class UsuarioController extends Controller {
     /**
      * Remove a user from a id
      *
-     * @param id
+     * @param id identificador
      * @return ok user on json
      */
     @Security.Authenticated(Secured.class)
@@ -432,7 +432,7 @@ public class UsuarioController extends Controller {
     /**
      * Retrieve a list of users from a filter
      *
-     * @param filtro
+     * @param filtro chave
      * @return a list of filter users in json
      */
     @Security.Authenticated(Secured.class)
@@ -469,7 +469,7 @@ public class UsuarioController extends Controller {
     /**
      * Update a user from id
      *
-     * @param id
+     * @param id identificador
      * @return a user updated with a form
      */
     @Security.Authenticated(Secured.class)

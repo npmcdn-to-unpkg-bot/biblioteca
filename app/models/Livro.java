@@ -18,24 +18,19 @@ public class Livro extends Model {
     @Id
     private Long id;
 
-    @Constraints.Required
     @Column(nullable = false, length = 150)
     private String titulo;
 
-    @Constraints.Required
-    @Column(nullable = false, length = 254)
+    @Column(nullable = false, length = 250)
     private String subTitulo;
 
-    @Constraints.Required
-    @Column(unique = true, length = 17)
+    @Column(unique = true, length = 20)
     private String isbn;
 
-    @Constraints.Required
     @Column(nullable = false, length = 100)
     private String editora;
 
-    @Constraints.Required
-    @Column(nullable = false, length = 254)
+    @Column(nullable = false, length = 250)
     private String autores;
 
     @Constraints.Required

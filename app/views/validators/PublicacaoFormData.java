@@ -13,8 +13,7 @@ public class PublicacaoFormData {
     public String nomeCapa = "";
 
     /** Necessario para instanciar o form */
-    public PublicacaoFormData() {
-    }
+    public PublicacaoFormData() {}
 
     public PublicacaoFormData(String titulo, String resumo, String url, String nomeCapa) {
         this.titulo = titulo;
@@ -29,18 +28,20 @@ public class PublicacaoFormData {
 
         if (titulo == null || titulo.length() == 0) {
             errors.add(new ValidationError("titulo", "Preencha o título"));
+        } else if (titulo.length() > 250) {
+            errors.add(new ValidationError("titulo", "Título com no máximo 250 caractéres"));
         }
 
         if (resumo == null || resumo.length() == 0) {
             errors.add(new ValidationError("resumo", "Preencha o resumo"));
-        }
-
-        if (resumo.length() > 400) {
-            errors.add(new ValidationError("descricao", "A descrição deve ter no máximo 400 caractéres"));
+        } else if (resumo.length() > 400) {
+            errors.add(new ValidationError("resumo", "Resumo com no máximo 150 caractéres"));
         }
 
         if (url == null || url.length() == 0) {
             errors.add(new ValidationError("url", "Preencha a url"));
+        } else if (url.length() > 400) {
+            errors.add(new ValidationError("url", "URL com no máximo 400 caractéres"));
         }
 
         return errors.isEmpty() ? null : errors;

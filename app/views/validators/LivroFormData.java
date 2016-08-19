@@ -39,26 +39,32 @@ public class LivroFormData {
 
         if (titulo == null || titulo.length() == 0) {
             errors.add(new ValidationError("titulo", "Preencha o título"));
+        } else if (titulo.length() > 150) {
+            errors.add(new ValidationError("titulo", "Título com no máximo 150 caractéres"));
         }
 
         if (subTitulo == null || subTitulo.length() == 0) {
             errors.add(new ValidationError("subTitulo", "Preencha o Subtítulo"));
+        } else if (subTitulo.length() > 250) {
+            errors.add(new ValidationError("subTitulo", "Subtítulo com no máximo 250 caractéres"));
         }
 
         if (isbn == null || isbn.length() == 0) {
             errors.add(new ValidationError("isbn", "Preencha o ISBN"));
-        }
-
-        if (isbn.length() > 17) {
-            errors.add(new ValidationError("isbn", "Preencha o ISBN corretamente"));
+        } else if (isbn.length() > 20) {
+            errors.add(new ValidationError("isbn", "ISBN com no máximo 20 caractéres"));
         }
 
         if (editora == null || editora.length() == 0) {
             errors.add(new ValidationError("editora", "Preencha a Editora"));
+        } else if (editora.length() > 100) {
+            errors.add(new ValidationError("editora", "Editora com no máximo 100 caractéres"));
         }
 
         if (autores == null || autores.length() == 0) {
             errors.add(new ValidationError("autores", "Preencha o Autor"));
+        } else if (autores.length() > 250) {
+            errors.add(new ValidationError("autores", "Autores com no máximo 250 caractéres"));
         }
 
         if (ano == null || ano == 0) {
