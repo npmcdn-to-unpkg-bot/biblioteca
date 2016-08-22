@@ -1,18 +1,9 @@
-section {
-    margin-bottom: 50px;
-}
-
-button {
-    font-size: 16px;
-    border-radius: 3px;
-    border: none;
-    background: #333;
-    padding: 5px 10px;
-    color: #eee;
-}
-
 button.demo-nav {
-    margin-top: 130px;
+    margin-top: 200px;
+}
+
+.carousel-biogas {
+    height: 440px;
 }
 
 .ng-carousel slide {
@@ -30,3 +21,4 @@ button.demo-nav {
 .ng-carousel slide:not(.empty):nth-child(odd) {
     background-color: #aaa; color: #ccc;
 }
+

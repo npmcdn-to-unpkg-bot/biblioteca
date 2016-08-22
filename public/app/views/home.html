@@ -3,26 +3,34 @@
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Banco do Conhecimento</h2>
         </div>
-        <!--<div class="mdl-card__media cartao-media-biogas">-->
+        <div class="mdl-card__media cartao-media-biogas esconde-celular-home">
             <!--<img class="article-image" src="assets/images/templates/biogasenergy.jpg" border="0" alt="">-->
-        <!--</div>-->
-
-        <section>
-            <div ng-carousel="" ng-carousel-name="example-carousel2" ng-carousel-timer="3000" class="ng-isolate-scope ng-carousel carousel-no-touch">
-                <slidecontainer class="carousel-ignore-first-slide" style="touch-action: pan-y; -webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); transform: translate(-400%, 0px);"><slide class="carousel-slide-copy">Slide 4</slide>
-                    <slide><img class="article-image" src="assets/images/templates/biogasenergy.jpg"></slide>
-                    <slide><img class="article-image" src="assets/images/templates/biodigestores.jpg"></slide>
-                    <slide><img class="article-image" src="assets/images/templates/gestao.jpg"></slide>
-                    <slide><img class="article-image" src="assets/images/templates/cartao.jpg"></slide>
-                    <slide class="carousel-slide-copy">Slide 1</slide></slidecontainer>
-                <div class="carousel-arrow carousel-arrow-left">
-                    <button class="demo-nav" ng-click="Carousel.get('example-carousel2').previous()">back</button>
+            <section>
+                <div ng-carousel="" ng-carousel-name="example-carousel2" ng-carousel-timer="3000" class="ng-isolate-scope ng-carousel carousel-no-touch carousel-biogas">
+                    <slidecontainer class="carousel-ignore-first-slide" style="touch-action: pan-y; -webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); transform: translate(-400%, 0px);">
+                        <slide>
+                            <a href=""><img class="article-image" src="assets/images/templates/biogasenergy.jpg"></a>
+                        </slide>
+                        <slide>
+                            <a href=""><img class="article-image" src="assets/images/templates/biodigestores.jpg"></a>
+                        </slide>
+                        <slide>
+                            <a href=""><img class="article-image" src="assets/images/templates/gestao.jpg"></a>
+                        </slide>
+                    </slidecontainer>
+                    <div class="carousel-arrow carousel-arrow-left">
+                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-color--deep-orange-cibiogas-text demo-nav mdl-color--white" ng-click="Carousel.get('example-carousel2').previous()">
+                            <i class="material-icons">keyboard_arrow_left</i>
+                        </button>
+                    </div>
+                    <div class="carousel-arrow carousel-arrow-right">
+                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-color--deep-orange-cibiogas-text demo-nav mdl-color--white" ng-click="Carousel.get('example-carousel2').next()">
+                            <i class="material-icons">keyboard_arrow_right</i>
+                        </button>
+                    </div>
                 </div>
-                <div class="carousel-arrow carousel-arrow-right">
-                    <button class="demo-nav" ng-click="Carousel.get('example-carousel2').next()">forth</button>
-                </div>
-            </div>
-        </section>
+            </section>
+        </div>
 
         <div class="mdl-grid">
             <h3 class="mdl-cell mdl-cell--12-col mdl-typography--headline">Introduction</h3>

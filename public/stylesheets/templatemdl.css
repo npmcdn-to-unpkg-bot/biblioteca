@@ -159,6 +159,12 @@ html, body {
     }
 }
 
+@media screen and (max-width: 800px) {
+    .esconde-celular-home {
+        display: none;
+    }
+}
+
 /* cor da fonte do menu esquerdo e cor de fundo do menu esquerdo distancia de todos os links do menu*/
 .demo-layout .top-navigation .mdl-navigation__link {
     display: -webkit-flex !important;
