@@ -10,7 +10,9 @@ angular
              'toastr',
              'ngDialog', 
              'youtube-embed', 
-             'angular-carousel'
+             'angular-carousel',
+             'ngTwitter',
+             'ngCordova'
             ]
         )
     .config(function ($stateProvider, $urlRouterProvider) {
