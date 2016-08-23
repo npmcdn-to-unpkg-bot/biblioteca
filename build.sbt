@@ -1,4 +1,4 @@
-name := """architectplay"""
+name := """biblioteca"""
 
 version := "1.0-SNAPSHOT"
 
