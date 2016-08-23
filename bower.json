@@ -28,7 +28,8 @@
     "progressbar.js": "^1.0.1",
     "angular-carousel": "lifely-angular-carousel#^1.2.0",
     "ng-twitter-api": "^0.1.5",
-    "ngCordova": "^0.1.27-alpha"
+    "ngCordova": "^0.1.27-alpha",
+    "angular-oauth2": "^4.0.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.3",

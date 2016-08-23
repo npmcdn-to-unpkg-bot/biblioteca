@@ -12,7 +12,8 @@ angular
              'youtube-embed', 
              'angular-carousel',
              'ngTwitter',
-             'ngCordova'
+             'ngCordova',
+             'angular-oauth2'
             ]
         )
     .config(function ($stateProvider, $urlRouterProvider) {
@@ -187,4 +188,10 @@ angular
                 });
             }
         };
+    }).config(['OAuthProvider', function(OAuthProvider) {
+        OAuthProvider.configure({
+            baseUrl: 'https://api.twitter.com/oauth/autorize',
+            clientId: 'Dt5PurvXo385qri86oQ1tMMrS',
+            clientSecret: 'YlD9V4GmFr8IlcND03nuWVAsFknEhOqT33jLjyDYVod08tFYql' // optional
     });
+}]);
