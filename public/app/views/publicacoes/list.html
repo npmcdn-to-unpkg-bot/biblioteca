@@ -1,4 +1,9 @@
 <div ng-init="init()" class="publicacao-card-container mdl-grid">
+    <div ng-if="publicacoes.length == 0" class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
+        <div class="mdl-card__title">
+            <h1 class="mdl-card__title-text">{{Messages("app.error.found")}}</h1>
+        </div>
+    </div>
     <div ng-repeat="publicacao in publicacoes" class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card mdl-shadow--3dp">
         <div class="mdl-card__media">
             <img ng-src="publicacao/jpg/{{publicacao.nomeCapa}}">
