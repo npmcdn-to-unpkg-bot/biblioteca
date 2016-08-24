@@ -1,4 +1,4 @@
-# Biblioteca Digital
+# Biblioteca
 
 ### [![Build Status](https://travis-ci.org/haroldoramirez/architectplay.svg?branch=master)](https://travis-ci.org/haroldoramirez/architectplay)
 
@@ -20,7 +20,7 @@
 
 ## To do
  - [X] Principais funcionalidades implementadas
- - [ ] Realizar procedimento de registros de interessados no curso
+ - [ ] Realizar procedimento...
   
 ### Licença
 Copyright (c) 2016 CIBiogás
