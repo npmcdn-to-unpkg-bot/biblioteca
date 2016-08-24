@@ -1,4 +1,9 @@
 <div ng-init="init()" class="mdl-grid">
+    <div ng-if="artigos.length == 0" class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--2-col-phone">
+        <div class="mdl-card__title">
+            <h1 class="mdl-card__title-text cartao-artigo">{{Messages("app.error.found")}}</h1>
+        </div>
+    </div>
     <div ng-repeat="artigo in artigos" class="demo-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--2-col-tablet mdl-cell--2-col-phone">
         <div class="mdl-card__title">
             <h1 class="mdl-card__title-text cartao-artigo">{{artigo.titulo}}</h1>
