@@ -33,12 +33,6 @@ create table curso (
   constraint pk_curso primary key (id)
 );
 
-create table escolaridade (
-  id                            bigserial not null,
-  nome                          varchar(30) not null,
-  constraint pk_escolaridade primary key (id)
-);
-
 create table evento (
   id                            bigserial not null,
   nome                          varchar(150) not null,
@@ -48,40 +42,6 @@ create table evento (
   local                         varchar(150) not null,
   instituicao                   varchar(100) not null,
   constraint pk_evento primary key (id)
-);
-
-create table fonte (
-  id                            bigserial not null,
-  nome                          varchar(30) not null,
-  constraint pk_fonte primary key (id)
-);
-
-create table genero (
-  id                            bigserial not null,
-  nome                          varchar(14) not null,
-  constraint pk_genero primary key (id)
-);
-
-create table inscricao (
-  id                            bigserial not null,
-  nome                          varchar(60) not null,
-  genero_id                     bigint,
-  data_nascimento               date not null,
-  escolaridade_id               bigint,
-  profissao                     varchar(30) not null,
-  instituicao                   varchar(45) not null,
-  pais_id                       bigint,
-  estado                        varchar(45) not null,
-  cidade                        varchar(45) not null,
-  telefone                      varchar(12) not null,
-  cpf                           varchar(15) not null,
-  email                         varchar(35) not null,
-  modalidade                    varchar(3) not null,
-  fonte                         varchar(25) not null,
-  descricao_fonte               varchar(60),
-  data_inscricao                date not null,
-  data_alteracao                date,
-  constraint pk_inscricao primary key (id)
 );
 
 create table livro (
@@ -101,12 +61,6 @@ create table livro (
   constraint pk_livro primary key (id)
 );
 
-create table modalidade (
-  id                            bigserial not null,
-  nome                          varchar(3) not null,
-  constraint pk_modalidade primary key (id)
-);
-
 create table noticia (
   id                            bigserial not null,
   titulo                        varchar(250) not null,
@@ -116,12 +70,6 @@ create table noticia (
   data_alteracao                date,
   nome_capa                     varchar(250) not null,
   constraint pk_noticia primary key (id)
-);
-
-create table pais (
-  id                            bigserial not null,
-  nome                          varchar(50) not null,
-  constraint pk_pais primary key (id)
 );
 
 create table publicacao (
@@ -170,26 +118,8 @@ create table video (
   constraint pk_video primary key (id)
 );
 
-alter table inscricao add constraint fk_inscricao_genero_id foreign key (genero_id) references genero (id) on delete restrict on update restrict;
-create index ix_inscricao_genero_id on inscricao (genero_id);
-
-alter table inscricao add constraint fk_inscricao_escolaridade_id foreign key (escolaridade_id) references escolaridade (id) on delete restrict on update restrict;
-create index ix_inscricao_escolaridade_id on inscricao (escolaridade_id);
-
-alter table inscricao add constraint fk_inscricao_pais_id foreign key (pais_id) references pais (id) on delete restrict on update restrict;
-create index ix_inscricao_pais_id on inscricao (pais_id);
-
 
 # --- !Downs
-
-alter table inscricao drop constraint if exists fk_inscricao_genero_id;
-drop index if exists ix_inscricao_genero_id;
-
-alter table inscricao drop constraint if exists fk_inscricao_escolaridade_id;
-drop index if exists ix_inscricao_escolaridade_id;
-
-alter table inscricao drop constraint if exists fk_inscricao_pais_id;
-drop index if exists ix_inscricao_pais_id;
 
 drop table if exists artigo cascade;
 
@@ -197,23 +127,11 @@ drop table if exists contato cascade;
 
 drop table if exists curso cascade;
 
-drop table if exists escolaridade cascade;
-
 drop table if exists evento cascade;
-
-drop table if exists fonte cascade;
-
-drop table if exists genero cascade;
-
-drop table if exists inscricao cascade;
 
 drop table if exists livro cascade;
 
-drop table if exists modalidade cascade;
-
 drop table if exists noticia cascade;
-
-drop table if exists pais cascade;
 
 drop table if exists publicacao cascade;
 

@@ -78,4 +78,16 @@
             $('#dataInicio').data("DateTimePicker").maxDate(e.date);
         });
     });
+    window.onbeforeunload = function () {
+        var inputs = document.getElementsByTagName("INPUT");
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].type == "button" || inputs[i].type == "submit") {
+                inputs[i].disabled = true;
+            }
+        }
+    };
+    window.onload = function() {
+        var form = document.getElementById("eventoForm");
+        form.elements[0].focus();
+    };
 </script>

@@ -14,7 +14,6 @@ import play.mvc.Security;
 import views.validators.EventoFormData;
 
 import javax.annotation.Nullable;
-import java.util.Date;
 import java.util.List;
 
 import static play.data.Form.form;

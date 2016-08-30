@@ -142,11 +142,5 @@ GET     /contato/:id                    controllers.ContatoController.buscaPorId
 DELETE  /contato/:id                    controllers.ContatoController.remover(id:Long)
 POST    /contato                        controllers.ContatoController.inserir()
 
-# Inscricao Tela
-GET     /inscricao                      controllers.InscricaoController.telaInscricao(id: Long ?= 0)
-
-# Inscricao Servicos
-POST    /inscricao                      controllers.InscricaoController.inserir(id: Long ?= 0)
-
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
