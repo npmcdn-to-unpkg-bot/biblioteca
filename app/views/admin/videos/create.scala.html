@@ -4,7 +4,7 @@
 @import templates.bootstrap._
 
 @views.html.admin.main("Cadastro de Vídeo") {
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <div class="panel panel-default">
             <div class="panel-heading">Cadastro de Vídeo</div>
             <div class="panel-body">
@@ -35,7 +35,7 @@
                     placeholder = "Exemplo: https://www.youtube.com/watch?v=NauHixfoyuo")
 
                 <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-12">
+                    <div class="col-sm-offset-2 col-sm-12">
                         <input class="btn btn-success" type="submit" id="btnSubmit" value="Cadastrar"/>
                         <a class="btn btn-default" type="button" href="@routes.VideoController.telaLista">Cancelar</a>
                     </div>

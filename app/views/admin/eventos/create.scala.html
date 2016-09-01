@@ -4,7 +4,7 @@
 @import templates.bootstrap._
 
 @views.html.admin.main("Cadastro de Evento") {
-    <div class="col-sm-6">
+    <div class="col-sm-5">
         <div class="panel panel-default">
             <div class="panel-heading">Cadastro de Evento</div>
             <div class="panel-body">
@@ -26,12 +26,12 @@
 
                         <!-- Data Inicio -->
                     @datetimePickerDataInicio(eventoForm("dataInicio"),
-                        label = "Data de Início:",
+                        label = "Início:",
                         placeholder = "Insira a data")
 
                         <!-- Data Fim -->
                     @datetimePickerDataFim(eventoForm("dataFim"),
-                        label = "Data de Término:",
+                        label = "Término:",
                         placeholder = "Insira a data de término")
 
                         <!-- Site -->
@@ -50,7 +50,7 @@
                         placeholder = "Insira a Instituição Organizadora")
 
                     <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-12">
+                        <div class="col-sm-offset-2 col-sm-12">
                             <input class="btn btn-success" type="submit" id="btnSubmit" value="Cadastrar"/>
                             <a class="btn btn-default" type="button" href="@routes.EventoController.telaLista()">Cancelar</a>
                         </div>

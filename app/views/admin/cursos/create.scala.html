@@ -4,7 +4,7 @@
 @import templates.bootstrap._
 
 @views.html.admin.main("Cadastro de Curso") {
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <div class="panel panel-default">
             <div class="panel-heading">Cadastro de Curso</div>
             <div class="panel-body">
@@ -31,7 +31,7 @@
 
                     <!-- Data Inicio -->
                 @datetimePickerDataInicio(cursoForm("dataInicio"),
-                    label = "Data de Início:",
+                    label = "Início:",
                     placeholder = "Insira a data")
 
                     <!-- Site -->
@@ -45,7 +45,7 @@
 
 
                 <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-12">
+                    <div class="col-sm-offset-2 col-sm-12">
                         <input class="btn btn-success" type="submit" id="btnSubmit" value="Cadastrar"/>
                         <a class="btn btn-default" type="button" href="@routes.CursoController.telaLista()">Cancelar</a>
                     </div>

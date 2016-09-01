@@ -1,7 +1,12 @@
 <div ng-init="init()" class="mdl-grid">
+    <div ng-if="noticias.length == 0" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
+        <div class="mdl-card__title">
+            <h1 class="mdl-card__title-text">{{Messages("app.error.found")}}</h1>
+        </div>
+    </div>
     <div ng-repeat="noticia in noticias" class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
         <div class="mdl-card__media cartao-media-biogas">
-            <img class="article-image" ng-src="assets/images/capa/noticias/{{noticia.nomeCapa}}" border="0" alt="">
+            <img class="article-image" ng-src="noticia/jpg/{{noticia.nomeCapa}}" border="0" alt="">
         </div>
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text cartao-noticia">{{noticia.titulo}}</h2>

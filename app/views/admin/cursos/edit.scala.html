@@ -4,7 +4,7 @@
 @import templates.bootstrap._
 
 @views.html.admin.main("Editar Curso") {
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <div class="panel panel-default">
             <div class="panel-heading">Editar Curso</div>
             <div class="panel-body">
@@ -31,7 +31,7 @@
 
                     <!-- Data Inicio -->
                 @datetimePickerDataInicio(cursoForm("dataInicio"),
-                    label = "Data de Início:",
+                    label = "Início:",
                     placeholder = "Insira a data")
 
                     <!-- Site -->
@@ -45,7 +45,7 @@
 
                     <!-- Button -->
                 <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-12">
+                    <div class="col-sm-offset-2 col-sm-12">
                         <input class="btn btn-primary" type="submit" id="btnSubmit" value="Editar"/>
                         <a class="btn btn-default" type="button" href="@routes.CursoController.telaLista">Cancelar</a>
                     </div>
@@ -62,4 +62,12 @@
                 format: 'YYYY-MM-DD'
             });
         });
+        window.onbeforeunload = function () {
+            var inputs = document.getElementsByTagName("INPUT");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].type == "button" || inputs[i].type == "submit") {
+                    inputs[i].disabled = true;
+                }
+            }
+        };
 </script>

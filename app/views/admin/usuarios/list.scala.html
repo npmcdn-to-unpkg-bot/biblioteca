@@ -6,15 +6,17 @@
             <div class="panel-heading">Lista de Usuários</div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
+                    <table border="1" class="table table-bordered table-hover">
                         <tr>
                             <th>Nome</th>
                             <th>Email</th>
+                            <th>Data de Cadastro</th>
                         </tr>
                         @for(usuario <- usuarios) {
                             <tr>
                                 <td><a href="@routes.UsuarioController.telaDetalhe(usuario.getId())">@usuario.getNome</a></td>
                                 <td>@usuario.getEmail</td>
+                                <td>@usuario.getDataCadastro.format("dd MMMM yyyy")</td>
                             </tr>
                         }
                     </table>

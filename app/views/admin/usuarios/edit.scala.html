@@ -3,7 +3,7 @@
 @import helper._
 
 @views.html.admin.main("Editar Usuário") {
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <div class="panel panel-default">
             <div class="panel-heading">Editar Usuário</div>
             <div class="panel-body">
@@ -11,8 +11,8 @@
 
                 @if(usuarioForm.hasGlobalErrors) {
                     <div class="form-group">
-                        <label class="col-sm-3 control-label"></label>
-                        <div class="col-sm-6">
+                        <label class="col-sm-1 control-label"></label>
+                        <div class="col-sm-10">
                             <p class="alert alert-danger text-center">
                                 @usuarioForm.globalError.message
                             </p>
@@ -21,30 +21,30 @@
                 }
 
                 <div class="form-group">
-                    <label class="col-sm-3 control-label"></label>
-                    <div class="col-sm-6">
+                    <label class="col-sm-1 control-label"></label>
+                    <div class="col-sm-10">
                         @inputText(usuarioForm("nome"), 'class -> "form-control", 'placeholder -> "Insira o nome", '_label -> "Nome:", 'size -> 60, '_help -> "")
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-3 control-label"></label>
-                    <div class="col-sm-6">
+                    <label class="col-sm-1 control-label"></label>
+                    <div class="col-sm-10">
                         @inputText(usuarioForm("email"), 'class -> "form-control", 'placeholder -> "Insira o email", '_label -> "Email:", 'size -> 40, '_help -> "")
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-3 control-label"></label>
-                    <div class="col-sm-6">
+                    <label class="col-sm-1 control-label"></label>
+                    <div class="col-sm-10">
                         @inputPassword(usuarioForm("senha"), 'class -> "form-control", '_label -> "Senha:", 'size -> 60, '_help -> "")
                     </div>
                 </div>
 
                 <!-- Button -->
                 <div class="form-group">
-                    <label class="col-md-3 control-label"></label>
-                    <div class="col-md-6">
+                    <label class="col-md-1 control-label"></label>
+                    <div class="col-md-10">
                         <input class="btn btn-primary" type="submit" id="btnSubmit" value="Editar"/>
                         <a href="@routes.UsuarioController.telaLista" class="btn btn-default" type="button">Cancelar</a>
                     </div>

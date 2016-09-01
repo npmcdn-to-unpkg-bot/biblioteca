@@ -4,59 +4,59 @@
 @import templates.bootstrap._
 
 @views.html.admin.main("Editar Evento") {
-    <div class="col-sm-6">
+    <div class="col-sm-4">
         <div class="panel panel-default">
             <div class="panel-heading">Editar Evento</div>
             <div class="panel-body">
-            @form(routes.EventoController.editar(id), 'class -> "form-horizontal", 'id -> "eventoForm") {
+                @form(routes.EventoController.editar(id), 'class -> "form-horizontal", 'id -> "eventoForm") {
 
-                @if(eventoForm.hasGlobalErrors) {
+                    @if(eventoForm.hasGlobalErrors) {
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label"></label>
+                            <div class="col-sm-6">
+                                <p class="alert alert-danger text-center">@eventoForm.globalError.message</p>
+                            </div>
+                        </div>
+                    }
+
+                        <!-- nome -->
+                    @texto(eventoForm("nome"),
+                        label = "Nome:",
+                        placeholder = "Insira o Nome")
+
+                        <!-- Data Inicio -->
+                    @datetimePickerDataInicio(eventoForm("dataInicio"),
+                        label = "Início:",
+                        placeholder = "Insira a data")
+
+                        <!-- Data Fim -->
+                    @datetimePickerDataFim(eventoForm("dataFim"),
+                        label = "Término:",
+                        placeholder = "Insira a data de término")
+
+                        <!-- Site -->
+                    @texto(eventoForm("site"),
+                        label = "Site:",
+                        placeholder = "Insira o Site")
+
+                        <!-- Local -->
+                    @texto(eventoForm("local"),
+                        label = "Local:",
+                        placeholder = "Insira o Local")
+
+                        <!-- Local -->
+                    @texto(eventoForm("instituicao"),
+                        label = "Instituição:",
+                        placeholder = "Insira a Instituição Organizadora")
+
+                        <!-- Button -->
                     <div class="form-group">
-                        <label class="col-sm-3 control-label"></label>
-                        <div class="col-sm-6">
-                            <p class="alert alert-danger text-center">@eventoForm.globalError.message</p>
+                        <div class="col-sm-offset-2 col-sm-12">
+                            <input class="btn btn-primary" type="submit" id="btnSubmit" value="Editar"/>
+                            <a class="btn btn-default" type="button" href="@routes.EventoController.telaLista">Cancelar</a>
                         </div>
                     </div>
                 }
-
-                    <!-- nome -->
-                @texto(eventoForm("nome"),
-                    label = "Nome:",
-                    placeholder = "Insira o Nome")
-
-                    <!-- Data Inicio -->
-                @datetimePickerDataInicio(eventoForm("dataInicio"),
-                    label = "Data de Início:",
-                    placeholder = "Insira a data")
-
-                    <!-- Data Fim -->
-                @datetimePickerDataFim(eventoForm("dataFim"),
-                    label = "Data de Término:",
-                    placeholder = "Insira a data de término")
-
-                    <!-- Site -->
-                @texto(eventoForm("site"),
-                    label = "Site:",
-                    placeholder = "Insira o Site")
-
-                    <!-- Local -->
-                @texto(eventoForm("local"),
-                    label = "Local:",
-                    placeholder = "Insira o Local")
-
-                    <!-- Local -->
-                @texto(eventoForm("instituicao"),
-                    label = "Instituição:",
-                    placeholder = "Insira a Instituição Organizadora")
-
-                    <!-- Button -->
-                <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-12">
-                        <input class="btn btn-primary" type="submit" id="btnSubmit" value="Editar"/>
-                        <a class="btn btn-default" type="button" href="@routes.EventoController.telaLista">Cancelar</a>
-                    </div>
-                </div>
-            }
             </div>
         </div>
     </div>

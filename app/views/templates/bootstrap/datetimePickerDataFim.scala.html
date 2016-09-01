@@ -1,8 +1,8 @@
 @(field: Field, label: String = "", placeholder: String = "", help: String = "")
 
 <div class="form-group @if(field.hasErrors) {has-error}">
-    <label class="col-sm-3 control-label">@label</label>
-    <div class="col-sm-4">
+    <label class="col-sm-2 control-label">@label</label>
+    <div class="col-sm-5">
         <div class="input-group date" id="@field.id">
             <input
                 autocomplete="off"
