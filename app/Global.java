@@ -6,7 +6,10 @@ import play.libs.F;
 import play.mvc.Http;
 import play.mvc.Result;
 
-import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static play.mvc.Results.notFound;
 
@@ -20,61 +23,72 @@ public class Global extends GlobalSettings {
     @Override
     public void beforeStart(Application app) {
 
-        File directoryPdfsArtigos = new File(Play.application().configuration().getString("diretorioDePdfsArtigos"));
-        File directoryPdfsLivros = new File(Play.application().configuration().getString("diretorioDePdfsLivros"));
-        File directoryPdfsPublicacoes = new File(Play.application().configuration().getString("diretorioDePdfsPublicacoes"));
+        //Cria pasta de Artigos
+        Path directoryPdfsArtigos = Paths.get(Play.application().configuration().getString("diretorioDePdfsArtigos"));
 
-        File directoryImgCursos = new File(Play.application().configuration().getString("diretorioDeFotosCursos"));
-        File directoryImgPublicacoes = new File(Play.application().configuration().getString("diretorioDeFotosPublicacoes"));
-        File directoryImgNoticias = new File(Play.application().configuration().getString("diretorioDeFotosNoticias"));
-
-        if (!directoryPdfsArtigos.exists()) {
-            if (directoryPdfsArtigos.mkdirs()) {
-                Logger.info("Directory artigos is created " + Play.application().configuration().getString("diretorioDePdfsArtigos"));
-            } else {
-                Logger.error("Failed to create directory " + Play.application().configuration().getString("diretorioDePdfsArtigos"));
-            }
+        try {
+            Files.createDirectories(directoryPdfsArtigos);
+            Logger.info("Directory Artigos is created " + directoryPdfsArtigos);
+        } catch (IOException e) {
+            Logger.error(e.toString());
+            e.printStackTrace();
         }
 
-        if (!directoryPdfsLivros.exists()) {
-            if (directoryPdfsLivros.mkdirs()) {
-                Logger.info("Directory livros is created! " + Play.application().configuration().getString("diretorioDePdfsLivros"));
-            } else {
-                Logger.error("Failed to create directory livros! " +Play.application().configuration().getString("diretorioDePdfsLivros"));
-            }
+        //Cria pasta Livros
+        Path directoryPdfsLivros = Paths.get(Play.application().configuration().getString("diretorioDePdfsLivros"));
+
+        try {
+            Files.createDirectories(directoryPdfsLivros);
+            Logger.info("Directory Livros is created " + directoryPdfsLivros);
+        } catch (IOException e) {
+            Logger.error(e.toString());
+            e.printStackTrace();
         }
 
-        if (!directoryPdfsPublicacoes.exists()) {
-            if (directoryPdfsPublicacoes.mkdirs()) {
-                Logger.info("Directory publicações is created! " + Play.application().configuration().getString("diretorioDePdfsPublicacoes"));
-            } else {
-                Logger.error("Failed to create directory publicações! " + Play.application().configuration().getString("diretorioDePdfsPublicacoes"));
-            }
+        //Cria pasta Publicacoes
+        Path directoryPdfsPublicacoes = Paths.get(Play.application().configuration().getString("diretorioDePdfsPublicacoes"));
+
+        try {
+            Files.createDirectories(directoryPdfsPublicacoes);
+            Logger.info("Directory Publicacoes is created " + directoryPdfsPublicacoes);
+        } catch (IOException e) {
+            Logger.error(e.toString());
+            e.printStackTrace();
         }
 
-        if (!directoryImgCursos.exists()) {
-            if (directoryImgCursos.mkdirs()) {
-                Logger.info("Directory cursos is created! " + Play.application().configuration().getString("diretorioDeFotosCursos"));
-            } else {
-                Logger.error("Failed to create directory cursos! " + Play.application().configuration().getString("diretorioDeFotosCursos"));
-            }
+        //Cria pasta imagens Cursos
+        Path directoryImgCursos = Paths.get(Play.application().configuration().getString("diretorioDeFotosCursos"));
+
+        try {
+            Files.createDirectories(directoryImgCursos);
+            Logger.info("Directory Image Cursos is created " + directoryImgCursos);
+        } catch (IOException e) {
+            Logger.error(e.toString());
+            e.printStackTrace();
         }
 
-        if (!directoryImgPublicacoes.exists()) {
-            if (directoryImgPublicacoes.mkdirs()) {
-                Logger.info("Directory publicações imagens is created! " + Play.application().configuration().getString("diretorioDeFotosPublicacoes"));
-            } else {
-                Logger.error("Failed to create directory publicações imagens! " + Play.application().configuration().getString("diretorioDeFotosPublicacoes"));
-            }
+        //Cria pasta imagens Publicacoes
+        Path directoryImgPublicacoes = Paths.get(Play.application().configuration().getString("diretorioDeFotosPublicacoes"));
+
+        try {
+            Files.createDirectories(directoryImgPublicacoes);
+            Logger.info("Directory Image Publicacoes is created " + directoryImgPublicacoes);
+        } catch (IOException e) {
+            Logger.error(e.toString());
+            e.printStackTrace();
         }
 
-        if (!directoryImgNoticias.exists()) {
-            if (directoryImgNoticias.mkdirs()) {
-                Logger.info("Directory notícias is created! " + Play.application().configuration().getString("diretorioDeFotosNoticias"));
-            } else {
-                Logger.error("Failed to create directory notícias!" + Play.application().configuration().getString("diretorioDeFotosNoticias"));
-            }
+        //Cria pasta imagens Noticias
+        Path directoryImgNoticias = Paths.get(Play.application().configuration().getString("diretorioDeFotosNoticias"));
+
+        try {
+            Files.createDirectories(directoryImgNoticias);
+            Logger.info("Directory Image Noticias is created " + directoryImgNoticias);
+        } catch (IOException e) {
+            Logger.error(e.toString());
+            e.printStackTrace();
         }
+
     }
 
 }
